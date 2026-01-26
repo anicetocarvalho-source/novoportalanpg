@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "about": "Sobre a ANPG",
+    "regulation": "Regulação & Licenciamento",
+    "investment": "Investimentos",
+    "data": "Dados de Energia",
+    "news": "Notícias",
+    "careers": "Carreiras",
+    "investorPortal": "Portal do Investidor"
+  },
+  "hero": {
+    "subtitle": "Agência Nacional de Petróleo, Gás e Biocombustíveis",
+    "title": "Moldando o Futuro",
+    "titleHighlight": "Energético de Angola",
+    "description": "Regulamos e promovemos o sector petrolífero angolano, garantindo transparência, sustentabilidade e valor para todos os stakeholders.",
+    "ctaPrimary": "Oportunidades de Investimento",
+    "ctaSecondary": "Explorar Dados",
+    "scrollHint": "Descobrir mais"
+  },
+  "stats": {
+    "label": "Impacto & Resultados",
+    "title": "Angola em Números",
+    "subtitle": "Dados que reflectem a força e o potencial do sector energético angolano",
+    "exploreData": "Explorar todos os dados",
+    "barrelsDay": "Barris/Dia",
+    "oilProduction": "Produção petrolífera",
+    "activeBlocks": "Blocos Activos",
+    "explorationProduction": "Em exploração e produção",
+    "invested": "USD Investidos",
+    "lastFiveYears": "Nos últimos 5 anos",
+    "operators": "Operadores",
+    "internationalCompanies": "Empresas internacionais"
+  },
+  "about": {
+    "label": "Sobre a ANPG",
+    "title": "Regulando o Presente,",
+    "titleHighlight": "Construindo o Futuro",
+    "description": "A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano, responsável pela gestão e supervisão das actividades de exploração, produção e comercialização de hidrocarbonetos.",
+    "yearsExperience": "Anos de experiência no sector petrolífero angolano",
+    "cta": "Conhecer a ANPG",
+    "values": {
+      "transparency": {
+        "title": "Transparência",
+        "description": "Compromisso com a clareza e abertura em todas as operações."
+      },
+      "excellence": {
+        "title": "Excelência",
+        "description": "Padrões internacionais de qualidade e eficiência."
+      },
+      "sustainability": {
+        "title": "Sustentabilidade",
+        "description": "Desenvolvimento responsável dos recursos energéticos."
+      },
+      "innovation": {
+        "title": "Inovação",
+        "description": "Adopção de tecnologias avançadas no sector."
+      }
+    }
+  },
+  "services": {
+    "label": "Serviços & Competências",
+    "title": "O Que Fazemos",
+    "subtitle": "As principais áreas de actuação da ANPG no sector energético angolano",
+    "licensing": {
+      "title": "Licenciamento",
+      "description": "Gestão de concessões e licenças para exploração e produção de hidrocarbonetos."
+    },
+    "oversight": {
+      "title": "Fiscalização",
+      "description": "Supervisão e controlo das operações petrolíferas em todo o território nacional."
+    },
+    "regulation": {
+      "title": "Regulação",
+      "description": "Desenvolvimento e aplicação do quadro regulatório do sector energético."
+    },
+    "tenders": {
+      "title": "Concursos Públicos",
+      "description": "Organização de licitações para atribuição de direitos de exploração."
+    },
+    "analytics": {
+      "title": "Dados & Analytics",
+      "description": "Publicação de estatísticas e relatórios sobre o sector energético."
+    },
+    "sustainability": {
+      "title": "Sustentabilidade",
+      "description": "Promoção de práticas ambientalmente responsáveis no sector."
+    }
+  },
+  "investment": {
+    "label": "Oportunidades de Investimento",
+    "title": "Invista no Futuro",
+    "titleHighlight": "Energético de Angola",
+    "description": "Angola oferece um ambiente favorável ao investimento no sector petrolífero, com um quadro regulatório transparente, incentivos fiscais atractivos e acesso a recursos de classe mundial.",
+    "ctaGuide": "Guia do Investidor",
+    "ctaBlocks": "Ver Blocos Disponíveis",
+    "featuredBlocks": "Blocos em Destaque",
+    "viewAllBlocks": "Ver todos os blocos",
+    "location": "Luanda, Angola",
+    "highlights": {
+      "blocks": "Acesso a 47 blocos petrolíferos onshore e offshore",
+      "fiscal": "Regime fiscal competitivo e estável",
+      "infrastructure": "Infraestrutura de classe mundial",
+      "support": "Apoio regulatório dedicado aos investidores",
+      "reserves": "Reservas comprovadas superiores a 8 mil milhões de barris"
+    },
+    "blockStatus": {
+      "production": "Em Produção",
+      "development": "Em Desenvolvimento"
+    }
+  },
+  "news": {
+    "label": "Notícias & Insights",
+    "title": "Últimas Actualizações",
+    "viewAll": "Ver Todas as Notícias",
+    "categories": {
+      "institutional": "Institucional",
+      "energy": "Energia",
+      "sustainability": "Sustentabilidade",
+      "investments": "Investimentos"
+    },
+    "articles": {
+      "tender2025": {
+        "title": "ANPG anuncia resultados do Concurso Público 2025",
+        "excerpt": "Seis novos blocos atribuídos a consórcios internacionais, representando um investimento de USD 2.3 mil milhões."
+      },
+      "gasProduction": {
+        "title": "Produção de gás natural atinge recorde histórico",
+        "excerpt": "Angola registou um aumento de 15% na produção de gás natural no último trimestre."
+      },
+      "biofuels": {
+        "title": "Novo quadro regulatório para biocombustíveis aprovado",
+        "excerpt": "Legislação visa promover a transição energética e diversificar a matriz energética nacional."
+      },
+      "totalExpansion": {
+        "title": "TotalEnergies expande operações no Bloco 32",
+        "excerpt": "Investimento adicional de USD 1.5 mil milhões para desenvolvimento de novas infraestruturas."
+      }
+    }
+  },
+  "cta": {
+    "title": "Pronto para Investir no Futuro Energético de Angola?",
+    "description": "Entre em contacto com a nossa equipa de relações com investidores para saber mais sobre as oportunidades disponíveis.",
+    "contactInvestments": "Contactar Investimentos",
+    "scheduleMeeting": "Agendar Reunião"
+  },
+  "footer": {
+    "description": "Agência Nacional de Petróleo, Gás e Biocombustíveis de Angola. Regulando o presente, construindo o futuro energético.",
+    "institutional": "Institucional",
+    "services": "Serviços",
+    "investors": "Investidores",
+    "resources": "Recursos",
+    "copyright": "© 2025 ANPG. Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso",
+    "links": {
+      "about": "Sobre a ANPG",
+      "leadership": "Liderança",
+      "governance": "Governança",
+      "history": "História",
+      "regulation": "Regulação",
+      "licensing": "Licenciamento",
+      "oversight": "Fiscalização",
+      "tenders": "Concursos",
+      "opportunities": "Oportunidades",
+      "availableBlocks": "Blocos Disponíveis",
+      "investorGuide": "Guia do Investidor",
+      "contact": "Contactos",
+      "energyData": "Dados de Energia",
+      "publications": "Publicações",
+      "news": "Notícias",
+      "careers": "Carreiras"
+    }
+  }
+}

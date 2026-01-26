@@ -1,44 +1,45 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { 
   MapPin, 
   Phone, 
   Mail, 
   Linkedin, 
   Twitter, 
-  Youtube,
-  ArrowUpRight
+  Youtube
 } from "lucide-react";
 import logoWhite from "@/assets/logo-white.webp";
 
-const footerLinks = {
-  institutional: [
-    { name: "Sobre a ANPG", href: "/about" },
-    { name: "Liderança", href: "/about/leadership" },
-    { name: "Governança", href: "/about/governance" },
-    { name: "História", href: "/about/history" },
-  ],
-  services: [
-    { name: "Regulação", href: "/regulation" },
-    { name: "Licenciamento", href: "/regulation/licensing" },
-    { name: "Fiscalização", href: "/regulation/oversight" },
-    { name: "Concursos", href: "/regulation/tenders" },
-  ],
-  investors: [
-    { name: "Oportunidades", href: "/investment" },
-    { name: "Blocos Disponíveis", href: "/investment/blocks" },
-    { name: "Guia do Investidor", href: "/investment/guide" },
-    { name: "Contactos", href: "/contact" },
-  ],
-  resources: [
-    { name: "Dados de Energia", href: "/data" },
-    { name: "Publicações", href: "/publications" },
-    { name: "Notícias", href: "/news" },
-    { name: "Carreiras", href: "/careers" },
-  ],
-};
-
 export function Footer() {
+  const { t } = useTranslation();
+
+  const footerLinks = {
+    institutional: [
+      { nameKey: "footer.links.about", href: "/about" },
+      { nameKey: "footer.links.leadership", href: "/about/leadership" },
+      { nameKey: "footer.links.governance", href: "/about/governance" },
+      { nameKey: "footer.links.history", href: "/about/history" },
+    ],
+    services: [
+      { nameKey: "footer.links.regulation", href: "/regulation" },
+      { nameKey: "footer.links.licensing", href: "/regulation/licensing" },
+      { nameKey: "footer.links.oversight", href: "/regulation/oversight" },
+      { nameKey: "footer.links.tenders", href: "/regulation/tenders" },
+    ],
+    investors: [
+      { nameKey: "footer.links.opportunities", href: "/investment" },
+      { nameKey: "footer.links.availableBlocks", href: "/investment/blocks" },
+      { nameKey: "footer.links.investorGuide", href: "/investment/guide" },
+      { nameKey: "footer.links.contact", href: "/contact" },
+    ],
+    resources: [
+      { nameKey: "footer.links.energyData", href: "/data" },
+      { nameKey: "footer.links.publications", href: "/publications" },
+      { nameKey: "footer.links.news", href: "/news" },
+      { nameKey: "footer.links.careers", href: "/careers" },
+    ],
+  };
+
   return (
     <footer className="bg-foreground text-pearl">
       {/* Main Footer */}
@@ -54,8 +55,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-pearl/70 text-sm leading-relaxed mb-8 max-w-xs">
-              Agência Nacional de Petróleo, Gás e Biocombustíveis de Angola. 
-              Regulando o presente, construindo o futuro energético.
+              {t("footer.description")}
             </p>
             
             {/* Contact Info */}
@@ -80,12 +80,12 @@ export function Footer() {
 
           {/* Links Columns */}
           <div>
-            <h4 className="footer-heading text-primary-foreground">Institucional</h4>
+            <h4 className="footer-heading text-primary-foreground">{t("footer.institutional")}</h4>
             <ul className="space-y-3">
               {footerLinks.institutional.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameKey}>
                   <Link to={link.href} className="footer-link">
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -93,12 +93,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading text-primary-foreground">Serviços</h4>
+            <h4 className="footer-heading text-primary-foreground">{t("footer.services")}</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameKey}>
                   <Link to={link.href} className="footer-link">
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -106,12 +106,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading text-primary-foreground">Investidores</h4>
+            <h4 className="footer-heading text-primary-foreground">{t("footer.investors")}</h4>
             <ul className="space-y-3">
               {footerLinks.investors.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameKey}>
                   <Link to={link.href} className="footer-link">
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -119,12 +119,12 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading text-primary-foreground">Recursos</h4>
+            <h4 className="footer-heading text-primary-foreground">{t("footer.resources")}</h4>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
-                <li key={link.name}>
+                <li key={link.nameKey}>
                   <Link to={link.href} className="footer-link">
-                    {link.name}
+                    {t(link.nameKey)}
                   </Link>
                 </li>
               ))}
@@ -138,13 +138,13 @@ export function Footer() {
         <div className="container mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
-              <span>© 2025 ANPG. Todos os direitos reservados.</span>
+              <span>{t("footer.copyright")}</span>
               <div className="flex items-center gap-4">
                 <Link to="/privacy" className="hover:text-pearl transition-colors">
-                  Política de Privacidade
+                  {t("footer.privacy")}
                 </Link>
                 <Link to="/terms" className="hover:text-pearl transition-colors">
-                  Termos de Uso
+                  {t("footer.terms")}
                 </Link>
               </div>
             </div>

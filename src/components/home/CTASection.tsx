@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function CTASection() {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -29,11 +31,10 @@ export function CTASection() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-              Pronto para Investir no Futuro Energético de Angola?
+              {t("cta.title")}
             </h2>
             <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
-              Entre em contacto com a nossa equipa de relações com investidores 
-              para saber mais sobre as oportunidades disponíveis.
+              {t("cta.description")}
             </p>
           </motion.div>
 
@@ -44,7 +45,7 @@ export function CTASection() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
           >
             <Button variant="heroOutline" size="xl" className="w-full sm:w-auto group">
-              Contactar Investimentos
+              {t("cta.contactInvestments")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
@@ -52,7 +53,7 @@ export function CTASection() {
               size="xl" 
               className="w-full sm:w-auto text-primary-foreground hover:bg-primary-foreground/10"
             >
-              Agendar Reunião
+              {t("cta.scheduleMeeting")}
             </Button>
           </motion.div>
 

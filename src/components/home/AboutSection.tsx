@@ -1,35 +1,37 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Shield, Target, Globe, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import refineryImage from "@/assets/refinery.jpg";
 
-const values = [
-  {
-    icon: <Shield className="w-5 h-5" />,
-    title: "Transparência",
-    description: "Compromisso com a clareza e abertura em todas as operações.",
-  },
-  {
-    icon: <Target className="w-5 h-5" />,
-    title: "Excelência",
-    description: "Padrões internacionais de qualidade e eficiência.",
-  },
-  {
-    icon: <Globe className="w-5 h-5" />,
-    title: "Sustentabilidade",
-    description: "Desenvolvimento responsável dos recursos energéticos.",
-  },
-  {
-    icon: <Lightbulb className="w-5 h-5" />,
-    title: "Inovação",
-    description: "Adopção de tecnologias avançadas no sector.",
-  },
-];
-
 export function AboutSection() {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const values = [
+    {
+      icon: <Shield className="w-5 h-5" />,
+      titleKey: "about.values.transparency.title",
+      descriptionKey: "about.values.transparency.description",
+    },
+    {
+      icon: <Target className="w-5 h-5" />,
+      titleKey: "about.values.excellence.title",
+      descriptionKey: "about.values.excellence.description",
+    },
+    {
+      icon: <Globe className="w-5 h-5" />,
+      titleKey: "about.values.sustainability.title",
+      descriptionKey: "about.values.sustainability.description",
+    },
+    {
+      icon: <Lightbulb className="w-5 h-5" />,
+      titleKey: "about.values.innovation.title",
+      descriptionKey: "about.values.innovation.description",
+    },
+  ];
 
   return (
     <section ref={ref} className="section-padding bg-background overflow-hidden">
@@ -60,7 +62,7 @@ export function AboutSection() {
               >
                 <div className="text-3xl font-bold text-primary mb-1">45+</div>
                 <div className="text-sm text-muted-foreground">
-                  Anos de experiência no sector petrolífero angolano
+                  {t("about.yearsExperience")}
                 </div>
               </motion.div>
             </div>
@@ -76,24 +78,21 @@ export function AboutSection() {
             transition={{ duration: 0.8 }}
           >
             <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-              Sobre a ANPG
+              {t("about.label")}
             </span>
             <h2 className="section-title mb-6">
-              Regulando o Presente,<br />
-              <span className="text-primary">Construindo o Futuro</span>
+              {t("about.title")}<br />
+              <span className="text-primary">{t("about.titleHighlight")}</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade 
-              reguladora do sector petrolífero angolano, responsável pela gestão 
-              e supervisão das actividades de exploração, produção e comercialização 
-              de hidrocarbonetos.
+              {t("about.description")}
             </p>
 
             {/* Values Grid */}
             <div className="grid grid-cols-2 gap-6 mb-10">
               {values.map((value, index) => (
                 <motion.div
-                  key={value.title}
+                  key={value.titleKey}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
@@ -103,15 +102,15 @@ export function AboutSection() {
                     {value.icon}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1">{value.title}</h4>
-                    <p className="text-sm text-muted-foreground">{value.description}</p>
+                    <h4 className="font-semibold text-foreground mb-1">{t(value.titleKey)}</h4>
+                    <p className="text-sm text-muted-foreground">{t(value.descriptionKey)}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
             <Button variant="heroOutlineLight" size="lg" className="group">
-              Conhecer a ANPG
+              {t("about.cta")}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>
