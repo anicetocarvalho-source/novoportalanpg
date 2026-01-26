@@ -31,6 +31,12 @@ import BlockDetailsPage from "./pages/ep-data/BlockDetailsPage";
 import Conference2021Page from "./pages/ep-data/Conference2021Page";
 import Conference2023Page from "./pages/ep-data/Conference2023Page";
 
+// Regulation pages
+import RegulationPage from "./pages/regulation/RegulationPage";
+import LicensingPage from "./pages/regulation/LicensingPage";
+import OversightPage from "./pages/regulation/OversightPage";
+import TendersPage from "./pages/regulation/TendersPage";
+
 // Other pages
 import MediaPage from "./pages/MediaPage";
 import NewsArchivePage from "./pages/NewsArchivePage";
@@ -38,6 +44,8 @@ import NewsDetailPage from "./pages/NewsDetailPage";
 import ProductionPage from "./pages/ProductionPage";
 import ProductionHistoryPage from "./pages/production/ProductionHistoryPage";
 import LocalContentPage from "./pages/LocalContentPage";
+import DataPage from "./pages/DataPage";
+import SustainabilityPage from "./pages/SustainabilityPage";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +81,12 @@ function AnimatedRoutes() {
           <Route path="/ep-data/conference-2021" element={<Conference2021Page />} />
           <Route path="/ep-data/conference-2023" element={<Conference2023Page />} />
           
+          {/* Regulation pages */}
+          <Route path="/regulation" element={<RegulationPage />} />
+          <Route path="/regulation/licensing" element={<LicensingPage />} />
+          <Route path="/regulation/oversight" element={<OversightPage />} />
+          <Route path="/regulation/tenders" element={<TendersPage />} />
+          
           {/* Other pages */}
           <Route path="/media" element={<MediaPage />} />
           <Route path="/media/archive" element={<NewsArchivePage />} />
@@ -80,6 +94,8 @@ function AnimatedRoutes() {
           <Route path="/production" element={<ProductionPage />} />
           <Route path="/production/history" element={<ProductionHistoryPage />} />
           <Route path="/local-content" element={<LocalContentPage />} />
+          <Route path="/data" element={<DataPage />} />
+          <Route path="/sustainability" element={<SustainabilityPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
