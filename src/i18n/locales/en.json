@@ -36,6 +36,107 @@
       "dataConference2023Desc": "The latest conference on data management"
     }
   },
+  "pages": {
+    "about": {
+      "title": "About ANPG",
+      "subtitle": "Institutional",
+      "description": "Learn about Angola's National Oil, Gas and Biofuels Agency and our mission to regulate the energy sector.",
+      "content": {
+        "mission": "Our mission is to regulate and promote Angola's oil sector, ensuring transparency, sustainability and value for all stakeholders.",
+        "vision": "To be recognized as a world-class regulatory agency, promoting a sustainable and competitive energy sector."
+      }
+    },
+    "anpg": {
+      "title": "About ANPG",
+      "subtitle": "Who We Are",
+      "description": "The National Oil, Gas and Biofuels Agency is the regulatory body for Angola's petroleum sector."
+    },
+    "history": {
+      "title": "Our History",
+      "subtitle": "Since 1978",
+      "description": "Decades of experience and commitment to the development of Angola's petroleum sector."
+    },
+    "socialResponsibility": {
+      "title": "Social Responsibility",
+      "subtitle": "Commitment",
+      "description": "Our commitment to sustainable development and the well-being of Angolan communities."
+    },
+    "contacts": {
+      "title": "Contacts",
+      "subtitle": "Get in Touch",
+      "description": "Contact our teams for information and clarifications."
+    },
+    "opportunities": {
+      "title": "Investment Opportunities",
+      "subtitle": "Invest in Angola",
+      "description": "Discover investment opportunities in Angola's petroleum sector."
+    },
+    "tender2025": {
+      "title": "Public Tender 2025",
+      "subtitle": "Opportunities",
+      "description": "Information about the 2025 public tender for petroleum block allocation."
+    },
+    "permanentOffer": {
+      "title": "Permanent Offer",
+      "subtitle": "Available Blocks",
+      "description": "Petroleum blocks available for continuous negotiation outside public tenders."
+    },
+    "tender2023": {
+      "title": "Public Tender 2023",
+      "subtitle": "Results",
+      "description": "Results and information from the 2023 public tender."
+    },
+    "epData": {
+      "title": "E&P Data",
+      "subtitle": "Exploration & Production",
+      "description": "Access technical data, statistics and information on hydrocarbon exploration and production."
+    },
+    "iona": {
+      "title": "IONA Platform",
+      "subtitle": "Data Management",
+      "description": "Integrated exploration and production data management system for Angola."
+    },
+    "oasis": {
+      "title": "OASIS – Image Bank",
+      "subtitle": "Seismic Data",
+      "description": "Repository of seismic and geological images from Angolan territory."
+    },
+    "dataPackages": {
+      "title": "Data Packages",
+      "subtitle": "Licensing",
+      "description": "Technical data available for licensing by operators and investors."
+    },
+    "epMaps": {
+      "title": "E&P Maps",
+      "subtitle": "Cartography",
+      "description": "Interactive hydrocarbon exploration and production maps of Angola."
+    },
+    "conference2021": {
+      "title": "Data Conference 2021",
+      "subtitle": "Event",
+      "description": "Highlights and materials from the 2021 data management conference."
+    },
+    "conference2023": {
+      "title": "2nd Data Management Conference 2023",
+      "subtitle": "Event",
+      "description": "The latest conference on data management in the petroleum sector."
+    },
+    "media": {
+      "title": "Media",
+      "subtitle": "Communications",
+      "description": "News, press releases and media resources from ANPG."
+    },
+    "production": {
+      "title": "Production",
+      "subtitle": "Statistics",
+      "description": "Data and statistics on Angola's petroleum production."
+    },
+    "localContent": {
+      "title": "Local Content",
+      "subtitle": "National Development",
+      "description": "Policies and initiatives to promote local participation in the petroleum sector."
+    }
+  },
   "hero": {
     "subtitle": "National Oil, Gas and Biofuels Agency",
     "title": "Shaping Angola's",
@@ -198,5 +299,14 @@
       "news": "News",
       "careers": "Careers"
     }
+  },
+  "common": {
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "contact": "Contact",
+    "download": "Download",
+    "backToHome": "Back to Home",
+    "comingSoon": "Coming Soon",
+    "placeholder": "This page is under construction. Full content coming soon."
   }
 }

@@ -36,6 +36,107 @@
       "dataConference2023Desc": "A mais recente conferência sobre gestão de dados"
     }
   },
+  "pages": {
+    "about": {
+      "title": "Sobre a ANPG",
+      "subtitle": "Institucional",
+      "description": "Conheça a Agência Nacional de Petróleo, Gás e Biocombustíveis de Angola e a nossa missão de regular o sector energético.",
+      "content": {
+        "mission": "A nossa missão é regular e promover o sector petrolífero angolano, garantindo transparência, sustentabilidade e valor para todos os stakeholders.",
+        "vision": "Ser reconhecida como uma agência reguladora de referência a nível mundial, promovendo um sector energético sustentável e competitivo."
+      }
+    },
+    "anpg": {
+      "title": "A ANPG",
+      "subtitle": "Quem Somos",
+      "description": "A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano."
+    },
+    "history": {
+      "title": "A Nossa História",
+      "subtitle": "Desde 1978",
+      "description": "Décadas de experiência e compromisso com o desenvolvimento do sector petrolífero angolano."
+    },
+    "socialResponsibility": {
+      "title": "Responsabilidade Social",
+      "subtitle": "Compromisso",
+      "description": "O nosso compromisso com o desenvolvimento sustentável e o bem-estar das comunidades angolanas."
+    },
+    "contacts": {
+      "title": "Contactos",
+      "subtitle": "Fale Connosco",
+      "description": "Entre em contacto com as nossas equipas para obter informações e esclarecimentos."
+    },
+    "opportunities": {
+      "title": "Oportunidades de Investimento",
+      "subtitle": "Investir em Angola",
+      "description": "Descubra as oportunidades de investimento no sector petrolífero angolano."
+    },
+    "tender2025": {
+      "title": "Concurso Público 2025",
+      "subtitle": "Oportunidades",
+      "description": "Informações sobre o concurso público de 2025 para atribuição de blocos petrolíferos."
+    },
+    "permanentOffer": {
+      "title": "Oferta Permanente",
+      "subtitle": "Blocos Disponíveis",
+      "description": "Blocos petrolíferos disponíveis para negociação contínua fora dos concursos públicos."
+    },
+    "tender2023": {
+      "title": "Concurso Público 2023",
+      "subtitle": "Resultados",
+      "description": "Resultados e informações sobre o concurso público de 2023."
+    },
+    "epData": {
+      "title": "Dados de E&P",
+      "subtitle": "Exploração & Produção",
+      "description": "Acesso a dados técnicos, estatísticas e informações sobre exploração e produção de hidrocarbonetos."
+    },
+    "iona": {
+      "title": "Plataforma IONA",
+      "subtitle": "Gestão de Dados",
+      "description": "Sistema integrado de gestão de dados de exploração e produção de Angola."
+    },
+    "oasis": {
+      "title": "OASIS – Banco de Imagens",
+      "subtitle": "Dados Sísmicos",
+      "description": "Repositório de imagens sísmicas e geológicas do território angolano."
+    },
+    "dataPackages": {
+      "title": "Pacotes de Dados",
+      "subtitle": "Licenciamento",
+      "description": "Dados técnicos disponíveis para licenciamento por operadores e investidores."
+    },
+    "epMaps": {
+      "title": "Mapas de E&P",
+      "subtitle": "Cartografia",
+      "description": "Mapas interactivos de exploração e produção de hidrocarbonetos em Angola."
+    },
+    "conference2021": {
+      "title": "Conferência de Dados 2021",
+      "subtitle": "Evento",
+      "description": "Highlights e materiais da conferência de gestão de dados de 2021."
+    },
+    "conference2023": {
+      "title": "2ª Conferência de Gestão de Dados 2023",
+      "subtitle": "Evento",
+      "description": "A mais recente conferência sobre gestão de dados no sector petrolífero."
+    },
+    "media": {
+      "title": "Media",
+      "subtitle": "Comunicação",
+      "description": "Notícias, comunicados de imprensa e recursos mediáticos da ANPG."
+    },
+    "production": {
+      "title": "Produção",
+      "subtitle": "Estatísticas",
+      "description": "Dados e estatísticas sobre a produção petrolífera angolana."
+    },
+    "localContent": {
+      "title": "Conteúdo Local",
+      "subtitle": "Desenvolvimento Nacional",
+      "description": "Políticas e iniciativas para promover a participação local no sector petrolífero."
+    }
+  },
   "hero": {
     "subtitle": "Agência Nacional de Petróleo, Gás e Biocombustíveis",
     "title": "Moldando o Futuro",
@@ -198,5 +299,14 @@
       "news": "Notícias",
       "careers": "Carreiras"
     }
+  },
+  "common": {
+    "learnMore": "Saber Mais",
+    "viewAll": "Ver Tudo",
+    "contact": "Contactar",
+    "download": "Descarregar",
+    "backToHome": "Voltar ao Início",
+    "comingSoon": "Em Breve",
+    "placeholder": "Esta página está em construção. Conteúdo completo em breve."
   }
 }
