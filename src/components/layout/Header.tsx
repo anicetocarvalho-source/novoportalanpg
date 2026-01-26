@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
@@ -68,7 +68,15 @@ export function Header() {
       ],
     },
     { nameKey: "nav.media", href: "/media" },
-    { nameKey: "nav.production", href: "/production" },
+    {
+      nameKey: "nav.production",
+      href: "/production",
+      megaMenuColumns: 2,
+      submenu: [
+        { nameKey: "nav.submenu.productionOverview", descriptionKey: "nav.submenu.productionOverviewDesc", href: "/production", icon: BarChart3 },
+        { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: History },
+      ],
+    },
     { nameKey: "nav.localContent", href: "/local-content" },
   ];
 
