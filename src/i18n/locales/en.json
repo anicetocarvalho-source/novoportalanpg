@@ -28,8 +28,8 @@
       "oasisImageBankDesc": "Seismic and geological image repository",
       "dataPackages": "Data Packages",
       "dataPackagesDesc": "Technical data available for licensing",
-      "epMaps": "E&P Maps",
-      "epMapsDesc": "Interactive exploration and production maps",
+      "epMaps": "Concessions Map",
+      "epMapsDesc": "Interactive map of blocks and operators",
       "conference2021": "Conference 2021",
       "conference2021Desc": "Highlights from the 2021 data conference",
       "dataConference2023": "2nd Data Management Conference 2023",
@@ -215,9 +215,9 @@
       "description": "Technical data available for licensing by operators and investors."
     },
     "epMaps": {
-      "title": "E&P Maps",
-      "subtitle": "Cartography",
-      "description": "Interactive hydrocarbon exploration and production maps of Angola."
+      "title": "Concessions Map",
+      "subtitle": "Blocks & Operators",
+      "description": "Interactive map of all Angolan petroleum blocks with detailed information on operators and partnerships."
     },
     "conference2021": {
       "title": "Data Conference 2021",
