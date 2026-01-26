@@ -1,8 +1,10 @@
-import { Users, Building2, FileCheck, Award, ClipboardList, ExternalLink, FileText, CheckCircle2 } from "lucide-react";
+import { Users, Building2, FileCheck, Award, ClipboardList, ExternalLink, FileText, CheckCircle2, BarChart3 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 import heroImage from "@/assets/angola-coast.jpg";
 
@@ -207,6 +209,37 @@ export default function LocalContentPage() {
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.section>
+
+        {/* Power BI Dashboard */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
+          <Card className="overflow-hidden">
+            <CardHeader className="bg-secondary/50">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl">Dashboard de Empresas Certificadas</CardTitle>
+                  <p className="text-muted-foreground mt-1">Consulte as empresas certificadas no âmbito do Conteúdo Local</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="aspect-[16/9] w-full bg-secondary/30">
+                <iframe
+                  title="Dashboard Empresas Certificadas - Conteúdo Local ANPG"
+                  src="https://app.powerbi.com/view?r=eyJrIjoiY2Q5ZjRhMzMtZjFlZS00M2M0LWIwMjItNGQwMDkxYTMzNTY5IiwidCI6ImE4YjQ5N2NkLTM1NDQtNDEwZi04NzU2LTIzNTRlYjJkMTUyNyIsImMiOjl9"
+                  className="w-full h-full border-0"
+                  allowFullScreen
+                />
               </div>
             </CardContent>
           </Card>
