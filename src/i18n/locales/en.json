@@ -42,24 +42,128 @@
       "subtitle": "Institutional",
       "description": "Learn about Angola's National Oil, Gas and Biofuels Agency and our mission to regulate the energy sector.",
       "content": {
-        "mission": "Our mission is to regulate and promote Angola's oil sector, ensuring transparency, sustainability and value for all stakeholders.",
-        "vision": "To be recognized as a world-class regulatory agency, promoting a sustainable and competitive energy sector."
+        "mission": "To manage the National Petroleum System by promoting and regulating the execution of petroleum activities, striving for value creation for stakeholders, application of best practices and transparent operations.",
+        "vision": "To be recognized as a National Regulatory Agency of Excellence.",
+        "intro": "The National Oil, Gas and Biofuels Agency, abbreviated ANPG, was created by Presidential Decree No. 49/19 of February 6th. ANPG is a Public Law Legal Entity endowed with legal personality, administrative, financial and patrimonial autonomy.",
+        "role": "ANPG is the National Concessionaire and Regulatory Body for petroleum activities. In this capacity, ANPG is responsible for negotiating petroleum concession contracts, promoting access and new investment opportunities, as well as administering and supervising concession areas for exploration and production of oil, natural gas and their derivatives throughout the national territory.",
+        "pcaMessage": "The National Oil, Gas and Biofuels Agency, abbreviated ANPG, created by Presidential Decree No. 49/19 of February 6th, is the National Concessionaire responsible for managing and optimizing E&P operations, with the objective of ensuring sector sustainability and more effective governance and oversight.",
+        "pcaName": "Paulino Jerónimo",
+        "pcaTitle": "Chairman of the Board of Directors"
+      },
+      "strategicObjectives": {
+        "title": "Strategic Objectives",
+        "items": {
+          "reserves": "Maximize proven reserves and hydrocarbon recovery",
+          "growth": "Ensure sustainable sector growth",
+          "localContent": "Increase Local Content levels",
+          "governance": "Ensure good governance, transparency and accountability",
+          "data": "Improve National Petroleum Sector Data Management",
+          "safety": "Achieve excellence levels in QHSE"
+        }
       }
     },
     "anpg": {
       "title": "About ANPG",
-      "subtitle": "Who We Are",
-      "description": "The National Oil, Gas and Biofuels Agency is the regulatory body for Angola's petroleum sector."
+      "subtitle": "National Concessionaire",
+      "description": "The National Oil, Gas and Biofuels Agency is the regulatory body for Angola's petroleum sector.",
+      "content": {
+        "intro": "The National Oil, Gas and Biofuels Agency, abbreviated ANPG, was created by Presidential Decree No. 49/19 of February 6th. ANPG is a Public Law Legal Entity endowed with legal personality, administrative, financial and patrimonial autonomy.",
+        "role": "ANPG is the National Concessionaire and Regulatory Body for petroleum activities. In this capacity, ANPG is responsible for negotiating petroleum concession contracts, promoting access and new investment opportunities, as well as administering and supervising concession areas for exploration and production of oil, natural gas and their derivatives throughout the national territory."
+      },
+      "board": {
+        "title": "Board of Directors",
+        "members": {
+          "pca": {
+            "name": "Paulino Jerónimo",
+            "role": "Chairman of the Board of Directors"
+          },
+          "admin1": {
+            "name": "Belarmino Chitangueleca",
+            "role": "Executive Director for Exploration and Production"
+          },
+          "admin2": {
+            "name": "Eduarda Rodrigues",
+            "role": "Executive Director for Administration and Shared Services"
+          },
+          "admin3": {
+            "name": "Gaspar Bernardo dos Santos",
+            "role": "Executive Director for Technical Studies and New Technologies"
+          },
+          "admin4": {
+            "name": "Cláudio Pinheiro",
+            "role": "Executive Director for Negotiations and Commercial Services"
+          }
+        }
+      },
+      "supervision": {
+        "title": "Oversight and Control Bodies",
+        "items": {
+          "fiscal": "Fiscal Council",
+          "audit": "Internal Audit",
+          "external": "External Audit"
+        }
+      },
+      "operators": {
+        "title": "Sector Operators",
+        "description": "Main operators active in Angola",
+        "list": "TotalEnergies, Chevron, ExxonMobil, BP, ENI, Equinor, Azule Energy"
+      }
     },
     "history": {
       "title": "Our History",
       "subtitle": "Since 1978",
-      "description": "Decades of experience and commitment to the development of Angola's petroleum sector."
+      "description": "Decades of experience and commitment to the development of Angola's petroleum sector.",
+      "content": {
+        "intro": "The history of Angola's petroleum sector is marked by decades of development and sustainable growth.",
+        "timeline": {
+          "1978": {
+            "title": "Creation of Sonangol",
+            "description": "Foundation of the National Fuel Company of Angola"
+          },
+          "2019": {
+            "title": "Creation of ANPG",
+            "description": "Establishment of the National Oil, Gas and Biofuels Agency by Presidential Decree No. 49/19"
+          },
+          "2020": {
+            "title": "First Licensing Round",
+            "description": "Launch of the first public tender under the new regulatory structure"
+          },
+          "2023": {
+            "title": "Expansion of Activities",
+            "description": "Consolidation of ANPG as a reference regulatory entity"
+          }
+        }
+      }
     },
     "socialResponsibility": {
       "title": "Social Responsibility",
-      "subtitle": "Commitment",
-      "description": "Our commitment to sustainable development and the well-being of Angolan communities."
+      "subtitle": "Commitment to Angola",
+      "description": "Our commitment to sustainable development and the well-being of Angolan communities.",
+      "content": {
+        "intro": "ANPG assumes social responsibility as one of the fundamental pillars of its operations, committing to the sustainable development of Angola and the well-being of local communities.",
+        "areas": {
+          "education": {
+            "title": "Education",
+            "description": "Training and technical capacity building programs for young Angolans in the petroleum sector."
+          },
+          "environment": {
+            "title": "Environment",
+            "description": "Promotion of environmentally responsible practices and ecosystem protection."
+          },
+          "community": {
+            "title": "Communities",
+            "description": "Support for community development in petroleum operation areas."
+          },
+          "health": {
+            "title": "Health and Safety",
+            "description": "Ensuring the highest standards of occupational health and safety."
+          }
+        },
+        "environment": {
+          "title": "Environment and Safety",
+          "description": "ANPG promotes and oversees the application of best environmental and safety practices in the petroleum sector, ensuring environmental protection and operational safety."
+        }
+      }
     },
     "contacts": {
       "title": "Contacts",
@@ -168,6 +272,10 @@
     "yearsExperience": "Years of experience in Angola's petroleum sector",
     "cta": "Learn About ANPG",
     "values": {
+      "integrity": {
+        "title": "Integrity",
+        "description": "We act with honesty, ethics and responsibility in all our actions."
+      },
       "transparency": {
         "title": "Transparency",
         "description": "Commitment to clarity and openness in all operations."
@@ -183,6 +291,10 @@
       "innovation": {
         "title": "Innovation",
         "description": "Adoption of advanced technologies in the sector."
+      },
+      "collaboration": {
+        "title": "Collaboration",
+        "description": "Teamwork and strategic partnerships to achieve common goals."
       }
     }
   },
