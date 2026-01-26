@@ -51,7 +51,7 @@ export function Footer() {
               <img
                 src={logoWhite}
                 alt="ANPG"
-                className="h-12 w-auto mb-6"
+                className="h-14 w-auto mb-6"
               />
             </Link>
             <p className="text-pearl/70 text-sm leading-relaxed mb-8 max-w-xs">
