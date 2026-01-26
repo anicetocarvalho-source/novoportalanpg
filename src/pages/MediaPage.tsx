@@ -458,34 +458,92 @@ export default function MediaPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* YouTube Embed Placeholder */}
-              <div className="aspect-video bg-secondary/50 border border-border rounded-xl overflow-hidden flex items-center justify-center group cursor-pointer hover:border-primary/30 transition-all">
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                    <Play className="w-8 h-8 text-primary group-hover:text-primary-foreground" />
+            <StaggerContainer className="grid md:grid-cols-2 gap-6">
+              {/* Angola Oil & Gas 2024: Opening remarks & special address */}
+              <StaggerItem>
+                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
+                  <div className="aspect-video">
+                    <iframe
+                      src="https://www.youtube.com/embed/6cs4tVX9siI"
+                      title="Angola Oil & Gas 2024: Opening remarks & special address"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
                   </div>
-                  <p className="text-muted-foreground">Vídeo Institucional ANPG</p>
-                </div>
-              </div>
-              <div className="aspect-video bg-secondary/50 border border-border rounded-xl overflow-hidden flex items-center justify-center group cursor-pointer hover:border-primary/30 transition-all">
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:scale-110 transition-all">
-                    <Play className="w-8 h-8 text-primary group-hover:text-primary-foreground" />
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-1">Angola Oil & Gas 2024: Opening Remarks</h3>
+                    <p className="text-sm text-muted-foreground">Cerimónia de abertura e discurso especial</p>
                   </div>
-                  <p className="text-muted-foreground">Angola Oil & Gas 2025</p>
                 </div>
-              </div>
-            </div>
+              </StaggerItem>
+
+              {/* Angola Oil and Gas Conference 2023 Highlights */}
+              <StaggerItem>
+                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
+                  <div className="aspect-video">
+                    <iframe
+                      src="https://www.youtube.com/embed/izPuSt7wzJg"
+                      title="Angola Oil and Gas Conference 2023 Highlights"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-1">Angola Oil & Gas 2023 Highlights</h3>
+                    <p className="text-sm text-muted-foreground">Destaques e vozes-chave do evento</p>
+                  </div>
+                </div>
+              </StaggerItem>
+
+              {/* Additional Video */}
+              <StaggerItem>
+                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
+                  <div className="aspect-video">
+                    <iframe
+                      src="https://www.youtube.com/embed/LeSAb7xaT4U"
+                      title="Angola Oil & Gas Conference"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-1">Conferência Angola Oil & Gas</h3>
+                    <p className="text-sm text-muted-foreground">Cobertura do evento</p>
+                  </div>
+                </div>
+              </StaggerItem>
+
+              {/* ANPG Interview */}
+              <StaggerItem>
+                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
+                  <div className="aspect-video">
+                    <iframe
+                      src="https://www.youtube.com/embed/m1rhQ6Xiwz4"
+                      title="Angola Oil & Gas Interview"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold text-foreground mb-1">Entrevistas Angola Oil & Gas</h3>
+                    <p className="text-sm text-muted-foreground">Entrevistas com representantes do sector</p>
+                  </div>
+                </div>
+              </StaggerItem>
+            </StaggerContainer>
 
             <div className="mt-8 text-center">
               <a
-                href="https://www.youtube.com/@anpgangola"
+                href="https://www.youtube.com/results?search_query=Angola+Oil+Gas+ANPG"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Button variant="outline" size="lg">
-                  Ver Canal no YouTube
+                  Ver Mais Vídeos no YouTube
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </a>
