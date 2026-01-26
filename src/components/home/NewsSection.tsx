@@ -5,6 +5,12 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
+// News images
+import tender2025Img from "@/assets/news/tender-2025.jpg";
+import gasProductionImg from "@/assets/news/gas-production.jpg";
+import biofuelsImg from "@/assets/news/biofuels-sustainability.jpg";
+import totalExpansionImg from "@/assets/news/total-expansion.jpg";
+
 export function NewsSection() {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
@@ -19,7 +25,7 @@ export function NewsSection() {
       date: "24 Jan 2025",
       readTime: "3 min",
       featured: true,
-      image: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&h=600&fit=crop",
+      image: tender2025Img,
     },
     {
       id: 2,
@@ -29,7 +35,7 @@ export function NewsSection() {
       date: "22 Jan 2025",
       readTime: "2 min",
       featured: false,
-      image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
+      image: gasProductionImg,
     },
     {
       id: 3,
@@ -39,7 +45,7 @@ export function NewsSection() {
       date: "20 Jan 2025",
       readTime: "4 min",
       featured: false,
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=300&fit=crop",
+      image: biofuelsImg,
     },
     {
       id: 4,
@@ -49,7 +55,7 @@ export function NewsSection() {
       date: "18 Jan 2025",
       readTime: "3 min",
       featured: false,
-      image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400&h=300&fit=crop",
+      image: totalExpansionImg,
     },
   ];
 
