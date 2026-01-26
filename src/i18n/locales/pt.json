@@ -42,24 +42,128 @@
       "subtitle": "Institucional",
       "description": "Conheça a Agência Nacional de Petróleo, Gás e Biocombustíveis de Angola e a nossa missão de regular o sector energético.",
       "content": {
-        "mission": "A nossa missão é regular e promover o sector petrolífero angolano, garantindo transparência, sustentabilidade e valor para todos os stakeholders.",
-        "vision": "Ser reconhecida como uma agência reguladora de referência a nível mundial, promovendo um sector energético sustentável e competitivo."
+        "mission": "Gerir o Sistema Petrolífero Nacional promovendo e regulando a execução das actividades petrolíferas, primando pela criação de valor para as partes interessadas, aplicação das melhores práticas e por uma actuação transparente.",
+        "vision": "Ser reconhecida como uma Agência Nacional Reguladora de Excelência.",
+        "intro": "A Agência Nacional de Petróleo, Gás e Biocombustíveis, abreviadamente ANPG, foi criada pelo Decreto Presidencial nº 49/19, de 6 de Fevereiro. A ANPG é uma Pessoa Colectiva de Direito Público dotada de personalidade jurídica, autonomia administrativa, financeira e patrimonial.",
+        "role": "A ANPG é a Concessionária Nacional e o Órgão Regulador das actividades petrolíferas. Nessa qualidade, a ANPG é responsável pela negociação dos contratos petrolíferos de concessões, promoção do acesso e de novas oportunidades de investimento, bem como a administração e fiscalização de áreas de concessão para exploração e produção de petróleo, gás natural e seus derivados, em todo o território nacional.",
+        "pcaMessage": "A Agência Nacional de Petróleo, Gás e Biocombustíveis, abreviadamente ANPG, criada pelo Decreto Presidencial nº 49/19, de 6 de Fevereiro, é a Concessionária Nacional, responsável pela gestão e optimização das operações de E&P, tendo como objectivo garantir a sustentabilidade do sector e uma governação e fiscalização mais efectivas.",
+        "pcaName": "Paulino Jerónimo",
+        "pcaTitle": "Presidente do Conselho de Administração"
+      },
+      "strategicObjectives": {
+        "title": "Objectivos Estratégicos",
+        "items": {
+          "reserves": "Maximizar reservas provadas e recuperação de hidrocarbonetos",
+          "growth": "Assegurar o crescimento sustentável do sector",
+          "localContent": "Aumentar os níveis de Conteúdo Local",
+          "governance": "Garantir boa governação, transparência e prestação de contas",
+          "data": "Melhorar a Gestão de Dados do Sector Petrolífero Nacional",
+          "safety": "Alcançar níveis de excelência na área de QSMS"
+        }
       }
     },
     "anpg": {
       "title": "A ANPG",
-      "subtitle": "Quem Somos",
-      "description": "A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano."
+      "subtitle": "Concessionária Nacional",
+      "description": "A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano.",
+      "content": {
+        "intro": "A Agência Nacional de Petróleo, Gás e Biocombustíveis, abreviadamente ANPG, foi criada pelo Decreto Presidencial nº 49/19, de 6 de Fevereiro. A ANPG é uma Pessoa Colectiva de Direito Público dotada de personalidade jurídica, autonomia administrativa, financeira e patrimonial.",
+        "role": "A ANPG é a Concessionária Nacional e o Órgão Regulador das actividades petrolíferas. Nessa qualidade, a ANPG é responsável pela negociação dos contratos petrolíferos de concessões, promoção do acesso e de novas oportunidades de investimento, bem como a administração e fiscalização de áreas de concessão para exploração e produção de petróleo, gás natural e seus derivados, em todo o território nacional."
+      },
+      "board": {
+        "title": "Conselho de Administração",
+        "members": {
+          "pca": {
+            "name": "Paulino Jerónimo",
+            "role": "Presidente do Conselho de Administração"
+          },
+          "admin1": {
+            "name": "Belarmino Chitangueleca",
+            "role": "Administrador Executivo para a área de Exploração e Produção"
+          },
+          "admin2": {
+            "name": "Eduarda Rodrigues",
+            "role": "Administradora Executiva para a área de Administração e Serviços Partilhados"
+          },
+          "admin3": {
+            "name": "Gaspar Bernardo dos Santos",
+            "role": "Administrador Executivo para a área de Estudos Técnicos e Novas Tecnologias"
+          },
+          "admin4": {
+            "name": "Cláudio Pinheiro",
+            "role": "Administrador Executivo para a área de Negociações e Serviços Comerciais"
+          }
+        }
+      },
+      "supervision": {
+        "title": "Órgãos de Fiscalização e Controlo",
+        "items": {
+          "fiscal": "Conselho Fiscal",
+          "audit": "Auditoria Interna",
+          "external": "Auditoria Externa"
+        }
+      },
+      "operators": {
+        "title": "Operadores do Sector",
+        "description": "Principais operadores a actuar em Angola",
+        "list": "TotalEnergies, Chevron, ExxonMobil, BP, ENI, Equinor, Azule Energy"
+      }
     },
     "history": {
       "title": "A Nossa História",
       "subtitle": "Desde 1978",
-      "description": "Décadas de experiência e compromisso com o desenvolvimento do sector petrolífero angolano."
+      "description": "Décadas de experiência e compromisso com o desenvolvimento do sector petrolífero angolano.",
+      "content": {
+        "intro": "A história do sector petrolífero angolano é marcada por décadas de desenvolvimento e crescimento sustentável.",
+        "timeline": {
+          "1978": {
+            "title": "Criação da Sonangol",
+            "description": "Fundação da Sociedade Nacional de Combustíveis de Angola"
+          },
+          "2019": {
+            "title": "Criação da ANPG",
+            "description": "Estabelecimento da Agência Nacional de Petróleo, Gás e Biocombustíveis pelo Decreto Presidencial nº 49/19"
+          },
+          "2020": {
+            "title": "Primeira Ronda de Licenciamento",
+            "description": "Lançamento do primeiro concurso público sob a nova estrutura regulatória"
+          },
+          "2023": {
+            "title": "Expansão das Actividades",
+            "description": "Consolidação da ANPG como entidade reguladora de referência"
+          }
+        }
+      }
     },
     "socialResponsibility": {
       "title": "Responsabilidade Social",
-      "subtitle": "Compromisso",
-      "description": "O nosso compromisso com o desenvolvimento sustentável e o bem-estar das comunidades angolanas."
+      "subtitle": "Compromisso com Angola",
+      "description": "O nosso compromisso com o desenvolvimento sustentável e o bem-estar das comunidades angolanas.",
+      "content": {
+        "intro": "A ANPG assume a responsabilidade social como um dos pilares fundamentais da sua actuação, comprometendo-se com o desenvolvimento sustentável de Angola e o bem-estar das comunidades locais.",
+        "areas": {
+          "education": {
+            "title": "Educação",
+            "description": "Programas de formação e capacitação técnica para jovens angolanos no sector petrolífero."
+          },
+          "environment": {
+            "title": "Ambiente",
+            "description": "Promoção de práticas ambientalmente responsáveis e protecção dos ecossistemas."
+          },
+          "community": {
+            "title": "Comunidades",
+            "description": "Apoio ao desenvolvimento das comunidades nas áreas de operação petrolífera."
+          },
+          "health": {
+            "title": "Saúde e Segurança",
+            "description": "Garantia dos mais elevados padrões de saúde e segurança no trabalho."
+          }
+        },
+        "environment": {
+          "title": "Ambiente e Segurança",
+          "description": "A ANPG promove e fiscaliza a aplicação das melhores práticas ambientais e de segurança no sector petrolífero, garantindo a protecção do ambiente e a segurança das operações."
+        }
+      }
     },
     "contacts": {
       "title": "Contactos",
@@ -168,6 +272,10 @@
     "yearsExperience": "Anos de experiência no sector petrolífero angolano",
     "cta": "Conhecer a ANPG",
     "values": {
+      "integrity": {
+        "title": "Integridade",
+        "description": "Actuamos com honestidade, ética e responsabilidade em todas as nossas acções."
+      },
       "transparency": {
         "title": "Transparência",
         "description": "Compromisso com a clareza e abertura em todas as operações."
@@ -183,6 +291,10 @@
       "innovation": {
         "title": "Inovação",
         "description": "Adopção de tecnologias avançadas no sector."
+      },
+      "collaboration": {
+        "title": "Colaboração",
+        "description": "Trabalho em equipa e parcerias estratégicas para alcançar objectivos comuns."
       }
     }
   },
