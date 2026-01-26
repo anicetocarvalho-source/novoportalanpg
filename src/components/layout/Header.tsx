@@ -1,23 +1,28 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
 import logoRed from "@/assets/logo-red.webp";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { MegaMenu, MegaMenuItem } from "@/components/layout/MegaMenu";
 import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
 interface SubMenuItem {
   nameKey: string;
+  descriptionKey: string;
   href: string;
+  icon: LucideIcon;
 }
 
 interface NavItem {
   nameKey: string;
   href: string;
   submenu?: SubMenuItem[];
+  megaMenuColumns?: 2 | 3;
 }
 
 export function Header() {
@@ -31,32 +36,35 @@ export function Header() {
     {
       nameKey: "nav.aboutUs",
       href: "/about",
+      megaMenuColumns: 2,
       submenu: [
-        { nameKey: "nav.submenu.anpg", href: "/about/anpg" },
-        { nameKey: "nav.submenu.ourHistory", href: "/about/history" },
-        { nameKey: "nav.submenu.socialResponsibility", href: "/about/social-responsibility" },
-        { nameKey: "nav.submenu.contacts", href: "/contacts" },
+        { nameKey: "nav.submenu.anpg", descriptionKey: "nav.submenu.anpgDesc", href: "/about/anpg", icon: Building2 },
+        { nameKey: "nav.submenu.ourHistory", descriptionKey: "nav.submenu.ourHistoryDesc", href: "/about/history", icon: History },
+        { nameKey: "nav.submenu.socialResponsibility", descriptionKey: "nav.submenu.socialResponsibilityDesc", href: "/about/social-responsibility", icon: Heart },
+        { nameKey: "nav.submenu.contacts", descriptionKey: "nav.submenu.contactsDesc", href: "/contacts", icon: Phone },
       ],
     },
     {
       nameKey: "nav.opportunities",
       href: "/opportunities",
+      megaMenuColumns: 2,
       submenu: [
-        { nameKey: "nav.submenu.tender2025", href: "/opportunities/tender-2025" },
-        { nameKey: "nav.submenu.permanentOffer", href: "/opportunities/permanent-offer" },
-        { nameKey: "nav.submenu.tender2023", href: "/opportunities/tender-2023" },
+        { nameKey: "nav.submenu.tender2025", descriptionKey: "nav.submenu.tender2025Desc", href: "/opportunities/tender-2025", icon: FileCheck },
+        { nameKey: "nav.submenu.permanentOffer", descriptionKey: "nav.submenu.permanentOfferDesc", href: "/opportunities/permanent-offer", icon: Gift },
+        { nameKey: "nav.submenu.tender2023", descriptionKey: "nav.submenu.tender2023Desc", href: "/opportunities/tender-2023", icon: Archive },
       ],
     },
     {
       nameKey: "nav.epData",
       href: "/ep-data",
+      megaMenuColumns: 3,
       submenu: [
-        { nameKey: "nav.submenu.platformIona", href: "/ep-data/iona" },
-        { nameKey: "nav.submenu.oasisImageBank", href: "/ep-data/oasis" },
-        { nameKey: "nav.submenu.dataPackages", href: "/ep-data/packages" },
-        { nameKey: "nav.submenu.epMaps", href: "/ep-data/maps" },
-        { nameKey: "nav.submenu.conference2021", href: "/ep-data/conference-2021" },
-        { nameKey: "nav.submenu.dataConference2023", href: "/ep-data/conference-2023" },
+        { nameKey: "nav.submenu.platformIona", descriptionKey: "nav.submenu.platformIonaDesc", href: "/ep-data/iona", icon: Layers },
+        { nameKey: "nav.submenu.oasisImageBank", descriptionKey: "nav.submenu.oasisImageBankDesc", href: "/ep-data/oasis", icon: Image },
+        { nameKey: "nav.submenu.dataPackages", descriptionKey: "nav.submenu.dataPackagesDesc", href: "/ep-data/packages", icon: Database },
+        { nameKey: "nav.submenu.epMaps", descriptionKey: "nav.submenu.epMapsDesc", href: "/ep-data/maps", icon: Map },
+        { nameKey: "nav.submenu.conference2021", descriptionKey: "nav.submenu.conference2021Desc", href: "/ep-data/conference-2021", icon: Calendar },
+        { nameKey: "nav.submenu.dataConference2023", descriptionKey: "nav.submenu.dataConference2023Desc", href: "/ep-data/conference-2023", icon: Users },
       ],
     },
     { nameKey: "nav.media", href: "/media" },
@@ -141,26 +149,14 @@ export function Header() {
                   )}
                 </Link>
 
-                {/* Dropdown */}
+                {/* Mega Menu Dropdown */}
                 <AnimatePresence>
                   {item.submenu && openDropdown === item.nameKey && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-1 min-w-[240px] bg-background rounded-sm shadow-lg border border-border overflow-hidden"
-                    >
-                      {item.submenu.map((subItem) => (
-                        <Link
-                          key={subItem.nameKey}
-                          to={subItem.href}
-                          className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors border-b border-border/50 last:border-b-0"
-                        >
-                          {t(subItem.nameKey)}
-                        </Link>
-                      ))}
-                    </motion.div>
+                    <MegaMenu 
+                      items={item.submenu as MegaMenuItem[]} 
+                      columns={item.megaMenuColumns || 2}
+                      onItemClick={() => setOpenDropdown(null)}
+                    />
                   )}
                 </AnimatePresence>
               </motion.div>
@@ -240,18 +236,31 @@ export function Header() {
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="pl-4 border-l-2 border-primary/30 ml-2"
+                              className="pl-2 border-l-2 border-primary/30 ml-2"
                             >
-                              {item.submenu.map((subItem) => (
-                                <Link
-                                  key={subItem.nameKey}
-                                  to={subItem.href}
-                                  className="block py-2.5 text-muted-foreground hover:text-primary transition-colors"
-                                  onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                  {t(subItem.nameKey)}
-                                </Link>
-                              ))}
+                              {item.submenu.map((subItem) => {
+                                const Icon = subItem.icon;
+                                return (
+                                  <Link
+                                    key={subItem.nameKey}
+                                    to={subItem.href}
+                                    className="flex items-start gap-3 py-3 hover:bg-secondary rounded-md px-2 transition-colors"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                  >
+                                    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
+                                      <Icon className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <div>
+                                      <span className="block text-sm font-medium text-foreground">
+                                        {t(subItem.nameKey)}
+                                      </span>
+                                      <span className="block text-xs text-muted-foreground mt-0.5">
+                                        {t(subItem.descriptionKey)}
+                                      </span>
+                                    </div>
+                                  </Link>
+                                );
+                              })}
                             </motion.div>
                           )}
                         </AnimatePresence>
