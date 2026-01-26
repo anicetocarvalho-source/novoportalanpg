@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { 
   Newspaper, 
@@ -19,8 +19,19 @@ import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContai
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious,
+  PaginationEllipsis
+} from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
+
+const NEWS_PER_PAGE = 6;
 
 interface Publication {
   id: string;
@@ -150,10 +161,45 @@ const events: Event[] = [
 export default function MediaPage() {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredNews = selectedCategory === "all" 
-    ? newsItems 
-    : newsItems.filter(item => item.category === selectedCategory);
+  const filteredNews = useMemo(() => {
+    return selectedCategory === "all" 
+      ? newsItems 
+      : newsItems.filter(item => item.category === selectedCategory);
+  }, [selectedCategory]);
+
+  // Reset to page 1 when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
+  // Pagination calculations
+  const totalPages = Math.ceil((filteredNews.length - 1) / NEWS_PER_PAGE); // -1 for featured
+  const featuredNews = filteredNews[0];
+  const remainingNews = filteredNews.slice(1);
+  const paginatedNews = remainingNews.slice(
+    (currentPage - 1) * NEWS_PER_PAGE,
+    currentPage * NEWS_PER_PAGE
+  );
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages: (number | 'ellipsis')[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 3) {
+        pages.push(1, 2, 3, 4, 'ellipsis', totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, 'ellipsis', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, 'ellipsis', currentPage - 1, currentPage, currentPage + 1, 'ellipsis', totalPages);
+      }
+    }
+    return pages;
+  };
 
   return (
     <PageLayout
@@ -217,7 +263,7 @@ export default function MediaPage() {
                   key={category.key}
                   variant={selectedCategory === category.key ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setSelectedCategory(category.key)}
+                  onClick={() => handleCategoryChange(category.key)}
                   className={cn(
                     "rounded-full",
                     selectedCategory === category.key && "bg-primary text-primary-foreground"
@@ -229,34 +275,34 @@ export default function MediaPage() {
             </div>
 
             {/* Featured News */}
-            {filteredNews.length > 0 && (
+            {featuredNews && currentPage === 1 && (
               <div className="mb-8">
                 <Link 
-                  to={`/news/${filteredNews[0].id}`}
+                  to={`/news/${featuredNews.id}`}
                   className="group block"
                 >
                   <div className="relative rounded-2xl overflow-hidden bg-secondary/50 border border-border hover:border-primary/30 transition-all duration-300">
                     <div className="grid md:grid-cols-2 gap-0">
                       <div className="aspect-video md:aspect-auto md:h-full">
                         <img
-                          src={filteredNews[0].image}
-                          alt={filteredNews[0].title}
+                          src={featuredNews.image}
+                          alt={featuredNews.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="p-6 md:p-8 flex flex-col justify-center">
-                        <Badge className={cn("w-fit mb-4", getCategoryColor(filteredNews[0].category))}>
-                          {getCategoryLabel(filteredNews[0].category)}
+                        <Badge className={cn("w-fit mb-4", getCategoryColor(featuredNews.category))}>
+                          {getCategoryLabel(featuredNews.category)}
                         </Badge>
                         <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-3">
-                          {filteredNews[0].title}
+                          {featuredNews.title}
                         </h3>
                         <p className="text-muted-foreground mb-4 line-clamp-2">
-                          {filteredNews[0].excerpt}
+                          {featuredNews.excerpt}
                         </p>
                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
                           <Calendar className="w-4 h-4" />
-                          {filteredNews[0].date}
+                          {featuredNews.date}
                         </div>
                       </div>
                     </div>
@@ -267,7 +313,7 @@ export default function MediaPage() {
 
             {/* News Grid */}
             <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredNews.slice(1).map((news) => (
+              {paginatedNews.map((news) => (
                 <StaggerItem key={news.id}>
                   <Link 
                     to={`/news/${news.id}`}
@@ -299,12 +345,54 @@ export default function MediaPage() {
               ))}
             </StaggerContainer>
 
-            <div className="mt-8 text-center">
-              <Button variant="outline" size="lg">
-                Ver Mais Notícias
-                <ChevronRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        className={cn(
+                          "cursor-pointer",
+                          currentPage === 1 && "pointer-events-none opacity-50"
+                        )}
+                      />
+                    </PaginationItem>
+                    
+                    {getPageNumbers().map((page, index) => (
+                      <PaginationItem key={index}>
+                        {page === 'ellipsis' ? (
+                          <PaginationEllipsis />
+                        ) : (
+                          <PaginationLink
+                            onClick={() => setCurrentPage(page)}
+                            isActive={currentPage === page}
+                            className="cursor-pointer"
+                          >
+                            {page}
+                          </PaginationLink>
+                        )}
+                      </PaginationItem>
+                    ))}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        className={cn(
+                          "cursor-pointer",
+                          currentPage === totalPages && "pointer-events-none opacity-50"
+                        )}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+                
+                <p className="text-center text-sm text-muted-foreground mt-4">
+                  Página {currentPage} de {totalPages} • {filteredNews.length} notícias
+                </p>
+              </div>
+            )}
           </SectionTransition>
         </TabsContent>
 
