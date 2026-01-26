@@ -1,12 +1,27 @@
 {
   "nav": {
-    "about": "About ANPG",
-    "regulation": "Regulation & Licensing",
-    "investment": "Investment",
-    "data": "Energy Data",
-    "news": "News",
-    "careers": "Careers",
-    "investorPortal": "Investor Portal"
+    "aboutUs": "About Us",
+    "opportunities": "Opportunities",
+    "epData": "E&P Data",
+    "media": "Media",
+    "production": "Production",
+    "localContent": "Local Content",
+    "investorPortal": "Investor Portal",
+    "submenu": {
+      "anpg": "ANPG",
+      "ourHistory": "Our History",
+      "socialResponsibility": "Social Responsibility",
+      "contacts": "Contacts",
+      "tender2025": "Tender 2025",
+      "permanentOffer": "Permanent Offer",
+      "tender2023": "Tender 2023",
+      "platformIona": "IONA Platform",
+      "oasisImageBank": "OASIS – Image Bank",
+      "dataPackages": "Data Packages",
+      "epMaps": "E&P Maps",
+      "conference2021": "Conference 2021",
+      "dataConference2023": "2nd Data Management Conference 2023"
+    }
   },
   "hero": {
     "subtitle": "National Oil, Gas and Biofuels Agency",

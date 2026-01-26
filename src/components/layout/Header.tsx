@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
@@ -9,18 +9,59 @@ import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { cn } from "@/lib/utils";
 
+interface SubMenuItem {
+  nameKey: string;
+  href: string;
+}
+
+interface NavItem {
+  nameKey: string;
+  href: string;
+  submenu?: SubMenuItem[];
+}
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(null);
   const { t } = useTranslation();
 
-  const navigation = [
-    { name: t("nav.about"), href: "/about" },
-    { name: t("nav.regulation"), href: "/regulation" },
-    { name: t("nav.investment"), href: "/investment" },
-    { name: t("nav.data"), href: "/data" },
-    { name: t("nav.news"), href: "/news" },
-    { name: t("nav.careers"), href: "/careers" },
+  const navigation: NavItem[] = [
+    {
+      nameKey: "nav.aboutUs",
+      href: "/about",
+      submenu: [
+        { nameKey: "nav.submenu.anpg", href: "/about/anpg" },
+        { nameKey: "nav.submenu.ourHistory", href: "/about/history" },
+        { nameKey: "nav.submenu.socialResponsibility", href: "/about/social-responsibility" },
+        { nameKey: "nav.submenu.contacts", href: "/contacts" },
+      ],
+    },
+    {
+      nameKey: "nav.opportunities",
+      href: "/opportunities",
+      submenu: [
+        { nameKey: "nav.submenu.tender2025", href: "/opportunities/tender-2025" },
+        { nameKey: "nav.submenu.permanentOffer", href: "/opportunities/permanent-offer" },
+        { nameKey: "nav.submenu.tender2023", href: "/opportunities/tender-2023" },
+      ],
+    },
+    {
+      nameKey: "nav.epData",
+      href: "/ep-data",
+      submenu: [
+        { nameKey: "nav.submenu.platformIona", href: "/ep-data/iona" },
+        { nameKey: "nav.submenu.oasisImageBank", href: "/ep-data/oasis" },
+        { nameKey: "nav.submenu.dataPackages", href: "/ep-data/packages" },
+        { nameKey: "nav.submenu.epMaps", href: "/ep-data/maps" },
+        { nameKey: "nav.submenu.conference2021", href: "/ep-data/conference-2021" },
+        { nameKey: "nav.submenu.dataConference2023", href: "/ep-data/conference-2023" },
+      ],
+    },
+    { nameKey: "nav.media", href: "/media" },
+    { nameKey: "nav.production", href: "/production" },
+    { nameKey: "nav.localContent", href: "/local-content" },
   ];
 
   useEffect(() => {
@@ -31,6 +72,18 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleMouseEnter = (nameKey: string) => {
+    setOpenDropdown(nameKey);
+  };
+
+  const handleMouseLeave = () => {
+    setOpenDropdown(null);
+  };
+
+  const toggleMobileSubmenu = (nameKey: string) => {
+    setMobileOpenSubmenu(mobileOpenSubmenu === nameKey ? null : nameKey);
+  };
 
   return (
     <header
@@ -56,23 +109,60 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {navigation.map((item, index) => (
               <motion.div
-                key={item.name}
+                key={item.nameKey}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="relative"
+                onMouseEnter={() => item.submenu && handleMouseEnter(item.nameKey)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.href}
                   className={cn(
-                    "nav-link link-underline",
-                    isScrolled ? "nav-link-dark" : "nav-link-light"
+                    "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-sm",
+                    isScrolled
+                      ? "text-foreground hover:text-primary hover:bg-secondary"
+                      : "text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary-foreground/10",
+                    openDropdown === item.nameKey && (isScrolled ? "text-primary" : "text-primary")
                   )}
                 >
-                  {item.name}
+                  {t(item.nameKey)}
+                  {item.submenu && (
+                    <ChevronDown 
+                      className={cn(
+                        "w-4 h-4 transition-transform duration-200",
+                        openDropdown === item.nameKey && "rotate-180"
+                      )} 
+                    />
+                  )}
                 </Link>
+
+                {/* Dropdown */}
+                <AnimatePresence>
+                  {item.submenu && openDropdown === item.nameKey && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-1 min-w-[240px] bg-background rounded-sm shadow-lg border border-border overflow-hidden"
+                    >
+                      {item.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.nameKey}
+                          to={subItem.href}
+                          className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors border-b border-border/50 last:border-b-0"
+                        >
+                          {t(subItem.nameKey)}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
@@ -123,19 +213,59 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-background border-t border-border"
+            className="lg:hidden bg-background border-t border-border max-h-[80vh] overflow-y-auto"
           >
             <div className="container mx-auto px-6 py-6">
-              <nav className="flex flex-col gap-4">
+              <nav className="flex flex-col gap-2">
                 {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-foreground font-medium py-2 hover:text-primary transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
+                  <div key={item.nameKey}>
+                    {item.submenu ? (
+                      <>
+                        <button
+                          onClick={() => toggleMobileSubmenu(item.nameKey)}
+                          className="w-full flex items-center justify-between text-foreground font-medium py-3 hover:text-primary transition-colors"
+                        >
+                          {t(item.nameKey)}
+                          <ChevronDown 
+                            className={cn(
+                              "w-5 h-5 transition-transform duration-200",
+                              mobileOpenSubmenu === item.nameKey && "rotate-180"
+                            )} 
+                          />
+                        </button>
+                        <AnimatePresence>
+                          {mobileOpenSubmenu === item.nameKey && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="pl-4 border-l-2 border-primary/30 ml-2"
+                            >
+                              {item.submenu.map((subItem) => (
+                                <Link
+                                  key={subItem.nameKey}
+                                  to={subItem.href}
+                                  className="block py-2.5 text-muted-foreground hover:text-primary transition-colors"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {t(subItem.nameKey)}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="block text-foreground font-medium py-3 hover:text-primary transition-colors"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t(item.nameKey)}
+                      </Link>
+                    )}
+                  </div>
                 ))}
                 <Button variant="hero" size="lg" className="mt-4">
                   {t("nav.investorPortal")}
