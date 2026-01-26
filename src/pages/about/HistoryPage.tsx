@@ -36,7 +36,7 @@ export default function HistoryPage() {
       <SectionTransition delay={0.1}>
         <section>
           <div className="flex items-center gap-3 mb-12">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shadow-sm">
               <Calendar className="w-6 h-6 text-primary" />
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground">
@@ -61,8 +61,8 @@ export default function HistoryPage() {
                   
                   {/* Content */}
                   <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}>
-                    <div className="p-6 rounded-2xl bg-secondary/50 border border-border hover:border-primary/30 transition-colors">
-                      <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-lg mb-3">
+                    <div className="p-6 rounded-2xl bg-secondary/50 border border-border/50 shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-300">
+                      <span className="inline-block px-4 py-1.5 rounded-pill bg-primary/10 text-primary font-bold text-lg mb-3">
                         {year}
                       </span>
                       <h3 className="text-xl font-bold text-foreground mb-2">
