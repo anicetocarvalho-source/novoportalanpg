@@ -117,7 +117,7 @@ export function Header() {
             <motion.img
               src={isScrolled ? logoRed : logoWhite}
               alt="ANPG - Agência Nacional de Petróleo, Gás e Biocombustíveis"
-              className="h-14 md:h-16 w-auto transition-all duration-300"
+              className="h-16 md:h-20 w-auto transition-all duration-300"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
