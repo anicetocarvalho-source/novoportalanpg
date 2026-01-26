@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, TrendingUp } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
@@ -45,6 +45,19 @@ export function Header() {
       ],
     },
     {
+      nameKey: "nav.services",
+      href: "/regulation",
+      megaMenuColumns: 3,
+      submenu: [
+        { nameKey: "nav.submenu.regulation", descriptionKey: "nav.submenu.regulationDesc", href: "/regulation", icon: Scale },
+        { nameKey: "nav.submenu.licensing", descriptionKey: "nav.submenu.licensingDesc", href: "/regulation/licensing", icon: FileCheck },
+        { nameKey: "nav.submenu.oversight", descriptionKey: "nav.submenu.oversightDesc", href: "/regulation/oversight", icon: Shield },
+        { nameKey: "nav.submenu.tenders", descriptionKey: "nav.submenu.tendersDesc", href: "/regulation/tenders", icon: Globe2 },
+        { nameKey: "nav.submenu.dataAnalytics", descriptionKey: "nav.submenu.dataAnalyticsDesc", href: "/data", icon: BarChart3 },
+        { nameKey: "nav.submenu.sustainability", descriptionKey: "nav.submenu.sustainabilityDesc", href: "/sustainability", icon: Leaf },
+      ],
+    },
+    {
       nameKey: "nav.opportunities",
       href: "/opportunities",
       megaMenuColumns: 2,
@@ -74,7 +87,7 @@ export function Header() {
       megaMenuColumns: 2,
       submenu: [
         { nameKey: "nav.submenu.productionOverview", descriptionKey: "nav.submenu.productionOverviewDesc", href: "/production", icon: BarChart3 },
-        { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: History },
+        { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: TrendingUp },
       ],
     },
     { nameKey: "nav.localContent", href: "/local-content" },
