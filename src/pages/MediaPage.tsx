@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { 
   Newspaper, 
   Calendar, 
@@ -19,16 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-
-interface NewsItem {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  image: string;
-  excerpt: string;
-  url: string;
-}
+import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 
 interface Publication {
   id: string;
@@ -59,63 +51,6 @@ const newsCategories = [
   { key: "tender", label: "Concurso Público" },
   { key: "highlight", label: "Destaque" },
   { key: "production", label: "Produção Mensal" },
-];
-
-const newsItems: NewsItem[] = [
-  {
-    id: "1",
-    title: "UNIVERSIDADES APRESENTAM À ANPG PROJECTOS NO DOMÍNIO DOS BIOCOMBUSTÍVEIS",
-    date: "26 de Janeiro, 2026",
-    category: "highlight",
-    image: "https://anpg.co.ao/wp-content/uploads/2026/01/Thumbmail_biocombustivel.jpg",
-    excerpt: "Instituições de ensino superior apresentam projectos inovadores para o desenvolvimento do sector de biocombustíveis em Angola.",
-    url: "https://anpg.co.ao/noticias/universidades-apresentam-a-anpg-projectos-no-dominio-dos-biocombustiveis/",
-  },
-  {
-    id: "2",
-    title: "ANPG E AZULE ENERGY ABREM CANDIDATURAS PARA A 8.ª EDIÇÃO DO PROGRAMA DE ESTÁGIO PROFISSIONAL E COMUNITÁRIO",
-    date: "23 de Janeiro, 2026",
-    category: "press",
-    image: "https://anpg.co.ao/wp-content/uploads/2026/01/Estagios_profissionais_hmpg_700x400px.jpg",
-    excerpt: "Nova edição do programa de estágios abre oportunidades para jovens angolanos no sector petrolífero.",
-    url: "https://anpg.co.ao/noticias/anpg-e-azule-energy-abrem-candidaturas-para-a-8-a-edicao-do-programa-de-estagio-profissional-e-comunitario/",
-  },
-  {
-    id: "3",
-    title: "ANPG APRESENTA DEZ PROJECTOS ESTRUTURANTES DO SECTOR PETROLÍFERO EM CONSELHO CONSULTIVO",
-    date: "31 de Dezembro, 2025",
-    category: "highlight",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/12/web_Conselho_consultivo.jpg",
-    excerpt: "Conselho consultivo analisa projectos estratégicos para o futuro do sector petrolífero angolano.",
-    url: "https://anpg.co.ao/noticias/anpg-apresenta-dez-projectos-estruturantes-do-sector-petrolifero-em-conselho-consultivo/",
-  },
-  {
-    id: "4",
-    title: "SECTOR PETROLÍFERO LEVA À CONSULTA PÚBLICA LEI SOBRE BIOCOMBUSTÍVEIS",
-    date: "31 de Dezembro, 2025",
-    category: "press",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/12/web_Consultivo_Biocombustiveis.jpg",
-    excerpt: "Nova legislação sobre biocombustíveis é submetida a consulta pública para contribuições da sociedade.",
-    url: "https://anpg.co.ao/noticias/sector-petrolifero-leva-a-consulta-publica-lei-sobre-biocombustiveis/",
-  },
-  {
-    id: "5",
-    title: "ANPG, CABGOC E PARCEIROS DO BLOCO 0 REGISTAM INÍCIO DE PRODUÇÃO DO PROJECTO N'DOLA SUL",
-    date: "25 de Dezembro, 2025",
-    category: "production",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/12/Bloco_0_Projecto-Ndola-Sul.jpg",
-    excerpt: "Marco histórico com o início de produção do projecto N'Dola Sul no Bloco 0.",
-    url: "https://anpg.co.ao/noticias/anpg-cabgoc-e-parceiros-do-bloco-0-registam-inicio-de-producao-do-projecto-ndola-sul/",
-  },
-  {
-    id: "6",
-    title: "ANPG AVALIA PANORAMA ENERGÉTICO E OPORTUNIDADES PARA ANGOLA ATÉ 2035",
-    date: "12 de Dezembro, 2025",
-    category: "highlight",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/12/Capa_website_Energetico.jpg",
-    excerpt: "Análise estratégica das oportunidades e desafios do sector energético angolano para a próxima década.",
-    url: "https://anpg.co.ao/noticias/anpg-avalia-panorama-energetico-e-oportunidades-para-angola-ate-2035/",
-  },
 ];
 
 const publications: Publication[] = [
@@ -220,26 +155,6 @@ export default function MediaPage() {
     ? newsItems 
     : newsItems.filter(item => item.category === selectedCategory);
 
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case "press": return "Comunicado";
-      case "tender": return "Concurso";
-      case "highlight": return "Destaque";
-      case "production": return "Produção";
-      default: return category;
-    }
-  };
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "press": return "bg-blue-500/10 text-blue-600 border-blue-500/20";
-      case "tender": return "bg-amber-500/10 text-amber-600 border-amber-500/20";
-      case "highlight": return "bg-primary/10 text-primary border-primary/20";
-      case "production": return "bg-green-500/10 text-green-600 border-green-500/20";
-      default: return "bg-muted text-muted-foreground";
-    }
-  };
-
   return (
     <PageLayout
       titleKey="pages.media.title"
@@ -316,10 +231,8 @@ export default function MediaPage() {
             {/* Featured News */}
             {filteredNews.length > 0 && (
               <div className="mb-8">
-                <a 
-                  href={filteredNews[0].url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link 
+                  to={`/news/${filteredNews[0].id}`}
                   className="group block"
                 >
                   <div className="relative rounded-2xl overflow-hidden bg-secondary/50 border border-border hover:border-primary/30 transition-all duration-300">
@@ -348,7 +261,7 @@ export default function MediaPage() {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             )}
 
@@ -356,10 +269,8 @@ export default function MediaPage() {
             <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredNews.slice(1).map((news) => (
                 <StaggerItem key={news.id}>
-                  <a 
-                    href={news.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <Link 
+                    to={`/news/${news.id}`}
                     className="group block h-full"
                   >
                     <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg h-full flex flex-col">
@@ -383,7 +294,7 @@ export default function MediaPage() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </StaggerItem>
               ))}
             </StaggerContainer>
