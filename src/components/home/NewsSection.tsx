@@ -140,7 +140,7 @@ export function NewsSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-6 group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+              className="lg:col-span-6 group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-2 relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 before:ease-out before:z-10 before:pointer-events-none"
             >
               <div className="relative overflow-hidden">
                 <AspectRatio ratio={16 / 9}>
@@ -187,7 +187,7 @@ export function NewsSection() {
                 initial={{ opacity: 0, x: 30 }}
                 animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
                 transition={{ duration: 0.5, delay: 0.15 + index * 0.08 }}
-                className="group flex gap-4 p-3 bg-background rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
+                className="group flex gap-4 p-3 bg-background rounded-xl shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 border border-transparent relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-primary/10 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 before:ease-out before:pointer-events-none"
               >
                 {/* Thumbnail */}
                 <div className="flex-shrink-0 w-28 h-20 rounded-lg overflow-hidden">
@@ -230,7 +230,7 @@ export function NewsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.06 }}
-              className="group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+              className="group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/25 before:to-transparent before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-500 before:ease-out before:z-20 before:pointer-events-none"
             >
               {/* Small Image */}
               <div className="relative overflow-hidden">
