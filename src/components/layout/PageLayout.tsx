@@ -6,9 +6,12 @@ import { PageBreadcrumb, BreadcrumbItem } from "./PageBreadcrumb";
 import { SectionTransition } from "./SectionTransition";
 
 interface PageLayoutProps {
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   subtitleKey?: string;
+  subtitle?: string;
   descriptionKey?: string;
+  description?: string;
   backgroundImage?: string;
   icon?: ReactNode;
   heroChildren?: ReactNode;
@@ -18,8 +21,11 @@ interface PageLayoutProps {
 
 export function PageLayout({
   titleKey,
+  title,
   subtitleKey,
+  subtitle,
   descriptionKey,
+  description,
   backgroundImage,
   icon,
   heroChildren,
@@ -33,8 +39,11 @@ export function PageLayout({
       {/* Hero Section */}
       <PageHero
         titleKey={titleKey}
+        title={title}
         subtitleKey={subtitleKey}
+        subtitle={subtitle}
         descriptionKey={descriptionKey}
+        description={description}
         backgroundImage={backgroundImage}
         icon={icon}
       >

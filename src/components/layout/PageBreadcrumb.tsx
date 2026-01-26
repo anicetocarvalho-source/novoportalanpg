@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
 export interface BreadcrumbItem {
-  labelKey: string;
+  labelKey?: string;
+  label?: string;
   href?: string;
 }
 
@@ -36,23 +37,26 @@ export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
             </Link>
           </li>
 
-          {items.map((item, index) => (
-            <li key={index} className="flex items-center gap-2">
-              <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
-              {item.href && index !== items.length - 1 ? (
-                <Link
-                  to={item.href}
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {t(item.labelKey)}
-                </Link>
-              ) : (
-                <span className="text-foreground font-medium">
-                  {t(item.labelKey)}
-                </span>
-              )}
-            </li>
-          ))}
+          {items.map((item, index) => {
+            const displayLabel = item.label || (item.labelKey ? t(item.labelKey) : '');
+            return (
+              <li key={index} className="flex items-center gap-2">
+                <ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+                {item.href && index !== items.length - 1 ? (
+                  <Link
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {displayLabel}
+                  </Link>
+                ) : (
+                  <span className="text-foreground font-medium">
+                    {displayLabel}
+                  </span>
+                )}
+              </li>
+            );
+          })}
         </ol>
       </div>
     </motion.nav>

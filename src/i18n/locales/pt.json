@@ -219,6 +219,13 @@
       "subtitle": "Blocos & Operadores",
       "description": "Mapa interactivo de todos os blocos petrolíferos de Angola com informações detalhadas sobre operadores e participações."
     },
+    "blockDetails": {
+      "title": "Detalhes do Bloco",
+      "subtitle": "Informação Técnica",
+      "description": "Informações detalhadas sobre o bloco petrolífero.",
+      "notFound": "Bloco Não Encontrado",
+      "notFoundDesc": "O bloco solicitado não foi encontrado na nossa base de dados."
+    },
     "conference2021": {
       "title": "Conferência de Dados 2021",
       "subtitle": "Evento",
