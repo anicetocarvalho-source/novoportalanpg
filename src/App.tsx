@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { PageTransition } from "@/components/layout/PageTransition";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -33,7 +34,6 @@ import Conference2023Page from "./pages/ep-data/Conference2023Page";
 import MediaPage from "./pages/MediaPage";
 import ProductionPage from "./pages/ProductionPage";
 import LocalContentPage from "./pages/LocalContentPage";
-import { PageTransition } from "@/components/layout/PageTransition";
 
 const queryClient = new QueryClient();
 
@@ -42,39 +42,41 @@ function AnimatedRoutes() {
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Index /></PageTransition>} />
-        
-        {/* About Us */}
-        <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
-        <Route path="/about/anpg" element={<PageTransition><AnpgPage /></PageTransition>} />
-        <Route path="/about/history" element={<PageTransition><HistoryPage /></PageTransition>} />
-        <Route path="/about/social-responsibility" element={<PageTransition><SocialResponsibilityPage /></PageTransition>} />
-        <Route path="/contacts" element={<PageTransition><ContactsPage /></PageTransition>} />
-        
-        {/* Opportunities */}
-        <Route path="/opportunities" element={<PageTransition><OpportunitiesPage /></PageTransition>} />
-        <Route path="/opportunities/tender-2025" element={<PageTransition><Tender2025Page /></PageTransition>} />
-        <Route path="/opportunities/permanent-offer" element={<PageTransition><PermanentOfferPage /></PageTransition>} />
-        <Route path="/opportunities/tender-2023" element={<PageTransition><Tender2023Page /></PageTransition>} />
-        
-        {/* E&P Data */}
-        <Route path="/ep-data" element={<PageTransition><EpDataPage /></PageTransition>} />
-        <Route path="/ep-data/iona" element={<PageTransition><IonaPage /></PageTransition>} />
-        <Route path="/ep-data/oasis" element={<PageTransition><OasisPage /></PageTransition>} />
-        <Route path="/ep-data/packages" element={<PageTransition><DataPackagesPage /></PageTransition>} />
-        <Route path="/ep-data/maps" element={<PageTransition><EpMapsPage /></PageTransition>} />
-        <Route path="/ep-data/conference-2021" element={<PageTransition><Conference2021Page /></PageTransition>} />
-        <Route path="/ep-data/conference-2023" element={<PageTransition><Conference2023Page /></PageTransition>} />
-        
-        {/* Other pages */}
-        <Route path="/media" element={<PageTransition><MediaPage /></PageTransition>} />
-        <Route path="/production" element={<PageTransition><ProductionPage /></PageTransition>} />
-        <Route path="/local-content" element={<PageTransition><LocalContentPage /></PageTransition>} />
-        
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-      </Routes>
+      <PageTransition key={location.pathname}>
+        <Routes location={location}>
+          <Route path="/" element={<Index />} />
+          
+          {/* About Us */}
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about/anpg" element={<AnpgPage />} />
+          <Route path="/about/history" element={<HistoryPage />} />
+          <Route path="/about/social-responsibility" element={<SocialResponsibilityPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          
+          {/* Opportunities */}
+          <Route path="/opportunities" element={<OpportunitiesPage />} />
+          <Route path="/opportunities/tender-2025" element={<Tender2025Page />} />
+          <Route path="/opportunities/permanent-offer" element={<PermanentOfferPage />} />
+          <Route path="/opportunities/tender-2023" element={<Tender2023Page />} />
+          
+          {/* E&P Data */}
+          <Route path="/ep-data" element={<EpDataPage />} />
+          <Route path="/ep-data/iona" element={<IonaPage />} />
+          <Route path="/ep-data/oasis" element={<OasisPage />} />
+          <Route path="/ep-data/packages" element={<DataPackagesPage />} />
+          <Route path="/ep-data/maps" element={<EpMapsPage />} />
+          <Route path="/ep-data/conference-2021" element={<Conference2021Page />} />
+          <Route path="/ep-data/conference-2023" element={<Conference2023Page />} />
+          
+          {/* Other pages */}
+          <Route path="/media" element={<MediaPage />} />
+          <Route path="/production" element={<ProductionPage />} />
+          <Route path="/local-content" element={<LocalContentPage />} />
+          
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </PageTransition>
     </AnimatePresence>
   );
 }

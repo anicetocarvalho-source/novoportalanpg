@@ -3,7 +3,6 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { PageHero } from "./PageHero";
 import { PageBreadcrumb, BreadcrumbItem } from "./PageBreadcrumb";
-import { PageTransition } from "./PageTransition";
 import { SectionTransition } from "./SectionTransition";
 
 interface PageLayoutProps {
@@ -28,35 +27,33 @@ export function PageLayout({
   children,
 }: PageLayoutProps) {
   return (
-    <PageTransition>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        
-        {/* Hero Section */}
-        <PageHero
-          titleKey={titleKey}
-          subtitleKey={subtitleKey}
-          descriptionKey={descriptionKey}
-          backgroundImage={backgroundImage}
-          icon={icon}
-        >
-          {heroChildren}
-        </PageHero>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      
+      {/* Hero Section */}
+      <PageHero
+        titleKey={titleKey}
+        subtitleKey={subtitleKey}
+        descriptionKey={descriptionKey}
+        backgroundImage={backgroundImage}
+        icon={icon}
+      >
+        {heroChildren}
+      </PageHero>
 
-        {/* Breadcrumb */}
-        <PageBreadcrumb items={breadcrumbs} />
+      {/* Breadcrumb */}
+      <PageBreadcrumb items={breadcrumbs} />
 
-        {/* Main Content */}
-        <main className="flex-1 bg-background">
-          <SectionTransition>
-            <div className="container mx-auto px-6 lg:px-8 py-16 lg:py-24">
-              {children}
-            </div>
-          </SectionTransition>
-        </main>
+      {/* Main Content */}
+      <main className="flex-1 bg-background">
+        <SectionTransition>
+          <div className="container mx-auto px-6 lg:px-8 py-16 lg:py-24">
+            {children}
+          </div>
+        </SectionTransition>
+      </main>
 
-        <Footer />
-      </div>
-    </PageTransition>
+      <Footer />
+    </div>
   );
 }
