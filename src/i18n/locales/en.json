@@ -9,18 +9,31 @@
     "investorPortal": "Investor Portal",
     "submenu": {
       "anpg": "ANPG",
+      "anpgDesc": "Learn about the National Oil, Gas and Biofuels Agency",
       "ourHistory": "Our History",
+      "ourHistoryDesc": "Decades of experience in Angola's petroleum sector",
       "socialResponsibility": "Social Responsibility",
+      "socialResponsibilityDesc": "Commitment to Angola's sustainable development",
       "contacts": "Contacts",
+      "contactsDesc": "Get in touch with our teams",
       "tender2025": "Tender 2025",
+      "tender2025Desc": "Investment opportunities in the current public tender",
       "permanentOffer": "Permanent Offer",
+      "permanentOfferDesc": "Blocks available for continuous negotiation",
       "tender2023": "Tender 2023",
+      "tender2023Desc": "Results and information from the previous tender",
       "platformIona": "IONA Platform",
+      "platformIonaDesc": "Integrated E&P data management system",
       "oasisImageBank": "OASIS – Image Bank",
+      "oasisImageBankDesc": "Seismic and geological image repository",
       "dataPackages": "Data Packages",
+      "dataPackagesDesc": "Technical data available for licensing",
       "epMaps": "E&P Maps",
+      "epMapsDesc": "Interactive exploration and production maps",
       "conference2021": "Conference 2021",
-      "dataConference2023": "2nd Data Management Conference 2023"
+      "conference2021Desc": "Highlights from the 2021 data conference",
+      "dataConference2023": "2nd Data Management Conference 2023",
+      "dataConference2023Desc": "The latest conference on data management"
     }
   },
   "hero": {

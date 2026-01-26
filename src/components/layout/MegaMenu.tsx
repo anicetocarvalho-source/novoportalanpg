@@ -1,0 +1,72 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export interface MegaMenuItem {
+  nameKey: string;
+  descriptionKey: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+interface MegaMenuProps {
+  items: MegaMenuItem[];
+  columns?: 2 | 3;
+  onItemClick?: () => void;
+}
+
+export function MegaMenu({ items, columns = 2, onItemClick }: MegaMenuProps) {
+  const { t } = useTranslation();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className={cn(
+        "absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-background rounded-lg shadow-2xl border border-border overflow-hidden",
+        columns === 3 ? "w-[600px]" : "w-[480px]"
+      )}
+    >
+      {/* Decorative top border */}
+      <div className="h-1 bg-gradient-to-r from-primary via-primary/80 to-primary" />
+      
+      <div className={cn(
+        "grid gap-1 p-3",
+        columns === 3 ? "grid-cols-3" : "grid-cols-2"
+      )}>
+        {items.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.nameKey}
+              to={item.href}
+              onClick={onItemClick}
+              className="group flex items-start gap-3 p-3 rounded-md hover:bg-secondary transition-all duration-200"
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: index * 0.05 }}
+                className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-200"
+              >
+                <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+              </motion.div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {t(item.nameKey)}
+                </h4>
+                <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                  {t(item.descriptionKey)}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
