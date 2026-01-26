@@ -184,30 +184,76 @@
     @apply text-lg md:text-xl text-muted-foreground max-w-2xl;
   }
   
-  /* Card Styles - Modern Institutional */
+  /* Card Styles - Modern Institutional with Sophisticated Hover */
   .card-institutional {
-    @apply bg-card rounded-xl border border-border/50 shadow-card hover:shadow-card-hover transition-all duration-300;
+    @apply bg-card rounded-xl border border-border/50 shadow-card transition-all duration-300 ease-out;
+  }
+  
+  .card-institutional:hover {
+    @apply -translate-y-1.5 border-primary/20;
+    box-shadow: var(--shadow-card-hover), 0 0 0 1px hsl(var(--primary) / 0.08);
   }
   
   .card-stat {
-    @apply bg-gradient-to-br from-card to-secondary/30 rounded-xl p-8 text-center shadow-card;
+    @apply bg-gradient-to-br from-card to-secondary/30 rounded-xl p-8 text-center shadow-card transition-all duration-300 ease-out;
+  }
+  
+  .card-stat:hover {
+    @apply -translate-y-1 scale-[1.02];
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .card-stat:hover .stat-number {
+    @apply scale-105 transition-transform duration-300;
   }
   
   .card-featured {
-    @apply bg-card rounded-2xl border border-border/30 shadow-elevated hover:shadow-modal transition-all duration-300;
+    @apply bg-card rounded-2xl border border-border/30 shadow-elevated transition-all duration-400 ease-out;
   }
   
-  /* Button Variants - Rounded Modern */
+  .card-featured:hover {
+    @apply -translate-y-2 scale-[1.01] border-primary/25;
+    box-shadow: var(--shadow-modal), 0 0 40px hsl(var(--primary) / 0.1);
+  }
+  
+  /* Button Variants - Rounded Modern with Scale Effects */
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-md font-medium shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200;
+    @apply bg-primary text-primary-foreground px-8 py-3 rounded-md font-medium shadow-sm transition-all duration-200 ease-out;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-primary/90 -translate-y-0.5 scale-[1.02];
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-primary:active {
+    @apply translate-y-0 scale-[0.98];
   }
   
   .btn-outline-light {
-    @apply border-2 border-white/80 text-white hover:bg-white hover:text-foreground px-8 py-3 rounded-md font-medium hover:shadow-lg transition-all duration-200;
+    @apply border-2 border-white/80 text-white px-8 py-3 rounded-md font-medium transition-all duration-200 ease-out;
+  }
+  
+  .btn-outline-light:hover {
+    @apply bg-white text-foreground -translate-y-0.5 scale-[1.02];
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .btn-outline-light:active {
+    @apply translate-y-0 scale-[0.98];
   }
   
   .btn-outline-dark {
-    @apply border-2 border-foreground text-foreground hover:bg-foreground hover:text-background px-8 py-3 rounded-md font-medium hover:shadow-md transition-all duration-200;
+    @apply border-2 border-foreground text-foreground px-8 py-3 rounded-md font-medium transition-all duration-200 ease-out;
+  }
+  
+  .btn-outline-dark:hover {
+    @apply bg-foreground text-background -translate-y-0.5 scale-[1.02];
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-outline-dark:active {
+    @apply translate-y-0 scale-[0.98];
   }
   
   /* Link styles */
@@ -316,6 +362,187 @@
   .delay-600 { animation-delay: 600ms; }
   .delay-700 { animation-delay: 700ms; }
   .delay-800 { animation-delay: 800ms; }
+  
+  /* ========================================
+     SOPHISTICATED HOVER ANIMATIONS
+     Premium institutional hover effects
+     ======================================== */
+  
+  /* Base hover transition - apply to any interactive element */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-lift:hover {
+    @apply -translate-y-1;
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  /* Progressive shadow on hover - subtle to prominent */
+  .hover-shadow {
+    @apply transition-shadow duration-300 ease-out;
+    box-shadow: var(--shadow-xs);
+  }
+  
+  .hover-shadow:hover {
+    box-shadow: var(--shadow-elevated);
+  }
+  
+  /* Scale with shadow - elegant card effect */
+  .hover-scale-shadow {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-scale-shadow:hover {
+    @apply scale-[1.02];
+    box-shadow: var(--shadow-card-hover);
+  }
+  
+  /* Premium card hover - lift + shadow + subtle border glow */
+  .hover-card-premium {
+    @apply transition-all duration-300 ease-out border-border/50;
+  }
+  
+  .hover-card-premium:hover {
+    @apply -translate-y-1 border-primary/20;
+    box-shadow: var(--shadow-card-hover), 0 0 0 1px hsl(var(--primary) / 0.1);
+  }
+  
+  /* Button hover with scale and shadow */
+  .hover-btn {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  .hover-btn:hover {
+    @apply -translate-y-0.5 scale-[1.02];
+    box-shadow: var(--shadow-md);
+  }
+  
+  .hover-btn:active {
+    @apply translate-y-0 scale-[0.98];
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Hero button - dramatic effect */
+  .hover-btn-hero {
+    @apply transition-all duration-300 ease-out;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .hover-btn-hero:hover {
+    @apply -translate-y-1 scale-[1.03];
+    box-shadow: var(--shadow-xl), 0 0 30px hsl(var(--primary) / 0.2);
+  }
+  
+  .hover-btn-hero:active {
+    @apply translate-y-0 scale-[0.98];
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Icon button - subtle scale */
+  .hover-icon {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  .hover-icon:hover {
+    @apply scale-110;
+  }
+  
+  .hover-icon:active {
+    @apply scale-95;
+  }
+  
+  /* Image hover - zoom within container */
+  .hover-img-zoom {
+    @apply overflow-hidden;
+  }
+  
+  .hover-img-zoom img,
+  .hover-img-zoom > * {
+    @apply transition-transform duration-500 ease-out;
+  }
+  
+  .hover-img-zoom:hover img,
+  .hover-img-zoom:hover > * {
+    @apply scale-105;
+  }
+  
+  /* Glow effect - for primary action items */
+  .hover-glow {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), var(--shadow-md);
+  }
+  
+  /* Subtle shine effect */
+  .hover-shine {
+    @apply relative overflow-hidden;
+  }
+  
+  .hover-shine::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      hsl(0 0% 100% / 0.1) 45%,
+      hsl(0 0% 100% / 0.2) 50%,
+      hsl(0 0% 100% / 0.1) 55%,
+      transparent 60%
+    );
+  }
+  
+  .hover-shine:hover::before {
+    @apply opacity-100;
+    animation: shine 0.6s ease-out;
+  }
+  
+  /* Border highlight on hover */
+  .hover-border {
+    @apply transition-all duration-300 ease-out border-transparent;
+  }
+  
+  .hover-border:hover {
+    @apply border-primary/30;
+  }
+  
+  /* Combined: card with all premium effects */
+  .card-interactive {
+    @apply transition-all duration-300 ease-out border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .card-interactive:hover {
+    @apply -translate-y-1.5 border-primary/20;
+    box-shadow: var(--shadow-card-hover), 0 0 0 1px hsl(var(--primary) / 0.08);
+  }
+  
+  /* Featured card - more dramatic */
+  .card-featured-interactive {
+    @apply transition-all duration-400 ease-out border-border/30;
+    box-shadow: var(--shadow-elevated);
+  }
+  
+  .card-featured-interactive:hover {
+    @apply -translate-y-2 scale-[1.01] border-primary/25;
+    box-shadow: var(--shadow-modal), 0 0 40px hsl(var(--primary) / 0.1);
+  }
+  
+  /* Stat card hover */
+  .card-stat-interactive {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .card-stat-interactive:hover {
+    @apply -translate-y-1 scale-[1.02];
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .card-stat-interactive:hover .stat-number {
+    @apply scale-105;
+  }
 }
 
 @keyframes fadeUp {
@@ -364,5 +591,23 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.4);
   }
 }
