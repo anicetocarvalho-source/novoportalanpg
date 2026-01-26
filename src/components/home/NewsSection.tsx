@@ -1,10 +1,9 @@
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Calendar, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import useEmblaCarousel from "embla-carousel-react";
 
 // News images
 import tender2025Img from "@/assets/news/tender-2025.jpg";
@@ -20,21 +19,6 @@ export function NewsSection() {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: false,
-    skipSnaps: false,
-    containScroll: "trimSnaps",
-  });
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
 
   const news = [
     {
@@ -120,7 +104,8 @@ export function NewsSection() {
   ];
 
   const featuredNews = news.find((n) => n.featured);
-  const otherNews = news.filter((n) => !n.featured);
+  const secondaryNews = news.filter((n) => !n.featured).slice(0, 3);
+  const compactNews = news.filter((n) => !n.featured).slice(3);
 
   return (
     <section ref={ref} className="section-padding bg-secondary/30 overflow-hidden">
@@ -130,7 +115,7 @@ export function NewsSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10"
         >
           <div>
             <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
@@ -146,26 +131,25 @@ export function NewsSection() {
           </Button>
         </motion.div>
 
-        {/* News Grid */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Featured News */}
+        {/* Main Grid: Featured + 3 Secondary Cards */}
+        <div className="grid lg:grid-cols-12 gap-6 mb-6">
+          {/* Featured News - Large Card */}
           {featuredNews && (
             <motion.a
               href={`/news/${featuredNews.id}`}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+              className="lg:col-span-6 group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Featured image */}
               <div className="relative overflow-hidden">
-                <AspectRatio ratio={16 / 10}>
+                <AspectRatio ratio={16 / 9}>
                   <img 
                     src={featuredNews.image} 
                     alt={t(featuredNews.titleKey)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/30 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <span className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-pill mb-3">
                       {t(featuredNews.categoryKey)}
@@ -176,17 +160,17 @@ export function NewsSection() {
                   </div>
                 </AspectRatio>
               </div>
-              <div className="p-6">
-                <p className="text-muted-foreground mb-4 line-clamp-2">
+              <div className="p-5">
+                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
                   {t(featuredNews.excerptKey)}
                 </p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="w-3.5 h-3.5" />
                     {featuredNews.date}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4" />
+                    <Clock className="w-3.5 h-3.5" />
                     {featuredNews.readTime}
                   </span>
                 </div>
@@ -194,84 +178,87 @@ export function NewsSection() {
             </motion.a>
           )}
 
-          {/* Carousel for Other News */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            {/* Carousel Navigation */}
-            <div className="flex items-center justify-end gap-2 mb-4">
-              <button
-                onClick={scrollPrev}
-                className="p-2 rounded-lg bg-background border border-border/50 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95"
-                aria-label="Previous news"
+          {/* Secondary News Grid - 3 Medium Cards */}
+          <div className="lg:col-span-6 grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            {secondaryNews.map((item, index) => (
+              <motion.a
+                key={item.id}
+                href={`/news/${item.id}`}
+                initial={{ opacity: 0, x: 30 }}
+                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+                transition={{ duration: 0.5, delay: 0.15 + index * 0.08 }}
+                className="group flex gap-4 p-3 bg-background rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
               >
-                <ChevronLeft className="w-5 h-5 text-foreground" />
-              </button>
-              <button
-                onClick={scrollNext}
-                className="p-2 rounded-lg bg-background border border-border/50 hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 shadow-sm hover:shadow-md active:scale-95"
-                aria-label="Next news"
-              >
-                <ChevronRight className="w-5 h-5 text-foreground" />
-              </button>
-            </div>
+                {/* Thumbnail */}
+                <div className="flex-shrink-0 w-28 h-20 rounded-lg overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={t(item.titleKey)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                
+                <div className="flex-1 min-w-0 flex flex-col justify-center">
+                  <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">
+                    {t(item.categoryKey)}
+                  </span>
+                  <h4 className="font-semibold text-foreground mt-0.5 mb-1.5 group-hover:text-primary transition-colors line-clamp-2 text-sm leading-tight">
+                    {t(item.titleKey)}
+                  </h4>
+                  <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {item.date}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {item.readTime}
+                    </span>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
 
-            {/* Embla Carousel */}
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex gap-4">
-                {otherNews.map((item, index) => (
-                  <a
-                    key={item.id}
-                    href={`/news/${item.id}`}
-                    className="group flex-shrink-0 w-full sm:w-[calc(100%-1rem)] flex gap-4 p-4 bg-background rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
-                  >
-                    {/* Thumbnail */}
-                    <div className="flex-shrink-0 w-24 h-24 md:w-32 md:h-24 rounded-lg overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={t(item.titleKey)}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                        {t(item.categoryKey)}
-                      </span>
-                      <h4 className="font-semibold text-foreground mt-1 mb-2 group-hover:text-primary transition-colors line-clamp-2 text-sm md:text-base">
-                        {t(item.titleKey)}
-                      </h4>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {item.date}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {item.readTime}
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                ))}
+        {/* Compact News Row - 4 Small Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {compactNews.map((item, index) => (
+            <motion.a
+              key={item.id}
+              href={`/news/${item.id}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.06 }}
+              className="group bg-background rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Small Image */}
+              <div className="relative overflow-hidden">
+                <AspectRatio ratio={16 / 10}>
+                  <img 
+                    src={item.image} 
+                    alt={t(item.titleKey)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent" />
+                  <span className="absolute bottom-2 left-2 px-2 py-0.5 bg-primary text-primary-foreground text-[10px] font-semibold rounded-pill">
+                    {t(item.categoryKey)}
+                  </span>
+                </AspectRatio>
               </div>
-            </div>
-
-            {/* Carousel Dots Indicator */}
-            <div className="flex items-center justify-center gap-2 mt-4">
-              {otherNews.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => emblaApi?.scrollTo(index)}
-                  className="w-2 h-2 rounded-full bg-primary/20 hover:bg-primary/40 transition-colors"
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </motion.div>
+              <div className="p-3">
+                <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 text-xs leading-tight mb-2">
+                  {t(item.titleKey)}
+                </h4>
+                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-2.5 h-2.5" />
+                    {item.date}
+                  </span>
+                </div>
+              </div>
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>
