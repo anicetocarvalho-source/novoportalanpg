@@ -10,7 +10,9 @@ import {
   CalendarDays,
   Filter,
   ChevronRight,
-  Play
+  Play,
+  Search,
+  X
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -19,6 +21,14 @@ import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContai
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { 
   Pagination, 
   PaginationContent, 
@@ -32,6 +42,53 @@ import { cn } from "@/lib/utils";
 import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 
 const NEWS_PER_PAGE = 6;
+
+const dateFilters = [
+  { key: "all", label: "Todas as datas" },
+  { key: "week", label: "Última semana" },
+  { key: "month", label: "Último mês" },
+  { key: "quarter", label: "Últimos 3 meses" },
+  { key: "year", label: "Último ano" },
+];
+
+// Helper function to parse Portuguese date format
+const parsePortugueseDate = (dateStr: string): Date | null => {
+  const months: { [key: string]: number } = {
+    'janeiro': 0, 'fevereiro': 1, 'março': 2, 'abril': 3, 'maio': 4, 'junho': 5,
+    'julho': 6, 'agosto': 7, 'setembro': 8, 'outubro': 9, 'novembro': 10, 'dezembro': 11
+  };
+  
+  // Format: "26 de Janeiro, 2026" or "31 de Dezembro, 2025"
+  const match = dateStr.toLowerCase().match(/(\d+)\s+de\s+(\w+),?\s+(\d{4})/);
+  if (match) {
+    const day = parseInt(match[1]);
+    const month = months[match[2]];
+    const year = parseInt(match[3]);
+    if (month !== undefined) {
+      return new Date(year, month, day);
+    }
+  }
+  return null;
+};
+
+const isWithinDateRange = (dateStr: string, filter: string): boolean => {
+  if (filter === "all") return true;
+  
+  const newsDate = parsePortugueseDate(dateStr);
+  if (!newsDate) return true; // If can't parse, include it
+  
+  const now = new Date();
+  const diffMs = now.getTime() - newsDate.getTime();
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  
+  switch (filter) {
+    case "week": return diffDays <= 7;
+    case "month": return diffDays <= 30;
+    case "quarter": return diffDays <= 90;
+    case "year": return diffDays <= 365;
+    default: return true;
+  }
+};
 
 interface Publication {
   id: string;
@@ -162,21 +219,63 @@ export default function MediaPage() {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [dateFilter, setDateFilter] = useState("all");
 
   const filteredNews = useMemo(() => {
-    return selectedCategory === "all" 
-      ? newsItems 
-      : newsItems.filter(item => item.category === selectedCategory);
-  }, [selectedCategory]);
+    let results = newsItems;
+    
+    // Filter by category
+    if (selectedCategory !== "all") {
+      results = results.filter(item => item.category === selectedCategory);
+    }
+    
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      results = results.filter(item => 
+        item.title.toLowerCase().includes(query) ||
+        item.excerpt.toLowerCase().includes(query) ||
+        item.content.toLowerCase().includes(query) ||
+        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(query)))
+      );
+    }
+    
+    // Filter by date
+    if (dateFilter !== "all") {
+      results = results.filter(item => isWithinDateRange(item.date, dateFilter));
+    }
+    
+    return results;
+  }, [selectedCategory, searchQuery, dateFilter]);
 
-  // Reset to page 1 when category changes
+  // Reset to page 1 when filters change
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setCurrentPage(1);
   };
 
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
+  const handleDateFilterChange = (value: string) => {
+    setDateFilter(value);
+    setCurrentPage(1);
+  };
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setDateFilter("all");
+    setCurrentPage(1);
+  };
+
+  const hasActiveFilters = searchQuery || selectedCategory !== "all" || dateFilter !== "all";
+
   // Pagination calculations
-  const totalPages = Math.ceil((filteredNews.length - 1) / NEWS_PER_PAGE); // -1 for featured
+  const totalPages = Math.max(1, Math.ceil((filteredNews.length - 1) / NEWS_PER_PAGE)); // -1 for featured
   const featuredNews = filteredNews[0];
   const remainingNews = filteredNews.slice(1);
   const paginatedNews = remainingNews.slice(
@@ -255,24 +354,81 @@ export default function MediaPage() {
         {/* News Tab */}
         <TabsContent value="news">
           <SectionTransition delay={0.1}>
-            {/* Category Filter */}
-            <div className="flex items-center gap-2 mb-8 flex-wrap">
-              <Filter className="w-4 h-4 text-muted-foreground" />
-              {newsCategories.map((category) => (
-                <Button
-                  key={category.key}
-                  variant={selectedCategory === category.key ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handleCategoryChange(category.key)}
-                  className={cn(
-                    "rounded-full",
-                    selectedCategory === category.key && "bg-primary text-primary-foreground"
-                  )}
-                >
-                  {category.label}
-                </Button>
-              ))}
+            {/* Search and Filters */}
+            <div className="bg-secondary/30 border border-border rounded-xl p-4 mb-8">
+              <div className="flex flex-col lg:flex-row gap-4">
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="Pesquisar notícias por palavra-chave..."
+                    value={searchQuery}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    className="pl-10 bg-background"
+                  />
+                </div>
+                
+                {/* Date Filter */}
+                <div className="w-full lg:w-56">
+                  <Select value={dateFilter} onValueChange={handleDateFilterChange}>
+                    <SelectTrigger className="bg-background">
+                      <Calendar className="w-4 h-4 mr-2 text-muted-foreground" />
+                      <SelectValue placeholder="Filtrar por data" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {dateFilters.map((filter) => (
+                        <SelectItem key={filter.key} value={filter.key}>
+                          {filter.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Clear Filters */}
+                {hasActiveFilters && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    <X className="w-4 h-4 mr-1" />
+                    Limpar
+                  </Button>
+                )}
+              </div>
+              
+              {/* Category Filter */}
+              <div className="flex items-center gap-2 mt-4 flex-wrap">
+                <Filter className="w-4 h-4 text-muted-foreground" />
+                {newsCategories.map((category) => (
+                  <Button
+                    key={category.key}
+                    variant={selectedCategory === category.key ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => handleCategoryChange(category.key)}
+                    className={cn(
+                      "rounded-full",
+                      selectedCategory === category.key && "bg-primary text-primary-foreground"
+                    )}
+                  >
+                    {category.label}
+                  </Button>
+                ))}
+              </div>
             </div>
+            
+            {/* Results count */}
+            {hasActiveFilters && (
+              <p className="text-sm text-muted-foreground mb-6">
+                {filteredNews.length === 0 
+                  ? "Nenhuma notícia encontrada" 
+                  : `${filteredNews.length} notícia${filteredNews.length !== 1 ? 's' : ''} encontrada${filteredNews.length !== 1 ? 's' : ''}`
+                }
+              </p>
+            )}
 
             {/* Featured News */}
             {featuredNews && currentPage === 1 && (
