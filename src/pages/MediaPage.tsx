@@ -12,7 +12,10 @@ import {
   ChevronRight,
   Play,
   Search,
-  X
+  X,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -51,7 +54,10 @@ const dateFilters = [
   { key: "year", label: "Último ano" },
 ];
 
-// Helper function to parse Portuguese date format
+const sortOptions = [
+  { key: "newest", label: "Mais recentes", icon: ArrowDown },
+  { key: "oldest", label: "Mais antigas", icon: ArrowUp },
+];
 const parsePortugueseDate = (dateStr: string): Date | null => {
   const months: { [key: string]: number } = {
     'janeiro': 0, 'fevereiro': 1, 'março': 2, 'abril': 3, 'maio': 4, 'junho': 5,
@@ -221,9 +227,10 @@ export default function MediaPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [dateFilter, setDateFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   const filteredNews = useMemo(() => {
-    let results = newsItems;
+    let results = [...newsItems]; // Clone to avoid mutating original
     
     // Filter by category
     if (selectedCategory !== "all") {
@@ -246,8 +253,22 @@ export default function MediaPage() {
       results = results.filter(item => isWithinDateRange(item.date, dateFilter));
     }
     
+    // Sort by date
+    results.sort((a, b) => {
+      const dateA = parsePortugueseDate(a.date);
+      const dateB = parsePortugueseDate(b.date);
+      
+      if (!dateA || !dateB) return 0;
+      
+      if (sortOrder === "newest") {
+        return dateB.getTime() - dateA.getTime();
+      } else {
+        return dateA.getTime() - dateB.getTime();
+      }
+    });
+    
     return results;
-  }, [selectedCategory, searchQuery, dateFilter]);
+  }, [selectedCategory, searchQuery, dateFilter, sortOrder]);
 
   // Reset to page 1 when filters change
   const handleCategoryChange = (category: string) => {
@@ -265,14 +286,20 @@ export default function MediaPage() {
     setCurrentPage(1);
   };
 
+  const handleSortChange = (value: string) => {
+    setSortOrder(value as "newest" | "oldest");
+    setCurrentPage(1);
+  };
+
   const clearFilters = () => {
     setSearchQuery("");
     setSelectedCategory("all");
     setDateFilter("all");
+    setSortOrder("newest");
     setCurrentPage(1);
   };
 
-  const hasActiveFilters = searchQuery || selectedCategory !== "all" || dateFilter !== "all";
+  const hasActiveFilters = searchQuery || selectedCategory !== "all" || dateFilter !== "all" || sortOrder !== "newest";
 
   // Pagination calculations
   const totalPages = Math.max(1, Math.ceil((filteredNews.length - 1) / NEWS_PER_PAGE)); // -1 for featured
@@ -380,6 +407,26 @@ export default function MediaPage() {
                       {dateFilters.map((filter) => (
                         <SelectItem key={filter.key} value={filter.key}>
                           {filter.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                {/* Sort Order */}
+                <div className="w-full lg:w-48">
+                  <Select value={sortOrder} onValueChange={handleSortChange}>
+                    <SelectTrigger className="bg-background">
+                      <ArrowUpDown className="w-4 h-4 mr-2 text-muted-foreground" />
+                      <SelectValue placeholder="Ordenar" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {sortOptions.map((option) => (
+                        <SelectItem key={option.key} value={option.key}>
+                          <span className="flex items-center gap-2">
+                            <option.icon className="w-3 h-3" />
+                            {option.label}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
