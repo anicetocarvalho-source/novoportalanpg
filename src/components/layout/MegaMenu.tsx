@@ -30,12 +30,12 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
         exit={{ opacity: 0, y: 10, scale: 0.95 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className={cn(
-          "absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-background rounded-lg shadow-2xl border border-border overflow-hidden",
+          "absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-background rounded-2xl shadow-elevated border border-border overflow-hidden",
           columns === 3 ? "w-[600px]" : "w-[480px]"
         )}
       >
         {/* Decorative top border */}
-        <div className="h-1 bg-gradient-to-r from-primary via-primary/80 to-primary" />
+        <div className="h-1 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-t-2xl" />
         
         <div className={cn(
           "grid gap-1 p-3",
@@ -48,13 +48,13 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
                 key={item.nameKey}
                 to={item.href}
                 onClick={onItemClick}
-                className="group flex items-start gap-3 p-3 rounded-md hover:bg-secondary transition-all duration-200"
+                className="group flex items-start gap-3 p-3 rounded-xl hover:bg-secondary transition-all duration-200 hover:shadow-sm"
               >
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: index * 0.05 }}
-                  className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-200"
+                  className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 group-hover:shadow-md transition-all duration-200"
                 >
                   <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                 </motion.div>

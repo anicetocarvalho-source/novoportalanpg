@@ -76,16 +76,31 @@ export default {
         snow: "hsl(var(--snow))",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        // Design system: Modern institutional rounded corners
+        'none': '0',
+        'xs': 'var(--radius-xs)',      // 4px - subtle rounding
+        'sm': 'var(--radius-sm)',      // 6px - minimal elements
+        'DEFAULT': 'var(--radius)',    // 8px - inputs, small buttons
+        'md': 'var(--radius-md)',      // 10px - primary buttons
+        'lg': 'var(--radius-lg)',      // 12px - cards, content blocks
+        'xl': 'var(--radius-xl)',      // 16px - larger cards
+        '2xl': 'var(--radius-2xl)',    // 20px - modals, highlighted sections
+        '3xl': 'var(--radius-3xl)',    // 24px - hero elements
+        'pill': 'var(--radius-pill)',  // 9999px - badges, tags, pills
       },
       boxShadow: {
+        'xs': 'var(--shadow-xs)',
         'sm': 'var(--shadow-sm)',
+        'DEFAULT': 'var(--shadow-md)',
         'md': 'var(--shadow-md)',
         'lg': 'var(--shadow-lg)',
         'xl': 'var(--shadow-xl)',
+        '2xl': 'var(--shadow-2xl)',
         'hero': 'var(--shadow-hero)',
+        'card': 'var(--shadow-card)',
+        'card-hover': 'var(--shadow-card-hover)',
+        'elevated': 'var(--shadow-elevated)',
+        'modal': 'var(--shadow-modal)',
       },
       keyframes: {
         "accordion-down": {
