@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { 
   FileCheck, 
   Shield, 
@@ -93,32 +94,35 @@ export function ServicesSection() {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <motion.a
+            <motion.div
               key={service.titleKey}
-              href={service.href}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative p-8 rounded-sm border border-pearl/10 hover:border-primary/50 bg-pearl/5 hover:bg-primary/10 transition-all duration-300"
             >
-              {/* Icon */}
-              <div className={`w-14 h-14 rounded-sm ${service.color} flex items-center justify-center mb-6`}>
-                {service.icon}
-              </div>
+              <Link
+                to={service.href}
+                className="group relative p-8 rounded-sm border border-pearl/10 hover:border-primary/50 bg-pearl/5 hover:bg-primary/10 transition-all duration-300 block h-full"
+              >
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-sm ${service.color} flex items-center justify-center mb-6`}>
+                  {service.icon}
+                </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-semibold text-primary-foreground mb-3 group-hover:text-primary transition-colors">
-                {t(service.titleKey)}
-              </h3>
-              <p className="text-pearl/70 text-sm leading-relaxed">
-                {t(service.descriptionKey)}
-              </p>
+                {/* Content */}
+                <h3 className="text-xl font-semibold text-primary-foreground mb-3 group-hover:text-primary transition-colors">
+                  {t(service.titleKey)}
+                </h3>
+                <p className="text-pearl/70 text-sm leading-relaxed">
+                  {t(service.descriptionKey)}
+                </p>
 
-              {/* Arrow */}
-              <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                <ArrowUpRight className="w-5 h-5 text-primary" />
-              </div>
-            </motion.a>
+                {/* Arrow */}
+                <div className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ArrowUpRight className="w-5 h-5 text-primary" />
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </div>
