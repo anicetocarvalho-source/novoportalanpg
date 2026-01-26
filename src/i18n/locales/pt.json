@@ -33,7 +33,11 @@
       "conference2021": "Conferência 2021",
       "conference2021Desc": "Highlights da conferência de dados de 2021",
       "dataConference2023": "2ª Conferência de Gestão de Dados 2023",
-      "dataConference2023Desc": "A mais recente conferência sobre gestão de dados"
+      "dataConference2023Desc": "A mais recente conferência sobre gestão de dados",
+      "productionOverview": "Visão Geral",
+      "productionOverviewDesc": "Estatísticas actuais e gráficos de produção",
+      "productionHistory": "Histórico de Produção",
+      "productionHistoryDesc": "Evolução da produção petrolífera desde 1978"
     }
   },
   "pages": {
@@ -234,6 +238,11 @@
       "title": "Produção",
       "subtitle": "Estatísticas",
       "description": "Dados e estatísticas sobre a produção petrolífera angolana."
+    },
+    "productionHistory": {
+      "title": "Histórico de Produção",
+      "subtitle": "Evolução desde 1978",
+      "description": "Análise detalhada da evolução da produção petrolífera angolana desde os primeiros poços até à actualidade."
     },
     "localContent": {
       "title": "Conteúdo Local",

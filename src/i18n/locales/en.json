@@ -33,7 +33,11 @@
       "conference2021": "Conference 2021",
       "conference2021Desc": "Highlights from the 2021 data conference",
       "dataConference2023": "2nd Data Management Conference 2023",
-      "dataConference2023Desc": "The latest conference on data management"
+      "dataConference2023Desc": "The latest conference on data management",
+      "productionOverview": "Overview",
+      "productionOverviewDesc": "Current statistics and production charts",
+      "productionHistory": "Production History",
+      "productionHistoryDesc": "Evolution of petroleum production since 1978"
     }
   },
   "pages": {
@@ -234,6 +238,11 @@
       "title": "Production",
       "subtitle": "Statistics",
       "description": "Data and statistics on Angola's petroleum production."
+    },
+    "productionHistory": {
+      "title": "Production History",
+      "subtitle": "Evolution since 1978",
+      "description": "Detailed analysis of Angola's petroleum production evolution from the first wells to the present day."
     },
     "localContent": {
       "title": "Local Content",
