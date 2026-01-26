@@ -1,12 +1,27 @@
 {
   "nav": {
-    "about": "Sobre a ANPG",
-    "regulation": "Regulação & Licenciamento",
-    "investment": "Investimentos",
-    "data": "Dados de Energia",
-    "news": "Notícias",
-    "careers": "Carreiras",
-    "investorPortal": "Portal do Investidor"
+    "aboutUs": "Sobre nós",
+    "opportunities": "Oportunidades",
+    "epData": "Dados de E&P",
+    "media": "Media",
+    "production": "Produção",
+    "localContent": "Conteúdo Local",
+    "investorPortal": "Portal do Investidor",
+    "submenu": {
+      "anpg": "ANPG",
+      "ourHistory": "Nossa História",
+      "socialResponsibility": "Responsabilidade Social",
+      "contacts": "Contactos",
+      "tender2025": "Licitação 2025",
+      "permanentOffer": "Oferta Permanente",
+      "tender2023": "Licitação 2023",
+      "platformIona": "Plataforma IONA",
+      "oasisImageBank": "OASIS – Banco de Imagens",
+      "dataPackages": "Pacotes de Dados",
+      "epMaps": "Mapas E&P",
+      "conference2021": "Conferência 2021",
+      "dataConference2023": "2ª. Conferência de Gestão de Dados 2023"
+    }
   },
   "hero": {
     "subtitle": "Agência Nacional de Petróleo, Gás e Biocombustíveis",
