@@ -219,6 +219,13 @@
       "subtitle": "Blocks & Operators",
       "description": "Interactive map of all Angolan petroleum blocks with detailed information on operators and partnerships."
     },
+    "blockDetails": {
+      "title": "Block Details",
+      "subtitle": "Technical Information",
+      "description": "Detailed information about the petroleum block.",
+      "notFound": "Block Not Found",
+      "notFoundDesc": "The requested block was not found in our database."
+    },
     "conference2021": {
       "title": "Data Conference 2021",
       "subtitle": "Event",

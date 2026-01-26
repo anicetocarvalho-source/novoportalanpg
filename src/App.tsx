@@ -27,6 +27,7 @@ import IonaPage from "./pages/ep-data/IonaPage";
 import OasisPage from "./pages/ep-data/OasisPage";
 import DataPackagesPage from "./pages/ep-data/DataPackagesPage";
 import EpMapsPage from "./pages/ep-data/EpMapsPage";
+import BlockDetailsPage from "./pages/ep-data/BlockDetailsPage";
 import Conference2021Page from "./pages/ep-data/Conference2021Page";
 import Conference2023Page from "./pages/ep-data/Conference2023Page";
 
@@ -66,6 +67,7 @@ function AnimatedRoutes() {
           <Route path="/ep-data/oasis" element={<OasisPage />} />
           <Route path="/ep-data/packages" element={<DataPackagesPage />} />
           <Route path="/ep-data/maps" element={<EpMapsPage />} />
+          <Route path="/ep-data/blocks/:blockId" element={<BlockDetailsPage />} />
           <Route path="/ep-data/conference-2021" element={<Conference2021Page />} />
           <Route path="/ep-data/conference-2023" element={<Conference2023Page />} />
           

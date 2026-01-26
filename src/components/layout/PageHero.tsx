@@ -3,9 +3,12 @@ import { useTranslation } from "react-i18next";
 import { ReactNode } from "react";
 
 interface PageHeroProps {
-  titleKey: string;
+  titleKey?: string;
+  title?: string;
   subtitleKey?: string;
+  subtitle?: string;
   descriptionKey?: string;
+  description?: string;
   backgroundImage?: string;
   icon?: ReactNode;
   children?: ReactNode;
@@ -13,13 +16,20 @@ interface PageHeroProps {
 
 export function PageHero({
   titleKey,
+  title,
   subtitleKey,
+  subtitle,
   descriptionKey,
+  description,
   backgroundImage,
   icon,
   children,
 }: PageHeroProps) {
   const { t } = useTranslation();
+
+  const displayTitle = title || (titleKey ? t(titleKey) : '');
+  const displaySubtitle = subtitle || (subtitleKey ? t(subtitleKey) : '');
+  const displayDescription = description || (descriptionKey ? t(descriptionKey) : '');
 
   return (
     <section className="relative min-h-[40vh] lg:min-h-[50vh] flex items-center overflow-hidden">
@@ -70,7 +80,7 @@ export function PageHero({
           )}
 
           {/* Subtitle/Label */}
-          {subtitleKey && (
+          {displaySubtitle && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -78,7 +88,7 @@ export function PageHero({
             >
               <span className="inline-flex items-center gap-2 text-primary font-medium text-sm uppercase tracking-wider mb-4">
                 <span className="w-8 h-px bg-primary" />
-                {t(subtitleKey)}
+                {displaySubtitle}
               </span>
             </motion.div>
           )}
@@ -90,18 +100,18 @@ export function PageHero({
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight"
           >
-            {t(titleKey)}
+            {displayTitle}
           </motion.h1>
 
           {/* Description */}
-          {descriptionKey && (
+          {displayDescription && (
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl leading-relaxed"
             >
-              {t(descriptionKey)}
+              {displayDescription}
             </motion.p>
           )}
 

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Building2, Droplets, Filter, Search, ChevronDown, Info } from "lucide-react";
+import { MapPin, Building2, Droplets, Filter, Search, ChevronDown, Info, ExternalLink } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 
@@ -708,12 +709,21 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setSelectedBlock(null)}
-                  className="mt-6 w-full py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
-                >
-                  Fechar
-                </button>
+                <div className="flex gap-3 mt-6">
+                  <Link
+                    to={`/ep-data/blocks/${selectedBlock.id}`}
+                    className="flex-1 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-center flex items-center justify-center gap-2"
+                  >
+                    Ver Detalhes
+                    <ExternalLink className="w-4 h-4" />
+                  </Link>
+                  <button
+                    onClick={() => setSelectedBlock(null)}
+                    className="flex-1 py-3 rounded-xl bg-secondary text-foreground font-medium hover:bg-secondary/80 transition-colors"
+                  >
+                    Fechar
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
