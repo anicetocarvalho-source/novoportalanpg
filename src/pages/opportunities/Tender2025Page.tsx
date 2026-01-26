@@ -1,9 +1,10 @@
-import { FileCheck, Target, Calendar, FileText, Download, ArrowRight, CheckCircle2, Clock, Users, Lightbulb, TrendingUp, Shield } from "lucide-react";
+import { FileCheck, Target, Calendar, FileText, Download, ArrowRight, CheckCircle2, Clock, Users, Lightbulb, TrendingUp, Shield, Map } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
+import { BlocksMap } from "@/components/tender/BlocksMap";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const objectives = [
@@ -264,6 +265,23 @@ export default function Tender2025Page() {
               ))}
             </div>
           </div>
+        </section>
+      </SectionTransition>
+
+      {/* Interactive Map */}
+      <SectionTransition delay={0.25}>
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Map className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Mapa de Blocos</h2>
+              <p className="text-muted-foreground text-sm">Localização dos blocos disponíveis nas Bacias do Kwanza e Benguela</p>
+            </div>
+          </div>
+
+          <BlocksMap />
         </section>
       </SectionTransition>
 
