@@ -28,8 +28,8 @@
       "oasisImageBankDesc": "Repositório de imagens sísmicas e geológicas",
       "dataPackages": "Pacotes de Dados",
       "dataPackagesDesc": "Dados técnicos disponíveis para licenciamento",
-      "epMaps": "Mapas de E&P",
-      "epMapsDesc": "Mapas interactivos de exploração e produção",
+      "epMaps": "Mapa de Concessões",
+      "epMapsDesc": "Mapa interactivo de blocos e operadores",
       "conference2021": "Conferência 2021",
       "conference2021Desc": "Highlights da conferência de dados de 2021",
       "dataConference2023": "2ª Conferência de Gestão de Dados 2023",
@@ -215,9 +215,9 @@
       "description": "Dados técnicos disponíveis para licenciamento por operadores e investidores."
     },
     "epMaps": {
-      "title": "Mapas de E&P",
-      "subtitle": "Cartografia",
-      "description": "Mapas interactivos de exploração e produção de hidrocarbonetos em Angola."
+      "title": "Mapa de Concessões",
+      "subtitle": "Blocos & Operadores",
+      "description": "Mapa interactivo de todos os blocos petrolíferos de Angola com informações detalhadas sobre operadores e participações."
     },
     "conference2021": {
       "title": "Conferência de Dados 2021",
