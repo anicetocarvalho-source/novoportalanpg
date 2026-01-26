@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
 import logoRed from "@/assets/logo-red.webp";
 import { Button } from "@/components/ui/button";
+import { LanguageToggle } from "@/components/LanguageToggle";
 import { cn } from "@/lib/utils";
-
-const navigation = [
-  { name: "Sobre a ANPG", href: "/about" },
-  { name: "Regulação & Licenciamento", href: "/regulation" },
-  { name: "Investimentos", href: "/investment" },
-  { name: "Dados de Energia", href: "/data" },
-  { name: "Notícias", href: "/news" },
-  { name: "Carreiras", href: "/careers" },
-];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const navigation = [
+    { name: t("nav.about"), href: "/about" },
+    { name: t("nav.regulation"), href: "/regulation" },
+    { name: t("nav.investment"), href: "/investment" },
+    { name: t("nav.data"), href: "/data" },
+    { name: t("nav.news"), href: "/news" },
+    { name: t("nav.careers"), href: "/careers" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,37 +77,41 @@ export function Header() {
             ))}
           </div>
 
-          {/* CTA Button - Desktop */}
+          {/* Right side: Language Toggle + CTA Button - Desktop */}
           <motion.div
-            className="hidden lg:block"
+            className="hidden lg:flex items-center gap-4"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
+            <LanguageToggle isScrolled={isScrolled} />
             <Button
               variant={isScrolled ? "hero" : "heroOutline"}
               size="default"
             >
-              Portal do Investidor
+              {t("nav.investorPortal")}
             </Button>
           </motion.div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={cn(
-              "lg:hidden p-2 rounded-sm transition-colors",
-              isScrolled
-                ? "text-foreground hover:bg-secondary"
-                : "text-primary-foreground hover:bg-primary-foreground/10"
-            )}
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
+          <div className="lg:hidden flex items-center gap-3">
+            <LanguageToggle isScrolled={isScrolled} />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={cn(
+                "p-2 rounded-sm transition-colors",
+                isScrolled
+                  ? "text-foreground hover:bg-secondary"
+                  : "text-primary-foreground hover:bg-primary-foreground/10"
+              )}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </nav>
       </div>
 
@@ -131,7 +138,7 @@ export function Header() {
                   </Link>
                 ))}
                 <Button variant="hero" size="lg" className="mt-4">
-                  Portal do Investidor
+                  {t("nav.investorPortal")}
                 </Button>
               </nav>
             </div>

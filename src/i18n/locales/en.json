@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "about": "About ANPG",
+    "regulation": "Regulation & Licensing",
+    "investment": "Investment",
+    "data": "Energy Data",
+    "news": "News",
+    "careers": "Careers",
+    "investorPortal": "Investor Portal"
+  },
+  "hero": {
+    "subtitle": "National Oil, Gas and Biofuels Agency",
+    "title": "Shaping Angola's",
+    "titleHighlight": "Energy Future",
+    "description": "We regulate and promote Angola's oil sector, ensuring transparency, sustainability and value for all stakeholders.",
+    "ctaPrimary": "Investment Opportunities",
+    "ctaSecondary": "Explore Data",
+    "scrollHint": "Discover more"
+  },
+  "stats": {
+    "label": "Impact & Results",
+    "title": "Angola in Numbers",
+    "subtitle": "Data reflecting the strength and potential of Angola's energy sector",
+    "exploreData": "Explore all data",
+    "barrelsDay": "Barrels/Day",
+    "oilProduction": "Oil production",
+    "activeBlocks": "Active Blocks",
+    "explorationProduction": "In exploration and production",
+    "invested": "USD Invested",
+    "lastFiveYears": "In the last 5 years",
+    "operators": "Operators",
+    "internationalCompanies": "International companies"
+  },
+  "about": {
+    "label": "About ANPG",
+    "title": "Regulating the Present,",
+    "titleHighlight": "Building the Future",
+    "description": "The National Oil, Gas and Biofuels Agency is the regulatory body for Angola's petroleum sector, responsible for managing and supervising hydrocarbon exploration, production and marketing activities.",
+    "yearsExperience": "Years of experience in Angola's petroleum sector",
+    "cta": "Learn About ANPG",
+    "values": {
+      "transparency": {
+        "title": "Transparency",
+        "description": "Commitment to clarity and openness in all operations."
+      },
+      "excellence": {
+        "title": "Excellence",
+        "description": "International standards of quality and efficiency."
+      },
+      "sustainability": {
+        "title": "Sustainability",
+        "description": "Responsible development of energy resources."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Adoption of advanced technologies in the sector."
+      }
+    }
+  },
+  "services": {
+    "label": "Services & Competencies",
+    "title": "What We Do",
+    "subtitle": "ANPG's main areas of activity in Angola's energy sector",
+    "licensing": {
+      "title": "Licensing",
+      "description": "Management of concessions and licenses for hydrocarbon exploration and production."
+    },
+    "oversight": {
+      "title": "Oversight",
+      "description": "Supervision and control of petroleum operations throughout the national territory."
+    },
+    "regulation": {
+      "title": "Regulation",
+      "description": "Development and implementation of the regulatory framework for the energy sector."
+    },
+    "tenders": {
+      "title": "Public Tenders",
+      "description": "Organization of bidding processes for the allocation of exploration rights."
+    },
+    "analytics": {
+      "title": "Data & Analytics",
+      "description": "Publication of statistics and reports on the energy sector."
+    },
+    "sustainability": {
+      "title": "Sustainability",
+      "description": "Promotion of environmentally responsible practices in the sector."
+    }
+  },
+  "investment": {
+    "label": "Investment Opportunities",
+    "title": "Invest in Angola's",
+    "titleHighlight": "Energy Future",
+    "description": "Angola offers a favorable environment for investment in the oil sector, with a transparent regulatory framework, attractive tax incentives and access to world-class resources.",
+    "ctaGuide": "Investor Guide",
+    "ctaBlocks": "View Available Blocks",
+    "featuredBlocks": "Featured Blocks",
+    "viewAllBlocks": "View all blocks",
+    "location": "Luanda, Angola",
+    "highlights": {
+      "blocks": "Access to 47 onshore and offshore petroleum blocks",
+      "fiscal": "Competitive and stable fiscal regime",
+      "infrastructure": "World-class infrastructure",
+      "support": "Dedicated regulatory support for investors",
+      "reserves": "Proven reserves exceeding 8 billion barrels"
+    },
+    "blockStatus": {
+      "production": "In Production",
+      "development": "In Development"
+    }
+  },
+  "news": {
+    "label": "News & Insights",
+    "title": "Latest Updates",
+    "viewAll": "View All News",
+    "categories": {
+      "institutional": "Institutional",
+      "energy": "Energy",
+      "sustainability": "Sustainability",
+      "investments": "Investments"
+    },
+    "articles": {
+      "tender2025": {
+        "title": "ANPG announces 2025 Public Tender results",
+        "excerpt": "Six new blocks awarded to international consortia, representing an investment of USD 2.3 billion."
+      },
+      "gasProduction": {
+        "title": "Natural gas production reaches historic high",
+        "excerpt": "Angola recorded a 15% increase in natural gas production in the last quarter."
+      },
+      "biofuels": {
+        "title": "New regulatory framework for biofuels approved",
+        "excerpt": "Legislation aims to promote energy transition and diversify the national energy matrix."
+      },
+      "totalExpansion": {
+        "title": "TotalEnergies expands operations in Block 32",
+        "excerpt": "Additional investment of USD 1.5 billion for development of new infrastructure."
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to Invest in Angola's Energy Future?",
+    "description": "Contact our investor relations team to learn more about available opportunities.",
+    "contactInvestments": "Contact Investments",
+    "scheduleMeeting": "Schedule Meeting"
+  },
+  "footer": {
+    "description": "National Oil, Gas and Biofuels Agency of Angola. Regulating the present, building the energy future.",
+    "institutional": "Institutional",
+    "services": "Services",
+    "investors": "Investors",
+    "resources": "Resources",
+    "copyright": "© 2025 ANPG. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "links": {
+      "about": "About ANPG",
+      "leadership": "Leadership",
+      "governance": "Governance",
+      "history": "History",
+      "regulation": "Regulation",
+      "licensing": "Licensing",
+      "oversight": "Oversight",
+      "tenders": "Tenders",
+      "opportunities": "Opportunities",
+      "availableBlocks": "Available Blocks",
+      "investorGuide": "Investor Guide",
+      "contact": "Contact",
+      "energyData": "Energy Data",
+      "publications": "Publications",
+      "news": "News",
+      "careers": "Careers"
+    }
+  }
+}

@@ -1,32 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-
-const stats = [
-  {
-    value: 1.1,
-    suffix: "M",
-    label: "Barris/Dia",
-    description: "Produção petrolífera",
-  },
-  {
-    value: 47,
-    suffix: "",
-    label: "Blocos Activos",
-    description: "Em exploração e produção",
-  },
-  {
-    value: 12,
-    suffix: "B+",
-    label: "USD Investidos",
-    description: "Nos últimos 5 anos",
-  },
-  {
-    value: 35,
-    suffix: "+",
-    label: "Operadores",
-    description: "Empresas internacionais",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 function useCountUp(end: number, duration: number = 2, inView: boolean) {
   const [count, setCount] = useState(0);
@@ -61,13 +35,14 @@ function useCountUp(end: number, duration: number = 2, inView: boolean) {
 interface StatCardProps {
   value: number;
   suffix: string;
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
   index: number;
   inView: boolean;
 }
 
-function StatCard({ value, suffix, label, description, index, inView }: StatCardProps) {
+function StatCard({ value, suffix, labelKey, descriptionKey, index, inView }: StatCardProps) {
+  const { t } = useTranslation();
   const count = useCountUp(value, 2.5, inView);
   
   // Format the number based on whether it has decimals
@@ -86,15 +61,43 @@ function StatCard({ value, suffix, label, description, index, inView }: StatCard
         {displayValue}
         <span className="text-3xl md:text-4xl">{suffix}</span>
       </div>
-      <div className="stat-label">{label}</div>
-      <p className="text-sm text-muted-foreground/70 mt-2">{description}</p>
+      <div className="stat-label">{t(labelKey)}</div>
+      <p className="text-sm text-muted-foreground/70 mt-2">{t(descriptionKey)}</p>
     </motion.div>
   );
 }
 
 export function StatsSection() {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const stats = [
+    {
+      value: 1.1,
+      suffix: "M",
+      labelKey: "stats.barrelsDay",
+      descriptionKey: "stats.oilProduction",
+    },
+    {
+      value: 47,
+      suffix: "",
+      labelKey: "stats.activeBlocks",
+      descriptionKey: "stats.explorationProduction",
+    },
+    {
+      value: 12,
+      suffix: "B+",
+      labelKey: "stats.invested",
+      descriptionKey: "stats.lastFiveYears",
+    },
+    {
+      value: 35,
+      suffix: "+",
+      labelKey: "stats.operators",
+      descriptionKey: "stats.internationalCompanies",
+    },
+  ];
 
   return (
     <section className="relative bg-secondary/50 overflow-hidden">
@@ -111,13 +114,13 @@ export function StatsSection() {
           className="text-center mb-16"
         >
           <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-            Impacto & Resultados
+            {t("stats.label")}
           </span>
           <h2 className="section-title mb-4">
-            Angola em Números
+            {t("stats.title")}
           </h2>
           <p className="section-subtitle mx-auto">
-            Dados que reflectem a força e o potencial do sector energético angolano
+            {t("stats.subtitle")}
           </p>
         </motion.div>
 
@@ -128,7 +131,7 @@ export function StatsSection() {
         >
           {stats.map((stat, index) => (
             <StatCard
-              key={stat.label}
+              key={stat.labelKey}
               {...stat}
               index={index}
               inView={inView}
@@ -147,7 +150,7 @@ export function StatsSection() {
             href="/data"
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
           >
-            Explorar todos os dados
+            {t("stats.exploreData")}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

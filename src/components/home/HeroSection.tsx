@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Play, BarChart3, Shield, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 export function HeroSection() {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -52,7 +54,7 @@ export function HeroSection() {
           >
             <span className="w-2 h-2 bg-primary rounded-full animate-pulse-slow" />
             <span className="text-sm text-primary-foreground font-medium">
-              Angola Energy Summit 2025 — Inscrições Abertas
+              {t("hero.subtitle")}
             </span>
           </motion.div>
 
@@ -63,8 +65,8 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="hero-title text-primary-foreground mb-6"
           >
-            Potenciando o Futuro<br />
-            <span className="text-primary">Energético de Angola</span>
+            {t("hero.title")}<br />
+            <span className="text-primary">{t("hero.titleHighlight")}</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -74,9 +76,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hero-subtitle text-primary-foreground/80 max-w-2xl mb-10"
           >
-            A Agência Nacional de Petróleo, Gás e Biocombustíveis lidera a 
-            transformação do sector energético, promovendo transparência, 
-            investimento e desenvolvimento sustentável.
+            {t("hero.description")}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -87,12 +87,12 @@ export function HeroSection() {
             className="flex flex-wrap gap-4"
           >
             <Button variant="hero" size="xl" className="group">
-              Explorar Oportunidades
+              {t("hero.ctaPrimary")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button variant="heroOutline" size="xl" className="group">
               <Play className="w-5 h-5" />
-              Ver Apresentação
+              {t("hero.ctaSecondary")}
             </Button>
           </motion.div>
         </div>
@@ -106,22 +106,22 @@ export function HeroSection() {
         >
           <QuickAccessCard
             icon={<TrendingUp className="w-6 h-6" />}
-            title="Investimentos"
-            description="Descubra oportunidades em blocos petrolíferos"
+            titleKey="nav.investment"
+            descriptionKey="services.tenders.description"
             href="/investment"
             delay={0.6}
           />
           <QuickAccessCard
             icon={<Shield className="w-6 h-6" />}
-            title="Regulação"
-            description="Quadro legal e normativo do sector"
+            titleKey="services.regulation.title"
+            descriptionKey="services.regulation.description"
             href="/regulation"
             delay={0.7}
           />
           <QuickAccessCard
             icon={<BarChart3 className="w-6 h-6" />}
-            title="Dados de Energia"
-            description="Estatísticas e relatórios em tempo real"
+            titleKey="nav.data"
+            descriptionKey="services.analytics.description"
             href="/data"
             delay={0.8}
           />
@@ -137,7 +137,7 @@ export function HeroSection() {
       >
         <div className="flex flex-col items-center gap-2">
           <span className="text-xs text-primary-foreground/60 uppercase tracking-widest">
-            Scroll
+            {t("hero.scrollHint")}
           </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -158,13 +158,15 @@ export function HeroSection() {
 
 interface QuickAccessCardProps {
   icon: React.ReactNode;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   href: string;
   delay: number;
 }
 
-function QuickAccessCard({ icon, title, description, href, delay }: QuickAccessCardProps) {
+function QuickAccessCard({ icon, titleKey, descriptionKey, href, delay }: QuickAccessCardProps) {
+  const { t } = useTranslation();
+  
   return (
     <motion.a
       href={href}
@@ -179,10 +181,10 @@ function QuickAccessCard({ icon, title, description, href, delay }: QuickAccessC
         </div>
         <div>
           <h3 className="text-primary-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
-            {title}
+            {t(titleKey)}
           </h3>
           <p className="text-sm text-primary-foreground/60">
-            {description}
+            {t(descriptionKey)}
           </p>
         </div>
       </div>

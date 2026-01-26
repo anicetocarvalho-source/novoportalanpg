@@ -1,50 +1,52 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const news = [
-  {
-    id: 1,
-    category: "Institucional",
-    title: "ANPG anuncia resultados do Concurso Público 2025",
-    excerpt: "Seis novos blocos atribuídos a consórcios internacionais, representando um investimento de USD 2.3 mil milhões.",
-    date: "24 Jan 2025",
-    readTime: "3 min",
-    featured: true,
-  },
-  {
-    id: 2,
-    category: "Energia",
-    title: "Produção de gás natural atinge recorde histórico",
-    excerpt: "Angola registou um aumento de 15% na produção de gás natural no último trimestre.",
-    date: "22 Jan 2025",
-    readTime: "2 min",
-    featured: false,
-  },
-  {
-    id: 3,
-    category: "Sustentabilidade",
-    title: "Novo quadro regulatório para biocombustíveis aprovado",
-    excerpt: "Legislação visa promover a transição energética e diversificar a matriz energética nacional.",
-    date: "20 Jan 2025",
-    readTime: "4 min",
-    featured: false,
-  },
-  {
-    id: 4,
-    category: "Investimentos",
-    title: "TotalEnergies expande operações no Bloco 32",
-    excerpt: "Investimento adicional de USD 1.5 mil milhões para desenvolvimento de novas infraestruturas.",
-    date: "18 Jan 2025",
-    readTime: "3 min",
-    featured: false,
-  },
-];
-
 export function NewsSection() {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const news = [
+    {
+      id: 1,
+      categoryKey: "news.categories.institutional",
+      titleKey: "news.articles.tender2025.title",
+      excerptKey: "news.articles.tender2025.excerpt",
+      date: "24 Jan 2025",
+      readTime: "3 min",
+      featured: true,
+    },
+    {
+      id: 2,
+      categoryKey: "news.categories.energy",
+      titleKey: "news.articles.gasProduction.title",
+      excerptKey: "news.articles.gasProduction.excerpt",
+      date: "22 Jan 2025",
+      readTime: "2 min",
+      featured: false,
+    },
+    {
+      id: 3,
+      categoryKey: "news.categories.sustainability",
+      titleKey: "news.articles.biofuels.title",
+      excerptKey: "news.articles.biofuels.excerpt",
+      date: "20 Jan 2025",
+      readTime: "4 min",
+      featured: false,
+    },
+    {
+      id: 4,
+      categoryKey: "news.categories.investments",
+      titleKey: "news.articles.totalExpansion.title",
+      excerptKey: "news.articles.totalExpansion.excerpt",
+      date: "18 Jan 2025",
+      readTime: "3 min",
+      featured: false,
+    },
+  ];
 
   const featuredNews = news.find((n) => n.featured);
   const otherNews = news.filter((n) => !n.featured);
@@ -61,14 +63,14 @@ export function NewsSection() {
         >
           <div>
             <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-              Notícias & Insights
+              {t("news.label")}
             </span>
             <h2 className="section-title">
-              Últimas Actualizações
+              {t("news.title")}
             </h2>
           </div>
           <Button variant="heroOutlineLight" size="default" className="mt-6 md:mt-0 group">
-            Ver Todas as Notícias
+            {t("news.viewAll")}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.div>
@@ -89,16 +91,16 @@ export function NewsSection() {
                 <div className="absolute inset-0 bg-foreground/5" />
                 <div className="relative z-10 text-center px-8">
                   <span className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-sm mb-4">
-                    {featuredNews.category}
+                    {t(featuredNews.categoryKey)}
                   </span>
                   <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                    {featuredNews.title}
+                    {t(featuredNews.titleKey)}
                   </h3>
                 </div>
               </div>
               <div className="p-6">
                 <p className="text-muted-foreground mb-4 line-clamp-2">
-                  {featuredNews.excerpt}
+                  {t(featuredNews.excerptKey)}
                 </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
@@ -130,13 +132,13 @@ export function NewsSection() {
                 
                 <div className="flex-1">
                   <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                    {item.category}
+                    {t(item.categoryKey)}
                   </span>
                   <h4 className="font-semibold text-foreground mt-1 mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                    {item.title}
+                    {t(item.titleKey)}
                   </h4>
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                    {item.excerpt}
+                    {t(item.excerptKey)}
                   </p>
                   <div className="flex items-center gap-4 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">

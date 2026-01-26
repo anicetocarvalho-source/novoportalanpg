@@ -1,64 +1,65 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { 
   FileCheck, 
   Shield, 
   BarChart3, 
-  Users, 
   ArrowUpRight,
   Scale,
   Globe2,
   Leaf
 } from "lucide-react";
 
-const services = [
-  {
-    icon: <FileCheck className="w-7 h-7" />,
-    title: "Licenciamento",
-    description: "Gestão de concessões e licenças para exploração e produção de hidrocarbonetos.",
-    href: "/regulation/licensing",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: <Shield className="w-7 h-7" />,
-    title: "Fiscalização",
-    description: "Supervisão e controlo das operações petrolíferas em todo o território nacional.",
-    href: "/regulation/oversight",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: <Scale className="w-7 h-7" />,
-    title: "Regulação",
-    description: "Desenvolvimento e aplicação do quadro regulatório do sector energético.",
-    href: "/regulation",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: <Globe2 className="w-7 h-7" />,
-    title: "Concursos Públicos",
-    description: "Organização de licitações para atribuição de direitos de exploração.",
-    href: "/regulation/tenders",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: <BarChart3 className="w-7 h-7" />,
-    title: "Dados & Analytics",
-    description: "Publicação de estatísticas e relatórios sobre o sector energético.",
-    href: "/data",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: <Leaf className="w-7 h-7" />,
-    title: "Sustentabilidade",
-    description: "Promoção de práticas ambientalmente responsáveis no sector.",
-    href: "/sustainability",
-    color: "bg-primary/10 text-primary",
-  },
-];
-
 export function ServicesSection() {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const services = [
+    {
+      icon: <FileCheck className="w-7 h-7" />,
+      titleKey: "services.licensing.title",
+      descriptionKey: "services.licensing.description",
+      href: "/regulation/licensing",
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: <Shield className="w-7 h-7" />,
+      titleKey: "services.oversight.title",
+      descriptionKey: "services.oversight.description",
+      href: "/regulation/oversight",
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: <Scale className="w-7 h-7" />,
+      titleKey: "services.regulation.title",
+      descriptionKey: "services.regulation.description",
+      href: "/regulation",
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: <Globe2 className="w-7 h-7" />,
+      titleKey: "services.tenders.title",
+      descriptionKey: "services.tenders.description",
+      href: "/regulation/tenders",
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: <BarChart3 className="w-7 h-7" />,
+      titleKey: "services.analytics.title",
+      descriptionKey: "services.analytics.description",
+      href: "/data",
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: <Leaf className="w-7 h-7" />,
+      titleKey: "services.sustainability.title",
+      descriptionKey: "services.sustainability.description",
+      href: "/sustainability",
+      color: "bg-primary/10 text-primary",
+    },
+  ];
 
   return (
     <section ref={ref} className="section-padding bg-foreground text-primary-foreground overflow-hidden">
@@ -79,13 +80,13 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-            Serviços & Competências
+            {t("services.label")}
           </span>
           <h2 className="section-title mb-4 text-primary-foreground">
-            O Que Fazemos
+            {t("services.title")}
           </h2>
           <p className="section-subtitle mx-auto text-pearl/70">
-            As principais áreas de actuação da ANPG no sector energético angolano
+            {t("services.subtitle")}
           </p>
         </motion.div>
 
@@ -93,7 +94,7 @@ export function ServicesSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.a
-              key={service.title}
+              key={service.titleKey}
               href={service.href}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -107,10 +108,10 @@ export function ServicesSection() {
 
               {/* Content */}
               <h3 className="text-xl font-semibold text-primary-foreground mb-3 group-hover:text-primary transition-colors">
-                {service.title}
+                {t(service.titleKey)}
               </h3>
               <p className="text-pearl/70 text-sm leading-relaxed">
-                {service.description}
+                {t(service.descriptionKey)}
               </p>
 
               {/* Arrow */}
