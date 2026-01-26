@@ -373,7 +373,11 @@
       "institutional": "Institucional",
       "energy": "Energia",
       "sustainability": "Sustentabilidade",
-      "investments": "Investimentos"
+      "investments": "Investimentos",
+      "operations": "Operações",
+      "partnerships": "Parcerias",
+      "exploration": "Exploração",
+      "localContent": "Conteúdo Local"
     },
     "articles": {
       "tender2025": {
@@ -391,6 +395,22 @@
       "totalExpansion": {
         "title": "TotalEnergies expande operações no Bloco 32",
         "excerpt": "Investimento adicional de USD 1.5 mil milhões para desenvolvimento de novas infraestruturas."
+      },
+      "fpsoDeployment": {
+        "title": "Novo FPSO chega às águas angolanas",
+        "excerpt": "Embarcação de produção flutuante inicia operações no Bloco 17, aumentando capacidade em 200 mil barris/dia."
+      },
+      "newPartnership": {
+        "title": "ANPG assina acordo estratégico com Equinor",
+        "excerpt": "Parceria visa desenvolvimento de projectos de exploração em águas ultra-profundas na Bacia do Kwanza."
+      },
+      "drillingSuccess": {
+        "title": "Descoberta significativa no offshore angolano",
+        "excerpt": "Poço exploratório confirma reservas estimadas em 500 milhões de barris de petróleo recuperável."
+      },
+      "trainingProgram": {
+        "title": "Programa de formação técnica capacita 500 jovens",
+        "excerpt": "Iniciativa de conteúdo local prepara profissionais angolanos para o sector petrolífero."
       }
     }
   },

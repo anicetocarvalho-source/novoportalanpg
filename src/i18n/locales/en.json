@@ -373,7 +373,11 @@
       "institutional": "Institutional",
       "energy": "Energy",
       "sustainability": "Sustainability",
-      "investments": "Investments"
+      "investments": "Investments",
+      "operations": "Operations",
+      "partnerships": "Partnerships",
+      "exploration": "Exploration",
+      "localContent": "Local Content"
     },
     "articles": {
       "tender2025": {
@@ -391,6 +395,22 @@
       "totalExpansion": {
         "title": "TotalEnergies expands operations in Block 32",
         "excerpt": "Additional investment of USD 1.5 billion for development of new infrastructure."
+      },
+      "fpsoDeployment": {
+        "title": "New FPSO arrives in Angolan waters",
+        "excerpt": "Floating production vessel begins operations in Block 17, increasing capacity by 200,000 barrels/day."
+      },
+      "newPartnership": {
+        "title": "ANPG signs strategic agreement with Equinor",
+        "excerpt": "Partnership aims to develop ultra-deepwater exploration projects in the Kwanza Basin."
+      },
+      "drillingSuccess": {
+        "title": "Significant discovery in Angolan offshore",
+        "excerpt": "Exploratory well confirms estimated reserves of 500 million barrels of recoverable oil."
+      },
+      "trainingProgram": {
+        "title": "Technical training program empowers 500 youth",
+        "excerpt": "Local content initiative prepares Angolan professionals for the petroleum sector."
       }
     }
   },
