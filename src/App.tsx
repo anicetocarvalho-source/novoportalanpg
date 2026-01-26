@@ -33,6 +33,7 @@ import Conference2023Page from "./pages/ep-data/Conference2023Page";
 
 // Other pages
 import MediaPage from "./pages/MediaPage";
+import NewsArchivePage from "./pages/NewsArchivePage";
 import NewsDetailPage from "./pages/NewsDetailPage";
 import ProductionPage from "./pages/ProductionPage";
 import ProductionHistoryPage from "./pages/production/ProductionHistoryPage";
@@ -74,6 +75,7 @@ function AnimatedRoutes() {
           
           {/* Other pages */}
           <Route path="/media" element={<MediaPage />} />
+          <Route path="/media/archive" element={<NewsArchivePage />} />
           <Route path="/news/:newsId" element={<NewsDetailPage />} />
           <Route path="/production" element={<ProductionPage />} />
           <Route path="/production/history" element={<ProductionHistoryPage />} />
