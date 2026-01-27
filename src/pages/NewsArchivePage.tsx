@@ -57,7 +57,7 @@ const categories = [
   { key: "all", label: "Todas as categorias" },
   { key: "press", label: "Comunicados" },
   { key: "highlight", label: "Destaques" },
-  { key: "tender", label: "Concursos" },
+  { key: "tender", label: "Licitações" },
   { key: "production", label: "Produção" },
 ];
 

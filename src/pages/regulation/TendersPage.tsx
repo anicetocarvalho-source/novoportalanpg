@@ -11,7 +11,7 @@ import heroImage from "@/assets/angola-coast.jpg";
 const activeTenders = [
   {
     id: "tender-2025",
-    title: "Concurso Público 2025",
+    title: "Licitação 2025",
     status: "active",
     blocks: 10,
     deadline: "30 Junho 2025",
@@ -30,7 +30,7 @@ const activeTenders = [
 const pastTenders = [
   {
     year: "2023",
-    title: "Concurso Público 2023",
+    title: "Licitação 2023",
     blocksOffered: 12,
     blocksAwarded: 8,
     investment: "USD 2.3B",
@@ -165,8 +165,8 @@ export default function TendersPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-2xl font-bold text-foreground mb-2">Fases do Concurso</h2>
-          <p className="text-muted-foreground mb-8">O processo típico de um concurso público de blocos petrolíferos</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Fases da Licitação</h2>
+          <p className="text-muted-foreground mb-8">O processo típico de uma licitação de blocos petrolíferos</p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tenderPhases.map((phase, index) => (
@@ -200,7 +200,7 @@ export default function TendersPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <h2 className="text-2xl font-bold text-foreground mb-8">Concursos Anteriores</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">Licitações Anteriores</h2>
           <div className="space-y-4">
             {pastTenders.map((tender, index) => (
               <motion.div

@@ -47,7 +47,7 @@ const processPhases = [
   {
     phase: 2,
     title: "Lançamento Oficial",
-    description: "Lançamento do Concurso Público Limitado de atribuição de concessões petrolíferas.",
+    description: "Lançamento da Licitação para atribuição de concessões petrolíferas.",
     period: "4º Trimestre 2025",
     status: "upcoming"
   },
@@ -165,7 +165,7 @@ export default function Tender2025Page() {
                 </h2>
                 <p className="text-muted-foreground leading-relaxed max-w-3xl">
                   A Agência Nacional de Petróleo, Gás e Biocombustíveis (ANPG), na sua qualidade de Concessionária Nacional, 
-                  anuncia o Concurso Público Limitado de atribuição de concessões petrolíferas relativo à Licitação 2025 
+                  anuncia a Licitação 2025 para atribuição de concessões petrolíferas 
                   para a exploração das <strong className="text-foreground">Bacias Marítimas do Kwanza e de Benguela</strong>, 
                   aberto a entidades nacionais ou estrangeiras.
                 </p>
@@ -184,7 +184,7 @@ export default function Tender2025Page() {
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">Objectivos</h2>
-              <p className="text-muted-foreground text-sm">Metas estratégicas do Concurso 2025</p>
+              <p className="text-muted-foreground text-sm">Metas estratégicas da Licitação 2025</p>
             </div>
           </div>
 
@@ -216,7 +216,7 @@ export default function Tender2025Page() {
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">Fases do Processo</h2>
-              <p className="text-muted-foreground text-sm">Cronograma detalhado do concurso</p>
+              <p className="text-muted-foreground text-sm">Cronograma detalhado da licitação</p>
             </div>
           </div>
 

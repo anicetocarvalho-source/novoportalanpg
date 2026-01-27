@@ -444,13 +444,13 @@ export default function BlockDetailsPage() {
                 Bloco Disponível para Licitação
               </h3>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Este bloco faz parte do Concurso Público 2025. Manifeste o seu interesse e receba 
-                informações detalhadas sobre o processo de licitação.
+                Este bloco faz parte da Licitação 2025. Manifeste o seu interesse e receba 
+                informações detalhadas sobre o processo.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link to="/opportunities/tender-2025">
                   <Button variant="default" size="lg">
-                    Ver Concurso 2025
+                    Ver Licitação 2025
                     <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>

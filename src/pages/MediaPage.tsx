@@ -122,7 +122,7 @@ interface Event {
 const newsCategories = [
   { key: "all", label: "Todas" },
   { key: "press", label: "Comunicado de Imprensa" },
-  { key: "tender", label: "Concurso Público" },
+  { key: "tender", label: "Licitação" },
   { key: "highlight", label: "Destaque" },
   { key: "production", label: "Produção Mensal" },
 ];
