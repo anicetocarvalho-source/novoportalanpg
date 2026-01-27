@@ -679,5 +679,102 @@
       },
       "questions": "Se tiver dúvidas sobre estes Termos, contacte-nos através de"
     }
+  },
+  "faq": {
+    "breadcrumb": "Perguntas Frequentes",
+    "hero": {
+      "title": "Perguntas Frequentes",
+      "description": "Encontre respostas às perguntas mais comuns sobre investimento no sector petrolífero angolano e processos de licitação."
+    },
+    "intro": "Compilámos as perguntas mais frequentes de investidores e parceiros sobre oportunidades de investimento, processos de licitação e requisitos operacionais em Angola.",
+    "contactCta": {
+      "text": "Não encontrou a resposta que procurava?",
+      "link": "Contacte-nos directamente"
+    },
+    "categories": {
+      "investment": {
+        "title": "Investimento no Sector Petrolífero",
+        "q1": {
+          "question": "Quais são as principais oportunidades de investimento em Angola?",
+          "answer": "Angola oferece oportunidades em exploração onshore e offshore, desenvolvimento de campos maduros, projectos de gás natural e infraestruturas de apoio. A Licitação 2025 e a Oferta Permanente disponibilizam blocos nas bacias do Kwanza e Benguela com potencial comprovado."
+        },
+        "q2": {
+          "question": "Qual é o investimento mínimo necessário?",
+          "answer": "O investimento mínimo varia consoante o tipo de bloco e programa de trabalho proposto. Os termos específicos são definidos no caderno de encargos de cada licitação. Geralmente, são exigidas garantias financeiras e compromissos de investimento mínimo durante o período de exploração."
+        },
+        "q3": {
+          "question": "Como posso manifestar interesse antes de uma licitação?",
+          "answer": "Pode registar-se no Portal do Investidor para receber actualizações sobre novas oportunidades. Para manifestações formais de interesse, utilize o formulário disponível na página da respectiva licitação ou contacte directamente a ANPG."
+        },
+        "q4": {
+          "question": "Existem incentivos fiscais para investidores?",
+          "answer": "Angola oferece um regime fiscal competitivo para o sector petrolífero, incluindo incentivos para exploração em águas profundas e ultra-profundas. Os termos fiscais específicos são negociados caso a caso e detalhados nos contratos de partilha de produção."
+        }
+      },
+      "tendering": {
+        "title": "Processos de Licitação",
+        "q1": {
+          "question": "Como funcionam as licitações da ANPG?",
+          "answer": "As licitações seguem um processo transparente que inclui: publicação do edital, período de consulta de dados, submissão de propostas, avaliação técnica e comercial, e adjudicação. Todo o processo é regulado pela legislação angolana e supervisionado por entidades competentes."
+        },
+        "q2": {
+          "question": "Quem pode participar nas licitações?",
+          "answer": "Podem participar empresas nacionais e estrangeiras que cumpram os requisitos de qualificação técnica e financeira. É necessária experiência comprovada em exploração e produção de hidrocarbonetos, bem como capacidade financeira adequada ao programa de trabalho proposto."
+        },
+        "q3": {
+          "question": "Qual é o prazo típico para submissão de propostas?",
+          "answer": "Após o lançamento oficial, os concorrentes dispõem geralmente de 30 a 40 dias para submeter propostas. Recomendamos que as empresas interessadas se registem antecipadamente para aceder aos dados técnicos e preparar as suas propostas adequadamente."
+        },
+        "q4": {
+          "question": "Como são avaliadas as propostas?",
+          "answer": "A avaliação considera critérios técnicos (programa de trabalho, capacidade operacional, experiência) e comerciais (bónus de assinatura, compromissos de investimento, participação do Estado). Os pesos relativos são definidos no edital de cada licitação."
+        }
+      },
+      "contracts": {
+        "title": "Contratos e Regulamentação",
+        "q1": {
+          "question": "Que tipo de contratos são utilizados?",
+          "answer": "Angola utiliza o modelo de Contrato de Partilha de Produção (CPP), conforme estabelecido pela Lei das Actividades Petrolíferas. Este modelo define a partilha de custos e produção entre o Estado e os operadores, garantindo benefícios mútuos."
+        },
+        "q2": {
+          "question": "Qual é a duração típica dos contratos?",
+          "answer": "O período de exploração inicial é de 4 a 5 anos, prorrogável mediante justificação técnica. Após descoberta comercial, o período de desenvolvimento e produção pode estender-se por 20 a 25 anos, dependendo das características do campo."
+        },
+        "q3": {
+          "question": "Quais são os requisitos ambientais?",
+          "answer": "Todas as operações devem cumprir a legislação ambiental angolana e as melhores práticas internacionais. É obrigatória a apresentação de Estudos de Impacto Ambiental (EIA) antes do início das actividades, bem como planos de descomissionamento."
+        }
+      },
+      "localContent": {
+        "title": "Conteúdo Local",
+        "q1": {
+          "question": "O que é a política de Conteúdo Local?",
+          "answer": "A política de Conteúdo Local visa maximizar a participação de empresas e trabalhadores angolanos na cadeia de valor do sector petrolífero. Inclui requisitos de contratação local, formação profissional e transferência de tecnologia."
+        },
+        "q2": {
+          "question": "É obrigatória a participação de empresas angolanas?",
+          "answer": "Sim, é incentivada e em muitos casos obrigatória a participação de empresas angolanas nos consórcios e na cadeia de fornecimento. Os requisitos específicos variam consoante o tipo de contrato e são detalhados nos cadernos de encargos."
+        },
+        "q3": {
+          "question": "Que apoio existe para empresas locais?",
+          "answer": "A ANPG promove programas de capacitação e desenvolvimento de fornecedores locais. Existem também incentivos para parcerias entre empresas internacionais e angolanas, facilitando a transferência de conhecimento e tecnologia."
+        }
+      },
+      "data": {
+        "title": "Dados Técnicos e Informação",
+        "q1": {
+          "question": "Como posso aceder aos dados técnicos dos blocos?",
+          "answer": "Os dados técnicos estão disponíveis através da plataforma IONA e do Portal do Investidor. Para acesso a pacotes de dados detalhados, incluindo informação sísmica, é necessária uma solicitação formal à ANPG, podendo ser aplicadas taxas de acesso."
+        },
+        "q2": {
+          "question": "Que tipo de dados estão disponíveis?",
+          "answer": "Disponibilizamos dados geológicos, geofísicos (sísmicos 2D e 3D), relatórios de poços, estudos de reservatório e mapas de concessões. A extensão dos dados varia consoante o histórico de exploração de cada bloco."
+        },
+        "q3": {
+          "question": "Os dados são confidenciais?",
+          "answer": "Sim, os dados técnicos são tratados com confidencialidade. O acesso é controlado e os utilizadores devem assinar acordos de confidencialidade antes de receberem informação sensível sobre os blocos."
+        }
+      }
+    }
   }
 }
