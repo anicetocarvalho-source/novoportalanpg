@@ -193,6 +193,9 @@
       "infoTitle": "Contact Information",
       "infoDescription": "We are available to answer your questions and provide the information you need.",
       "mapPlaceholder": "Location map coming soon",
+      "mapTitle": "ANPG Location",
+      "openInMaps": "Open in Google Maps",
+      "headquarters": "ANPG HQ",
       "info": {
         "address": {
           "title": "Headquarters"
