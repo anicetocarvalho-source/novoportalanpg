@@ -679,5 +679,102 @@
       },
       "questions": "If you have questions about these Terms, contact us at"
     }
+  },
+  "faq": {
+    "breadcrumb": "Frequently Asked Questions",
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to the most common questions about investing in Angola's petroleum sector and tendering processes."
+    },
+    "intro": "We have compiled the most frequently asked questions from investors and partners about investment opportunities, tendering processes and operational requirements in Angola.",
+    "contactCta": {
+      "text": "Didn't find the answer you were looking for?",
+      "link": "Contact us directly"
+    },
+    "categories": {
+      "investment": {
+        "title": "Investment in the Petroleum Sector",
+        "q1": {
+          "question": "What are the main investment opportunities in Angola?",
+          "answer": "Angola offers opportunities in onshore and offshore exploration, mature field development, natural gas projects and supporting infrastructure. The 2025 Tender and Permanent Offer provide blocks in the Kwanza and Benguela basins with proven potential."
+        },
+        "q2": {
+          "question": "What is the minimum investment required?",
+          "answer": "The minimum investment varies depending on the block type and proposed work programme. Specific terms are defined in each tender's bidding documents. Generally, financial guarantees and minimum investment commitments are required during the exploration period."
+        },
+        "q3": {
+          "question": "How can I express interest before a tender?",
+          "answer": "You can register on the Investor Portal to receive updates on new opportunities. For formal expressions of interest, use the form available on the respective tender page or contact ANPG directly."
+        },
+        "q4": {
+          "question": "Are there tax incentives for investors?",
+          "answer": "Angola offers a competitive tax regime for the petroleum sector, including incentives for deep and ultra-deep water exploration. Specific tax terms are negotiated on a case-by-case basis and detailed in production sharing contracts."
+        }
+      },
+      "tendering": {
+        "title": "Tendering Processes",
+        "q1": {
+          "question": "How do ANPG tenders work?",
+          "answer": "Tenders follow a transparent process that includes: publication of the notice, data consultation period, proposal submission, technical and commercial evaluation, and award. The entire process is regulated by Angolan legislation and supervised by competent authorities."
+        },
+        "q2": {
+          "question": "Who can participate in tenders?",
+          "answer": "National and foreign companies that meet technical and financial qualification requirements can participate. Proven experience in hydrocarbon exploration and production is required, as well as adequate financial capacity for the proposed work programme."
+        },
+        "q3": {
+          "question": "What is the typical deadline for proposal submission?",
+          "answer": "After the official launch, bidders typically have 30 to 40 days to submit proposals. We recommend that interested companies register in advance to access technical data and prepare their proposals adequately."
+        },
+        "q4": {
+          "question": "How are proposals evaluated?",
+          "answer": "Evaluation considers technical criteria (work programme, operational capacity, experience) and commercial criteria (signature bonus, investment commitments, state participation). The relative weights are defined in each tender notice."
+        }
+      },
+      "contracts": {
+        "title": "Contracts and Regulation",
+        "q1": {
+          "question": "What type of contracts are used?",
+          "answer": "Angola uses the Production Sharing Contract (PSC) model, as established by the Petroleum Activities Law. This model defines the sharing of costs and production between the State and operators, ensuring mutual benefits."
+        },
+        "q2": {
+          "question": "What is the typical contract duration?",
+          "answer": "The initial exploration period is 4 to 5 years, extendable with technical justification. After commercial discovery, the development and production period can extend for 20 to 25 years, depending on the field's characteristics."
+        },
+        "q3": {
+          "question": "What are the environmental requirements?",
+          "answer": "All operations must comply with Angolan environmental legislation and international best practices. Environmental Impact Studies (EIS) are mandatory before the start of activities, as well as decommissioning plans."
+        }
+      },
+      "localContent": {
+        "title": "Local Content",
+        "q1": {
+          "question": "What is the Local Content policy?",
+          "answer": "The Local Content policy aims to maximise the participation of Angolan companies and workers in the petroleum sector value chain. It includes local hiring requirements, professional training and technology transfer."
+        },
+        "q2": {
+          "question": "Is Angolan company participation mandatory?",
+          "answer": "Yes, participation of Angolan companies in consortia and the supply chain is encouraged and in many cases mandatory. Specific requirements vary according to the contract type and are detailed in the bidding documents."
+        },
+        "q3": {
+          "question": "What support exists for local companies?",
+          "answer": "ANPG promotes training and local supplier development programmes. There are also incentives for partnerships between international and Angolan companies, facilitating knowledge and technology transfer."
+        }
+      },
+      "data": {
+        "title": "Technical Data and Information",
+        "q1": {
+          "question": "How can I access technical data on blocks?",
+          "answer": "Technical data is available through the IONA platform and Investor Portal. For access to detailed data packages, including seismic information, a formal request to ANPG is required, and access fees may apply."
+        },
+        "q2": {
+          "question": "What type of data is available?",
+          "answer": "We provide geological, geophysical (2D and 3D seismic), well reports, reservoir studies and concession maps. The extent of data varies according to each block's exploration history."
+        },
+        "q3": {
+          "question": "Is the data confidential?",
+          "answer": "Yes, technical data is treated confidentially. Access is controlled and users must sign confidentiality agreements before receiving sensitive information about blocks."
+        }
+      }
+    }
   }
 }
