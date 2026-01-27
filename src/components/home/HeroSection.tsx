@@ -180,7 +180,7 @@ export function HeroSection() {
             icon={<TrendingUp className="w-6 h-6" />}
             titleKey="nav.investment"
             descriptionKey="services.tenders.description"
-            href="/investment"
+            href="/investor-portal"
             delay={0.6}
           />
           <QuickAccessCard
@@ -194,7 +194,7 @@ export function HeroSection() {
             icon={<BarChart3 className="w-6 h-6" />}
             titleKey="nav.data"
             descriptionKey="services.analytics.description"
-            href="/data"
+            href="/ep-data"
             delay={0.8}
           />
         </motion.div>
