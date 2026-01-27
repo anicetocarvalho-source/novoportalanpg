@@ -534,6 +534,60 @@
       "partners": "International partners",
       "production": "Barrels/day",
       "investment": "Total investment"
+    },
+    "meetingsLabel": "Meetings",
+    "meetingsTitle": "Schedule Meeting",
+    "meetingsSubtitle": "Book a meeting with our investment team"
+  },
+  "meetingScheduler": {
+    "title": "Schedule Meeting",
+    "description": "Select a convenient date and time to meet with our investment team",
+    "steps": {
+      "date": "Date",
+      "time": "Time",
+      "details": "Details",
+      "confirmation": "Confirmation"
+    },
+    "selectDate": "Select a Date",
+    "selectDateDesc": "Choose a weekday for your meeting. Weekends and past dates are not available.",
+    "selectTime": "Select a Time",
+    "changeDate": "Change Date",
+    "changeTime": "Change Time",
+    "timezone": "Angola Time (WAT - UTC+1)",
+    "yourDetails": "Your Details",
+    "at": "at",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "company": "Company",
+      "companyPlaceholder": "Company or organization name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone (optional)",
+      "phonePlaceholder": "+244 xxx xxx xxx",
+      "topic": "Meeting Topic",
+      "topicPlaceholder": "Select a topic",
+      "message": "Additional Message (optional)",
+      "messagePlaceholder": "Briefly describe what you would like to discuss..."
+    },
+    "topics": {
+      "blockInterest": "Interest in Specific Blocks",
+      "dataAccess": "Access to Technical Data",
+      "partnership": "Partnerships and Joint Ventures",
+      "tenderInfo": "Tender Information",
+      "general": "General Inquiry"
+    },
+    "submit": "Confirm Booking",
+    "validation": {
+      "required": "Please fill in all required fields",
+      "invalidEmail": "Please enter a valid email address"
+    },
+    "successToast": "Meeting scheduled successfully!",
+    "confirmation": {
+      "title": "Meeting Scheduled!",
+      "subtitle": "Your request has been successfully received",
+      "emailNote": "You will receive a confirmation email with the meeting details shortly.",
+      "scheduleAnother": "Schedule Another Meeting"
     }
   },
   "common": {
