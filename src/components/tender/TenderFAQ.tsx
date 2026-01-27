@@ -8,16 +8,16 @@ import {
 
 const faqs = [
   {
-    question: "Quem pode participar no Concurso Público Limitado 2025?",
+    question: "Quem pode participar na Licitação 2025?",
     answer: "Podem participar entidades nacionais ou estrangeiras, desde que cumpram os requisitos de qualificação técnica e financeira estabelecidos no caderno de encargos. As empresas devem demonstrar experiência comprovada em exploração e produção de hidrocarbonetos."
   },
   {
     question: "Qual é o prazo para submissão das propostas?",
-    answer: "Após o lançamento oficial no 4º Trimestre de 2025, os concorrentes terão um período de 30 a 40 dias para submeter as suas propostas. As datas exactas serão comunicadas aquando do lançamento oficial do concurso."
+    answer: "Após o lançamento oficial no 4º Trimestre de 2025, os concorrentes terão um período de 30 a 40 dias para submeter as suas propostas. As datas exactas serão comunicadas aquando do lançamento oficial da licitação."
   },
   {
     question: "Que tipo de contrato será utilizado?",
-    answer: "Será utilizado o modelo de Contrato de Partilha de Produção (CPP), conforme estabelecido pela legislação angolana. O modelo de contrato estará disponível para consulta após o lançamento oficial do concurso."
+    answer: "Será utilizado o modelo de Contrato de Partilha de Produção (CPP), conforme estabelecido pela legislação angolana. O modelo de contrato estará disponível para consulta após o lançamento oficial da licitação."
   },
   {
     question: "Como posso aceder aos pacotes de dados técnicos?",

@@ -12,7 +12,7 @@ const categories = [
   { id: "highlight", label: "Destaques" },
   { id: "press", label: "Comunicados" },
   { id: "production", label: "Produção" },
-  { id: "tender", label: "Concursos" },
+  { id: "tender", label: "Licitações" },
 ];
 
 export function NewsSection() {

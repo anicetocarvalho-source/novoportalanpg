@@ -381,7 +381,7 @@ O documento completo está disponível para consulta no portal da ANPG.
 export const getCategoryLabel = (category: string) => {
   switch (category) {
     case "press": return "Comunicado";
-    case "tender": return "Concurso";
+    case "tender": return "Licitação";
     case "highlight": return "Destaque";
     case "production": return "Produção";
     default: return category;

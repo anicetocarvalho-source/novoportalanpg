@@ -23,18 +23,18 @@
       "licensingDesc": "Gestão de concessões e licenças petrolíferas",
       "oversight": "Fiscalização",
       "oversightDesc": "Supervisão e controlo das operações",
-      "tenders": "Concursos Públicos",
-      "tendersDesc": "Licitações para atribuição de direitos de exploração",
+      "tenders": "Licitações",
+      "tendersDesc": "Processos para atribuição de direitos de exploração",
       "dataAnalytics": "Dados & Analytics",
       "dataAnalyticsDesc": "Estatísticas e relatórios do sector energético",
       "sustainability": "Sustentabilidade",
       "sustainabilityDesc": "Práticas ambientalmente responsáveis",
-      "tender2025": "Concurso 2025",
-      "tender2025Desc": "Oportunidades de investimento no concurso público actual",
+      "tender2025": "Licitação 2025",
+      "tender2025Desc": "Oportunidades de investimento na licitação actual",
       "permanentOffer": "Oferta Permanente",
       "permanentOfferDesc": "Blocos disponíveis para negociação contínua",
-      "tender2023": "Concurso 2023",
-      "tender2023Desc": "Resultados e informações do concurso anterior",
+      "tender2023": "Licitação 2023",
+      "tender2023Desc": "Resultados e informações da licitação anterior",
       "platformIona": "Plataforma IONA",
       "platformIonaDesc": "Sistema integrado de gestão de dados de E&P",
       "oasisImageBank": "OASIS – Banco de Imagens",
@@ -193,19 +193,19 @@
       "description": "Descubra as oportunidades de investimento no sector petrolífero angolano."
     },
     "tender2025": {
-      "title": "Concurso Público 2025",
+      "title": "Licitação 2025",
       "subtitle": "Oportunidades",
-      "description": "Informações sobre o concurso público de 2025 para atribuição de blocos petrolíferos."
+      "description": "Informações sobre a licitação de 2025 para atribuição de blocos petrolíferos."
     },
     "permanentOffer": {
       "title": "Oferta Permanente",
       "subtitle": "Blocos Disponíveis",
-      "description": "Blocos petrolíferos disponíveis para negociação contínua fora dos concursos públicos."
+      "description": "Blocos petrolíferos disponíveis para negociação contínua fora das licitações."
     },
     "tender2023": {
-      "title": "Concurso Público 2023",
+      "title": "Licitação 2023",
       "subtitle": "Resultados",
-      "description": "Resultados e informações sobre o concurso público de 2023."
+      "description": "Resultados e informações sobre a licitação de 2023."
     },
     "epData": {
       "title": "Dados de E&P",
@@ -344,8 +344,8 @@
       "description": "Desenvolvimento e aplicação do quadro regulatório do sector energético."
     },
     "tenders": {
-      "title": "Concursos Públicos",
-      "description": "Organização de licitações para atribuição de direitos de exploração."
+      "title": "Licitações",
+      "description": "Organização de processos para atribuição de direitos de exploração."
     },
     "analytics": {
       "title": "Dados & Analytics",
