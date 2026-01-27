@@ -198,7 +198,7 @@
       "headquarters": "Sede ANPG",
       "info": {
         "address": {
-          "title": "Sede"
+          "title": "Localização"
         },
         "phone": {
           "title": "Telefone"
@@ -207,7 +207,7 @@
           "title": "Email"
         },
         "hours": {
-          "title": "Horário de Funcionamento",
+          "title": "Horário",
           "content": "Segunda a Sexta: 08H00 - 17H00"
         }
       }

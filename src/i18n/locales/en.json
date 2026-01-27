@@ -198,7 +198,7 @@
       "headquarters": "ANPG HQ",
       "info": {
         "address": {
-          "title": "Headquarters"
+          "title": "Location"
         },
         "phone": {
           "title": "Phone"
@@ -207,7 +207,7 @@
           "title": "Email"
         },
         "hours": {
-          "title": "Business Hours",
+          "title": "Hours",
           "content": "Monday to Friday: 08H00 - 17H00"
         }
       }
