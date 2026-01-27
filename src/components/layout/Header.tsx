@@ -195,8 +195,11 @@ export function Header() {
             <Button
               variant={isScrolled ? "hero" : "heroOutline"}
               size="default"
+              asChild
             >
-              {t("nav.investorPortal")}
+              <Link to="/investor-portal">
+                {t("nav.investorPortal")}
+              </Link>
             </Button>
           </motion.div>
 
@@ -297,8 +300,10 @@ export function Header() {
                     )}
                   </div>
                 ))}
-                <Button variant="hero" size="lg" className="mt-4">
-                  {t("nav.investorPortal")}
+                <Button variant="hero" size="lg" className="mt-4" asChild>
+                  <Link to="/investor-portal">
+                    {t("nav.investorPortal")}
+                  </Link>
                 </Button>
               </nav>
             </div>

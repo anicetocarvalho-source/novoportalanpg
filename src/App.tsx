@@ -46,6 +46,7 @@ import ProductionHistoryPage from "./pages/production/ProductionHistoryPage";
 import LocalContentPage from "./pages/LocalContentPage";
 import DataPage from "./pages/DataPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
+import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +97,7 @@ function AnimatedRoutes() {
           <Route path="/local-content" element={<LocalContentPage />} />
           <Route path="/data" element={<DataPage />} />
           <Route path="/sustainability" element={<SustainabilityPage />} />
+          <Route path="/investor-portal" element={<InvestorPortalPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

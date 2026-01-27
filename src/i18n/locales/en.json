@@ -461,6 +461,81 @@
       "careers": "Careers"
     }
   },
+  "pages": {
+    "investorPortal": {
+      "title": "Investor Portal",
+      "subtitle": "Investment",
+      "description": "Access investment opportunities, documentation and resources for investors in Angola's petroleum sector."
+    }
+  },
+  "investorPortal": {
+    "featuresLabel": "Features",
+    "featuresTitle": "What We Offer",
+    "featuresSubtitle": "Complete access to tools and resources for qualified investors",
+    "comingSoon": "Coming Soon",
+    "features": {
+      "dataRoom": {
+        "title": "Virtual Data Room",
+        "description": "Secure access to seismic and geological data packages"
+      },
+      "dashboard": {
+        "title": "Opportunities Dashboard",
+        "description": "Overview of available blocks and active tenders"
+      },
+      "interest": {
+        "title": "Expression of Interest",
+        "description": "Form to register interest in specific blocks"
+      },
+      "documents": {
+        "title": "Document Center",
+        "description": "Library of model contracts, legislation and brochures"
+      },
+      "meetings": {
+        "title": "Meeting Scheduling",
+        "description": "Schedule meetings with the investment team"
+      },
+      "secure": {
+        "title": "Secure Access",
+        "description": "Reserved area with authentication for investors"
+      }
+    },
+    "highlights": {
+      "blocks": "Available petroleum blocks",
+      "reserves": "Barrels of proven reserves",
+      "fiscal": "Income tax rate",
+      "operators": "International operators"
+    },
+    "opportunitiesLabel": "Opportunities",
+    "opportunitiesTitle": "Available Blocks",
+    "opportunitiesSubtitle": "Explore blocks available for bidding and permanent offer",
+    "viewAllBlocks": "View Full Map",
+    "searchBlocks": "Search blocks...",
+    "viewDetails": "View Details",
+    "noResults": "No blocks found",
+    "adjustFilters": "Adjust filters to see more results",
+    "documentsLabel": "Documentation",
+    "documentsTitle": "Document Center",
+    "documentsSubtitle": "Legislation, model contracts, brochures and reports",
+    "searchDocuments": "Search documents...",
+    "download": "Download",
+    "noDocuments": "No documents found",
+    "adjustSearch": "Adjust search to see more results",
+    "needMore": "Need more documents?",
+    "requestAccess": "Request access to the Virtual Data Room for complete technical documentation",
+    "dataRoom": "Data Room",
+    "contactUs": "Contact Us",
+    "ctaBadge": "Register Now",
+    "ctaTitle": "Become a Qualified Investor",
+    "ctaDescription": "Register to access exclusive features such as the Virtual Data Room, meeting scheduling and expression of interest in specific blocks.",
+    "ctaRegister": "Create Account",
+    "ctaContact": "Talk to the Team",
+    "stats": {
+      "basins": "Sedimentary basins",
+      "partners": "International partners",
+      "production": "Barrels/day",
+      "investment": "Total investment"
+    }
+  },
   "common": {
     "learnMore": "Learn More",
     "viewAll": "View All",
