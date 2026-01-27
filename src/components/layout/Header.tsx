@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhite from "@/assets/logo-white.webp";
@@ -41,6 +41,7 @@ export function Header() {
         { nameKey: "nav.submenu.anpg", descriptionKey: "nav.submenu.anpgDesc", href: "/about/anpg", icon: Building2 },
         { nameKey: "nav.submenu.ourHistory", descriptionKey: "nav.submenu.ourHistoryDesc", href: "/about/history", icon: History },
         { nameKey: "nav.submenu.socialResponsibility", descriptionKey: "nav.submenu.socialResponsibilityDesc", href: "/about/social-responsibility", icon: Heart },
+        { nameKey: "nav.submenu.faq", descriptionKey: "nav.submenu.faqDesc", href: "/faq", icon: HelpCircle },
         { nameKey: "nav.submenu.contacts", descriptionKey: "nav.submenu.contactsDesc", href: "/contacts", icon: Phone },
       ],
     },
