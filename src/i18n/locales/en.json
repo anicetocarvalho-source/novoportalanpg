@@ -132,27 +132,103 @@
     },
     "history": {
       "title": "Our History",
-      "subtitle": "Since 1978",
-      "description": "Decades of experience and commitment to the development of Angola's petroleum sector.",
-      "content": {
-        "intro": "The history of Angola's petroleum sector is marked by decades of development and sustainable growth.",
-        "timeline": {
-          "1978": {
-            "title": "Creation of Sonangol",
-            "description": "Foundation of the National Fuel Company of Angola"
-          },
-          "2019": {
-            "title": "Creation of ANPG",
-            "description": "Establishment of the National Oil, Gas and Biofuels Agency by Presidential Decree No. 49/19"
-          },
-          "2020": {
-            "title": "First Licensing Round",
-            "description": "Launch of the first public tender under the new regulatory structure"
-          },
-          "2023": {
-            "title": "Expansion of Activities",
-            "description": "Consolidation of ANPG as a reference regulatory entity"
-          }
+      "subtitle": "Since 1910",
+      "description": "Over a century of petroleum history, from the first exploration license to ANPG's creation.",
+      "intro": "Over a century of petroleum history, from the first exploration license in 1910 to the creation of ANPG in 2019. A journey of discovery, growth and transformation that positioned Angola as one of Africa's leading oil producers.",
+      "timelineTitle": "Timeline",
+      "today": "Today",
+      "eras": {
+        "pioneering": "Pioneering",
+        "growth": "Growth",
+        "expansion": "Expansion",
+        "modernization": "Modernization"
+      },
+      "stats": {
+        "years": "Years of History",
+        "peakProduction": "Barrels/Day (Peak)",
+        "sonangolCreation": "Sonangol Created",
+        "anpgCreation": "ANPG Created"
+      },
+      "timeline": {
+        "1910": {
+          "title": "First Exploration License",
+          "description": "First hydrocarbon exploration license granted to Canha & Formigal, in onshore Kwanza."
+        },
+        "1915": {
+          "title": "First Well Drilled",
+          "description": "Drilling of the first oil well, Dande-1, in the Kwanza Basin."
+        },
+        "1955": {
+          "title": "First Commercial Discovery",
+          "description": "Petrofina makes the first commercial oil discovery in the Kwanza valley, with the drilling of the Benfica 2 well."
+        },
+        "1958": {
+          "title": "Start of Refining",
+          "description": "Beginning of oil refining activity with the creation of the Luanda Refinery, owned by Petrangol."
+        },
+        "1966": {
+          "title": "Discovery in Block 0",
+          "description": "New phase with the allocation of several concessions and creation of blocks. First discovery in the Limba well, Block 0."
+        },
+        "1968": {
+          "title": "Malongo Field",
+          "description": "Start of operations at the Malongo field in Cabinda. First major leap in Angolan petroleum production."
+        },
+        "1973": {
+          "title": "Petroleum: Main Export",
+          "description": "Petroleum becomes Angola's main export, surpassing coffee."
+        },
+        "1976": {
+          "title": "Creation of Sonangol",
+          "description": "Creation of the National Fuel Company of Angola – Sonangol. Production was around 100,000 barrels/day."
+        },
+        "1978": {
+          "title": "First Petroleum Law",
+          "description": "First Petroleum Activities Law (Law 13/78), establishing the sector's regulatory framework."
+        },
+        "1990": {
+          "title": "500 Thousand Barrels/Day",
+          "description": "Angola reaches production of 500,000 barrels/day, consolidating itself as a relevant producer in the region."
+        },
+        "1999": {
+          "title": "Deepwater Production",
+          "description": "The first FPSO in Angolan offshore (Block 14) enters operation, marking the beginning of deepwater production."
+        },
+        "2000": {
+          "title": "1 Million Barrels/Day",
+          "description": "Angola reaches maximum production of 1,000,000 barrels/day, becoming a global player."
+        },
+        "2007": {
+          "title": "OPEC Membership",
+          "description": "Angola becomes a member of OPEC – Organization of Petroleum Exporting Countries."
+        },
+        "2008": {
+          "title": "Historic Peak: 2 Million",
+          "description": "Angola reaches maximum daily production of 2,000,000 barrels. Annual average production of 1,993,000 barrels/day."
+        },
+        "2009": {
+          "title": "OPEC Presidency",
+          "description": "Angola assumes the OPEC presidency, becoming the largest crude producer in sub-Saharan Africa."
+        },
+        "2011": {
+          "title": "Pre-Salt Discoveries",
+          "description": "Significant discoveries in the Pre-Salt (Azul – Block 23; Cameia – Block 21), opening new exploratory frontiers."
+        },
+        "2013": {
+          "title": "LNG Export",
+          "description": "Start of liquefied natural gas (LNG) production and dispatch of the first shipment to Brazil."
+        },
+        "2019": {
+          "title": "Creation of ANPG",
+          "description": "Restructuring of the petroleum sector resulting in the creation of ANPG. Tender for 10 blocks in the Benguela and Namibe Basins."
+        },
+        "2020": {
+          "title": "Local Content Regulation",
+          "description": "Publication of Presidential Decree No. 271/20, defining the Local Content Implementation Procedures."
+        },
+        "2021": {
+          "title": "New Tender",
+          "description": "Limited Tender for 8 blocks in the Lower Congo and Kwanza Maritime Basins."
         }
       }
     },
