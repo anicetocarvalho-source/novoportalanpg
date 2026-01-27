@@ -2,6 +2,9 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactMap } from "@/components/contact/ContactMap";
+
+const ANPG_ADDRESS = "Rua Comandante Gika, nº 118/122, Ingombota, Luanda, Angola";
 
 export default function ContactsPage() {
   const { t } = useTranslation();
@@ -13,7 +16,7 @@ export default function ContactsPage() {
       content: (
         <>
           Rua Comandante Gika, nº 118/122<br />
-          Luanda, Angola
+          Ingombota, Luanda, Angola
         </>
       ),
     },
@@ -75,13 +78,8 @@ export default function ContactsPage() {
             })}
           </div>
 
-          {/* Map placeholder */}
-          <div className="rounded-xl overflow-hidden border border-border h-64 bg-secondary/30 flex items-center justify-center">
-            <div className="text-center text-muted-foreground">
-              <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">{t("pages.contacts.mapPlaceholder")}</p>
-            </div>
-          </div>
+          {/* Google Maps */}
+          <ContactMap address={ANPG_ADDRESS} />
         </div>
 
         {/* Contact Form */}

@@ -193,6 +193,9 @@
       "infoTitle": "Informações de Contacto",
       "infoDescription": "Estamos disponíveis para responder às suas questões e fornecer as informações que necessita.",
       "mapPlaceholder": "Mapa de localização em breve",
+      "mapTitle": "Localização da ANPG",
+      "openInMaps": "Abrir no Google Maps",
+      "headquarters": "Sede ANPG",
       "info": {
         "address": {
           "title": "Sede"
