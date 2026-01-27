@@ -9,35 +9,6 @@ const ANPG_ADDRESS = "Edifício Torres do Carmo, Torre 2, Avenida de Portugal, L
 export default function ContactsPage() {
   const { t } = useTranslation();
 
-  const contactInfo = [
-    {
-      icon: MapPin,
-      titleKey: "pages.contacts.info.address.title",
-      content: (
-        <>
-          Edifício Torres do Carmo - Torre 2<br />
-          Avenida de Portugal, Rua Lopes de Lima<br />
-          Município de Luanda, Angola
-        </>
-      ),
-    },
-    {
-      icon: Phone,
-      titleKey: "pages.contacts.info.phone.title",
-      content: "+244 226 428 000",
-    },
-    {
-      icon: Mail,
-      titleKey: "pages.contacts.info.email.title",
-      content: "info@anpg.co.ao",
-    },
-    {
-      icon: Clock,
-      titleKey: "pages.contacts.info.hours.title",
-      contentKey: "pages.contacts.info.hours.content",
-    },
-  ];
-
   return (
     <PageLayout
       titleKey="pages.contacts.title"
@@ -59,24 +30,63 @@ export default function ContactsPage() {
           </div>
 
           <div className="space-y-6">
-            {contactInfo.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={index} className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {t(item.titleKey)}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {item.contentKey ? t(item.contentKey) : item.content}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+            {/* Address */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">
+                  {t("pages.contacts.info.address.title")}
+                </h3>
+                <p className="text-muted-foreground">
+                  Edifício Torres do Carmo - Torre 2<br />
+                  Avenida de Portugal, Rua Lopes de Lima<br />
+                  Município de Luanda, Angola
+                </p>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Phone className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">
+                  {t("pages.contacts.info.phone.title")}
+                </h3>
+                <p className="text-muted-foreground">+244 226 428 000</p>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Mail className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">
+                  {t("pages.contacts.info.email.title")}
+                </h3>
+                <p className="text-muted-foreground">info@anpg.co.ao</p>
+              </div>
+            </div>
+
+            {/* Hours */}
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Clock className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground mb-1">
+                  {t("pages.contacts.info.hours.title")}
+                </h3>
+                <p className="text-muted-foreground">
+                  {t("pages.contacts.info.hours.content")}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Google Maps */}
