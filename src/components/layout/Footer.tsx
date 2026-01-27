@@ -16,8 +16,8 @@ export function Footer() {
   const footerLinks = {
     institutional: [
       { nameKey: "footer.links.about", href: "/about" },
-      { nameKey: "footer.links.leadership", href: "/about/leadership" },
-      { nameKey: "footer.links.governance", href: "/about/governance" },
+      { nameKey: "footer.links.anpg", href: "/about/anpg" },
+      { nameKey: "footer.links.socialResponsibility", href: "/about/social-responsibility" },
       { nameKey: "footer.links.history", href: "/about/history" },
     ],
     services: [
@@ -27,16 +27,16 @@ export function Footer() {
       { nameKey: "footer.links.tenders", href: "/regulation/tenders" },
     ],
     investors: [
-      { nameKey: "footer.links.opportunities", href: "/investment" },
-      { nameKey: "footer.links.availableBlocks", href: "/investment/blocks" },
-      { nameKey: "footer.links.investorGuide", href: "/investment/guide" },
-      { nameKey: "footer.links.contact", href: "/contact" },
+      { nameKey: "footer.links.opportunities", href: "/opportunities" },
+      { nameKey: "footer.links.investorPortal", href: "/investor-portal" },
+      { nameKey: "footer.links.availableBlocks", href: "/ep-data/maps" },
+      { nameKey: "footer.links.contact", href: "/contacts" },
     ],
     resources: [
-      { nameKey: "footer.links.energyData", href: "/data" },
-      { nameKey: "footer.links.publications", href: "/publications" },
-      { nameKey: "footer.links.news", href: "/news" },
-      { nameKey: "footer.links.careers", href: "/careers" },
+      { nameKey: "footer.links.energyData", href: "/ep-data" },
+      { nameKey: "footer.links.production", href: "/production" },
+      { nameKey: "footer.links.news", href: "/media" },
+      { nameKey: "footer.links.localContent", href: "/local-content" },
     ],
   };
 
@@ -140,10 +140,10 @@ export function Footer() {
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
               <span>{t("footer.copyright")}</span>
               <div className="flex items-center gap-4">
-                <Link to="/privacy" className="hover:text-pearl transition-colors">
+                <Link to="/about" className="hover:text-pearl transition-colors">
                   {t("footer.privacy")}
                 </Link>
-                <Link to="/terms" className="hover:text-pearl transition-colors">
+                <Link to="/about" className="hover:text-pearl transition-colors">
                   {t("footer.terms")}
                 </Link>
               </div>

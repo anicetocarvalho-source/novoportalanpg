@@ -147,7 +147,7 @@ export function StatsSection() {
           className="text-center mt-12"
         >
           <a
-            href="/data"
+            href="/ep-data"
             className="inline-flex items-center gap-2 text-primary font-medium hover:underline underline-offset-4"
           >
             {t("stats.exploreData")}
