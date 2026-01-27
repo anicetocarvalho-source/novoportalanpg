@@ -534,6 +534,60 @@
       "partners": "Parceiros internacionais",
       "production": "Barris/dia",
       "investment": "Investimento total"
+    },
+    "meetingsLabel": "Reuniões",
+    "meetingsTitle": "Agendar Reunião",
+    "meetingsSubtitle": "Marque uma reunião com a nossa equipa de investimentos"
+  },
+  "meetingScheduler": {
+    "title": "Agendar Reunião",
+    "description": "Seleccione uma data e hora convenientes para reunir com a nossa equipa de investimentos",
+    "steps": {
+      "date": "Data",
+      "time": "Hora",
+      "details": "Detalhes",
+      "confirmation": "Confirmação"
+    },
+    "selectDate": "Seleccione uma Data",
+    "selectDateDesc": "Escolha um dia útil para a sua reunião. Fins-de-semana e dias passados não estão disponíveis.",
+    "selectTime": "Seleccione um Horário",
+    "changeDate": "Alterar Data",
+    "changeTime": "Alterar Hora",
+    "timezone": "Horário de Angola (WAT - UTC+1)",
+    "yourDetails": "Os Seus Dados",
+    "at": "às",
+    "form": {
+      "name": "Nome Completo",
+      "namePlaceholder": "Introduza o seu nome",
+      "company": "Empresa",
+      "companyPlaceholder": "Nome da empresa ou organização",
+      "email": "Email",
+      "emailPlaceholder": "seu@email.com",
+      "phone": "Telefone (opcional)",
+      "phonePlaceholder": "+244 xxx xxx xxx",
+      "topic": "Assunto da Reunião",
+      "topicPlaceholder": "Seleccione o assunto",
+      "message": "Mensagem Adicional (opcional)",
+      "messagePlaceholder": "Descreva brevemente o que gostaria de discutir..."
+    },
+    "topics": {
+      "blockInterest": "Interesse em Blocos Específicos",
+      "dataAccess": "Acesso a Dados Técnicos",
+      "partnership": "Parcerias e Joint Ventures",
+      "tenderInfo": "Informações sobre Licitações",
+      "general": "Consulta Geral"
+    },
+    "submit": "Confirmar Agendamento",
+    "validation": {
+      "required": "Por favor preencha todos os campos obrigatórios",
+      "invalidEmail": "Por favor introduza um email válido"
+    },
+    "successToast": "Reunião agendada com sucesso!",
+    "confirmation": {
+      "title": "Reunião Agendada!",
+      "subtitle": "A sua solicitação foi recebida com sucesso",
+      "emailNote": "Receberá um email de confirmação com os detalhes da reunião em breve.",
+      "scheduleAnother": "Agendar Outra Reunião"
     }
   },
   "common": {

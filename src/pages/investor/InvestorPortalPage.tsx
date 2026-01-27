@@ -14,7 +14,8 @@ import {
   Building2,
   BarChart3,
   Globe2,
-  Lock
+  Lock,
+  CalendarDays
 } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -24,6 +25,7 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer } from "@/components/layout/StaggerContainer";
 import { OpportunitiesDashboard } from "@/components/investor/OpportunitiesDashboard";
 import { DocumentCenter } from "@/components/investor/DocumentCenter";
+import { MeetingScheduler } from "@/components/investor/MeetingScheduler";
 import heroImage from "@/assets/angola-coast.jpg";
 
 export default function InvestorPortalPage() {
@@ -59,10 +61,10 @@ export default function InvestorPortalPage() {
       available: true,
     },
     {
-      icon: Calendar,
+      icon: CalendarDays,
       titleKey: "investorPortal.features.meetings.title",
       descriptionKey: "investorPortal.features.meetings.description",
-      available: false,
+      available: true,
     },
     {
       icon: Shield,
@@ -195,6 +197,25 @@ export default function InvestorPortalPage() {
         </div>
         
         <DocumentCenter />
+      </SectionTransition>
+
+      {/* Meeting Scheduler Section */}
+      <SectionTransition className="mb-16">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+          <div>
+            <Badge variant="outline" className="mb-4">
+              {t("investorPortal.meetingsLabel")}
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              {t("investorPortal.meetingsTitle")}
+            </h2>
+            <p className="text-muted-foreground">
+              {t("investorPortal.meetingsSubtitle")}
+            </p>
+          </div>
+        </div>
+        
+        <MeetingScheduler />
       </SectionTransition>
 
       {/* CTA Section - Register Interest */}
