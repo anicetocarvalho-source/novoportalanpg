@@ -132,27 +132,103 @@
     },
     "history": {
       "title": "A Nossa História",
-      "subtitle": "Desde 1978",
-      "description": "Décadas de experiência e compromisso com o desenvolvimento do sector petrolífero angolano.",
-      "content": {
-        "intro": "A história do sector petrolífero angolano é marcada por décadas de desenvolvimento e crescimento sustentável.",
-        "timeline": {
-          "1978": {
-            "title": "Criação da Sonangol",
-            "description": "Fundação da Sociedade Nacional de Combustíveis de Angola"
-          },
-          "2019": {
-            "title": "Criação da ANPG",
-            "description": "Estabelecimento da Agência Nacional de Petróleo, Gás e Biocombustíveis pelo Decreto Presidencial nº 49/19"
-          },
-          "2020": {
-            "title": "Primeira Ronda de Licenciamento",
-            "description": "Lançamento do primeiro concurso público sob a nova estrutura regulatória"
-          },
-          "2023": {
-            "title": "Expansão das Actividades",
-            "description": "Consolidação da ANPG como entidade reguladora de referência"
-          }
+      "subtitle": "Desde 1910",
+      "description": "Mais de um século de história petrolífera, desde a primeira licença de exploração até à criação da ANPG.",
+      "intro": "Mais de um século de história petrolífera, desde a primeira licença de exploração em 1910 até à criação da ANPG em 2019. Uma jornada de descoberta, crescimento e transformação que posicionou Angola como um dos principais produtores de petróleo da África.",
+      "timelineTitle": "Linha do Tempo",
+      "today": "Hoje",
+      "eras": {
+        "pioneering": "Pioneirismo",
+        "growth": "Crescimento",
+        "expansion": "Expansão",
+        "modernization": "Modernização"
+      },
+      "stats": {
+        "years": "Anos de História",
+        "peakProduction": "Barris/Dia (Pico)",
+        "sonangolCreation": "Criação da Sonangol",
+        "anpgCreation": "Criação da ANPG"
+      },
+      "timeline": {
+        "1910": {
+          "title": "Primeira Licença de Exploração",
+          "description": "Primeira licença de exploração de hidrocarbonetos atribuída à empresa Canha & Formigal, no onshore do Kwanza."
+        },
+        "1915": {
+          "title": "Primeiro Poço Perfurado",
+          "description": "Perfuração do primeiro poço de petróleo, Dande-1, na Bacia do Kwanza."
+        },
+        "1955": {
+          "title": "Primeira Descoberta Comercial",
+          "description": "Petrofina realiza a primeira descoberta comercial de petróleo, no vale do Kwanza, com a perfuração do poço Benfica 2."
+        },
+        "1958": {
+          "title": "Início da Refinação",
+          "description": "Início da actividade de refinação de petróleo, com a criação da Refinaria de Luanda, propriedade da Petrangol."
+        },
+        "1966": {
+          "title": "Descoberta no Bloco 0",
+          "description": "Nova fase com atribuição de diversas concessões e criação de blocos. Primeira descoberta no poço Limba, Bloco 0."
+        },
+        "1968": {
+          "title": "Campo de Malongo",
+          "description": "Entrada em funcionamento do campo de Malongo, em Cabinda. Primeiro grande salto na produção petrolífera angolana."
+        },
+        "1973": {
+          "title": "Petróleo: Principal Exportação",
+          "description": "O petróleo torna-se na principal exportação de Angola, superando o café."
+        },
+        "1976": {
+          "title": "Criação da Sonangol",
+          "description": "Criação da Sociedade Nacional de Combustíveis de Angola – Sonangol. A produção rondava os 100 mil barris/dia."
+        },
+        "1978": {
+          "title": "Primeira Lei Petrolífera",
+          "description": "Primeira Lei das Actividades Petrolíferas (Lei 13/78), estabelecendo o quadro regulatório do sector."
+        },
+        "1990": {
+          "title": "500 Mil Barris/Dia",
+          "description": "Angola atinge a produção de 500 mil barris/dia, consolidando-se como produtor relevante na região."
+        },
+        "1999": {
+          "title": "Produção em Águas Profundas",
+          "description": "Entra em funcionamento o primeiro FPSO no offshore angolano (Bloco 14), marcando o início da produção em águas profundas."
+        },
+        "2000": {
+          "title": "1 Milhão de Barris/Dia",
+          "description": "Angola atinge a produção máxima de 1.000.000 de barris/dia, tornando-se um player global."
+        },
+        "2007": {
+          "title": "Adesão à OPEP",
+          "description": "Angola torna-se membro da OPEP – Organização dos Países Exportadores de Petróleo."
+        },
+        "2008": {
+          "title": "Pico Histórico: 2 Milhões",
+          "description": "Angola atinge a produção máxima diária de 2.000.000 de barris. Produção média anual de 1.993.000 barris/dia."
+        },
+        "2009": {
+          "title": "Presidência da OPEP",
+          "description": "Angola assume a presidência da OPEP, tornando-se o maior produtor de crude da África subsariana."
+        },
+        "2011": {
+          "title": "Descobertas no Pré-Sal",
+          "description": "Descobertas significativas no Pré-Sal (Azul – Bloco 23; Cameia – Bloco 21), abrindo novas fronteiras exploratórias."
+        },
+        "2013": {
+          "title": "Exportação de LNG",
+          "description": "Início da produção de gás natural liquefeito (LNG) e expedição do primeiro carregamento para o Brasil."
+        },
+        "2019": {
+          "title": "Criação da ANPG",
+          "description": "Reestruturação do sector petrolífero que resulta na criação da ANPG. Licitação de 10 blocos nas Bacias de Benguela e Namibe."
+        },
+        "2020": {
+          "title": "Regulamentação do Conteúdo Local",
+          "description": "Publicação do Decreto Presidencial n.º 271/20, definindo os Procedimentos de Implementação do Conteúdo Local."
+        },
+        "2021": {
+          "title": "Nova Licitação",
+          "description": "Licitação por Concurso Limitado de 8 blocos nas Bacias Marítimas do Baixo Congo e do Kwanza."
         }
       }
     },
