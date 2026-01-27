@@ -140,10 +140,10 @@ export function Footer() {
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
               <span>{t("footer.copyright")}</span>
               <div className="flex items-center gap-4">
-                <Link to="/about" className="hover:text-pearl transition-colors">
+                <Link to="/privacy" className="hover:text-pearl transition-colors">
                   {t("footer.privacy")}
                 </Link>
-                <Link to="/about" className="hover:text-pearl transition-colors">
+                <Link to="/terms" className="hover:text-pearl transition-colors">
                   {t("footer.terms")}
                 </Link>
               </div>

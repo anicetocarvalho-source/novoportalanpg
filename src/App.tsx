@@ -47,6 +47,8 @@ import LocalContentPage from "./pages/LocalContentPage";
 import DataPage from "./pages/DataPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
 import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
+import PrivacyPage from "./pages/legal/PrivacyPage";
+import TermsPage from "./pages/legal/TermsPage";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +100,8 @@ function AnimatedRoutes() {
           <Route path="/data" element={<DataPage />} />
           <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/investor-portal" element={<InvestorPortalPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
