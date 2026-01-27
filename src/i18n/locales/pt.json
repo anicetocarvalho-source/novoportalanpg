@@ -189,7 +189,25 @@
     "contacts": {
       "title": "Contactos",
       "subtitle": "Fale Connosco",
-      "description": "Entre em contacto com as nossas equipas para obter informações e esclarecimentos."
+      "description": "Entre em contacto com as nossas equipas para obter informações e esclarecimentos.",
+      "infoTitle": "Informações de Contacto",
+      "infoDescription": "Estamos disponíveis para responder às suas questões e fornecer as informações que necessita.",
+      "mapPlaceholder": "Mapa de localização em breve",
+      "info": {
+        "address": {
+          "title": "Sede"
+        },
+        "phone": {
+          "title": "Telefone"
+        },
+        "email": {
+          "title": "Email"
+        },
+        "hours": {
+          "title": "Horário de Funcionamento",
+          "content": "Segunda a Sexta: 08:00 - 17:00"
+        }
+      }
     },
     "opportunities": {
       "title": "Oportunidades de Investimento",
@@ -436,6 +454,53 @@
     "description": "Entre em contacto com a nossa equipa de relações com investidores para saber mais sobre as oportunidades disponíveis.",
     "contactInvestments": "Contactar Investimentos",
     "scheduleMeeting": "Agendar Reunião"
+  },
+  "contactForm": {
+    "title": "Enviar Mensagem",
+    "fields": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefone (opcional)",
+      "subject": "Assunto",
+      "message": "Mensagem"
+    },
+    "placeholders": {
+      "name": "O seu nome completo",
+      "email": "O seu email",
+      "phone": "+244 xxx xxx xxx",
+      "subject": "Seleccione o assunto",
+      "message": "Descreva o motivo do seu contacto..."
+    },
+    "subjects": {
+      "general": "Informação Geral",
+      "investment": "Oportunidades de Investimento",
+      "tender": "Licitações e Concursos",
+      "data": "Acesso a Dados Técnicos",
+      "partnership": "Parcerias e Joint Ventures",
+      "media": "Imprensa e Media",
+      "other": "Outro Assunto"
+    },
+    "validation": {
+      "nameMin": "O nome deve ter pelo menos 2 caracteres",
+      "nameMax": "O nome não pode exceder 100 caracteres",
+      "emailInvalid": "Por favor introduza um email válido",
+      "emailMax": "O email não pode exceder 255 caracteres",
+      "phoneInvalid": "Por favor introduza um número de telefone válido",
+      "subjectRequired": "Por favor seleccione um assunto",
+      "messageMin": "A mensagem deve ter pelo menos 10 caracteres",
+      "messageMax": "A mensagem não pode exceder 2000 caracteres"
+    },
+    "submit": "Enviar Mensagem",
+    "submitting": "A enviar...",
+    "disclaimer": "Ao submeter este formulário, concorda com a nossa Política de Privacidade.",
+    "success": {
+      "title": "Mensagem Enviada!",
+      "description": "Recebemos a sua mensagem e responderemos assim que possível. Obrigado pelo seu contacto."
+    },
+    "successToast": {
+      "title": "Mensagem enviada com sucesso!",
+      "description": "A nossa equipa responderá brevemente."
+    }
   },
   "footer": {
     "description": "Agência Nacional de Petróleo, Gás e Biocombustíveis de Angola. Regulando o presente, construindo o futuro energético.",

@@ -189,7 +189,25 @@
     "contacts": {
       "title": "Contacts",
       "subtitle": "Get in Touch",
-      "description": "Contact our teams for information and clarifications."
+      "description": "Contact our teams for information and clarifications.",
+      "infoTitle": "Contact Information",
+      "infoDescription": "We are available to answer your questions and provide the information you need.",
+      "mapPlaceholder": "Location map coming soon",
+      "info": {
+        "address": {
+          "title": "Headquarters"
+        },
+        "phone": {
+          "title": "Phone"
+        },
+        "email": {
+          "title": "Email"
+        },
+        "hours": {
+          "title": "Business Hours",
+          "content": "Monday to Friday: 08:00 - 17:00"
+        }
+      }
     },
     "opportunities": {
       "title": "Investment Opportunities",
@@ -436,6 +454,53 @@
     "description": "Contact our investor relations team to learn more about available opportunities.",
     "contactInvestments": "Contact Investments",
     "scheduleMeeting": "Schedule Meeting"
+  },
+  "contactForm": {
+    "title": "Send Message",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "subject": "Subject",
+      "message": "Message"
+    },
+    "placeholders": {
+      "name": "Your full name",
+      "email": "Your email",
+      "phone": "+244 xxx xxx xxx",
+      "subject": "Select subject",
+      "message": "Describe the reason for your contact..."
+    },
+    "subjects": {
+      "general": "General Information",
+      "investment": "Investment Opportunities",
+      "tender": "Tenders and Bids",
+      "data": "Technical Data Access",
+      "partnership": "Partnerships and Joint Ventures",
+      "media": "Press and Media",
+      "other": "Other Subject"
+    },
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "nameMax": "Name cannot exceed 100 characters",
+      "emailInvalid": "Please enter a valid email",
+      "emailMax": "Email cannot exceed 255 characters",
+      "phoneInvalid": "Please enter a valid phone number",
+      "subjectRequired": "Please select a subject",
+      "messageMin": "Message must be at least 10 characters",
+      "messageMax": "Message cannot exceed 2000 characters"
+    },
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "disclaimer": "By submitting this form, you agree to our Privacy Policy.",
+    "success": {
+      "title": "Message Sent!",
+      "description": "We have received your message and will respond as soon as possible. Thank you for contacting us."
+    },
+    "successToast": {
+      "title": "Message sent successfully!",
+      "description": "Our team will respond shortly."
+    }
   },
   "footer": {
     "description": "National Oil, Gas and Biofuels Agency of Angola. Regulating the present, building the energy future.",
