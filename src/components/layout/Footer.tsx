@@ -64,17 +64,18 @@ export function Footer() {
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
                 <span className="text-pearl/70">
-                  Rua Kwamme Nkrumah, Nº 6-8<br />
-                  Ingombota, Luanda, Angola
+                  Edifício Torres do Carmo - Torre 2<br />
+                  Av. de Portugal, Rua Lopes de Lima<br />
+                  Município de Luanda, Angola
                 </span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-pearl/70">+244 222 337 925</span>
+                <span className="text-pearl/70">+244 226 428 000</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-pearl/70">geral@anpg.co.ao</span>
+                <span className="text-pearl/70">info@anpg.co.ao</span>
               </div>
             </div>
           </div>
