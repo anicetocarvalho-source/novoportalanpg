@@ -30,6 +30,7 @@ export function Footer() {
       { nameKey: "footer.links.opportunities", href: "/opportunities" },
       { nameKey: "footer.links.investorPortal", href: "/investor-portal" },
       { nameKey: "footer.links.availableBlocks", href: "/ep-data/maps" },
+      { nameKey: "footer.links.faq", href: "/faq" },
       { nameKey: "footer.links.contact", href: "/contacts" },
     ],
     resources: [
