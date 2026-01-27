@@ -461,6 +461,81 @@
       "careers": "Carreiras"
     }
   },
+  "pages": {
+    "investorPortal": {
+      "title": "Portal do Investidor",
+      "subtitle": "Investimento",
+      "description": "Aceda a oportunidades de investimento, documentação e recursos para investidores no sector petrolífero angolano."
+    }
+  },
+  "investorPortal": {
+    "featuresLabel": "Funcionalidades",
+    "featuresTitle": "O Que Oferecemos",
+    "featuresSubtitle": "Acesso completo a ferramentas e recursos para investidores qualificados",
+    "comingSoon": "Em Breve",
+    "features": {
+      "dataRoom": {
+        "title": "Data Room Virtual",
+        "description": "Acesso seguro a pacotes de dados sísmicos e geológicos"
+      },
+      "dashboard": {
+        "title": "Dashboard de Oportunidades",
+        "description": "Visão geral dos blocos disponíveis e licitações activas"
+      },
+      "interest": {
+        "title": "Manifestação de Interesse",
+        "description": "Formulário para registo de interesse em blocos específicos"
+      },
+      "documents": {
+        "title": "Centro de Documentos",
+        "description": "Biblioteca de contratos-modelo, legislação e brochuras"
+      },
+      "meetings": {
+        "title": "Agendamento de Reuniões",
+        "description": "Marque reuniões com a equipa de investimentos"
+      },
+      "secure": {
+        "title": "Acesso Seguro",
+        "description": "Área reservada com autenticação para investidores"
+      }
+    },
+    "highlights": {
+      "blocks": "Blocos petrolíferos disponíveis",
+      "reserves": "Barris de reservas provadas",
+      "fiscal": "Taxa de imposto sobre rendimento",
+      "operators": "Operadores internacionais"
+    },
+    "opportunitiesLabel": "Oportunidades",
+    "opportunitiesTitle": "Blocos Disponíveis",
+    "opportunitiesSubtitle": "Explore os blocos disponíveis para licitação e oferta permanente",
+    "viewAllBlocks": "Ver Mapa Completo",
+    "searchBlocks": "Pesquisar blocos...",
+    "viewDetails": "Ver Detalhes",
+    "noResults": "Nenhum bloco encontrado",
+    "adjustFilters": "Ajuste os filtros para ver mais resultados",
+    "documentsLabel": "Documentação",
+    "documentsTitle": "Centro de Documentos",
+    "documentsSubtitle": "Legislação, contratos-modelo, brochuras e relatórios",
+    "searchDocuments": "Pesquisar documentos...",
+    "download": "Descarregar",
+    "noDocuments": "Nenhum documento encontrado",
+    "adjustSearch": "Ajuste a pesquisa para ver mais resultados",
+    "needMore": "Precisa de mais documentos?",
+    "requestAccess": "Solicite acesso ao Data Room Virtual para documentação técnica completa",
+    "dataRoom": "Data Room",
+    "contactUs": "Contacte-nos",
+    "ctaBadge": "Registe-se Agora",
+    "ctaTitle": "Torne-se um Investidor Qualificado",
+    "ctaDescription": "Registe-se para aceder a funcionalidades exclusivas como o Data Room Virtual, agendamento de reuniões e manifestação de interesse em blocos específicos.",
+    "ctaRegister": "Criar Conta",
+    "ctaContact": "Falar com a Equipa",
+    "stats": {
+      "basins": "Bacias sedimentares",
+      "partners": "Parceiros internacionais",
+      "production": "Barris/dia",
+      "investment": "Investimento total"
+    }
+  },
   "common": {
     "learnMore": "Saber Mais",
     "viewAll": "Ver Tudo",
