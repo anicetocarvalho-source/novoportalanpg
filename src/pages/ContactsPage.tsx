@@ -4,7 +4,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactMap } from "@/components/contact/ContactMap";
 
-const ANPG_ADDRESS = "Rua Comandante Gika, nº 118/122, Ingombota, Luanda, Angola";
+const ANPG_ADDRESS = "Edifício Torres do Carmo, Torre 2, Avenida de Portugal, Luanda, Angola";
 
 export default function ContactsPage() {
   const { t } = useTranslation();
@@ -15,15 +15,16 @@ export default function ContactsPage() {
       titleKey: "pages.contacts.info.address.title",
       content: (
         <>
-          Rua Comandante Gika, nº 118/122<br />
-          Ingombota, Luanda, Angola
+          Edifício Torres do Carmo - Torre 2<br />
+          Avenida de Portugal, Rua Lopes de Lima<br />
+          Município de Luanda, Angola
         </>
       ),
     },
     {
       icon: Phone,
       titleKey: "pages.contacts.info.phone.title",
-      content: "+244 222 337 116",
+      content: "+244 226 428 000",
     },
     {
       icon: Mail,
