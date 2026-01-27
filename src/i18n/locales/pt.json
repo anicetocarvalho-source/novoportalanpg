@@ -446,21 +446,21 @@
     "terms": "Termos de Uso",
     "links": {
       "about": "Sobre a ANPG",
-      "leadership": "Liderança",
-      "governance": "Governança",
+      "anpg": "A ANPG",
+      "socialResponsibility": "Responsabilidade Social",
       "history": "História",
       "regulation": "Regulação",
       "licensing": "Licenciamento",
       "oversight": "Fiscalização",
-      "tenders": "Concursos",
+      "tenders": "Licitações",
       "opportunities": "Oportunidades",
+      "investorPortal": "Portal do Investidor",
       "availableBlocks": "Blocos Disponíveis",
-      "investorGuide": "Guia do Investidor",
       "contact": "Contactos",
-      "energyData": "Dados de Energia",
-      "publications": "Publicações",
+      "energyData": "Dados de E&P",
+      "production": "Produção",
       "news": "Notícias",
-      "careers": "Carreiras"
+      "localContent": "Conteúdo Local"
     }
   },
   "pages": {

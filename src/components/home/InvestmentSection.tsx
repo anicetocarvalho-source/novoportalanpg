@@ -114,7 +114,7 @@ export function InvestmentSection() {
                   </div>
                 ))}
               </div>
-              <a href="/investment/blocks" className="mt-4 text-primary text-sm font-medium flex items-center gap-1 hover:underline">
+              <a href="/ep-data/maps" className="mt-4 text-primary text-sm font-medium flex items-center gap-1 hover:underline">
                 {t("investment.viewAllBlocks")}
                 <ArrowRight className="w-3 h-3" />
               </a>
