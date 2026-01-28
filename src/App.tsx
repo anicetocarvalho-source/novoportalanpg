@@ -58,6 +58,7 @@ import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
+import AdminBlocksPage from "./pages/admin/AdminBlocksPage";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ function AnimatedRoutes() {
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/news" element={<ProtectedRoute requiredPermission="content"><AdminNewsPage /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute requiredPermission="admin"><AdminUsersPage /></ProtectedRoute>} />
+          <Route path="/admin/blocks" element={<ProtectedRoute requiredPermission="operations"><AdminBlocksPage /></ProtectedRoute>} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
