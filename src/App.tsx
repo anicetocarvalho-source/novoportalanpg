@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -50,6 +52,12 @@ import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
 import PrivacyPage from "./pages/legal/PrivacyPage";
 import TermsPage from "./pages/legal/TermsPage";
 import FAQPage from "./pages/FAQPage";
+
+// Admin pages
+import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminNewsPage from "./pages/admin/AdminNewsPage";
+import AdminUsersPage from "./pages/admin/AdminUsersPage";
 
 const queryClient = new QueryClient();
 
@@ -105,6 +113,12 @@ function AnimatedRoutes() {
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/faq" element={<FAQPage />} />
           
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/news" element={<ProtectedRoute requiredPermission="content"><AdminNewsPage /></ProtectedRoute>} />
+          <Route path="/admin/users" element={<ProtectedRoute requiredPermission="admin"><AdminUsersPage /></ProtectedRoute>} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -116,11 +130,13 @@ function AnimatedRoutes() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
+      <AuthProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
