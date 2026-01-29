@@ -6,12 +6,35 @@ import {
   Mail, 
   Linkedin, 
   Twitter, 
-  Youtube
+  Youtube,
+  Facebook,
+  Instagram
 } from "lucide-react";
 import logoWhite from "@/assets/logo-white.webp";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 
 export function Footer() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
+
+  // Get dynamic settings with fallbacks
+  const logoUrl = settings.logo?.dark || logoWhite;
+  const contact = {
+    address: settings.contact?.address || "Edifício Torres do Carmo - Torre 2\nAv. de Portugal, Rua Lopes de Lima\nMunicípio de Luanda, Angola",
+    phone: settings.contact?.phone || "+244 226 428 000",
+    email: settings.contact?.email || "info@anpg.co.ao"
+  };
+  const social = {
+    linkedin: settings.social?.linkedin || "https://linkedin.com",
+    twitter: settings.social?.twitter || "https://twitter.com",
+    youtube: settings.social?.youtube || "https://youtube.com",
+    facebook: settings.social?.facebook || "",
+    instagram: settings.social?.instagram || ""
+  };
+  const footerText = {
+    copyright: settings.footer?.copyright || "",
+    tagline: settings.footer?.tagline || ""
+  };
 
   const footerLinks = {
     institutional: [
@@ -50,32 +73,30 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link to="/">
               <img
-                src={logoWhite}
+                src={logoUrl}
                 alt="ANPG"
                 className="h-24 w-auto mb-6"
               />
             </Link>
             <p className="text-pearl/70 text-sm leading-relaxed mb-8 max-w-xs">
-              {t("footer.description")}
+              {footerText.tagline || t("footer.description")}
             </p>
             
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-                <span className="text-pearl/70">
-                  Edifício Torres do Carmo - Torre 2<br />
-                  Av. de Portugal, Rua Lopes de Lima<br />
-                  Município de Luanda, Angola
+                <span className="text-pearl/70 whitespace-pre-line">
+                  {contact.address}
                 </span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-pearl/70">+244 226 428 000</span>
+                <span className="text-pearl/70">{contact.phone}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                <span className="text-pearl/70">info@anpg.co.ao</span>
+                <span className="text-pearl/70">{contact.email}</span>
               </div>
             </div>
           </div>
@@ -139,8 +160,8 @@ export function Footer() {
       <div className="border-t border-pearl/10">
         <div className="container mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
-              <span>{t("footer.copyright")}</span>
+            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
+              <span>{footerText.copyright || t("footer.copyright")}</span>
               <div className="flex items-center gap-4">
                 <Link to="/privacy" className="hover:text-pearl transition-colors">
                   {t("footer.privacy")}
@@ -156,30 +177,56 @@ export function Footer() {
 
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pearl/50 hover:text-primary transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pearl/50 hover:text-primary transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pearl/50 hover:text-primary transition-colors"
-              >
-                <Youtube className="w-5 h-5" />
-              </a>
+              {social.linkedin && (
+                <a
+                  href={social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pearl/50 hover:text-primary transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              )}
+              {social.twitter && (
+                <a
+                  href={social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pearl/50 hover:text-primary transition-colors"
+                >
+                  <Twitter className="w-5 h-5" />
+                </a>
+              )}
+              {social.youtube && (
+                <a
+                  href={social.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pearl/50 hover:text-primary transition-colors"
+                >
+                  <Youtube className="w-5 h-5" />
+                </a>
+              )}
+              {social.facebook && (
+                <a
+                  href={social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pearl/50 hover:text-primary transition-colors"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {social.instagram && (
+                <a
+                  href={social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pearl/50 hover:text-primary transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
         </div>
