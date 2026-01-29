@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import logoWhite from "@/assets/logo-white.webp";
-import logoRed from "@/assets/logo-red.webp";
+import logoWhiteStatic from "@/assets/logo-white.webp";
+import logoRedStatic from "@/assets/logo-red.webp";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { MegaMenu, MegaMenuItem } from "@/components/layout/MegaMenu";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 
 interface SubMenuItem {
   nameKey: string;
@@ -31,6 +32,11 @@ export function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(null);
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
+
+  // Get dynamic logos with fallbacks
+  const logoWhite = settings.logo?.dark || logoWhiteStatic;
+  const logoRed = settings.logo?.light || logoRedStatic;
 
   const navigation: NavItem[] = [
     {
