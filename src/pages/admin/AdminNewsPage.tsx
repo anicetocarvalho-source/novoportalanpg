@@ -24,6 +24,15 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { ArrowLeft, Plus, Search, Pencil, Trash2, Eye, Loader2, Newspaper } from 'lucide-react';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
@@ -32,19 +41,50 @@ import type { Tables } from '@/integrations/supabase/types';
 
 type NewsArticle = Tables<'news_articles'>;
 
+const PAGE_SIZE = 10;
+
 export default function AdminNewsPage() {
   const queryClient = useQueryClient();
   const [search, setSearch] = useState('');
   const [deleteArticle, setDeleteArticle] = useState<NewsArticle | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch all news articles
-  const { data: articles, isLoading } = useQuery({
-    queryKey: ['admin-articles'],
+  // Fetch total count for pagination
+  const { data: totalCount = 0 } = useQuery({
+    queryKey: ['admin-articles-count', search],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
+        .from('news_articles')
+        .select('*', { count: 'exact', head: true });
+      
+      if (search) {
+        query = query.ilike('title', `%${search}%`);
+      }
+      
+      const { count, error } = await query;
+      if (error) throw error;
+      return count ?? 0;
+    },
+  });
+
+  // Fetch paginated news articles
+  const { data: articles, isLoading } = useQuery({
+    queryKey: ['admin-articles', currentPage, search],
+    queryFn: async () => {
+      const from = (currentPage - 1) * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      
+      let query = supabase
         .from('news_articles')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range(from, to);
+      
+      if (search) {
+        query = query.ilike('title', `%${search}%`);
+      }
+      
+      const { data, error } = await query;
       if (error) throw error;
       return data as NewsArticle[];
     },
@@ -66,9 +106,13 @@ export default function AdminNewsPage() {
     },
   });
 
-  const filteredArticles = articles?.filter((article) =>
-    article.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+
+  // Reset to page 1 when search changes
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setCurrentPage(1);
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -115,14 +159,19 @@ export default function AdminNewsPage() {
           </CardHeader>
           <CardContent>
             {/* Search */}
-            <div className="relative mb-6">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Pesquisar notícias..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-10"
-              />
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Pesquisar notícias..."
+                  value={search}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <span className="text-sm text-muted-foreground">
+                {totalCount} {totalCount === 1 ? 'notícia' : 'notícias'}
+              </span>
             </div>
 
             {/* Table */}
@@ -143,14 +192,14 @@ export default function AdminNewsPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredArticles?.length === 0 ? (
+                    {articles?.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
                           {search ? 'Nenhuma notícia encontrada.' : 'Ainda não existem notícias. Crie a primeira!'}
                         </TableCell>
                       </TableRow>
                     ) : (
-                      filteredArticles?.map((article) => (
+                      articles?.map((article) => (
                         <TableRow key={article.id}>
                           <TableCell className="font-medium">{article.title}</TableCell>
                           <TableCell>{getStatusBadge(article.status)}</TableCell>
@@ -186,6 +235,69 @@ export default function AdminNewsPage() {
                     )}
                   </TableBody>
                 </Table>
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-6">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage > 1) setCurrentPage(currentPage - 1);
+                        }}
+                        className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first page, last page, current page, and pages around current
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              href="#"
+                              isActive={page === currentPage}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setCurrentPage(page);
+                              }}
+                              className="cursor-pointer"
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      } else if (page === currentPage - 2 || page === currentPage + 2) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
+                    
+                    <PaginationItem>
+                      <PaginationNext
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                        }}
+                        className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             )}
           </CardContent>
