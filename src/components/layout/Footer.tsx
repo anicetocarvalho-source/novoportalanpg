@@ -139,7 +139,7 @@ export function Footer() {
       <div className="border-t border-pearl/10">
         <div className="container mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-pearl/50">
               <span>{t("footer.copyright")}</span>
               <div className="flex items-center gap-4">
                 <Link to="/privacy" className="hover:text-pearl transition-colors">
@@ -147,6 +147,9 @@ export function Footer() {
                 </Link>
                 <Link to="/terms" className="hover:text-pearl transition-colors">
                   {t("footer.terms")}
+                </Link>
+                <Link to="/admin/login" className="hover:text-primary transition-colors">
+                  Backoffice
                 </Link>
               </div>
             </div>
