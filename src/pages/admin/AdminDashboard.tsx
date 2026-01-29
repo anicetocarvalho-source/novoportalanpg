@@ -82,6 +82,14 @@ const modules = [
     permission: 'admin',
     color: 'bg-gray-500',
   },
+  {
+    title: 'Configurações',
+    description: 'Logotipos, contactos e rodapé',
+    icon: Settings,
+    href: '/admin/settings',
+    permission: 'admin',
+    color: 'bg-slate-600',
+  },
 ];
 
 function getRoleBadge(role: string) {
