@@ -57,8 +57,14 @@ import FAQPage from "./pages/FAQPage";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
+import AdminNewsEditorPage from "./pages/admin/AdminNewsEditorPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
 import AdminBlocksPage from "./pages/admin/AdminBlocksPage";
+import AdminCMSPage from "./pages/admin/AdminCMSPage";
+import AdminProductionPage from "./pages/admin/AdminProductionPage";
+import AdminEOIPage from "./pages/admin/AdminEOIPage";
+import AdminDocumentsPage from "./pages/admin/AdminDocumentsPage";
+import AdminAuditPage from "./pages/admin/AdminAuditPage";
 
 const queryClient = new QueryClient();
 
@@ -118,8 +124,14 @@ function AnimatedRoutes() {
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/news" element={<ProtectedRoute requiredPermission="content"><AdminNewsPage /></ProtectedRoute>} />
-          <Route path="/admin/users" element={<ProtectedRoute requiredPermission="admin"><AdminUsersPage /></ProtectedRoute>} />
+          <Route path="/admin/news/:id" element={<ProtectedRoute requiredPermission="content"><AdminNewsEditorPage /></ProtectedRoute>} />
+          <Route path="/admin/pages" element={<ProtectedRoute requiredPermission="content"><AdminCMSPage /></ProtectedRoute>} />
           <Route path="/admin/blocks" element={<ProtectedRoute requiredPermission="operations"><AdminBlocksPage /></ProtectedRoute>} />
+          <Route path="/admin/production" element={<ProtectedRoute requiredPermission="operations"><AdminProductionPage /></ProtectedRoute>} />
+          <Route path="/admin/eoi" element={<ProtectedRoute requiredPermission="investors"><AdminEOIPage /></ProtectedRoute>} />
+          <Route path="/admin/documents" element={<ProtectedRoute requiredPermission="investors"><AdminDocumentsPage /></ProtectedRoute>} />
+          <Route path="/admin/users" element={<ProtectedRoute requiredPermission="admin"><AdminUsersPage /></ProtectedRoute>} />
+          <Route path="/admin/audit" element={<ProtectedRoute requiredPermission="admin"><AdminAuditPage /></ProtectedRoute>} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
