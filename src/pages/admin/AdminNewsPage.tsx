@@ -37,7 +37,7 @@ export default function AdminNewsPage() {
   const [search, setSearch] = useState('');
   const [deleteArticle, setDeleteArticle] = useState<NewsArticle | null>(null);
 
-  // Fetch articles
+  // Fetch all news articles
   const { data: articles, isLoading } = useQuery({
     queryKey: ['admin-articles'],
     queryFn: async () => {
