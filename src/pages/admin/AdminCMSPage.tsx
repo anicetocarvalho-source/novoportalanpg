@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 import {
   Table,
   TableBody,
@@ -377,14 +378,11 @@ export default function AdminCMSPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="content">Conteúdo (HTML/Markdown)</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content || ''}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  placeholder="Conteúdo da página..."
-                  rows={12}
-                  className="font-mono text-sm"
+                <Label>Conteúdo</Label>
+                <RichTextEditor
+                  content={formData.content || ''}
+                  onChange={(html) => setFormData({ ...formData, content: html })}
+                  placeholder="Escreva o conteúdo da página..."
                 />
               </div>
 

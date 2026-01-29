@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
@@ -17,8 +16,9 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Save, Eye, Loader2, Upload, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Save, Eye, Loader2, Image as ImageIcon } from 'lucide-react';
 import type { Tables, TablesInsert, TablesUpdate } from '@/integrations/supabase/types';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 type NewsArticle = Tables<'news_articles'>;
 
@@ -261,14 +261,11 @@ export default function AdminNewsEditorPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="content">Conteúdo</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content || ''}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    placeholder="Conteúdo completo da notícia..."
-                    rows={15}
-                    className="font-mono"
+                  <Label>Conteúdo</Label>
+                  <RichTextEditor
+                    content={formData.content || ''}
+                    onChange={(html) => setFormData({ ...formData, content: html })}
+                    placeholder="Escreva o conteúdo da notícia..."
                   />
                 </div>
               </CardContent>
