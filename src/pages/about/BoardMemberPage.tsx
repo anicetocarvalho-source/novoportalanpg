@@ -111,15 +111,19 @@ export default function BoardMemberPage() {
       <SectionTransition>
         <div className="flex items-start gap-6 mb-12">
           <div
-            className={`relative flex-shrink-0 rounded-full flex items-center justify-center font-bold tracking-wide ${
+            className={`relative flex-shrink-0 rounded-full overflow-hidden ${
               member.isPCA
-                ? "w-24 h-24 md:w-28 md:h-28 text-3xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg"
-                : "w-20 h-20 md:w-24 md:h-24 text-2xl bg-gradient-to-br from-secondary to-muted text-foreground"
+                ? "w-24 h-24 md:w-28 md:h-28 ring-4 ring-primary/30 shadow-lg"
+                : "w-20 h-20 md:w-24 md:h-24 ring-3 ring-border/50"
             }`}
           >
-            {member.initials}
+            <img
+              src={member.photo}
+              alt={member.name}
+              className="w-full h-full object-cover"
+            />
             {member.isPCA && (
-              <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-primary flex items-center justify-center shadow-md border-2 border-background">
+              <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-primary flex items-center justify-center shadow-md border-2 border-background z-10">
                 <Crown className="w-4 h-4 text-primary-foreground" />
               </div>
             )}
