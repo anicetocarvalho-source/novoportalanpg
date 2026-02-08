@@ -15,6 +15,7 @@ import AboutPage from "./pages/about/AboutPage";
 import AnpgPage from "./pages/about/AnpgPage";
 import HistoryPage from "./pages/about/HistoryPage";
 import SocialResponsibilityPage from "./pages/about/SocialResponsibilityPage";
+import BoardMemberPage from "./pages/about/BoardMemberPage";
 import ContactsPage from "./pages/ContactsPage";
 
 // Opportunities pages
@@ -80,6 +81,7 @@ function AnimatedRoutes() {
           {/* About Us */}
           <Route path="/about" element={<AboutPage />} />
           <Route path="/about/anpg" element={<AnpgPage />} />
+          <Route path="/about/board/:slug" element={<BoardMemberPage />} />
           <Route path="/about/history" element={<HistoryPage />} />
           <Route path="/about/social-responsibility" element={<SocialResponsibilityPage />} />
           <Route path="/contacts" element={<ContactsPage />} />
