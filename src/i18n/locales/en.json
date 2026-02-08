@@ -94,25 +94,25 @@
       "board": {
         "title": "Board of Directors",
         "members": {
-          "pca": {
+         "pca": {
             "name": "Paulino Jerónimo",
             "role": "Chairman of the Board of Directors"
           },
           "admin1": {
-            "name": "Belarmino Chitangueleca",
-            "role": "Executive Director for Exploration and Production"
+            "name": "Artur Custódio",
+            "role": "Board Member"
           },
           "admin2": {
-            "name": "Eduarda Rodrigues",
-            "role": "Executive Director for Administration and Shared Services"
+            "name": "Ana Miala",
+            "role": "Board Member"
           },
           "admin3": {
-            "name": "Gaspar Bernardo dos Santos",
-            "role": "Executive Director for Technical Studies and New Technologies"
+            "name": "Nicola Isabel Lemos de Mvuayi",
+            "role": "Board Member"
           },
           "admin4": {
-            "name": "Cláudio Pinheiro",
-            "role": "Executive Director for Negotiations and Commercial Services"
+            "name": "Alcides Andrade",
+            "role": "Board Member"
           }
         }
       },

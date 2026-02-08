@@ -94,25 +94,25 @@
       "board": {
         "title": "Conselho de Administração",
         "members": {
-          "pca": {
+         "pca": {
             "name": "Paulino Jerónimo",
             "role": "Presidente do Conselho de Administração"
           },
           "admin1": {
-            "name": "Belarmino Chitangueleca",
-            "role": "Administrador Executivo para a área de Exploração e Produção"
+            "name": "Artur Custódio",
+            "role": "Administrador"
           },
           "admin2": {
-            "name": "Eduarda Rodrigues",
-            "role": "Administradora Executiva para a área de Administração e Serviços Partilhados"
+            "name": "Ana Miala",
+            "role": "Administradora"
           },
           "admin3": {
-            "name": "Gaspar Bernardo dos Santos",
-            "role": "Administrador Executivo para a área de Estudos Técnicos e Novas Tecnologias"
+            "name": "Nicola Isabel Lemos de Mvuayi",
+            "role": "Administradora"
           },
           "admin4": {
-            "name": "Cláudio Pinheiro",
-            "role": "Administrador Executivo para a área de Negociações e Serviços Comerciais"
+            "name": "Alcides Andrade",
+            "role": "Administrador"
           }
         }
       },
