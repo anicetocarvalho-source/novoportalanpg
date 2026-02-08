@@ -1,3 +1,9 @@
+import paulinoPhoto from "@/assets/board/paulino-jeronimo.jpg";
+import arturPhoto from "@/assets/board/artur-custodio.jpg";
+import anaPhoto from "@/assets/board/ana-miala.jpg";
+import nicolaPhoto from "@/assets/board/nicola-mvuayi.jpg";
+import alcidesPhoto from "@/assets/board/alcides-andrade.jpg";
+
 export interface Department {
   name: string;
   nameEn: string;
@@ -13,6 +19,7 @@ export interface BoardMember {
   roleEn: string;
   isPCA: boolean;
   initials: string;
+  photo: string;
   departments: Department[];
 }
 
@@ -25,6 +32,7 @@ export const boardMembers: BoardMember[] = [
     roleEn: "Chairman of the Board of Directors",
     isPCA: true,
     initials: "PJ",
+    photo: paulinoPhoto,
     departments: [
       {
         name: "Gabinete de Apoio ao Conselho de Administração",
@@ -56,6 +64,7 @@ export const boardMembers: BoardMember[] = [
     roleEn: "Board Member",
     isPCA: false,
     initials: "AC",
+    photo: arturPhoto,
     departments: [
       {
         name: "Gabinete de Tecnologias de Informação",
@@ -87,6 +96,7 @@ export const boardMembers: BoardMember[] = [
     roleEn: "Board Member",
     isPCA: false,
     initials: "AM",
+    photo: anaPhoto,
     departments: [
       {
         name: "Direcção de Exploração",
@@ -124,6 +134,7 @@ export const boardMembers: BoardMember[] = [
     roleEn: "Board Member",
     isPCA: false,
     initials: "NM",
+    photo: nicolaPhoto,
     departments: [
       {
         name: "Direcção de Recursos Humanos",
@@ -164,6 +175,7 @@ export const boardMembers: BoardMember[] = [
     roleEn: "Board Member",
     isPCA: false,
     initials: "AA",
+    photo: alcidesPhoto,
     departments: [
       {
         name: "Direcção de Negociações",

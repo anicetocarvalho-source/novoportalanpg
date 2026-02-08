@@ -41,18 +41,22 @@ function MemberCard({
         </div>
 
         <div className={`p-6 ${isPCA ? "p-8" : ""}`}>
-          {/* Avatar */}
+          {/* Photo Avatar */}
           <div className="flex items-start gap-4">
             <div
-              className={`relative flex-shrink-0 rounded-full flex items-center justify-center font-bold tracking-wide ${
+              className={`relative flex-shrink-0 rounded-full overflow-hidden ${
                 isPCA
-                  ? "w-20 h-20 text-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg"
-                  : "w-16 h-16 text-xl bg-gradient-to-br from-secondary to-muted text-foreground"
+                  ? "w-20 h-20 ring-3 ring-primary/30 shadow-lg"
+                  : "w-16 h-16 ring-2 ring-border/50 group-hover:ring-primary/30 transition-all duration-300"
               }`}
             >
-              {member.initials}
+              <img
+                src={member.photo}
+                alt={member.name}
+                className="w-full h-full object-cover"
+              />
               {isPCA && (
-                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md">
+                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md z-10">
                   <Crown className="w-3.5 h-3.5 text-primary-foreground" />
                 </div>
               )}
