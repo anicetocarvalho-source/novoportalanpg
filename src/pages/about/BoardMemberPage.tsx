@@ -1,13 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ArrowLeft, Building2, ChevronRight, Crown } from "lucide-react";
+import { ArrowLeft, Building2, ChevronRight, Crown, Mail, MapPin, Phone, Quote, User } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Button } from "@/components/ui/button";
-import { getBoardMemberBySlug, type Department } from "@/data/boardData";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { getBoardMemberBySlug, type Department, type BoardMember } from "@/data/boardData";
 import heroImage from "@/assets/refinery.jpg";
 
+/* ─── Department Card ─── */
 function DepartmentCard({ dept, index, isEn }: { dept: Department; index: number; isEn: boolean }) {
   return (
     <motion.div
@@ -50,10 +53,119 @@ function DepartmentCard({ dept, index, isEn }: { dept: Department; index: number
   );
 }
 
+/* ─── Biography Section ─── */
+function BiographySection({ member, isEn }: { member: BoardMember; isEn: boolean }) {
+  return (
+    <SectionTransition delay={0.1}>
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <User className="w-5 h-5 text-primary" />
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">
+              {isEn ? "Biography" : "Biografia"}
+            </h2>
+          </div>
+          <div className="px-6 pb-6">
+            <p className="text-muted-foreground leading-relaxed text-base">
+              {isEn ? member.bioEn : member.bio}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </SectionTransition>
+  );
+}
+
+/* ─── Message Section ─── */
+function MessageSection({ member, isEn }: { member: BoardMember; isEn: boolean }) {
+  return (
+    <SectionTransition delay={0.15}>
+      <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-card to-card">
+        <CardContent className="p-0">
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Quote className="w-5 h-5 text-primary" />
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">
+              {isEn ? "Message" : "Mensagem"}
+            </h2>
+          </div>
+          <div className="px-6 pb-6">
+            <blockquote className="relative pl-5 border-l-4 border-primary/30">
+              <p className="text-muted-foreground leading-relaxed text-base italic">
+                "{isEn ? member.messageEn : member.message}"
+              </p>
+              <footer className="mt-4 text-sm font-semibold text-foreground">
+                — {member.name}
+              </footer>
+            </blockquote>
+          </div>
+        </CardContent>
+      </Card>
+    </SectionTransition>
+  );
+}
+
+/* ─── Contact Section ─── */
+function ContactSection({ member, isEn }: { member: BoardMember; isEn: boolean }) {
+  const { contact } = member;
+  return (
+    <SectionTransition delay={0.2}>
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Phone className="w-5 h-5 text-primary" />
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">
+              {isEn ? "Office Contact" : "Contacto do Gabinete"}
+            </h2>
+          </div>
+          <div className="px-6 pb-6 space-y-4">
+            {contact.office && (
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
+                <span className="text-muted-foreground text-sm">
+                  {isEn ? contact.officeEn : contact.office}
+                </span>
+              </div>
+            )}
+            {contact.phone && (
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-primary/70 flex-shrink-0" />
+                <a
+                  href={`tel:${contact.phone}`}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {contact.phone}
+                </a>
+              </div>
+            )}
+            {contact.email && (
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-primary/70 flex-shrink-0" />
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {contact.email}
+                </a>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </SectionTransition>
+  );
+}
+
+/* ─── Main Page ─── */
 export default function BoardMemberPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
   const member = slug ? getBoardMemberBySlug(slug) : undefined;
@@ -149,8 +261,21 @@ export default function BoardMemberPage() {
         </div>
       </SectionTransition>
 
+      {/* Biography & Message */}
+      <div className="grid gap-6 md:grid-cols-2 mb-10">
+        <BiographySection member={member} isEn={isEn} />
+        <MessageSection member={member} isEn={isEn} />
+      </div>
+
+      {/* Office Contact */}
+      <div className="mb-10">
+        <ContactSection member={member} isEn={isEn} />
+      </div>
+
+      <Separator className="mb-10" />
+
       {/* Portfolio / Pelouro */}
-      <SectionTransition delay={0.1}>
+      <SectionTransition delay={0.25}>
         <div className="mb-4">
           <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
             {isEn ? "Portfolio" : "Pelouro"}
