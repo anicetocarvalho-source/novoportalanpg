@@ -124,10 +124,56 @@
           "external": "Auditoria Externa"
         }
       },
-      "operators": {
-        "title": "Operadores do Sector",
-        "description": "Principais operadores a actuar em Angola",
-        "list": "TotalEnergies, Chevron, ExxonMobil, BP, ENI, Equinor, Azule Energy"
+      "institutional": {
+        "purpose": {
+          "title": "Propósito",
+          "desc": "O nosso propósito é elevar Angola a referência global, captando investimento e criando mais oportunidades no sector do petróleo, gás e biocombustíveis. Alavancamento da indústria e da economia e promovendo um futuro melhor e mais sustentável para todos os Angolanos."
+        },
+        "principles": {
+          "title": "Princípios",
+          "angola": {
+            "title": "Fazemos por Angola",
+            "desc": "Cada projecto que lançamos, cada investimento que atraímos e cada parceria que construímos cria oportunidades de desenvolvimento para o país, as comunidades e cada um."
+          },
+          "global": {
+            "title": "Agimos globalmente",
+            "desc": "A nossa ambição não tem fronteiras. Competimos globalmente, atraímos os melhores investidores internacionais e posicionamos Angola como referência global no sector."
+          },
+          "future": {
+            "title": "Estamos prontos para o futuro",
+            "desc": "Desenvolvemos uma capacidade de resposta ágil, flexível, eficiente e em relação de parceria com o mercado, parceiros e comunidades – alinhados com as tendências e necessidades reais."
+          },
+          "mobilize": {
+            "title": "Juntamos e mobilizamos",
+            "desc": "Somos mais que reguladores. Somos impulsionadores. Dinamizamos stakeholders, internos e externos, o sector e a economia."
+          },
+          "excellence": {
+            "title": "Perseguimos a excelência",
+            "desc": "Formamos, capacitamos e damos oportunidades de crescimento à nossa equipa. Para que cada um dê o seu melhor em tudo o que faz."
+          },
+          "responsibility": {
+            "title": "Gerimos com responsabilidade",
+            "desc": "Faremos uma gestão responsável, e com total transparência, dos recursos e emergências. Trabalhamos para ampliar a participação de Angola por um planeta mais sustentável."
+          }
+        },
+        "objectives": {
+          "title": "Objectivos Estratégicos",
+          "items": [
+            "Assegurar a transferência e consolidação efectiva da função Reguladora e Fiscalizadora na ANPG;",
+            "Desenvolver os recursos descobertos com vista a aumentar as reservas e combater o declínio de produção;",
+            "Implementar acções e programas que contribuam para a excelência operacional;",
+            "Implementar políticas e acções com vista ao desenvolvimento do capital humano;",
+            "Assegurar a descarbonização das operações petrolíferas e impulsionar as acções para o desenvolvimento das energias renováveis com foco nos biocombustíveis."
+          ]
+        },
+        "socialResp": {
+          "title": "Responsabilidade Social",
+          "desc": "No âmbito dos investimentos de responsabilidade social previstos pela Lei 10/04, de 12 de Novembro, Lei Geral das Actividades Petrolíferas, que estabelece que uma parte dos Bónus pagos ao Estado, resultante dos contratos celebrados, deve ser aplicada em iniciativas de desenvolvimento regional e local."
+        },
+        "environment": {
+          "title": "Ambiente e Segurança",
+          "desc": "A ANPG promove um conjunto de iniciativas internas e abordagens de alinhamento com os Operadores, com vista a contribuir para a melhoria dos aspectos de segurança, saúde ocupacional, e protecção ambiental no sector. Estas iniciativas incorporam medidas de mitigação e prevenção de riscos de segurança e derrames, gestão da queima de gás para níveis cujas emissões atmosféricas tenham mínimo impacto ambiental."
+        }
       }
     },
     "history": {

@@ -124,10 +124,56 @@
           "external": "External Audit"
         }
       },
-      "operators": {
-        "title": "Sector Operators",
-        "description": "Main operators active in Angola",
-        "list": "TotalEnergies, Chevron, ExxonMobil, BP, ENI, Equinor, Azule Energy"
+      "institutional": {
+        "purpose": {
+          "title": "Purpose",
+          "desc": "Our purpose is to elevate Angola to a global reference, attracting investment and creating more opportunities in the oil, gas and biofuels sector. Leveraging industry and the economy and promoting a better and more sustainable future for all Angolans."
+        },
+        "principles": {
+          "title": "Principles",
+          "angola": {
+            "title": "We do it for Angola",
+            "desc": "Every project we launch, every investment we attract and every partnership we build creates development opportunities for the country, communities and each individual."
+          },
+          "global": {
+            "title": "We act globally",
+            "desc": "Our ambition knows no boundaries. We compete globally, attract the best international investors and position Angola as a global reference in the sector."
+          },
+          "future": {
+            "title": "We are ready for the future",
+            "desc": "We develop an agile, flexible, efficient response capacity in partnership with the market, partners and communities – aligned with real trends and needs."
+          },
+          "mobilize": {
+            "title": "We unite and mobilise",
+            "desc": "We are more than regulators. We are drivers. We energise stakeholders, internal and external, the sector and the economy."
+          },
+          "excellence": {
+            "title": "We pursue excellence",
+            "desc": "We train, empower and provide growth opportunities for our team. So that each person gives their best in everything they do."
+          },
+          "responsibility": {
+            "title": "We manage responsibly",
+            "desc": "We will manage responsibly, with full transparency, resources and emergencies. We work to expand Angola's contribution to a more sustainable planet."
+          }
+        },
+        "objectives": {
+          "title": "Strategic Objectives",
+          "items": [
+            "Ensure the effective transfer and consolidation of the Regulatory and Supervisory function at ANPG;",
+            "Develop discovered resources to increase reserves and combat production decline;",
+            "Implement actions and programmes that contribute to operational excellence;",
+            "Implement policies and actions aimed at developing human capital;",
+            "Ensure decarbonisation of petroleum operations and drive actions for the development of renewable energies with a focus on biofuels."
+          ]
+        },
+        "socialResp": {
+          "title": "Social Responsibility",
+          "desc": "Within the scope of social responsibility investments provided for by Law 10/04 of November 12th, the General Law on Petroleum Activities, which establishes that a portion of the Bonuses paid to the State, resulting from concluded contracts, must be applied to regional and local development initiatives."
+        },
+        "environment": {
+          "title": "Environment and Safety",
+          "desc": "ANPG promotes a set of internal initiatives and alignment approaches with Operators, aiming to contribute to the improvement of safety, occupational health, and environmental protection aspects in the sector. These initiatives incorporate measures for mitigation and prevention of safety risks and spills, management of gas flaring to levels whose atmospheric emissions have minimal environmental impact."
+        }
       }
     },
     "history": {
