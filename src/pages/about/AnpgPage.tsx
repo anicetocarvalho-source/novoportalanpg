@@ -5,7 +5,7 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
 import heroImage from "@/assets/refinery.jpg";
-import coastImage from "@/assets/angola-coast.jpg";
+import offshoreImage from "@/assets/angola-offshore-platform.jpg";
 
 export default function AnpgPage() {
   const { t } = useTranslation();
@@ -40,7 +40,7 @@ export default function AnpgPage() {
             <div className="lg:col-span-2">
               <div className="relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
                 <img
-                  src={coastImage}
+                  src={offshoreImage}
                   alt="Costa de Angola - Operações Petrolíferas"
                   className="w-full h-full object-cover"
                 />
