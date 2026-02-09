@@ -54,7 +54,10 @@
       "productionOverview": "Overview",
       "productionOverviewDesc": "Current statistics and production charts",
       "productionHistory": "Production History",
-      "productionHistoryDesc": "Evolution of petroleum production since 1978"
+      "productionHistoryDesc": "Evolution of petroleum production since 1978",
+      "localContentOverview": "Local Content",
+      "localContentOverviewDesc": "Certified companies, supplier registration and documentation",
+      "investorPortalDesc": "Access the investor portal with opportunities and documents"
     }
   },
   "pages": {

@@ -54,7 +54,10 @@
       "productionOverview": "Visão Geral",
       "productionOverviewDesc": "Estatísticas actuais e gráficos de produção",
       "productionHistory": "Histórico de Produção",
-      "productionHistoryDesc": "Evolução da produção petrolífera desde 1978"
+      "productionHistoryDesc": "Evolução da produção petrolífera desde 1978",
+      "localContentOverview": "Conteúdo Local",
+      "localContentOverviewDesc": "Empresas certificadas, registo de fornecedores e documentação",
+      "investorPortalDesc": "Acesso ao portal do investidor com oportunidades e documentos"
     }
   },
   "pages": {
