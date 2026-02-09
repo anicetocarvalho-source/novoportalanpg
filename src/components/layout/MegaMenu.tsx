@@ -14,7 +14,7 @@ export interface MegaMenuItem {
 
 interface MegaMenuProps {
   items: MegaMenuItem[];
-  columns?: 2 | 3;
+  columns?: 1 | 2 | 3;
   onItemClick?: () => void;
 }
 
@@ -31,7 +31,7 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
         transition={{ duration: 0.2, ease: "easeOut" }}
         className={cn(
           "absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-background rounded-2xl shadow-elevated border border-border overflow-hidden",
-          columns === 3 ? "w-[600px]" : "w-[480px]"
+          columns === 3 ? "w-[600px]" : columns === 1 ? "w-[320px]" : "w-[480px]"
         )}
       >
         {/* Decorative top border */}
@@ -39,7 +39,7 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
         
         <div className={cn(
           "grid gap-1 p-3",
-          columns === 3 ? "grid-cols-3" : "grid-cols-2"
+          columns === 3 ? "grid-cols-3" : columns === 1 ? "grid-cols-1" : "grid-cols-2"
         )}>
           {items.map((item, index) => {
             const Icon = item.icon;
