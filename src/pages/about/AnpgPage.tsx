@@ -1,4 +1,4 @@
-import { Building2, Users } from "lucide-react";
+import { Building2, Users, Landmark } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
@@ -6,6 +6,24 @@ import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
 import heroImage from "@/assets/refinery.jpg";
 import offshoreImage from "@/assets/angola-offshore-platform.jpg";
+
+function SectionDivider({ label, icon: Icon }: { label?: string; icon?: typeof Building2 }) {
+  return (
+    <div className="relative py-4">
+      <div className="absolute inset-0 flex items-center" aria-hidden="true">
+        <div className="w-full border-t border-border/60" />
+      </div>
+      {label && (
+        <div className="relative flex justify-center">
+          <span className="bg-background px-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground/60">
+            {Icon && <Icon className="w-3.5 h-3.5" />}
+            {label}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AnpgPage() {
   const { t } = useTranslation();
@@ -24,7 +42,7 @@ export default function AnpgPage() {
     >
       {/* Introduction */}
       <SectionTransition>
-        <section className="mb-16">
+        <section className="mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
             {/* Text content - 3 columns */}
             <div className="lg:col-span-3 space-y-6">
@@ -41,7 +59,7 @@ export default function AnpgPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
                 <img
                   src={offshoreImage}
-                  alt="Costa de Angola - Operações Petrolíferas"
+                  alt="Plataforma Petrolífera Offshore em Angola"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -51,25 +69,26 @@ export default function AnpgPage() {
         </section>
       </SectionTransition>
 
+      {/* Divider: Intro → Board */}
+      <SectionTransition delay={0.05}>
+        <SectionDivider label={t("pages.anpg.board.title")} icon={Users} />
+      </SectionTransition>
+
       {/* Board of Directors - Creative Org Chart */}
       <SectionTransition delay={0.1}>
-        <section className="mb-16">
-          <div className="flex items-center gap-3 mb-10">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Users className="w-6 h-6 text-primary" />
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-              {t("pages.anpg.board.title")}
-            </h2>
-          </div>
-
+        <section className="py-12">
           <BoardOrgChart />
         </section>
       </SectionTransition>
 
+      {/* Divider: Board → Institutional */}
+      <SectionTransition delay={0.2}>
+        <SectionDivider label={t("pages.anpg.institutional.purpose.title")} icon={Landmark} />
+      </SectionTransition>
+
       {/* Institutional Content: Purpose, Principles, Objectives, Social Responsibility, Environment */}
       <SectionTransition delay={0.3}>
-        <section>
+        <section className="pt-12">
           <InstitutionalContent />
         </section>
       </SectionTransition>
