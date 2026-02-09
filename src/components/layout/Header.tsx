@@ -23,7 +23,7 @@ interface NavItem {
   nameKey: string;
   href: string;
   submenu?: SubMenuItem[];
-  megaMenuColumns?: 2 | 3;
+  megaMenuColumns?: 1 | 2 | 3;
 }
 
 export function Header() {
@@ -100,7 +100,7 @@ export function Header() {
     {
       nameKey: "nav.localContent",
       href: "/local-content",
-      megaMenuColumns: 2,
+      megaMenuColumns: 1,
       submenu: [
         { nameKey: "nav.submenu.localContentOverview", descriptionKey: "nav.submenu.localContentOverviewDesc", href: "/local-content", icon: Briefcase },
         { nameKey: "nav.investorPortal", descriptionKey: "nav.submenu.investorPortalDesc", href: "/investor-portal", icon: Landmark },
