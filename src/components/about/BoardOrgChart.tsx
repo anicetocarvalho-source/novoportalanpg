@@ -108,69 +108,127 @@ function MemberCard({
   );
 }
 
+/** Animated vertical line segment */
+function VLine({
+  height,
+  delay = 0,
+  gradient = false,
+}: {
+  height: string;
+  delay?: number;
+  gradient?: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ scaleY: 0 }}
+      whileInView={{ scaleY: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay }}
+      className={`w-px origin-top mx-auto ${
+        gradient
+          ? "bg-gradient-to-b from-primary/40 to-border/60"
+          : "bg-border/60"
+      }`}
+      style={{ height }}
+    />
+  );
+}
+
+/** The horizontal "T" connector that branches out to each admin column */
+function TreeConnector({ columnCount }: { columnCount: number }) {
+  return (
+    <div className="relative hidden lg:block">
+      {/* Main horizontal bar */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="h-px bg-border/60 mx-auto"
+        style={{
+          width: `calc(100% - ${100 / columnCount}%)`,
+          marginLeft: `${100 / (columnCount * 2)}%`,
+          marginRight: `${100 / (columnCount * 2)}%`,
+        }}
+      />
+      {/* Vertical drops from bar to each card */}
+      <div
+        className="flex justify-between"
+        style={{
+          paddingLeft: `${100 / (columnCount * 2)}%`,
+          paddingRight: `${100 / (columnCount * 2)}%`,
+        }}
+      >
+        {Array.from({ length: columnCount }).map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: 0.7 + i * 0.08 }}
+            className="w-px h-6 bg-border/60 origin-top"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Mobile vertical connector (single line) */
+function MobileConnector() {
+  return (
+    <div className="lg:hidden flex justify-center">
+      <VLine height="2rem" delay={0.6} />
+    </div>
+  );
+}
+
 export function BoardOrgChart() {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
   const pca = boardMembers.find((m) => m.isPCA)!;
   const admins = boardMembers.filter((m) => !m.isPCA);
 
   return (
-    <div className="space-y-12">
-      {/* PCA - Top of hierarchy */}
+    <div className="space-y-0">
+      {/* ── PCA ── */}
       <div className="flex flex-col items-center">
         <MemberCard member={pca} index={0} isPCA />
-
-        {/* Connecting line */}
-        <motion.div
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          className="w-px h-12 bg-gradient-to-b from-primary/40 to-border origin-top"
-        />
-
-        {/* Supervision bodies */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          className="flex items-center gap-4"
-        >
-          {supervisionBodies.map((body) => (
-            <div
-              key={body.name}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-secondary/60 border border-border/50"
-            >
-              <Shield className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">
-                {isEn ? body.nameEn : body.name}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Connecting line to admins */}
-        <motion.div
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="w-px h-8 bg-border origin-top"
-        />
-
-        {/* Horizontal connector */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="hidden lg:block w-3/4 h-px bg-border"
-        />
       </div>
 
-      {/* Administrators grid */}
+      {/* Vertical line PCA → Supervision */}
+      <VLine height="2.5rem" delay={0.25} gradient />
+
+      {/* Supervision bodies */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.35 }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-3"
+      >
+        {supervisionBodies.map((body) => (
+          <div
+            key={body.name}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-secondary/60 border border-border/50"
+          >
+            <Shield className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-foreground">
+              {isEn ? body.nameEn : body.name}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Vertical line Supervision → Tree connector */}
+      <VLine height="2.5rem" delay={0.5} />
+
+      {/* Tree connector (desktop) / single line (mobile) */}
+      <TreeConnector columnCount={admins.length} />
+      <MobileConnector />
+
+      {/* ── Administrators ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {admins.map((member, index) => (
           <MemberCard key={member.id} member={member} index={index} />
