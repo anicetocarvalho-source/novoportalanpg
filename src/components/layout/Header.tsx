@@ -91,7 +91,7 @@ export function Header() {
     {
       nameKey: "nav.production",
       href: "/production",
-      megaMenuColumns: 2,
+      megaMenuColumns: 1,
       submenu: [
         { nameKey: "nav.submenu.productionOverview", descriptionKey: "nav.submenu.productionOverviewDesc", href: "/production", icon: BarChart3 },
         { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: TrendingUp },
