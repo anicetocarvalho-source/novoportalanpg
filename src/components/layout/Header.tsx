@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle, Landmark, Briefcase } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhiteStatic from "@/assets/logo-white.webp";
@@ -97,7 +97,15 @@ export function Header() {
         { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: TrendingUp },
       ],
     },
-    { nameKey: "nav.localContent", href: "/local-content" },
+    {
+      nameKey: "nav.localContent",
+      href: "/local-content",
+      megaMenuColumns: 2,
+      submenu: [
+        { nameKey: "nav.submenu.localContentOverview", descriptionKey: "nav.submenu.localContentOverviewDesc", href: "/local-content", icon: Briefcase },
+        { nameKey: "nav.investorPortal", descriptionKey: "nav.submenu.investorPortalDesc", href: "/investor-portal", icon: Landmark },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -191,7 +199,7 @@ export function Header() {
             ))}
           </div>
 
-          {/* Right side: Language Toggle + CTA Button - Desktop */}
+          {/* Right side: Language Toggle - Desktop */}
           <motion.div
             className="hidden lg:flex items-center gap-4"
             initial={{ opacity: 0, x: 20 }}
@@ -199,15 +207,6 @@ export function Header() {
             transition={{ duration: 0.5 }}
           >
             <LanguageToggle isScrolled={isScrolled} />
-            <Button
-              variant={isScrolled ? "hero" : "heroOutline"}
-              size="default"
-              asChild
-            >
-              <Link to="/investor-portal">
-                {t("nav.investorPortal")}
-              </Link>
-            </Button>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -307,11 +306,6 @@ export function Header() {
                     )}
                   </div>
                 ))}
-                <Button variant="hero" size="lg" className="mt-4" asChild>
-                  <Link to="/investor-portal">
-                    {t("nav.investorPortal")}
-                  </Link>
-                </Button>
               </nav>
             </div>
           </motion.div>
