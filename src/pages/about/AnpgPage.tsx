@@ -5,6 +5,7 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
 import heroImage from "@/assets/refinery.jpg";
+import coastImage from "@/assets/angola-coast.jpg";
 
 export default function AnpgPage() {
   const { t } = useTranslation();
@@ -24,13 +25,28 @@ export default function AnpgPage() {
       {/* Introduction */}
       <SectionTransition>
         <section className="mb-16">
-          <div className="max-w-4xl">
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              {t("pages.anpg.content.intro")}
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              {t("pages.anpg.content.role")}
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+            {/* Text content - 3 columns */}
+            <div className="lg:col-span-3 space-y-6">
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {t("pages.anpg.content.intro")}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {t("pages.anpg.content.role")}
+              </p>
+            </div>
+
+            {/* Image - 2 columns */}
+            <div className="lg:col-span-2">
+              <div className="relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
+                <img
+                  src={coastImage}
+                  alt="Costa de Angola - Operações Petrolíferas"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              </div>
+            </div>
           </div>
         </section>
       </SectionTransition>
