@@ -270,8 +270,10 @@ export type Database = {
           consortium: Json | null
           coordinates: Json | null
           created_at: string
+          depth_category: string | null
           description: string | null
           id: string
+          offer_type: string
           operator: string | null
           status: string | null
           updated_at: string
@@ -284,8 +286,10 @@ export type Database = {
           consortium?: Json | null
           coordinates?: Json | null
           created_at?: string
+          depth_category?: string | null
           description?: string | null
           id?: string
+          offer_type?: string
           operator?: string | null
           status?: string | null
           updated_at?: string
@@ -298,8 +302,10 @@ export type Database = {
           consortium?: Json | null
           coordinates?: Json | null
           created_at?: string
+          depth_category?: string | null
           description?: string | null
           id?: string
+          offer_type?: string
           operator?: string | null
           status?: string | null
           updated_at?: string
