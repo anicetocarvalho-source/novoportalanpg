@@ -156,25 +156,19 @@ export default function EnergyIntegrationPage() {
       {/* Timeline */}
       <SectionTransition delay={0.3}>
         <section className="mb-16">
-          <div className="relative">
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border/60 -translate-x-1/2" />
-            <div className="space-y-10">
-              {Array.isArray(timeline) && timeline.map((item, i) => (
-                <div key={item.year} className={cn("relative flex items-start gap-6 md:gap-10", i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse")}>
-                  <div className="hidden md:block flex-1" />
-                  <div className="relative z-10 flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shadow-md">
-                      {item.year.slice(-2)}
-                    </div>
-                  </div>
-                  <div className="flex-1 pb-2">
-                    <span className="text-xs font-semibold text-primary uppercase tracking-wider">{item.year}</span>
-                    <h4 className="text-lg font-bold text-foreground mt-1">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</p>
-                  </div>
+          <div className="relative pl-12 md:pl-16 border-l-2 border-border/40 ml-4 md:ml-8 space-y-10">
+            {Array.isArray(timeline) && timeline.map((item) => (
+              <div key={item.year} className="relative">
+                <div className="absolute -left-[calc(1.5rem+1px)] md:-left-[calc(2rem+1px)] top-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs md:text-sm font-bold shadow-md">
+                  {item.year.slice(-2)}
                 </div>
-              ))}
-            </div>
+                <div className="pt-1">
+                  <span className="text-xs font-semibold text-primary uppercase tracking-wider">{item.year}</span>
+                  <h4 className="text-lg font-bold text-foreground mt-1">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       </SectionTransition>
