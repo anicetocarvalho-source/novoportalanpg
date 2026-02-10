@@ -39,6 +39,8 @@
       "permanentOfferDesc": "Blocks available for continuous negotiation",
       "tender2023": "Tender 2023",
       "tender2023Desc": "Results and information from the previous tender",
+      "energyIntegration": "Energy Integration & Biofuels Hub",
+      "energyIntegrationDesc": "Promoting energy integration and biofuels development",
       "platformIona": "IONA Platform",
       "platformIonaDesc": "Integrated E&P data management system",
       "oasisImageBank": "OASIS – Image Bank",
@@ -965,6 +967,30 @@
         "q3": {
           "question": "Is the data confidential?",
           "answer": "Yes, technical data is treated confidentially. Access is controlled and users must sign confidentiality agreements before receiving sensitive information about blocks."
+        }
+      }
+    },
+    "energyIntegration": {
+      "title": "Energy Integration & Biofuels Hub",
+      "subtitle": "Promoting sustainable energy transition in Angola",
+      "intro": "ANPG's Energy Integration and Biofuels Hub is dedicated to promoting the diversification of Angola's energy matrix, fostering the development of biofuels and the integration of alternative energy sources in the national petroleum sector.",
+      "areasTitle": "Focus Areas",
+      "areas": {
+        "biofuels": {
+          "title": "Biofuels",
+          "desc": "Development and regulation of biofuel production from local raw materials, contributing to reducing dependence on fossil fuels."
+        },
+        "transition": {
+          "title": "Energy Transition",
+          "desc": "Supporting energy transition projects that promote efficient use of energy resources and the adoption of clean technologies."
+        },
+        "sustainability": {
+          "title": "Environmental Sustainability",
+          "desc": "Implementing sustainable practices in the energy sector, ensuring compliance with international environmental commitments."
+        },
+        "partnerships": {
+          "title": "International Partnerships",
+          "desc": "Establishing strategic partnerships with international organizations for technology and knowledge transfer in the renewable energy domain."
         }
       }
     }

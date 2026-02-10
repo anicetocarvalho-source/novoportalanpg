@@ -39,6 +39,8 @@
       "permanentOfferDesc": "Blocos disponíveis para negociação contínua",
       "tender2023": "Licitação 2023",
       "tender2023Desc": "Resultados e informações da licitação anterior",
+      "energyIntegration": "Núcleo de Integração Energética e Biocombustíveis",
+      "energyIntegrationDesc": "Promoção da integração energética e desenvolvimento de biocombustíveis",
       "platformIona": "Plataforma IONA",
       "platformIonaDesc": "Sistema integrado de gestão de dados de E&P",
       "oasisImageBank": "OASIS – Banco de Imagens",
@@ -965,6 +967,30 @@
         "q3": {
           "question": "Os dados são confidenciais?",
           "answer": "Sim, os dados técnicos são tratados com confidencialidade. O acesso é controlado e os utilizadores devem assinar acordos de confidencialidade antes de receberem informação sensível sobre os blocos."
+        }
+      }
+    },
+    "energyIntegration": {
+      "title": "Núcleo de Integração Energética e Biocombustíveis",
+      "subtitle": "Promovendo a transição energética sustentável em Angola",
+      "intro": "O Núcleo de Integração Energética e Biocombustíveis da ANPG tem como missão promover a diversificação da matriz energética angolana, fomentando o desenvolvimento de biocombustíveis e a integração de fontes de energia alternativas no sector petrolífero nacional.",
+      "areasTitle": "Áreas de Actuação",
+      "areas": {
+        "biofuels": {
+          "title": "Biocombustíveis",
+          "desc": "Desenvolvimento e regulação da produção de biocombustíveis a partir de matérias-primas locais, contribuindo para a redução da dependência de combustíveis fósseis."
+        },
+        "transition": {
+          "title": "Transição Energética",
+          "desc": "Apoio a projectos de transição energética que promovam a utilização eficiente dos recursos energéticos e a adopção de tecnologias limpas."
+        },
+        "sustainability": {
+          "title": "Sustentabilidade Ambiental",
+          "desc": "Implementação de práticas sustentáveis no sector energético, assegurando o cumprimento dos compromissos ambientais internacionais."
+        },
+        "partnerships": {
+          "title": "Parcerias Internacionais",
+          "desc": "Estabelecimento de parcerias estratégicas com organizações internacionais para a transferência de tecnologia e conhecimento no domínio das energias renováveis."
         }
       }
     }

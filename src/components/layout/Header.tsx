@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle, Landmark, Briefcase } from "lucide-react";
+import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle, Landmark, Briefcase, Fuel } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhiteStatic from "@/assets/logo-white.webp";
@@ -72,6 +72,7 @@ export function Header() {
         { nameKey: "nav.submenu.tender2025", descriptionKey: "nav.submenu.tender2025Desc", href: "/opportunities/tender-2025", icon: FileCheck },
         { nameKey: "nav.submenu.permanentOffer", descriptionKey: "nav.submenu.permanentOfferDesc", href: "/opportunities/permanent-offer", icon: Gift },
         { nameKey: "nav.submenu.tender2023", descriptionKey: "nav.submenu.tender2023Desc", href: "/opportunities/tender-2023", icon: Archive },
+        { nameKey: "nav.submenu.energyIntegration", descriptionKey: "nav.submenu.energyIntegrationDesc", href: "/opportunities/energy-integration", icon: Fuel },
       ],
     },
     {

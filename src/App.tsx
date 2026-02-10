@@ -23,6 +23,7 @@ import OpportunitiesPage from "./pages/opportunities/OpportunitiesPage";
 import Tender2025Page from "./pages/opportunities/Tender2025Page";
 import PermanentOfferPage from "./pages/opportunities/PermanentOfferPage";
 import Tender2023Page from "./pages/opportunities/Tender2023Page";
+import EnergyIntegrationPage from "./pages/opportunities/EnergyIntegrationPage";
 
 // E&P Data pages
 import EpDataPage from "./pages/ep-data/EpDataPage";
@@ -91,6 +92,7 @@ function AnimatedRoutes() {
           <Route path="/opportunities/tender-2025" element={<Tender2025Page />} />
           <Route path="/opportunities/permanent-offer" element={<PermanentOfferPage />} />
           <Route path="/opportunities/tender-2023" element={<Tender2023Page />} />
+          <Route path="/opportunities/energy-integration" element={<EnergyIntegrationPage />} />
           
           {/* E&P Data */}
           <Route path="/ep-data" element={<EpDataPage />} />
