@@ -990,8 +990,44 @@
         },
         "partnerships": {
           "title": "International Partnerships",
-          "desc": "Establishing strategic partnerships with international organizations for technology and knowledge transfer in the renewable energy domain."
+        "desc": "Establishing strategic partnerships with international organizations for technology and knowledge transfer in the renewable energy domain."
         }
+      },
+      "statsTitle": "Key Indicators",
+      "stats": {
+        "projects": { "value": "12", "label": "Active Projects" },
+        "investment": { "value": "$2.4B", "label": "Projected Investment" },
+        "jobs": { "value": "5,000+", "label": "Estimated Jobs" },
+        "reduction": { "value": "30%", "label": "Emissions Reduction" }
+      },
+      "timelineTitle": "Project Milestones",
+      "timeline": [
+        { "year": "2020", "title": "Hub Established", "desc": "Formal establishment of the Energy Integration & Biofuels Hub within ANPG." },
+        { "year": "2021", "title": "First Feasibility Study", "desc": "Completion of feasibility study for bioethanol production from sugarcane." },
+        { "year": "2022", "title": "International Partnerships", "desc": "Cooperation agreements signed with Brazil and the European Union for technology transfer." },
+        { "year": "2023", "title": "Biodiesel Pilot Plant", "desc": "Inauguration of the first biodiesel pilot production plant in Bengo." },
+        { "year": "2024", "title": "National Regulation", "desc": "Approval of the regulatory framework for mandatory blending of biofuels in fossil fuels." },
+        { "year": "2025", "title": "Industrial Expansion", "desc": "Construction begins on three industrial biofuel units in Kwanza Sul, Malanje and Huíla provinces." }
+      ],
+      "contactTitle": "Contact the Hub",
+      "contactIntro": "Interested in collaborating with the Energy Integration & Biofuels Hub? Fill in the form below.",
+      "contactFields": {
+        "name": "Full Name",
+        "email": "Email",
+        "organization": "Organization",
+        "interest": "Area of Interest",
+        "message": "Message",
+        "submit": "Send Message",
+        "submitting": "Sending...",
+        "successTitle": "Message Sent",
+        "successDesc": "Thank you for reaching out. Our team will respond shortly."
+      },
+      "interestOptions": {
+        "biofuels": "Biofuels",
+        "transition": "Energy Transition",
+        "sustainability": "Sustainability",
+        "partnerships": "Partnerships",
+        "other": "Other"
       }
     }
   }
