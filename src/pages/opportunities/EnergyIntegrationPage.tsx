@@ -156,19 +156,43 @@ export default function EnergyIntegrationPage() {
       {/* Timeline */}
       <SectionTransition delay={0.3}>
         <section className="mb-16">
-          <div className="relative pl-12 md:pl-16 border-l-2 border-border/40 ml-4 md:ml-8 space-y-10">
-            {Array.isArray(timeline) && timeline.map((item) => (
-              <div key={item.year} className="relative">
-                <div className="absolute -left-[calc(1.5rem+1px)] md:-left-[calc(2rem+1px)] top-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs md:text-sm font-bold shadow-md">
-                  {item.year.slice(-2)}
-                </div>
-                <div className="pt-1">
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wider">{item.year}</span>
-                  <h4 className="text-lg font-bold text-foreground mt-1">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-1">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+          <div className="relative ml-4 md:ml-0">
+            {/* Vertical line */}
+            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent" />
+
+            <div className="space-y-8 md:space-y-0">
+              {Array.isArray(timeline) && timeline.map((item, index) => {
+                const isLeft = index % 2 === 0;
+                return (
+                  <div key={item.year} className="relative md:grid md:grid-cols-2 md:gap-12 md:py-6">
+                    {/* Center dot */}
+                    <div className="absolute left-5 md:left-1/2 top-6 md:top-8 -translate-x-1/2 z-10">
+                      <div className="w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold shadow-lg ring-4 ring-background">
+                        {item.year.slice(-2)}
+                      </div>
+                    </div>
+
+                    {/* Content card */}
+                    <div className={cn(
+                      "ml-16 md:ml-0",
+                      isLeft ? "md:col-start-1 md:text-right md:pr-8" : "md:col-start-2 md:pl-8"
+                    )}>
+                      <div className="group p-5 rounded-2xl border border-border bg-card hover:shadow-card hover:border-primary/20 transition-all duration-300">
+                        <span className="inline-block text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full mb-3">
+                          {item.year}
+                        </span>
+                        <h4 className="text-lg font-bold text-foreground mb-1.5">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+
+                    {/* Empty column for alternating layout */}
+                    {isLeft && <div className="hidden md:block md:col-start-2" />}
+                    {!isLeft && <div className="hidden md:block md:col-start-1 md:row-start-1" />}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
       </SectionTransition>
