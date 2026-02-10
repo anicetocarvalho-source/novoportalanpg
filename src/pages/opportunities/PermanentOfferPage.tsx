@@ -1,14 +1,16 @@
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import {
   Search, FileText, Handshake, Award,
   Clock, Users, RefreshCw, Database,
-  CheckCircle2, ArrowRight, Mail, MapPin
+  CheckCircle2, ArrowRight, Mail, MapPin, Loader2
 } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const stepIcons = [Search, FileText, Handshake, Award];
@@ -37,8 +39,26 @@ export default function PermanentOfferPage() {
 
   const steps = t("pages.permanentOffer.howItWorks", { returnObjects: true }) as Array<{ title: string; desc: string }>;
   const advantages = t("pages.permanentOffer.advantages", { returnObjects: true }) as Array<{ title: string; desc: string }>;
-  const blocks = t("pages.permanentOffer.blocks", { returnObjects: true }) as Array<{ name: string; basin: string; area: string; status: string; depth: string }>;
   const eligibility = t("pages.permanentOffer.eligibility", { returnObjects: true }) as string[];
+
+  const { data: blocks, isLoading } = useQuery({
+    queryKey: ["permanent-offer-blocks"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("petroleum_blocks")
+        .select("id, block_name, basin, area_km2, status, depth_category, water_depth_m")
+        .eq("offer_type", "permanent_offer")
+        .order("block_name");
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const getStatusLabel = (status: string) => {
+    if (status === "available") return t("pages.permanentOffer.statusAvailable");
+    if (status === "negotiating") return t("pages.permanentOffer.statusNegotiating");
+    return status;
+  };
 
   return (
     <PageLayout
@@ -59,7 +79,7 @@ export default function PermanentOfferPage() {
         </section>
       </SectionTransition>
 
-      {/* How It Works - Numbered Steps */}
+      {/* How It Works */}
       <SectionTransition delay={0.1}>
         <section className="mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
@@ -120,45 +140,59 @@ export default function PermanentOfferPage() {
         <SectionDivider label={t("pages.permanentOffer.availableBlocksTitle")} icon={MapPin} />
       </SectionTransition>
 
-      {/* Available Blocks Table */}
+      {/* Available Blocks Table - Dynamic from DB */}
       <SectionTransition delay={0.3}>
         <section className="mb-16">
           <p className="text-muted-foreground mb-8 max-w-3xl">
             {t("pages.permanentOffer.availableBlocksIntro")}
           </p>
-          <div className="overflow-x-auto rounded-2xl border border-border bg-card">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-secondary/50">
-                  <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.name")}</th>
-                  <th className="text-left p-4 font-semibold text-foreground hidden sm:table-cell">{t("pages.permanentOffer.blockHeaders.basin")}</th>
-                  <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.area")}</th>
-                  <th className="text-left p-4 font-semibold text-foreground hidden md:table-cell">{t("pages.permanentOffer.blockHeaders.depth")}</th>
-                  <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.status")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(blocks) && blocks.map((block, i) => (
-                  <tr key={i} className="border-b border-border/50 last:border-0 hover:bg-secondary/30 transition-colors">
-                    <td className="p-4 font-medium text-foreground">{block.name}</td>
-                    <td className="p-4 text-muted-foreground hidden sm:table-cell">{block.basin}</td>
-                    <td className="p-4 text-muted-foreground">{block.area}</td>
-                    <td className="p-4 text-muted-foreground hidden md:table-cell">{block.depth}</td>
-                    <td className="p-4">
-                      <Badge variant={block.status === t("pages.permanentOffer.statusAvailable") ? "default" : "secondary"} className={cn(
-                        "text-xs",
-                        block.status === t("pages.permanentOffer.statusAvailable")
-                          ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 hover:bg-emerald-500/20"
-                          : "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/20"
-                      )}>
-                        {block.status}
-                      </Badge>
-                    </td>
+
+          {isLoading ? (
+            <div className="flex items-center justify-center py-16">
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="overflow-x-auto rounded-2xl border border-border bg-card">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border bg-secondary/50">
+                    <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.name")}</th>
+                    <th className="text-left p-4 font-semibold text-foreground hidden sm:table-cell">{t("pages.permanentOffer.blockHeaders.basin")}</th>
+                    <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.area")}</th>
+                    <th className="text-left p-4 font-semibold text-foreground hidden md:table-cell">{t("pages.permanentOffer.blockHeaders.depth")}</th>
+                    <th className="text-left p-4 font-semibold text-foreground">{t("pages.permanentOffer.blockHeaders.status")}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {blocks?.map((block) => (
+                    <tr key={block.id} className="border-b border-border/50 last:border-0 hover:bg-secondary/30 transition-colors">
+                      <td className="p-4 font-medium text-foreground">{block.block_name}</td>
+                      <td className="p-4 text-muted-foreground hidden sm:table-cell">{block.basin}</td>
+                      <td className="p-4 text-muted-foreground">{block.area_km2 ? `${Number(block.area_km2).toLocaleString()} km²` : "—"}</td>
+                      <td className="p-4 text-muted-foreground hidden md:table-cell">{block.depth_category || "—"}</td>
+                      <td className="p-4">
+                        <Badge variant="secondary" className={cn(
+                          "text-xs",
+                          block.status === "available"
+                            ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 hover:bg-emerald-500/20"
+                            : "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/20"
+                        )}>
+                          {getStatusLabel(block.status || "available")}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                  {(!blocks || blocks.length === 0) && (
+                    <tr>
+                      <td colSpan={5} className="p-8 text-center text-muted-foreground">
+                        {t("common.noData", "Sem dados disponíveis")}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </section>
       </SectionTransition>
 
