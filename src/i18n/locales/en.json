@@ -352,7 +352,46 @@
     "permanentOffer": {
       "title": "Permanent Offer",
       "subtitle": "Available Blocks",
-      "description": "Petroleum blocks available for continuous negotiation outside public tenders."
+      "description": "Petroleum blocks available for continuous negotiation outside public tenders.",
+      "intro": "The Permanent Offer is a complementary mechanism to bidding rounds, allowing national and international petroleum companies to negotiate directly with ANPG for the acquisition of exploration and production rights in selected blocks, on a continuous basis and without fixed deadlines.",
+      "howItWorksTitle": "How It Works",
+      "howItWorks": [
+        { "title": "Browse Blocks", "desc": "Interested companies consult the list of available blocks and their respective technical data packages." },
+        { "title": "Expression of Interest", "desc": "Formal submission of an expression of interest to ANPG, including company profile and preliminary plan." },
+        { "title": "Direct Negotiation", "desc": "ANPG evaluates the proposal and initiates bilateral negotiations on contractual terms and work programmes." },
+        { "title": "Block Award", "desc": "Upon agreement, the concession contract is signed and submitted for ministerial approval." }
+      ],
+      "advantagesTitle": "Advantages",
+      "advantages": [
+        { "title": "Time Flexibility", "desc": "No fixed deadlines — companies can apply at any time." },
+        { "title": "Direct Negotiation", "desc": "Bilateral process allowing terms tailored to each investor's profile." },
+        { "title": "Continuous Access", "desc": "Available blocks are updated regularly as new areas are released." },
+        { "title": "Technical Data", "desc": "Seismic and geological data packages available for prior evaluation." }
+      ],
+      "availableBlocksTitle": "Available Blocks",
+      "availableBlocksIntro": "The blocks below are currently available for negotiation under the Permanent Offer regime. For detailed information and data packages, contact ANPG.",
+      "blocks": [
+        { "name": "Block KON-17", "basin": "Kwanza Onshore Basin", "area": "4,820 km²", "status": "Available", "depth": "Onshore" },
+        { "name": "Block KON-19", "basin": "Kwanza Onshore Basin", "area": "3,150 km²", "status": "Available", "depth": "Onshore" },
+        { "name": "Block CON-7", "basin": "Congo Onshore Basin", "area": "5,230 km²", "status": "Negotiating", "depth": "Onshore" },
+        { "name": "Block LNG-31", "basin": "Lower Congo Basin", "area": "6,100 km²", "status": "Available", "depth": "Ultra-Deepwater" },
+        { "name": "Block NAM-5", "basin": "Namibe Basin", "area": "7,800 km²", "status": "Available", "depth": "Deepwater" },
+        { "name": "Block KON-21", "basin": "Kwanza Onshore Basin", "area": "2,900 km²", "status": "Available", "depth": "Onshore" }
+      ],
+      "blockHeaders": { "name": "Block", "basin": "Basin", "area": "Area", "depth": "Depth", "status": "Status" },
+      "eligibilityTitle": "Eligibility",
+      "eligibility": [
+        "Companies with proven experience in oil and gas exploration and production",
+        "Demonstrated financial capacity to execute the minimum work programme",
+        "Compliance with local content requirements established by Angolan legislation",
+        "Commitment to ANPG environmental and safety standards"
+      ],
+      "ctaTitle": "Interested in Negotiating?",
+      "ctaDesc": "Contact ANPG's Negotiations Directorate for more information on available blocks and to start the expression of interest process.",
+      "ctaButton": "Contact ANPG",
+      "ctaEmail": "Send Email",
+      "statusAvailable": "Available",
+      "statusNegotiating": "Negotiating"
     },
     "tender2023": {
       "title": "Public Tender 2023",
