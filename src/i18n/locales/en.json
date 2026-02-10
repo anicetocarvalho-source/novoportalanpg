@@ -502,6 +502,66 @@
         "content": "ANPG reserves the right to modify these Terms of Use at any time. Changes take effect immediately upon publication on this website. We recommend that you consult this page periodically."
       },
       "questions": "If you have questions about these Terms, contact us at"
+    },
+    "energyIntegration": {
+      "title": "Energy Integration & Biofuels Hub",
+      "subtitle": "Promoting sustainable energy transition in Angola",
+      "intro": "ANPG's Energy Integration and Biofuels Hub is dedicated to promoting the diversification of Angola's energy matrix, fostering the development of biofuels and the integration of alternative energy sources in the national petroleum sector.",
+      "areasTitle": "Focus Areas",
+      "areas": {
+        "biofuels": {
+          "title": "Biofuels",
+          "desc": "Development and regulation of biofuel production from local raw materials, contributing to reducing dependence on fossil fuels."
+        },
+        "transition": {
+          "title": "Energy Transition",
+          "desc": "Supporting energy transition projects that promote efficient use of energy resources and the adoption of clean technologies."
+        },
+        "sustainability": {
+          "title": "Environmental Sustainability",
+          "desc": "Implementing sustainable practices in the energy sector, ensuring compliance with international environmental commitments."
+        },
+        "partnerships": {
+          "title": "International Partnerships",
+          "desc": "Establishing strategic partnerships with international organizations for technology and knowledge transfer in the renewable energy domain."
+        }
+      },
+      "statsTitle": "Key Indicators",
+      "stats": {
+        "projects": { "value": "12", "label": "Active Projects" },
+        "investment": { "value": "$2.4B", "label": "Projected Investment" },
+        "jobs": { "value": "5,000+", "label": "Estimated Jobs" },
+        "reduction": { "value": "30%", "label": "Emissions Reduction" }
+      },
+      "timelineTitle": "Project Milestones",
+      "timeline": [
+        { "year": "2020", "title": "Hub Established", "desc": "Formal establishment of the Energy Integration & Biofuels Hub within ANPG." },
+        { "year": "2021", "title": "First Feasibility Study", "desc": "Completion of feasibility study for bioethanol production from sugarcane." },
+        { "year": "2022", "title": "International Partnerships", "desc": "Cooperation agreements signed with Brazil and the European Union for technology transfer." },
+        { "year": "2023", "title": "Biodiesel Pilot Plant", "desc": "Inauguration of the first biodiesel pilot production plant in Bengo." },
+        { "year": "2024", "title": "National Regulation", "desc": "Approval of the regulatory framework for mandatory blending of biofuels in fossil fuels." },
+        { "year": "2025", "title": "Industrial Expansion", "desc": "Construction begins on three industrial biofuel units in Kwanza Sul, Malanje and Huíla provinces." }
+      ],
+      "contactTitle": "Contact the Hub",
+      "contactIntro": "Interested in collaborating with the Energy Integration & Biofuels Hub? Fill in the form below.",
+      "contactFields": {
+        "name": "Full Name",
+        "email": "Email",
+        "organization": "Organization",
+        "interest": "Area of Interest",
+        "message": "Message",
+        "submit": "Send Message",
+        "submitting": "Sending...",
+        "successTitle": "Message Sent",
+        "successDesc": "Thank you for reaching out. Our team will respond shortly."
+      },
+      "interestOptions": {
+        "biofuels": "Biofuels",
+        "transition": "Energy Transition",
+        "sustainability": "Sustainability",
+        "partnerships": "Partnerships",
+        "other": "Other"
+      }
     }
   },
   "hero": {
@@ -968,66 +1028,6 @@
           "question": "Is the data confidential?",
           "answer": "Yes, technical data is treated confidentially. Access is controlled and users must sign confidentiality agreements before receiving sensitive information about blocks."
         }
-      }
-    },
-    "energyIntegration": {
-      "title": "Energy Integration & Biofuels Hub",
-      "subtitle": "Promoting sustainable energy transition in Angola",
-      "intro": "ANPG's Energy Integration and Biofuels Hub is dedicated to promoting the diversification of Angola's energy matrix, fostering the development of biofuels and the integration of alternative energy sources in the national petroleum sector.",
-      "areasTitle": "Focus Areas",
-      "areas": {
-        "biofuels": {
-          "title": "Biofuels",
-          "desc": "Development and regulation of biofuel production from local raw materials, contributing to reducing dependence on fossil fuels."
-        },
-        "transition": {
-          "title": "Energy Transition",
-          "desc": "Supporting energy transition projects that promote efficient use of energy resources and the adoption of clean technologies."
-        },
-        "sustainability": {
-          "title": "Environmental Sustainability",
-          "desc": "Implementing sustainable practices in the energy sector, ensuring compliance with international environmental commitments."
-        },
-        "partnerships": {
-          "title": "International Partnerships",
-        "desc": "Establishing strategic partnerships with international organizations for technology and knowledge transfer in the renewable energy domain."
-        }
-      },
-      "statsTitle": "Key Indicators",
-      "stats": {
-        "projects": { "value": "12", "label": "Active Projects" },
-        "investment": { "value": "$2.4B", "label": "Projected Investment" },
-        "jobs": { "value": "5,000+", "label": "Estimated Jobs" },
-        "reduction": { "value": "30%", "label": "Emissions Reduction" }
-      },
-      "timelineTitle": "Project Milestones",
-      "timeline": [
-        { "year": "2020", "title": "Hub Established", "desc": "Formal establishment of the Energy Integration & Biofuels Hub within ANPG." },
-        { "year": "2021", "title": "First Feasibility Study", "desc": "Completion of feasibility study for bioethanol production from sugarcane." },
-        { "year": "2022", "title": "International Partnerships", "desc": "Cooperation agreements signed with Brazil and the European Union for technology transfer." },
-        { "year": "2023", "title": "Biodiesel Pilot Plant", "desc": "Inauguration of the first biodiesel pilot production plant in Bengo." },
-        { "year": "2024", "title": "National Regulation", "desc": "Approval of the regulatory framework for mandatory blending of biofuels in fossil fuels." },
-        { "year": "2025", "title": "Industrial Expansion", "desc": "Construction begins on three industrial biofuel units in Kwanza Sul, Malanje and Huíla provinces." }
-      ],
-      "contactTitle": "Contact the Hub",
-      "contactIntro": "Interested in collaborating with the Energy Integration & Biofuels Hub? Fill in the form below.",
-      "contactFields": {
-        "name": "Full Name",
-        "email": "Email",
-        "organization": "Organization",
-        "interest": "Area of Interest",
-        "message": "Message",
-        "submit": "Send Message",
-        "submitting": "Sending...",
-        "successTitle": "Message Sent",
-        "successDesc": "Thank you for reaching out. Our team will respond shortly."
-      },
-      "interestOptions": {
-        "biofuels": "Biofuels",
-        "transition": "Energy Transition",
-        "sustainability": "Sustainability",
-        "partnerships": "Partnerships",
-        "other": "Other"
       }
     }
   }
