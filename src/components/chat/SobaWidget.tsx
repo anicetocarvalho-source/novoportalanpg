@@ -197,8 +197,8 @@ export function SobaWidget() {
                 <Bot className="h-5 w-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-sm leading-tight">SOBA</h3>
-                <p className="text-xs opacity-80 truncate">
+                <h3 className="font-semibold text-sm leading-tight text-white">SOBA</h3>
+                <p className="text-xs text-white/90 truncate">
                   {i18n.language === "en" ? "ANPG Virtual Assistant" : "Assistente Virtual da ANPG"}
                 </p>
               </div>
