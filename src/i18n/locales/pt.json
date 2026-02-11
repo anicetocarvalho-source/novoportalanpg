@@ -1089,6 +1089,36 @@
           "answer": "Sim, os dados técnicos são tratados com confidencialidade. O acesso é controlado e os utilizadores devem assinar acordos de confidencialidade antes de receberem informação sensível sobre os blocos."
         }
       }
+    },
+    "gas": {
+      "title": "Gás",
+      "subtitle": "Projectos e oportunidades no sector do gás natural",
+      "intro": "O sector do gás natural em Angola representa uma oportunidade estratégica de crescimento e diversificação energética. Com reservas significativas e infraestruturas em expansão, Angola posiciona-se como um actor relevante no mercado global de GNL.",
+      "highlights": {
+        "lng": { "title": "Angola LNG", "desc": "Planta de liquefacção com capacidade de 5.2 MTPA" },
+        "production": { "title": "Produção", "desc": "Crescimento sustentado da produção de gás natural" },
+        "export": { "title": "Exportação", "desc": "Angola como exportador estratégico de GNL" },
+        "investment": { "title": "Investimento", "desc": "Novas oportunidades em projectos de gás" }
+      },
+      "opportunitiesTitle": "Oportunidades no Sector do Gás",
+      "p1": "Angola dispõe de reservas comprovadas de gás natural que sustentam projectos de grande envergadura, incluindo a planta de GNL do Soyo e novos desenvolvimentos em curso. O aproveitamento do gás associado e a redução da queima representam prioridades estratégicas.",
+      "p2": "A ANPG promove activamente o investimento em projectos de gás, oferecendo condições atractivas para operadores interessados em desenvolver recursos gasíferos nas bacias sedimentares angolanas."
+    },
+    "whistleblower": {
+      "title": "Canal de Denúncias",
+      "subtitle": "Transparência e Integridade",
+      "features": {
+        "confidentiality": { "title": "Confidencialidade", "desc": "Garantia de protecção da identidade do denunciante" },
+        "security": { "title": "Segurança", "desc": "Canal seguro e encriptado para submissão de denúncias" },
+        "followUp": { "title": "Acompanhamento", "desc": "Seguimento e resposta a todas as denúncias recebidas" }
+      },
+      "p1": "O Canal de Denúncias da ANPG é um mecanismo confidencial e seguro, disponível para colaboradores, parceiros e cidadãos, destinado à comunicação de irregularidades, condutas antiéticas ou situações que possam comprometer a integridade institucional.",
+      "p2": "A ANPG garante a protecção dos denunciantes contra qualquer forma de retaliação, assegurando o tratamento adequado e tempestivo de todas as comunicações recebidas, em conformidade com a legislação aplicável.",
+      "p3": "Para submeter uma denúncia, utilize os canais disponíveis abaixo ou contacte directamente a equipa de compliance da ANPG.",
+      "howToTitle": "Como Submeter uma Denúncia",
+      "email": "compliance@anpg.co.ao",
+      "phone": "+244 226 428 000",
+      "disclaimer": "Todas as denúncias são tratadas com total confidencialidade."
     }
   }
 }
