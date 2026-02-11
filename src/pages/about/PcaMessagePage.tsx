@@ -51,37 +51,25 @@ export default function PcaMessagePage() {
               </span>
 
               <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-5">
-                <p>
-                  A criação da ANPG, em 2019, representou um passo decisivo do Estado angolano no processo de reorganização do sector energético. Enquanto Concessionária Nacional, assumimos desde o primeiro momento a responsabilidade de regular, fiscalizar e promover as actividades no domínio do petróleo, do gás natural e dos biocombustíveis, num sector vital para a economia nacional e para o posicionamento de Angola no contexto internacional.
-                </p>
-                <p>
-                  Neste curto espaço de tempo, consolidámos a função Concessionária, retomámos os processos de licitação, reforçámos a colaboração com os operadores. Contribuímos para mitigar o declínio natural da produção, dinamizar o investimento e criar condições de maior previsibilidade e confiança no sector. Estes avanços só foram possíveis graças ao compromisso, competência e dedicação das nossas equipas, bem como ao diálogo permanente com todos os stakeholders.
-                </p>
-                <p>
-                  Nestes sete anos da nossa actividade como ANPG, o mundo tem conhecido mudanças consideráveis. O sector energético atravessa hoje transformações profundas, marcadas por novas exigências ambientais, diversidade de fontes de energia, pressão regulatória e pelo surgimento de países com novas descobertas e mais oferta, originando uma concorrência cada vez mais intensa na captação de investimento. Este novo contexto exige instituições mais ágeis, mais claras, mais abertas ao diálogo internacional e mais preparadas para pensar o futuro de forma integrada.
-                </p>
-                <p>
-                  É neste quadro que iniciamos um novo ciclo estratégico. Um ciclo orientado para o reforço do nosso papel enquanto regulador alinhado com as melhores práticas internacionais. Os pilares deste novo ciclo serão apresentados e desenvolvidos com ambição, responsabilidade e visão de longo prazo.
-                </p>
-                <p>
-                  A nova identidade da ANPG assinala simbolicamente esta nova etapa. Uma marca mais fluida, contemporânea e mais representativa da diversidade de energias que hoje regulamos. Uma marca que melhor reflecte a evolução da Concessionária Nacional, assim como a ambição de acompanhar e liderar as matérias sob nossa jurisdição com impacto global.
-                </p>
-                <p>
-                  Com esta nova marca e uma nova assinatura, afirmamos que a ANPG e Angola têm energia para mais.
-                </p>
+                <p>{t("pages.pcaMessage.p1")}</p>
+                <p>{t("pages.pcaMessage.p2")}</p>
+                <p>{t("pages.pcaMessage.p3")}</p>
+                <p>{t("pages.pcaMessage.p4")}</p>
+                <p>{t("pages.pcaMessage.p5")}</p>
+                <p>{t("pages.pcaMessage.p6")}</p>
               </div>
 
               {/* Highlight block */}
               <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-8 mt-8">
                 <div className="space-y-3">
-                  <p className="text-foreground font-semibold">Mais clareza na regulação.</p>
-                  <p className="text-foreground font-semibold">Mais confiança e atracção de investimento.</p>
-                  <p className="text-foreground font-semibold">Mais integração, mais sustentabilidade e mais futuro para o País.</p>
+                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight1")}</p>
+                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight2")}</p>
+                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight3")}</p>
                 </div>
               </div>
 
               <p className="text-muted-foreground leading-relaxed mt-6">
-                É com energia para mais que continuamos comprometidos com a excelência, com a integridade e com a construção de um sector energético forte, competitivo e preparado para os desafios.
+                {t("pages.pcaMessage.closing")}
               </p>
 
               {/* Signature */}
