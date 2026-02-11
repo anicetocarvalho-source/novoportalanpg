@@ -68,12 +68,13 @@ export function Header() {
     {
       nameKey: "nav.opportunities",
       href: "/opportunities",
-      megaMenuColumns: 2,
+      megaMenuColumns: 3,
       submenu: [
         { nameKey: "nav.submenu.tender2025", descriptionKey: "nav.submenu.tender2025Desc", href: "/opportunities/tender-2025", icon: FileCheck },
         { nameKey: "nav.submenu.permanentOffer", descriptionKey: "nav.submenu.permanentOfferDesc", href: "/opportunities/permanent-offer", icon: Gift },
         { nameKey: "nav.submenu.tender2023", descriptionKey: "nav.submenu.tender2023Desc", href: "/opportunities/tender-2023", icon: Archive },
         { nameKey: "nav.submenu.energyIntegration", descriptionKey: "nav.submenu.energyIntegrationDesc", href: "/opportunities/energy-integration", icon: Fuel },
+        { nameKey: "nav.submenu.gas", descriptionKey: "nav.submenu.gasDesc", href: "/opportunities/gas", icon: Fuel },
       ],
     },
     {

@@ -41,8 +41,10 @@
       "permanentOfferDesc": "Blocos disponíveis para negociação contínua",
       "tender2023": "Licitação 2023",
       "tender2023Desc": "Resultados e informações da licitação anterior",
-      "energyIntegration": "Núcleo de Integração Energética e Biocombustíveis",
+      "energyIntegration": "Integração Energética e Biocombustíveis",
       "energyIntegrationDesc": "Promoção da integração energética e desenvolvimento de biocombustíveis",
+      "gas": "Gás",
+      "gasDesc": "Projectos e oportunidades no sector do gás natural",
       "platformIona": "Plataforma IONA",
       "platformIonaDesc": "Sistema integrado de gestão de dados de E&P",
       "oasisImageBank": "OASIS – Banco de Imagens",
@@ -857,7 +859,8 @@
       "energyData": "Dados de E&P",
       "production": "Produção",
       "news": "Notícias",
-      "localContent": "Conteúdo Local"
+      "localContent": "Conteúdo Local",
+      "whistleblower": "Canal de Denúncias"
     }
   },
   "investorPortal": {
