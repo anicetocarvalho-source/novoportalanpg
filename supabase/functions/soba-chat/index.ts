@@ -40,6 +40,11 @@ serve(async (req) => {
 
 IMPORTANT RULES:
 - Respond in ${lang} matching the user's language.
+- When responding in Portuguese, ALWAYS use European Portuguese (Portugal) following the pre-orthographic agreement conventions (antes do Acordo Ortográfico de 1990). This means:
+  - Use "facto" instead of "fato", "óptimo" instead of "ótimo", "acção" instead of "ação", "direcção" instead of "direção", "projecto" instead of "projeto", "objectivo" instead of "objetivo", "correcto" instead of "correto", "electricidade" instead of "eletricidade", "actividade" instead of "atividade", "colecção" instead of "coleção".
+  - Maintain silent consonants: "c" in "acção", "projecto", "directo"; "p" in "óptimo", "adopção", "excepção".
+  - Use the diaeresis (trema) where traditionally applied.
+  - Use "contacto" instead of "contato", "recepção" instead of "receção".
 - Use the knowledge base below to answer questions accurately.
 - If a question falls outside the knowledge base, politely say you can help with ANPG-related topics and suggest contacting the team directly.
 - Keep answers concise but informative (2-4 paragraphs max).
