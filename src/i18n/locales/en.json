@@ -11,6 +11,8 @@
     "investment": "Investment",
     "data": "Data",
     "submenu": {
+      "pcaMessage": "Chairman's Message",
+      "pcaMessageDesc": "Message from the Chairman of the Board of Directors",
       "anpg": "ANPG",
       "anpgDesc": "Learn about the National Oil, Gas and Biofuels Agency",
       "ourHistory": "Our History",
@@ -87,6 +89,12 @@
           "safety": "Achieve excellence levels in QHSE"
         }
       }
+    },
+    "pcaMessage": {
+      "title": "Chairman's Message",
+      "subtitle": "Chairman's Message",
+      "description": "Message from the Chairman of the Board of Directors of ANPG, Paulino Jerónimo.",
+      "role": "Chairman of the Board of Directors"
     },
     "anpg": {
       "title": "About ANPG",
