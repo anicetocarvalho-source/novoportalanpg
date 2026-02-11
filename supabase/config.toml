@@ -1,1 +1,4 @@
 project_id = "qedtdojwofboowbjvfwf"
+
+[functions.soba-chat]
+verify_jwt = false
