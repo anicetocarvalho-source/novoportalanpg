@@ -15,6 +15,7 @@ import {
   History,
   LogOut,
   Settings,
+  BookOpen,
 } from 'lucide-react';
 
 const modules = [
@@ -89,6 +90,14 @@ const modules = [
     href: '/admin/settings',
     permission: 'admin',
     color: 'bg-slate-600',
+  },
+  {
+    title: 'Base de Conhecimento',
+    description: 'Gerir conteúdo do chatbot SOBA',
+    icon: BookOpen,
+    href: '/admin/knowledge-base',
+    permission: 'content',
+    color: 'bg-emerald-500',
   },
 ];
 
