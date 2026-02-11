@@ -41,8 +41,10 @@
       "permanentOfferDesc": "Blocks available for continuous negotiation",
       "tender2023": "Tender 2023",
       "tender2023Desc": "Results and information from the previous tender",
-      "energyIntegration": "Energy Integration & Biofuels Hub",
+      "energyIntegration": "Energy Integration & Biofuels",
       "energyIntegrationDesc": "Promoting energy integration and biofuels development",
+      "gas": "Gas",
+      "gasDesc": "Projects and opportunities in the natural gas sector",
       "platformIona": "IONA Platform",
       "platformIonaDesc": "Integrated E&P data management system",
       "oasisImageBank": "OASIS – Image Bank",
@@ -857,7 +859,8 @@
       "energyData": "E&P Data",
       "production": "Production",
       "news": "News",
-      "localContent": "Local Content"
+      "localContent": "Local Content",
+      "whistleblower": "Whistleblower Channel"
     }
   },
   "investorPortal": {

@@ -61,6 +61,7 @@ export function Footer() {
       { nameKey: "footer.links.production", href: "/production" },
       { nameKey: "footer.links.news", href: "/media" },
       { nameKey: "footer.links.localContent", href: "/local-content" },
+      { nameKey: "footer.links.whistleblower", href: "/whistleblower" },
     ],
   };
 

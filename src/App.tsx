@@ -25,6 +25,7 @@ import Tender2025Page from "./pages/opportunities/Tender2025Page";
 import PermanentOfferPage from "./pages/opportunities/PermanentOfferPage";
 import Tender2023Page from "./pages/opportunities/Tender2023Page";
 import EnergyIntegrationPage from "./pages/opportunities/EnergyIntegrationPage";
+import GasPage from "./pages/opportunities/GasPage";
 
 // E&P Data pages
 import EpDataPage from "./pages/ep-data/EpDataPage";
@@ -55,6 +56,7 @@ import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
 import PrivacyPage from "./pages/legal/PrivacyPage";
 import TermsPage from "./pages/legal/TermsPage";
 import FAQPage from "./pages/FAQPage";
+import WhistleblowerPage from "./pages/WhistleblowerPage";
 
 // Admin pages
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -95,6 +97,7 @@ function AnimatedRoutes() {
           <Route path="/opportunities/permanent-offer" element={<PermanentOfferPage />} />
           <Route path="/opportunities/tender-2023" element={<Tender2023Page />} />
           <Route path="/opportunities/energy-integration" element={<EnergyIntegrationPage />} />
+          <Route path="/opportunities/gas" element={<GasPage />} />
           
           {/* E&P Data */}
           <Route path="/ep-data" element={<EpDataPage />} />
@@ -125,6 +128,7 @@ function AnimatedRoutes() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/whistleblower" element={<WhistleblowerPage />} />
           
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
