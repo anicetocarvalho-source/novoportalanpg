@@ -11,6 +11,8 @@
     "investment": "Investimento",
     "data": "Dados",
     "submenu": {
+      "pcaMessage": "Mensagem do PCA",
+      "pcaMessageDesc": "Mensagem do Presidente do Conselho de Administração",
       "anpg": "ANPG",
       "anpgDesc": "Conheça a Agência Nacional de Petróleo, Gás e Biocombustíveis",
       "ourHistory": "A Nossa História",
@@ -87,6 +89,12 @@
           "safety": "Alcançar níveis de excelência na área de QSMS"
         }
       }
+    },
+    "pcaMessage": {
+      "title": "Mensagem do PCA",
+      "subtitle": "Mensagem do Presidente",
+      "description": "Mensagem do Presidente do Conselho de Administração da ANPG, Paulino Jerónimo.",
+      "role": "Presidente do Conselho de Administração"
     },
     "anpg": {
       "title": "A ANPG",

@@ -42,8 +42,9 @@ export function Header() {
     {
       nameKey: "nav.aboutUs",
       href: "/about",
-      megaMenuColumns: 2,
+      megaMenuColumns: 3,
       submenu: [
+        { nameKey: "nav.submenu.pcaMessage", descriptionKey: "nav.submenu.pcaMessageDesc", href: "/about/pca-message", icon: Building2 },
         { nameKey: "nav.submenu.anpg", descriptionKey: "nav.submenu.anpgDesc", href: "/about/anpg", icon: Building2 },
         { nameKey: "nav.submenu.ourHistory", descriptionKey: "nav.submenu.ourHistoryDesc", href: "/about/history", icon: History },
         { nameKey: "nav.submenu.socialResponsibility", descriptionKey: "nav.submenu.socialResponsibilityDesc", href: "/about/social-responsibility", icon: Heart },
