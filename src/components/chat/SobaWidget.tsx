@@ -159,20 +159,38 @@ export function SobaWidget() {
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating button with welcome bubble */}
       <AnimatePresence>
         {!open && (
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="fixed bottom-6 right-6 z-50"
+            className="fixed bottom-6 right-6 z-50 flex items-end gap-3"
           >
+            {/* Welcome bubble */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1, duration: 0.4 }}
+              onClick={() => setOpen(true)}
+              className="bg-card border border-border rounded-2xl rounded-br-sm px-4 py-3 shadow-lg max-w-[220px] cursor-pointer hover:shadow-xl transition-shadow"
+            >
+              <p className="text-sm font-medium text-foreground leading-snug">
+                {i18n.language === "en"
+                  ? "👋 Hi! I'm SOBA, how can I help?"
+                  : "👋 Olá! Sou o SOBA, como posso ajudar?"}
+              </p>
+              <p className="text-[10px] text-muted-foreground mt-1">
+                {i18n.language === "en" ? "ANPG Virtual Assistant" : "Assistente Virtual da ANPG"}
+              </p>
+            </motion.div>
+
             <Button
               onClick={() => setOpen(true)}
               size="xl"
               variant="hero"
-              className="rounded-full w-16 h-16 p-0 shadow-[0_8px_30px_-4px_hsl(var(--primary)/0.5)]"
+              className="rounded-full w-16 h-16 p-0 shadow-[0_8px_30px_-4px_hsl(var(--primary)/0.5)] flex-shrink-0"
               aria-label="Open SOBA chat"
             >
               <MessageCircle className="h-7 w-7" />
