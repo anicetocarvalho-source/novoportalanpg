@@ -1089,6 +1089,36 @@
           "answer": "Yes, technical data is treated confidentially. Access is controlled and users must sign confidentiality agreements before receiving sensitive information about blocks."
         }
       }
+    },
+    "gas": {
+      "title": "Gas",
+      "subtitle": "Projects and opportunities in the natural gas sector",
+      "intro": "Angola's natural gas sector represents a strategic opportunity for growth and energy diversification. With significant reserves and expanding infrastructure, Angola is positioning itself as a relevant player in the global LNG market.",
+      "highlights": {
+        "lng": { "title": "Angola LNG", "desc": "Liquefaction plant with a capacity of 5.2 MTPA" },
+        "production": { "title": "Production", "desc": "Sustained growth in natural gas production" },
+        "export": { "title": "Export", "desc": "Angola as a strategic LNG exporter" },
+        "investment": { "title": "Investment", "desc": "New opportunities in gas projects" }
+      },
+      "opportunitiesTitle": "Opportunities in the Gas Sector",
+      "p1": "Angola has proven natural gas reserves that support large-scale projects, including the Soyo LNG plant and new developments underway. The utilisation of associated gas and flaring reduction represent strategic priorities.",
+      "p2": "ANPG actively promotes investment in gas projects, offering attractive conditions for operators interested in developing gas resources in Angola's sedimentary basins."
+    },
+    "whistleblower": {
+      "title": "Whistleblower Channel",
+      "subtitle": "Transparency and Integrity",
+      "features": {
+        "confidentiality": { "title": "Confidentiality", "desc": "Guaranteed protection of the whistleblower's identity" },
+        "security": { "title": "Security", "desc": "Secure and encrypted channel for submitting reports" },
+        "followUp": { "title": "Follow-up", "desc": "Tracking and response to all reports received" }
+      },
+      "p1": "ANPG's Whistleblower Channel is a confidential and secure mechanism, available to employees, partners and citizens, intended for reporting irregularities, unethical conduct or situations that may compromise institutional integrity.",
+      "p2": "ANPG guarantees the protection of whistleblowers against any form of retaliation, ensuring the adequate and timely handling of all communications received, in accordance with applicable legislation.",
+      "p3": "To submit a report, please use the channels available below or contact ANPG's compliance team directly.",
+      "howToTitle": "How to Submit a Report",
+      "email": "compliance@anpg.co.ao",
+      "phone": "+244 226 428 000",
+      "disclaimer": "All reports are handled with complete confidentiality."
     }
   }
 }

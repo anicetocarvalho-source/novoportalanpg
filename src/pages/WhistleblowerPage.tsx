@@ -6,31 +6,33 @@ import { ShieldCheck, Lock, Mail } from "lucide-react";
 export default function WhistleblowerPage() {
   const { t } = useTranslation();
 
+  const features = [
+    { icon: ShieldCheck, titleKey: "pages.whistleblower.features.confidentiality.title", descKey: "pages.whistleblower.features.confidentiality.desc" },
+    { icon: Lock, titleKey: "pages.whistleblower.features.security.title", descKey: "pages.whistleblower.features.security.desc" },
+    { icon: Mail, titleKey: "pages.whistleblower.features.followUp.title", descKey: "pages.whistleblower.features.followUp.desc" },
+  ];
+
   return (
     <PageLayout
-      title="Canal de Denúncias"
-      subtitle="Transparência e Integridade"
+      title={t("pages.whistleblower.title")}
+      subtitle={t("pages.whistleblower.subtitle")}
       breadcrumbs={[
-        { label: "Canal de Denúncias" },
+        { label: t("pages.whistleblower.title") },
       ]}
     >
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-6 lg:px-8 max-w-4xl">
           <SectionTransition>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {[
-                { icon: ShieldCheck, title: "Confidencialidade", desc: "Garantia de protecção da identidade do denunciante" },
-                { icon: Lock, title: "Segurança", desc: "Canal seguro e encriptado para submissão de denúncias" },
-                { icon: Mail, title: "Acompanhamento", desc: "Seguimento e resposta a todas as denúncias recebidas" },
-              ].map((item, i) => {
+              {features.map((item, i) => {
                 const Icon = item.icon;
                 return (
                   <div key={i} className="bg-card border border-border rounded-2xl p-8 text-center">
                     <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <Icon className="w-7 h-7 text-primary" />
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{t(item.titleKey)}</h3>
+                    <p className="text-sm text-muted-foreground">{t(item.descKey)}</p>
                   </div>
                 );
               })}
@@ -39,25 +41,19 @@ export default function WhistleblowerPage() {
 
           <SectionTransition delay={0.2}>
             <div className="prose prose-lg max-w-none text-muted-foreground space-y-5">
-              <p>
-                O Canal de Denúncias da ANPG é um mecanismo confidencial e seguro, disponível para colaboradores, parceiros e cidadãos, destinado à comunicação de irregularidades, condutas antiéticas ou situações que possam comprometer a integridade institucional.
-              </p>
-              <p>
-                A ANPG garante a protecção dos denunciantes contra qualquer forma de retaliação, assegurando o tratamento adequado e tempestivo de todas as comunicações recebidas, em conformidade com a legislação aplicável.
-              </p>
-              <p>
-                Para submeter uma denúncia, utilize os canais disponíveis abaixo ou contacte directamente a equipa de compliance da ANPG.
-              </p>
+              <p>{t("pages.whistleblower.p1")}</p>
+              <p>{t("pages.whistleblower.p2")}</p>
+              <p>{t("pages.whistleblower.p3")}</p>
             </div>
           </SectionTransition>
 
           <SectionTransition delay={0.3}>
             <div className="mt-12 bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-10">
-              <h2 className="text-xl font-bold text-foreground mb-4">Como Submeter uma Denúncia</h2>
+              <h2 className="text-xl font-bold text-foreground mb-4">{t("pages.whistleblower.howToTitle")}</h2>
               <div className="space-y-3 text-muted-foreground">
-                <p><strong className="text-foreground">Email:</strong> compliance@anpg.co.ao</p>
-                <p><strong className="text-foreground">Telefone:</strong> +244 226 428 000</p>
-                <p className="text-sm italic">Todas as denúncias são tratadas com total confidencialidade.</p>
+                <p><strong className="text-foreground">Email:</strong> {t("pages.whistleblower.email")}</p>
+                <p><strong className="text-foreground">{t("pages.contacts.phone", "Telefone")}:</strong> {t("pages.whistleblower.phone")}</p>
+                <p className="text-sm italic">{t("pages.whistleblower.disclaimer")}</p>
               </div>
             </div>
           </SectionTransition>
