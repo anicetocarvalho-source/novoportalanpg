@@ -13,6 +13,7 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/soba-chat`;
 export function SobaWidget() {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [bubbleDismissed, setBubbleDismissed] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -169,22 +170,37 @@ export function SobaWidget() {
             className="fixed bottom-6 right-6 z-50 flex items-end gap-3"
           >
             {/* Welcome bubble */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1, duration: 0.4 }}
-              onClick={() => setOpen(true)}
-              className="bg-card border border-border rounded-2xl rounded-br-sm px-4 py-3 shadow-lg max-w-[220px] cursor-pointer hover:shadow-xl transition-shadow"
-            >
-              <p className="text-sm font-medium text-foreground leading-snug">
-                {i18n.language === "en"
-                  ? "👋 Hi! I'm SOBA, how can I help?"
-                  : "👋 Olá! Sou o SOBA, como posso ajudar?"}
-              </p>
-              <p className="text-[10px] text-muted-foreground mt-1">
-                {i18n.language === "en" ? "ANPG Virtual Assistant" : "Assistente Virtual da ANPG"}
-              </p>
-            </motion.div>
+            <AnimatePresence>
+              {!bubbleDismissed && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
+                  transition={{ delay: 1, duration: 0.4 }}
+                  className="relative bg-card border border-border rounded-2xl rounded-br-sm px-4 py-3 shadow-lg max-w-[220px] cursor-pointer hover:shadow-xl transition-shadow"
+                  onClick={() => setOpen(true)}
+                >
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setBubbleDismissed(true);
+                    }}
+                    className="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                    aria-label="Dismiss"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                  <p className="text-sm font-medium text-foreground leading-snug">
+                    {i18n.language === "en"
+                      ? "👋 Hi! I'm SOBA, how can I help?"
+                      : "👋 Olá! Sou o SOBA, como posso ajudar?"}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    {i18n.language === "en" ? "ANPG Virtual Assistant" : "Assistente Virtual da ANPG"}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <Button
               onClick={() => setOpen(true)}
