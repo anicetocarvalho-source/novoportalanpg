@@ -6,16 +6,29 @@ import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContai
 import { Button } from "@/components/ui/button";
 import { BlocksMap } from "@/components/tender/BlocksMap";
 import { TenderFAQ } from "@/components/tender/TenderFAQ";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const objectiveIcons = [Target, Lightbulb, TrendingUp, Users, Shield];
 
 export default function Tender2025Page() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("tender-2025");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const objectives = t("pages.tender2025Content.objectives", { returnObjects: true }) as Array<{ title: string; description: string }>;
-  const phases = t("pages.tender2025Content.phases", { returnObjects: true }) as Array<{ title: string; description: string; period: string; status: string }>;
-  const documents = t("pages.tender2025Content.documents", { returnObjects: true }) as Array<{ title: string; description: string; type: string; size: string }>;
+  const bannerSection = getSection("banner");
+  const objectivesSection = getSection("objectives");
+  const phasesSection = getSection("phases");
+  const documentsSection = getSection("documents");
+  const ctaSection = getSection("cta");
+
+  const defaultObjectives = t("pages.tender2025Content.objectives", { returnObjects: true }) as Array<{ title: string; description: string }>;
+  const defaultPhases = t("pages.tender2025Content.phases", { returnObjects: true }) as Array<{ title: string; description: string; period: string; status: string }>;
+  const defaultDocuments = t("pages.tender2025Content.documents", { returnObjects: true }) as Array<{ title: string; description: string; type: string; size: string }>;
+
+  const objectives = objectivesSection?.items?.length ? objectivesSection.items : defaultObjectives;
+  const phases = phasesSection?.items?.length ? phasesSection.items : defaultPhases;
+  const documents = documentsSection?.items?.length ? documentsSection.items : defaultDocuments;
 
   return (
     <PageLayout
@@ -51,13 +64,13 @@ export default function Tender2025Page() {
               </div>
               <div>
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-3">
-                  {t("pages.tender2025Content.launchDate")}
+                  {bannerSection?.launchDate || t("pages.tender2025Content.launchDate")}
                 </span>
                 <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">
-                  {t("pages.tender2025Content.bannerTitle")}
+                  {bannerSection?.title || t("pages.tender2025Content.bannerTitle")}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed max-w-3xl">
-                  {t("pages.tender2025Content.bannerDescription")}
+                  {bannerSection?.description || t("pages.tender2025Content.bannerDescription")}
                 </p>
               </div>
             </div>
@@ -73,8 +86,8 @@ export default function Tender2025Page() {
               <Target className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("pages.tender2025Content.objectivesTitle")}</h2>
-              <p className="text-muted-foreground text-sm">{t("pages.tender2025Content.objectivesSubtitle")}</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{objectivesSection?.title || t("pages.tender2025Content.objectivesTitle")}</h2>
+              <p className="text-muted-foreground text-sm">{objectivesSection?.subtitle || t("pages.tender2025Content.objectivesSubtitle")}</p>
             </div>
           </div>
 
@@ -105,8 +118,8 @@ export default function Tender2025Page() {
               <Clock className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("pages.tender2025Content.phasesTitle")}</h2>
-              <p className="text-muted-foreground text-sm">{t("pages.tender2025Content.phasesSubtitle")}</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{phasesSection?.title || t("pages.tender2025Content.phasesTitle")}</h2>
+              <p className="text-muted-foreground text-sm">{phasesSection?.subtitle || t("pages.tender2025Content.phasesSubtitle")}</p>
             </div>
           </div>
 
@@ -221,8 +234,8 @@ export default function Tender2025Page() {
       <SectionTransition delay={0.4}>
         <section>
           <div className="bg-gradient-to-br from-foreground to-foreground/90 rounded-3xl p-8 md:p-12 text-primary-foreground text-center">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">{t("pages.tender2025Content.ctaTitle")}</h3>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">{t("pages.tender2025Content.ctaDescription")}</p>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">{ctaSection?.title || t("pages.tender2025Content.ctaTitle")}</h3>
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">{ctaSection?.description || t("pages.tender2025Content.ctaDescription")}</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button variant="hero" size="lg">
                 {t("pages.tender2025Content.ctaInterest")}

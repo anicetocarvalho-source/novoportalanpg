@@ -3,16 +3,29 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 
 const areaIcons = [Eye, ClipboardCheck, HardHat, FileWarning];
 
 export default function OversightPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("oversight");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const stats = t("pages.oversight.stats", { returnObjects: true }) as Array<{ value: string; label: string }>;
-  const areas = t("pages.oversight.areas", { returnObjects: true }) as Array<{ title: string; description: string }>;
-  const complianceAreas = t("pages.oversight.complianceAreas", { returnObjects: true }) as string[];
+  const introSection = getSection("intro");
+  const statsSection = getSection("stats");
+  const areasSection = getSection("areas");
+  const complianceSection = getSection("compliance");
+  const reportingSection = getSection("reporting");
+
+  const defaultStats = t("pages.oversight.stats", { returnObjects: true }) as Array<{ value: string; label: string }>;
+  const defaultAreas = t("pages.oversight.areas", { returnObjects: true }) as Array<{ title: string; description: string }>;
+  const defaultComplianceAreas = t("pages.oversight.complianceAreas", { returnObjects: true }) as string[];
+
+  const stats = statsSection?.items?.length ? statsSection.items : defaultStats;
+  const areas = areasSection?.items?.length ? areasSection.items : defaultAreas;
+  const complianceAreas = complianceSection?.items?.length ? complianceSection.items : defaultComplianceAreas;
 
   return (
     <PageLayout
@@ -31,7 +44,7 @@ export default function OversightPage() {
         {/* Introduction */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="prose prose-lg max-w-none">
-            <p className="text-muted-foreground leading-relaxed text-lg">{t("pages.oversight.intro")}</p>
+            <p className="text-muted-foreground leading-relaxed text-lg">{introSection?.text || t("pages.oversight.intro")}</p>
           </div>
         </motion.section>
 
@@ -51,7 +64,7 @@ export default function OversightPage() {
 
         {/* Oversight Areas */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-          <h2 className="text-2xl font-bold text-foreground mb-8">{t("pages.oversight.areasTitle")}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">{areasSection?.title || t("pages.oversight.areasTitle")}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {Array.isArray(areas) && areas.map((area, index) => {
               const Icon = areaIcons[index] || Eye;
@@ -80,11 +93,11 @@ export default function OversightPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <CheckCircle2 className="w-6 h-6 text-primary" />
-                {t("pages.oversight.complianceTitle")}
+                {complianceSection?.title || t("pages.oversight.complianceTitle")}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-6">{t("pages.oversight.complianceIntro")}</p>
+              <p className="text-muted-foreground mb-6">{complianceSection?.intro || t("pages.oversight.complianceIntro")}</p>
               <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {Array.isArray(complianceAreas) && complianceAreas.map((area, index) => (
                   <div key={index} className="flex items-center gap-2 p-3 rounded-lg bg-background text-sm">
@@ -105,9 +118,9 @@ export default function OversightPage() {
                 <AlertTriangle className="w-6 h-6 text-amber-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-2">{t("pages.oversight.reportingTitle")}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{t("pages.oversight.reportingDescription")}</p>
-                <p className="text-sm text-foreground font-medium">{t("pages.oversight.emergencyLine")}</p>
+                <h3 className="font-semibold text-foreground mb-2">{reportingSection?.title || t("pages.oversight.reportingTitle")}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{reportingSection?.description || t("pages.oversight.reportingDescription")}</p>
+                <p className="text-sm text-foreground font-medium">{reportingSection?.emergencyLine || t("pages.oversight.emergencyLine")}</p>
               </div>
             </CardContent>
           </Card>

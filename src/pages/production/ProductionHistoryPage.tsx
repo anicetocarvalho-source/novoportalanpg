@@ -5,6 +5,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/hero-offshore.jpg";
 import {
   AreaChart,
@@ -55,8 +56,14 @@ const monthlyData2024 = [
 
 export default function ProductionHistoryPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("production-history");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const milestones = t("pages.productionHistoryContent.milestones", { returnObjects: true }) as Array<{ year: string; title: string; description: string }>;
+  const milestonesSection = getSection("milestones");
+  const ctaSection = getSection("cta");
+
+  const defaultMilestones = t("pages.productionHistoryContent.milestones", { returnObjects: true }) as Array<{ year: string; title: string; description: string }>;
+  const milestones = milestonesSection?.items?.length ? milestonesSection.items : defaultMilestones;
   const s = (key: string) => t(`pages.productionHistoryContent.statsLabels.${key}`);
 
   return (
@@ -277,8 +284,8 @@ export default function ProductionHistoryPage() {
       <SectionTransition delay={0.3}>
         <section>
           <div className="bg-gradient-to-br from-foreground to-foreground/90 rounded-3xl p-8 md:p-12 text-primary-foreground text-center">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">{t("pages.productionHistoryContent.ctaTitle")}</h3>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">{t("pages.productionHistoryContent.ctaDescription")}</p>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">{ctaSection?.title || t("pages.productionHistoryContent.ctaTitle")}</h3>
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">{ctaSection?.description || t("pages.productionHistoryContent.ctaDescription")}</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button variant="hero" size="lg" asChild>
                 <Link to="/production">{t("pages.productionHistoryContent.ctaDashboard")}</Link>

@@ -5,16 +5,29 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const resourceIcons = [Map, Database, FileText, TrendingUp];
 
 export default function DataPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("data");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const metrics = t("pages.dataPage.metrics", { returnObjects: true }) as Array<{ value: string; label: string; description: string }>;
-  const resources = t("pages.dataPage.resources", { returnObjects: true }) as Array<{ title: string; description: string; href: string }>;
-  const publications = t("pages.dataPage.publications", { returnObjects: true }) as Array<{ title: string; type: string; date: string }>;
+  const introSection = getSection("intro");
+  const metricsSection = getSection("metrics");
+  const resourcesSection = getSection("resources");
+  const publicationsSection = getSection("publications");
+  const dashboardSection = getSection("dashboard");
+
+  const defaultMetrics = t("pages.dataPage.metrics", { returnObjects: true }) as Array<{ value: string; label: string; description: string }>;
+  const defaultResources = t("pages.dataPage.resources", { returnObjects: true }) as Array<{ title: string; description: string; href: string }>;
+  const defaultPublications = t("pages.dataPage.publications", { returnObjects: true }) as Array<{ title: string; type: string; date: string }>;
+
+  const metrics = metricsSection?.items?.length ? metricsSection.items : defaultMetrics;
+  const resources = resourcesSection?.items?.length ? resourcesSection.items : defaultResources;
+  const publications = publicationsSection?.items?.length ? publicationsSection.items : defaultPublications;
 
   return (
     <PageLayout
@@ -32,7 +45,7 @@ export default function DataPage() {
         {/* Introduction */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="prose prose-lg max-w-none">
-            <p className="text-muted-foreground leading-relaxed text-lg">{t("pages.dataPage.intro")}</p>
+            <p className="text-muted-foreground leading-relaxed text-lg">{introSection?.text || t("pages.dataPage.intro")}</p>
           </div>
         </motion.section>
 
@@ -53,7 +66,7 @@ export default function DataPage() {
 
         {/* Data Resources */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-          <h2 className="text-2xl font-bold text-foreground mb-8">{t("pages.dataPage.resourcesTitle")}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">{resourcesSection?.title || t("pages.dataPage.resourcesTitle")}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {Array.isArray(resources) && resources.map((resource, index) => {
               const Icon = resourceIcons[index] || FileText;
@@ -81,7 +94,7 @@ export default function DataPage() {
         {/* Publications */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-foreground">{t("pages.dataPage.publicationsTitle")}</h2>
+            <h2 className="text-2xl font-bold text-foreground">{publicationsSection?.title || t("pages.dataPage.publicationsTitle")}</h2>
             <Button variant="outline" asChild>
               <Link to="/media">{t("pages.dataPage.viewAll")}</Link>
             </Button>
@@ -118,8 +131,8 @@ export default function DataPage() {
                     <Activity className="w-7 h-7 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">{t("pages.dataPage.dashboardTitle")}</h3>
-                    <p className="text-primary-foreground/70">{t("pages.dataPage.dashboardDescription")}</p>
+                    <h3 className="text-xl font-semibold">{dashboardSection?.title || t("pages.dataPage.dashboardTitle")}</h3>
+                    <p className="text-primary-foreground/70">{dashboardSection?.description || t("pages.dataPage.dashboardDescription")}</p>
                   </div>
                 </div>
                 <Button asChild>
