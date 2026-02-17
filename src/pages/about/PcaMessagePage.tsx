@@ -2,11 +2,14 @@ import { MessageSquareQuote } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
+import { useContentBlock } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 import pcaPhoto from "@/assets/board/paulino-jeronimo-official.png";
 
 export default function PcaMessagePage() {
   const { t } = useTranslation();
+  const { data: cmsBlock } = useContentBlock("pca-message", "content");
+  const cms = cmsBlock?.content;
 
   return (
     <PageLayout
@@ -28,16 +31,16 @@ export default function PcaMessagePage() {
             <div className="sticky top-32">
               <div className="relative rounded-2xl overflow-hidden shadow-card aspect-[2/3]">
                 <img
-                  src={pcaPhoto}
+                  src={cms?.photo || pcaPhoto}
                   alt="Paulino Jerónimo – Presidente do Conselho de Administração da ANPG"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
               <div className="mt-6 text-center">
-                <h3 className="text-xl font-bold text-foreground">Paulino Jerónimo</h3>
+                <h3 className="text-xl font-bold text-foreground">{cms?.name || "Paulino Jerónimo"}</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  {t("pages.pcaMessage.role")}
+                  {cms?.role || t("pages.pcaMessage.role")}
                 </p>
               </div>
             </div>
@@ -52,31 +55,45 @@ export default function PcaMessagePage() {
               </span>
 
               <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-5">
-                <p>{t("pages.pcaMessage.p1")}</p>
-                <p>{t("pages.pcaMessage.p2")}</p>
-                <p>{t("pages.pcaMessage.p3")}</p>
-                <p>{t("pages.pcaMessage.p4")}</p>
-                <p>{t("pages.pcaMessage.p5")}</p>
-                <p>{t("pages.pcaMessage.p6")}</p>
+                {cms?.paragraphs?.length ? (
+                  cms.paragraphs.map((p: string, i: number) => <p key={i}>{p}</p>)
+                ) : (
+                  <>
+                    <p>{t("pages.pcaMessage.p1")}</p>
+                    <p>{t("pages.pcaMessage.p2")}</p>
+                    <p>{t("pages.pcaMessage.p3")}</p>
+                    <p>{t("pages.pcaMessage.p4")}</p>
+                    <p>{t("pages.pcaMessage.p5")}</p>
+                    <p>{t("pages.pcaMessage.p6")}</p>
+                  </>
+                )}
               </div>
 
               {/* Highlight block */}
               <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-8 mt-8">
                 <div className="space-y-3">
-                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight1")}</p>
-                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight2")}</p>
-                  <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight3")}</p>
+                  {cms?.highlights?.length ? (
+                    cms.highlights.map((h: string, i: number) => (
+                      <p key={i} className="text-foreground font-semibold">{h}</p>
+                    ))
+                  ) : (
+                    <>
+                      <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight1")}</p>
+                      <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight2")}</p>
+                      <p className="text-foreground font-semibold">{t("pages.pcaMessage.highlight3")}</p>
+                    </>
+                  )}
                 </div>
               </div>
 
               <p className="text-muted-foreground leading-relaxed mt-6">
-                {t("pages.pcaMessage.closing")}
+                {cms?.closing || t("pages.pcaMessage.closing")}
               </p>
 
               {/* Signature */}
               <div className="pt-8 border-t border-border mt-8">
-                <p className="text-foreground font-bold text-lg">Paulino Jerónimo</p>
-                <p className="text-muted-foreground text-sm">{t("pages.pcaMessage.role")}</p>
+                <p className="text-foreground font-bold text-lg">{cms?.name || "Paulino Jerónimo"}</p>
+                <p className="text-muted-foreground text-sm">{cms?.role || t("pages.pcaMessage.role")}</p>
                 <p className="text-muted-foreground text-sm">ANPG</p>
               </div>
             </div>

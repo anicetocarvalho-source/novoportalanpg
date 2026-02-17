@@ -5,9 +5,10 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 
-const valueIcons = {
+const valueIcons: Record<string, React.ElementType> = {
   integrity: Shield,
   transparency: Eye,
   excellence: Award,
@@ -16,12 +17,21 @@ const valueIcons = {
   collaboration: Users,
 };
 
+const defaultStrategicObjectives = [
+  "reserves", "growth", "localContent", "governance", "data", "safety"
+];
+
 export default function AboutPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("about");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const strategicObjectives = [
-    "reserves", "growth", "localContent", "governance", "data", "safety"
-  ];
+  const strategySection = getSection("strategy");
+  const ctaSection = getSection("cta");
+
+  const strategicObjectives = strategySection?.items?.length
+    ? strategySection.items
+    : defaultStrategicObjectives;
 
   return (
     <PageLayout
@@ -110,27 +120,31 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 text-primary font-medium text-sm uppercase tracking-wider mb-4">
               <span className="w-8 h-px bg-primary" />
-              Estratégia
+              {strategySection?.label || "Estratégia"}
               <span className="w-8 h-px bg-primary" />
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              {t("pages.about.strategicObjectives.title")}
+              {strategySection?.title || t("pages.about.strategicObjectives.title")}
             </h2>
           </div>
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {strategicObjectives.map((key, index) => (
-              <StaggerItem key={key}>
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-secondary/80 to-secondary/40 border border-border hover:border-primary/30 transition-all duration-300 h-full">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                    <span className="text-primary font-bold">{index + 1}</span>
+            {strategicObjectives.map((item: any, index: number) => {
+              const key = typeof item === "string" ? item : item.key;
+              const label = typeof item === "string"
+                ? t(`pages.about.strategicObjectives.items.${key}`)
+                : item.label;
+              return (
+                <StaggerItem key={key}>
+                  <div className="p-6 rounded-2xl bg-gradient-to-br from-secondary/80 to-secondary/40 border border-border hover:border-primary/30 transition-all duration-300 h-full">
+                    <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+                      <span className="text-primary font-bold">{index + 1}</span>
+                    </div>
+                    <p className="text-foreground font-medium">{label}</p>
                   </div>
-                  <p className="text-foreground font-medium">
-                    {t(`pages.about.strategicObjectives.items.${key}`)}
-                  </p>
-                </div>
-              </StaggerItem>
-            ))}
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
         </section>
       </SectionTransition>
@@ -165,10 +179,10 @@ export default function AboutPage() {
       <SectionTransition delay={0.3}>
         <section className="text-center">
           <h3 className="text-2xl font-bold text-foreground mb-4">
-            Quer saber mais sobre a ANPG?
+            {ctaSection?.title || "Quer saber mais sobre a ANPG?"}
           </h3>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Explore as nossas páginas institucionais para conhecer melhor a nossa história, equipa e compromissos.
+            {ctaSection?.description || "Explore as nossas páginas institucionais para conhecer melhor a nossa história, equipa e compromissos."}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="hero" size="lg" asChild>

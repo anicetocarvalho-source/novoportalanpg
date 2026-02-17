@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell 
 } from "recharts";
 import heroImage from "@/assets/hero-offshore.jpg";
 
-// Production data (in thousand barrels per day)
-const historicalProduction = [
+// Default data fallbacks
+const defaultHistoricalProduction = [
   { year: "2018", oil: 1534, gas: 245 },
   { year: "2019", oil: 1398, gas: 268 },
   { year: "2020", oil: 1276, gas: 289 },
@@ -20,7 +21,7 @@ const historicalProduction = [
   { year: "2024", oil: 1142, gas: 412 },
 ];
 
-const monthlyProduction = [
+const defaultMonthlyProduction = [
   { month: "Jan", production: 1156 },
   { month: "Fev", production: 1143 },
   { month: "Mar", production: 1168 },
@@ -35,7 +36,7 @@ const monthlyProduction = [
   { month: "Dez", production: 1142 },
 ];
 
-const productionByOperator = [
+const defaultProductionByOperator = [
   { name: "TotalEnergies", value: 28, barrels: 320 },
   { name: "Chevron", value: 22, barrels: 251 },
   { name: "ExxonMobil", value: 18, barrels: 205 },
@@ -44,14 +45,25 @@ const productionByOperator = [
   { name: "Outros", value: 7, barrels: 81 },
 ];
 
-const productionByBasin = [
+const defaultProductionByBasin = [
   { basin: "Bacia do Congo", production: 612, percentage: 54 },
   { basin: "Bacia do Kwanza", production: 298, percentage: 26 },
   { basin: "Bacia do Namibe", production: 148, percentage: 13 },
   { basin: "Onshore", production: 84, percentage: 7 },
 ];
 
+const defaultKeyStats = [
+  { icon: "fuel", value: "1.14", suffix: "M bbl/dia", label: "Produção de Petróleo", change: 4.0 },
+  { icon: "gas", value: "412", suffix: "MMscf/dia", label: "Produção de Gás Natural", change: 9.0 },
+  { icon: "blocks", value: "47", label: "Blocos Activos" },
+  { icon: "operators", value: "15", label: "Operadores Internacionais" },
+];
+
 const COLORS = ["hsl(var(--primary))", "hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))", "hsl(var(--chart-5))", "hsl(var(--muted-foreground))"];
+
+const statIconMap: Record<string, React.ElementType> = {
+  fuel: Fuel, gas: Droplets, blocks: Factory, operators: Globe,
+};
 
 interface StatCardProps {
   icon: React.ElementType;
@@ -86,6 +98,23 @@ function StatCard({ icon: Icon, value, label, change, suffix }: StatCardProps) {
 
 export default function ProductionPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("production");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
+
+  const statsSection = getSection("stats");
+  const keyStats = statsSection?.items?.length ? statsSection.items : defaultKeyStats;
+
+  const historicalSection = getSection("historical");
+  const historicalProduction = historicalSection?.data?.length ? historicalSection.data : defaultHistoricalProduction;
+
+  const monthlySection = getSection("monthly");
+  const monthlyProduction = monthlySection?.data?.length ? monthlySection.data : defaultMonthlyProduction;
+
+  const operatorSection = getSection("operators");
+  const productionByOperator = operatorSection?.data?.length ? operatorSection.data : defaultProductionByOperator;
+
+  const basinSection = getSection("basins");
+  const productionByBasin = basinSection?.data?.length ? basinSection.data : defaultProductionByBasin;
 
   return (
     <PageLayout
@@ -105,43 +134,22 @@ export default function ProductionPage() {
           <div className="flex items-center gap-3 mb-8">
             <span className="inline-flex items-center gap-2 text-primary font-medium text-sm uppercase tracking-wider">
               <span className="w-8 h-px bg-primary" />
-              Indicadores Chave
+              {statsSection?.label || "Indicadores Chave"}
             </span>
           </div>
 
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StaggerItem>
-              <StatCard 
-                icon={Fuel} 
-                value="1.14" 
-                suffix="M bbl/dia"
-                label="Produção de Petróleo" 
-                change={4.0}
-              />
-            </StaggerItem>
-            <StaggerItem>
-              <StatCard 
-                icon={Droplets} 
-                value="412" 
-                suffix="MMscf/dia"
-                label="Produção de Gás Natural" 
-                change={9.0}
-              />
-            </StaggerItem>
-            <StaggerItem>
-              <StatCard 
-                icon={Factory} 
-                value="47" 
-                label="Blocos Activos" 
-              />
-            </StaggerItem>
-            <StaggerItem>
-              <StatCard 
-                icon={Globe} 
-                value="15" 
-                label="Operadores Internacionais" 
-              />
-            </StaggerItem>
+            {keyStats.map((stat: any, i: number) => (
+              <StaggerItem key={i}>
+                <StatCard 
+                  icon={statIconMap[stat.icon] || Fuel} 
+                  value={stat.value} 
+                  suffix={stat.suffix}
+                  label={stat.label} 
+                  change={stat.change}
+                />
+              </StaggerItem>
+            ))}
           </StaggerContainer>
         </section>
       </SectionTransition>
@@ -153,10 +161,10 @@ export default function ProductionPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-foreground mb-1">
-                  Produção Histórica
+                  {historicalSection?.title || "Produção Histórica"}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Evolução da produção de petróleo e gás natural (2018-2024)
+                  {historicalSection?.subtitle || "Evolução da produção de petróleo e gás natural (2018-2024)"}
                 </p>
               </div>
               <div className="flex items-center gap-4 text-sm">
@@ -187,31 +195,9 @@ export default function ProductionPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="year" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: "hsl(var(--background))", 
-                      border: "1px solid hsl(var(--border))",
-                      borderRadius: "8px"
-                    }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="oil" 
-                    stroke="hsl(var(--primary))" 
-                    fillOpacity={1} 
-                    fill="url(#colorOil)" 
-                    strokeWidth={2}
-                    name="Petróleo"
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="gas" 
-                    stroke="hsl(var(--chart-2))" 
-                    fillOpacity={1} 
-                    fill="url(#colorGas)" 
-                    strokeWidth={2}
-                    name="Gás Natural"
-                  />
+                  <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                  <Area type="monotone" dataKey="oil" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorOil)" strokeWidth={2} name="Petróleo" />
+                  <Area type="monotone" dataKey="gas" stroke="hsl(var(--chart-2))" fillOpacity={1} fill="url(#colorGas)" strokeWidth={2} name="Gás Natural" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -223,84 +209,50 @@ export default function ProductionPage() {
       <SectionTransition delay={0.2}>
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* Monthly Production */}
             <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
               <h3 className="text-lg font-bold text-foreground mb-1">
-                Produção Mensal 2024
+                {monthlySection?.title || "Produção Mensal 2024"}
               </h3>
               <p className="text-sm text-muted-foreground mb-6">
-                Produção de petróleo por mês (kbbl/dia)
+                {monthlySection?.subtitle || "Produção de petróleo por mês (kbbl/dia)"}
               </p>
-              
               <div className="h-[280px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={monthlyProduction} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                     <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={11} />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} domain={[1100, 1200]} />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: "hsl(var(--background))", 
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: "8px"
-                      }}
-                      formatter={(value) => [`${value} kbbl/dia`, "Produção"]}
-                    />
-                    <Bar 
-                      dataKey="production" 
-                      fill="hsl(var(--primary))" 
-                      radius={[4, 4, 0, 0]}
-                      name="Produção"
-                    />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value) => [`${value} kbbl/dia`, "Produção"]} />
+                    <Bar dataKey="production" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} name="Produção" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
-            {/* Production by Operator */}
             <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
               <h3 className="text-lg font-bold text-foreground mb-1">
-                Produção por Operador
+                {operatorSection?.title || "Produção por Operador"}
               </h3>
               <p className="text-sm text-muted-foreground mb-6">
-                Quota de mercado por operador
+                {operatorSection?.subtitle || "Quota de mercado por operador"}
               </p>
-              
               <div className="h-[280px] flex items-center">
                 <div className="w-1/2 h-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
-                      <Pie
-                        data={productionByOperator}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={50}
-                        outerRadius={80}
-                        paddingAngle={2}
-                        dataKey="value"
-                      >
-                        {productionByOperator.map((_, index) => (
+                      <Pie data={productionByOperator} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={2} dataKey="value">
+                        {productionByOperator.map((_: any, index: number) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: "hsl(var(--background))", 
-                          border: "1px solid hsl(var(--border))",
-                          borderRadius: "8px"
-                        }}
-                        formatter={(value) => [`${value}%`, "Quota"]}
-                      />
+                      <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value: any) => [`${value}%`, "Quota"]} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
                 <div className="w-1/2 space-y-2">
-                  {productionByOperator.map((operator, index) => (
+                  {productionByOperator.map((operator: any, index: number) => (
                     <div key={operator.name} className="flex items-center gap-2 text-sm">
-                      <div 
-                        className="w-3 h-3 rounded-full flex-shrink-0" 
-                        style={{ backgroundColor: COLORS[index] }}
-                      />
+                      <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: COLORS[index] }} />
                       <span className="text-muted-foreground truncate flex-1">{operator.name}</span>
                       <span className="font-medium text-foreground">{operator.value}%</span>
                     </div>
@@ -317,23 +269,16 @@ export default function ProductionPage() {
         <section className="mb-16">
           <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
             <h3 className="text-lg font-bold text-foreground mb-1">
-              Produção por Bacia Sedimentar
+              {basinSection?.title || "Produção por Bacia Sedimentar"}
             </h3>
             <p className="text-sm text-muted-foreground mb-8">
-              Distribuição da produção petrolífera por região
+              {basinSection?.subtitle || "Distribuição da produção petrolífera por região"}
             </p>
-            
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {productionByBasin.map((basin, index) => (
-                <div 
-                  key={basin.basin}
-                  className="p-5 rounded-xl bg-background border border-border hover:border-primary/30 transition-colors"
-                >
+              {productionByBasin.map((basin: any, index: number) => (
+                <div key={basin.basin} className="p-5 rounded-xl bg-background border border-border hover:border-primary/30 transition-colors">
                   <div className="flex items-center justify-between mb-3">
-                    <span 
-                      className="w-10 h-10 rounded-lg flex items-center justify-center text-primary-foreground font-bold"
-                      style={{ backgroundColor: COLORS[index] }}
-                    >
+                    <span className="w-10 h-10 rounded-lg flex items-center justify-center text-primary-foreground font-bold" style={{ backgroundColor: COLORS[index] }}>
                       {basin.percentage}%
                     </span>
                   </div>
@@ -351,13 +296,8 @@ export default function ProductionPage() {
       <SectionTransition delay={0.4}>
         <section>
           <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
-            <h3 className="text-lg font-bold text-foreground mb-1">
-              Dados de Produção por Operador
-            </h3>
-            <p className="text-sm text-muted-foreground mb-6">
-              Detalhes de produção diária por operador
-            </p>
-            
+            <h3 className="text-lg font-bold text-foreground mb-1">Dados de Produção por Operador</h3>
+            <p className="text-sm text-muted-foreground mb-6">Detalhes de produção diária por operador</p>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -369,14 +309,11 @@ export default function ProductionPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {productionByOperator.map((operator, index) => (
+                  {productionByOperator.map((operator: any, index: number) => (
                     <tr key={operator.name} className="border-b border-border/50 hover:bg-secondary/50 transition-colors">
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-3">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: COLORS[index] }}
-                          />
+                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index] }} />
                           <span className="font-medium text-foreground">{operator.name}</span>
                         </div>
                       </td>
