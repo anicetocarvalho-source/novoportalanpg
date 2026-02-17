@@ -1,29 +1,47 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, History, Heart, Phone, FileCheck, Gift, Archive, Layers, Image, Database, Map, Calendar, Users, BarChart3, Scale, Shield, Globe2, Leaf, TrendingUp, HelpCircle, Landmark, Briefcase, Fuel } from "lucide-react";
+import { Menu, X, ChevronDown, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhiteStatic from "@/assets/logo-white.webp";
 import logoRedStatic from "@/assets/logo-red.webp";
-import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { MegaMenu, MegaMenuItem } from "@/components/layout/MegaMenu";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
 import { useSiteSettings } from "@/contexts/SiteSettingsContext";
+import { useMenuItems, type CMSMenuItem } from "@/hooks/useCMSData";
+import { getIcon } from "@/lib/iconMap";
 
-interface SubMenuItem {
-  nameKey: string;
-  descriptionKey: string;
-  href: string;
-  icon: LucideIcon;
-}
+// Hardcoded fallback navigation (used while CMS data loads)
+import { LucideIcon } from "lucide-react";
 
 interface NavItem {
-  nameKey: string;
+  nameKey?: string;
+  label?: string;
   href: string;
-  submenu?: SubMenuItem[];
+  submenu?: { nameKey?: string; label?: string; descriptionKey?: string; description?: string; href: string; icon: LucideIcon }[];
   megaMenuColumns?: 1 | 2 | 3;
+}
+
+function cmsToNavItems(cmsItems: CMSMenuItem[]): NavItem[] {
+  return cmsItems.map((item) => {
+    const hasChildren = item.children.length > 0;
+    const columns = item.children.length >= 5 ? 3 : item.children.length >= 3 ? 2 : 1;
+
+    return {
+      label: item.label,
+      href: item.url || "#",
+      megaMenuColumns: hasChildren ? (columns as 1 | 2 | 3) : undefined,
+      submenu: hasChildren
+        ? item.children.map((child) => ({
+            label: child.label,
+            description: "",
+            href: child.url || "#",
+            icon: getIcon(child.icon) || Building2,
+          }))
+        : undefined,
+    };
+  });
 }
 
 export function Header() {
@@ -33,117 +51,32 @@ export function Header() {
   const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(null);
   const { t } = useTranslation();
   const { settings } = useSiteSettings();
+  const { data: cmsMenuItems } = useMenuItems();
 
-  // Get dynamic logos with fallbacks
   const logoWhite = settings.logo?.dark || logoWhiteStatic;
   const logoRed = settings.logo?.light || logoRedStatic;
 
-  const navigation: NavItem[] = [
-    {
-      nameKey: "nav.aboutUs",
-      href: "/about",
-      megaMenuColumns: 3,
-      submenu: [
-        { nameKey: "nav.submenu.pcaMessage", descriptionKey: "nav.submenu.pcaMessageDesc", href: "/about/pca-message", icon: Building2 },
-        { nameKey: "nav.submenu.anpg", descriptionKey: "nav.submenu.anpgDesc", href: "/about/anpg", icon: Building2 },
-        { nameKey: "nav.submenu.ourHistory", descriptionKey: "nav.submenu.ourHistoryDesc", href: "/about/history", icon: History },
-        { nameKey: "nav.submenu.socialResponsibility", descriptionKey: "nav.submenu.socialResponsibilityDesc", href: "/about/social-responsibility", icon: Heart },
-        { nameKey: "nav.submenu.faq", descriptionKey: "nav.submenu.faqDesc", href: "/faq", icon: HelpCircle },
-        { nameKey: "nav.submenu.contacts", descriptionKey: "nav.submenu.contactsDesc", href: "/contacts", icon: Phone },
-      ],
-    },
-    {
-      nameKey: "nav.services",
-      href: "/regulation",
-      megaMenuColumns: 3,
-      submenu: [
-        { nameKey: "nav.submenu.regulation", descriptionKey: "nav.submenu.regulationDesc", href: "/regulation", icon: Scale },
-        { nameKey: "nav.submenu.licensing", descriptionKey: "nav.submenu.licensingDesc", href: "/regulation/licensing", icon: FileCheck },
-        { nameKey: "nav.submenu.oversight", descriptionKey: "nav.submenu.oversightDesc", href: "/regulation/oversight", icon: Shield },
-        { nameKey: "nav.submenu.tenders", descriptionKey: "nav.submenu.tendersDesc", href: "/regulation/tenders", icon: Globe2 },
-        { nameKey: "nav.submenu.dataAnalytics", descriptionKey: "nav.submenu.dataAnalyticsDesc", href: "/data", icon: BarChart3 },
-        { nameKey: "nav.submenu.sustainability", descriptionKey: "nav.submenu.sustainabilityDesc", href: "/sustainability", icon: Leaf },
-      ],
-    },
-    {
-      nameKey: "nav.opportunities",
-      href: "/opportunities",
-      megaMenuColumns: 3,
-      submenu: [
-        { nameKey: "nav.submenu.tender2025", descriptionKey: "nav.submenu.tender2025Desc", href: "/opportunities/tender-2025", icon: FileCheck },
-        { nameKey: "nav.submenu.permanentOffer", descriptionKey: "nav.submenu.permanentOfferDesc", href: "/opportunities/permanent-offer", icon: Gift },
-        { nameKey: "nav.submenu.tender2023", descriptionKey: "nav.submenu.tender2023Desc", href: "/opportunities/tender-2023", icon: Archive },
-        { nameKey: "nav.submenu.energyIntegration", descriptionKey: "nav.submenu.energyIntegrationDesc", href: "/opportunities/energy-integration", icon: Fuel },
-        { nameKey: "nav.submenu.gas", descriptionKey: "nav.submenu.gasDesc", href: "/opportunities/gas", icon: Fuel },
-      ],
-    },
-    {
-      nameKey: "nav.epData",
-      href: "/ep-data",
-      megaMenuColumns: 3,
-      submenu: [
-        { nameKey: "nav.submenu.platformIona", descriptionKey: "nav.submenu.platformIonaDesc", href: "/ep-data/iona", icon: Layers },
-        { nameKey: "nav.submenu.oasisImageBank", descriptionKey: "nav.submenu.oasisImageBankDesc", href: "/ep-data/oasis", icon: Image },
-        { nameKey: "nav.submenu.dataPackages", descriptionKey: "nav.submenu.dataPackagesDesc", href: "/ep-data/packages", icon: Database },
-        { nameKey: "nav.submenu.epMaps", descriptionKey: "nav.submenu.epMapsDesc", href: "/ep-data/maps", icon: Map },
-        { nameKey: "nav.submenu.conference2021", descriptionKey: "nav.submenu.conference2021Desc", href: "/ep-data/conference-2021", icon: Calendar },
-        { nameKey: "nav.submenu.dataConference2023", descriptionKey: "nav.submenu.dataConference2023Desc", href: "/ep-data/conference-2023", icon: Users },
-      ],
-    },
-    { nameKey: "nav.media", href: "/media" },
-    {
-      nameKey: "nav.production",
-      href: "/production",
-      megaMenuColumns: 1,
-      submenu: [
-        { nameKey: "nav.submenu.productionOverview", descriptionKey: "nav.submenu.productionOverviewDesc", href: "/production", icon: BarChart3 },
-        { nameKey: "nav.submenu.productionHistory", descriptionKey: "nav.submenu.productionHistoryDesc", href: "/production/history", icon: TrendingUp },
-      ],
-    },
-    {
-      nameKey: "nav.localContent",
-      href: "/local-content",
-      megaMenuColumns: 1,
-      submenu: [
-        { nameKey: "nav.submenu.localContentOverview", descriptionKey: "nav.submenu.localContentOverviewDesc", href: "/local-content", icon: Briefcase },
-        { nameKey: "nav.investorPortal", descriptionKey: "nav.submenu.investorPortalDesc", href: "/investor-portal", icon: Landmark },
-      ],
-    },
-  ];
+  // Convert CMS menu items to nav items
+  const navigation: NavItem[] = cmsMenuItems ? cmsToNavItems(cmsMenuItems) : [];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleMouseEnter = (nameKey: string) => {
-    setOpenDropdown(nameKey);
-  };
-
-  const handleMouseLeave = () => {
-    setOpenDropdown(null);
-  };
-
-  const toggleMobileSubmenu = (nameKey: string) => {
-    setMobileOpenSubmenu(mobileOpenSubmenu === nameKey ? null : nameKey);
-  };
+  const getItemKey = (item: NavItem) => item.label || item.nameKey || item.href;
+  const getItemLabel = (item: NavItem) => item.label || (item.nameKey ? t(item.nameKey) : "");
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-md py-4"
-          : "bg-transparent py-8"
+        isScrolled ? "bg-background/95 backdrop-blur-md shadow-md py-4" : "bg-transparent py-8"
       )}
     >
       <div className="container mx-auto px-6 lg:px-8">
         <nav className="flex items-center justify-between">
-          {/* Logo */}
           <Link to="/" className="relative z-10">
             <motion.img
               src={isScrolled ? logoRed : logoWhite}
@@ -157,58 +90,58 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            {navigation.map((item, index) => (
-              <motion.div
-                key={item.nameKey}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="relative"
-                onMouseEnter={() => item.submenu && handleMouseEnter(item.nameKey)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link
-                  to={item.href}
-                  className={cn(
-                    "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-sm",
-                    isScrolled
-                      ? "text-foreground hover:text-primary hover:bg-secondary"
-                      : "text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary-foreground/10",
-                    openDropdown === item.nameKey && (isScrolled ? "text-primary" : "text-primary")
-                  )}
+            {navigation.map((item, index) => {
+              const key = getItemKey(item);
+              const label = getItemLabel(item);
+              return (
+                <motion.div
+                  key={key}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="relative"
+                  onMouseEnter={() => item.submenu && setOpenDropdown(key)}
+                  onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  {t(item.nameKey)}
-                  {item.submenu && (
-                    <ChevronDown 
-                      className={cn(
-                        "w-4 h-4 transition-transform duration-200",
-                        openDropdown === item.nameKey && "rotate-180"
-                      )} 
-                    />
-                  )}
-                </Link>
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      "flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-sm",
+                      isScrolled
+                        ? "text-foreground hover:text-primary hover:bg-secondary"
+                        : "text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary-foreground/10",
+                      openDropdown === key && (isScrolled ? "text-primary" : "text-primary")
+                    )}
+                  >
+                    {label}
+                    {item.submenu && (
+                      <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", openDropdown === key && "rotate-180")} />
+                    )}
+                  </Link>
 
-                {/* Mega Menu Dropdown */}
-                <AnimatePresence>
-                  {item.submenu && openDropdown === item.nameKey && (
-                    <MegaMenu 
-                      items={item.submenu as MegaMenuItem[]} 
-                      columns={item.megaMenuColumns || 2}
-                      onItemClick={() => setOpenDropdown(null)}
-                    />
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+                  <AnimatePresence>
+                    {item.submenu && openDropdown === key && (
+                      <MegaMenu
+                        items={item.submenu.map((sub) => ({
+                          nameKey: sub.nameKey || "",
+                          label: sub.label,
+                          descriptionKey: sub.descriptionKey || "",
+                          description: sub.description,
+                          href: sub.href,
+                          icon: sub.icon,
+                        })) as MegaMenuItem[]}
+                        columns={item.megaMenuColumns || 2}
+                        onItemClick={() => setOpenDropdown(null)}
+                      />
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
 
-          {/* Right side: Language Toggle - Desktop */}
-          <motion.div
-            className="hidden lg:flex items-center gap-4"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          {/* Language Toggle */}
+          <motion.div className="hidden lg:flex items-center gap-4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <LanguageToggle isScrolled={isScrolled} />
           </motion.div>
 
@@ -217,18 +150,9 @@ export function Header() {
             <LanguageToggle isScrolled={isScrolled} />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={cn(
-                "p-2 rounded-sm transition-colors",
-                isScrolled
-                  ? "text-foreground hover:bg-secondary"
-                  : "text-primary-foreground hover:bg-primary-foreground/10"
-              )}
+              className={cn("p-2 rounded-sm transition-colors", isScrolled ? "text-foreground hover:bg-secondary" : "text-primary-foreground hover:bg-primary-foreground/10")}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </nav>
@@ -246,69 +170,62 @@ export function Header() {
           >
             <div className="container mx-auto px-6 py-6">
               <nav className="flex flex-col gap-2">
-                {navigation.map((item) => (
-                  <div key={item.nameKey}>
-                    {item.submenu ? (
-                      <>
-                        <button
-                          onClick={() => toggleMobileSubmenu(item.nameKey)}
-                          className="w-full flex items-center justify-between text-foreground font-medium py-3 hover:text-primary transition-colors"
+                {navigation.map((item) => {
+                  const key = getItemKey(item);
+                  const label = getItemLabel(item);
+                  return (
+                    <div key={key}>
+                      {item.submenu ? (
+                        <>
+                          <button
+                            onClick={() => setMobileOpenSubmenu(mobileOpenSubmenu === key ? null : key)}
+                            className="w-full flex items-center justify-between text-foreground font-medium py-3 hover:text-primary transition-colors"
+                          >
+                            {label}
+                            <ChevronDown className={cn("w-5 h-5 transition-transform duration-200", mobileOpenSubmenu === key && "rotate-180")} />
+                          </button>
+                          <AnimatePresence>
+                            {mobileOpenSubmenu === key && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="pl-2 border-l-2 border-primary/30 ml-2"
+                              >
+                                {item.submenu.map((subItem) => {
+                                  const Icon = subItem.icon;
+                                  const subLabel = subItem.label || (subItem.nameKey ? t(subItem.nameKey) : "");
+                                  return (
+                                    <Link
+                                      key={subItem.href}
+                                      to={subItem.href}
+                                      className="flex items-start gap-3 py-3 hover:bg-secondary rounded-md px-2 transition-colors"
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                      <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
+                                        <Icon className="w-4 h-4 text-primary" />
+                                      </div>
+                                      <span className="block text-sm font-medium text-foreground">{subLabel}</span>
+                                    </Link>
+                                  );
+                                })}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          className="block text-foreground font-medium py-3 hover:text-primary transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
                         >
-                          {t(item.nameKey)}
-                          <ChevronDown 
-                            className={cn(
-                              "w-5 h-5 transition-transform duration-200",
-                              mobileOpenSubmenu === item.nameKey && "rotate-180"
-                            )} 
-                          />
-                        </button>
-                        <AnimatePresence>
-                          {mobileOpenSubmenu === item.nameKey && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="pl-2 border-l-2 border-primary/30 ml-2"
-                            >
-                              {item.submenu.map((subItem) => {
-                                const Icon = subItem.icon;
-                                return (
-                                  <Link
-                                    key={subItem.nameKey}
-                                    to={subItem.href}
-                                    className="flex items-start gap-3 py-3 hover:bg-secondary rounded-md px-2 transition-colors"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                  >
-                                    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
-                                      <Icon className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div>
-                                      <span className="block text-sm font-medium text-foreground">
-                                        {t(subItem.nameKey)}
-                                      </span>
-                                      <span className="block text-xs text-muted-foreground mt-0.5">
-                                        {t(subItem.descriptionKey)}
-                                      </span>
-                                    </div>
-                                  </Link>
-                                );
-                              })}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </>
-                    ) : (
-                      <Link
-                        to={item.href}
-                        className="block text-foreground font-medium py-3 hover:text-primary transition-colors"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {t(item.nameKey)}
-                      </Link>
-                    )}
-                  </div>
-                ))}
+                          {label}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
               </nav>
             </div>
           </motion.div>
