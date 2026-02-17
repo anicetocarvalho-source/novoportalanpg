@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { FileText, Scale, AlertTriangle, Copyright, Globe, Gavel } from "lucide-react";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 
 export default function TermsPage() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const sections = [
     {
@@ -103,7 +105,7 @@ export default function TermsPage() {
               <SectionTransition delay={0.7}>
                 <div className="mt-8 text-center text-muted-foreground">
                   <p>
-                    {t("pages.terms.questions")} <a href="mailto:geral@anpg.co.ao" className="text-primary hover:underline">geral@anpg.co.ao</a>
+                    {t("pages.terms.questions")} <a href={`mailto:${settings.contact?.email || "geral@anpg.co.ao"}`} className="text-primary hover:underline">{settings.contact?.email || "geral@anpg.co.ao"}</a>
                   </p>
                 </div>
               </SectionTransition>

@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Shield, Eye, Lock, Server, UserCheck, Mail } from "lucide-react";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 
 export default function PrivacyPage() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const sections = [
     {
@@ -95,8 +97,8 @@ export default function PrivacyPage() {
                   </h3>
                   <div className="text-muted-foreground space-y-2">
                     <p><strong>{t("pages.privacy.dpo.entity")}:</strong> ANPG - Agência Nacional de Petróleo, Gás e Biocombustíveis</p>
-                    <p><strong>{t("pages.privacy.dpo.email")}:</strong> privacidade@anpg.co.ao</p>
-                    <p><strong>{t("pages.privacy.dpo.address")}:</strong> Rua Kwamme Nkrumah, Nº 6-8, Ingombota, Luanda, Angola</p>
+                    <p><strong>{t("pages.privacy.dpo.email")}:</strong> {settings.contact?.email || "privacidade@anpg.co.ao"}</p>
+                    <p><strong>{t("pages.privacy.dpo.address")}:</strong> {settings.contact?.address || "Rua Kwamme Nkrumah, Nº 6-8, Ingombota, Luanda, Angola"}</p>
                   </div>
                 </div>
               </SectionTransition>
