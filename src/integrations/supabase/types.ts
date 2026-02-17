@@ -434,6 +434,57 @@ export type Database = {
         }
         Relationships: []
       }
+      media_items: {
+        Row: {
+          created_at: string
+          description: string | null
+          event_date: string | null
+          external_url: string | null
+          file_url: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          media_type: string
+          sort_order: number
+          source: string | null
+          title: string
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          event_date?: string | null
+          external_url?: string | null
+          file_url?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          media_type?: string
+          sort_order?: number
+          source?: string | null
+          title: string
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          event_date?: string | null
+          external_url?: string | null
+          file_url?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          media_type?: string
+          sort_order?: number
+          source?: string | null
+          title?: string
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Relationships: []
+      }
       menu_items: {
         Row: {
           created_at: string
