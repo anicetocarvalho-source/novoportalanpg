@@ -53,6 +53,75 @@ export type Database = {
         }
         Relationships: []
       }
+      board_members: {
+        Row: {
+          bio_en: string | null
+          bio_pt: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          group_key: string
+          id: string
+          is_active: boolean
+          message_en: string | null
+          message_pt: string | null
+          office_location: string | null
+          phone: string | null
+          photo_url: string | null
+          role_en: string | null
+          role_pt: string | null
+          slug: string
+          sort_order: number
+          title_en: string | null
+          title_pt: string
+          updated_at: string
+        }
+        Insert: {
+          bio_en?: string | null
+          bio_pt?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          group_key?: string
+          id?: string
+          is_active?: boolean
+          message_en?: string | null
+          message_pt?: string | null
+          office_location?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          role_en?: string | null
+          role_pt?: string | null
+          slug: string
+          sort_order?: number
+          title_en?: string | null
+          title_pt: string
+          updated_at?: string
+        }
+        Update: {
+          bio_en?: string | null
+          bio_pt?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          group_key?: string
+          id?: string
+          is_active?: boolean
+          message_en?: string | null
+          message_pt?: string | null
+          office_location?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          role_en?: string | null
+          role_pt?: string | null
+          slug?: string
+          sort_order?: number
+          title_en?: string | null
+          title_pt?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cms_pages: {
         Row: {
           author_id: string | null
@@ -99,6 +168,45 @@ export type Database = {
             referencedColumns: ["user_id"]
           },
         ]
+      }
+      content_blocks: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          is_active: boolean
+          language: string
+          page_key: string
+          section_key: string
+          sort_order: number
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          page_key: string
+          section_key: string
+          sort_order?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          page_key?: string
+          section_key?: string
+          sort_order?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
       }
       expressions_of_interest: {
         Row: {
@@ -161,6 +269,87 @@ export type Database = {
             referencedColumns: ["user_id"]
           },
         ]
+      }
+      faq_items: {
+        Row: {
+          answer_en: string | null
+          answer_pt: string
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          question_en: string | null
+          question_pt: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          answer_en?: string | null
+          answer_pt: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          question_en?: string | null
+          question_pt: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          answer_en?: string | null
+          answer_pt?: string
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          question_en?: string | null
+          question_pt?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      history_events: {
+        Row: {
+          created_at: string
+          description_en: string | null
+          description_pt: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          sort_order: number
+          title_en: string | null
+          title_pt: string
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          created_at?: string
+          description_en?: string | null
+          description_pt?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          sort_order?: number
+          title_en?: string | null
+          title_pt: string
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          created_at?: string
+          description_en?: string | null
+          description_pt?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          sort_order?: number
+          title_en?: string | null
+          title_pt?: string
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
       }
       investor_documents: {
         Row: {
@@ -245,6 +434,59 @@ export type Database = {
         }
         Relationships: []
       }
+      menu_items: {
+        Row: {
+          created_at: string
+          icon: string | null
+          id: string
+          is_visible: boolean
+          label_en: string | null
+          label_pt: string
+          menu_group: string
+          open_in_new_tab: boolean
+          parent_id: string | null
+          sort_order: number
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_visible?: boolean
+          label_en?: string | null
+          label_pt: string
+          menu_group?: string
+          open_in_new_tab?: boolean
+          parent_id?: string | null
+          sort_order?: number
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_visible?: boolean
+          label_en?: string | null
+          label_pt?: string
+          menu_group?: string
+          open_in_new_tab?: boolean
+          parent_id?: string | null
+          sort_order?: number
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_items_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news_articles: {
         Row: {
           author_id: string | null
@@ -297,6 +539,48 @@ export type Database = {
             referencedColumns: ["user_id"]
           },
         ]
+      }
+      page_banners: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          is_active: boolean
+          overlay_opacity: number | null
+          page_key: string
+          subtitle_en: string | null
+          subtitle_pt: string | null
+          title_en: string | null
+          title_pt: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          overlay_opacity?: number | null
+          page_key: string
+          subtitle_en?: string | null
+          subtitle_pt?: string | null
+          title_en?: string | null
+          title_pt?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          overlay_opacity?: number | null
+          page_key?: string
+          subtitle_en?: string | null
+          subtitle_pt?: string | null
+          title_en?: string | null
+          title_pt?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       petroleum_blocks: {
         Row: {
