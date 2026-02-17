@@ -437,3 +437,21 @@ export function useDashboardCounts() {
     },
   });
 }
+
+// ─── Media Items ───
+export function useMediaItems(mediaType: string) {
+  return useQuery({
+    queryKey: ["media_items", mediaType],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("media_items")
+        .select("*")
+        .eq("media_type", mediaType)
+        .eq("is_active", true)
+        .order("sort_order");
+
+      if (error) throw error;
+      return data;
+    },
+  });
+}

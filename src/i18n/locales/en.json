@@ -493,7 +493,49 @@
     "media": {
       "title": "Media",
       "subtitle": "Communications",
-      "description": "News, press releases and media resources from ANPG."
+      "description": "News, press releases and media resources from ANPG.",
+      "tabs": {
+        "news": "News",
+        "publications": "Publications",
+        "videos": "Videos",
+        "press": "Press Clippings",
+        "events": "Events"
+      },
+      "search": "Search news by keyword...",
+      "dateFilters": {
+        "all": "All dates",
+        "week": "Last week",
+        "month": "Last month",
+        "quarter": "Last 3 months",
+        "year": "Last year"
+      },
+      "sort": {
+        "newest": "Newest first",
+        "oldest": "Oldest first"
+      },
+      "clear": "Clear",
+      "categories": {
+        "all": "All",
+        "press": "Press Release",
+        "tender": "Tender",
+        "highlight": "Highlight",
+        "production": "Monthly Production"
+      },
+      "noResults": "No news found",
+      "resultsCount": "{{count}} article(s) found",
+      "pageInfo": "Page {{current}} of {{total}} • {{count}} articles",
+      "publicationsTitle": "\"Primeiro Óleo\" Newsletter",
+      "publicationsDescription": "Official ANPG newsletter with information about the Angolan petroleum sector.",
+      "viewAllPublications": "View All Publications",
+      "videosTitle": "ANPG Channel",
+      "videosDescription": "Institutional videos, reports and coverage of petroleum sector events.",
+      "viewMoreVideos": "View More Videos on YouTube",
+      "pressTitle": "Press Clippings",
+      "pressDescription": "Media coverage about ANPG and the Angolan petroleum sector.",
+      "viewMorePress": "View More Clippings",
+      "eventsTitle": "Events",
+      "eventsDescription": "Conferences, business missions and petroleum sector events.",
+      "viewAllEvents": "View All Events"
     },
     "production": {
       "title": "Production",
