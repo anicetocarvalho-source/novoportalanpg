@@ -12,10 +12,12 @@ import {
 } from "lucide-react";
 import logoWhite from "@/assets/logo-white.webp";
 import { useSiteSettings } from "@/contexts/SiteSettingsContext";
+import { useMenuItems } from "@/hooks/useCMSData";
 
 export function Footer() {
   const { t } = useTranslation();
   const { settings } = useSiteSettings();
+  const { data: footerMenuItems } = useMenuItems("footer");
 
   // Get dynamic settings with fallbacks
   const logoUrl = settings.logo?.dark || logoWhite;
@@ -36,34 +38,6 @@ export function Footer() {
     tagline: settings.footer?.tagline || ""
   };
 
-  const footerLinks = {
-    institutional: [
-      { nameKey: "footer.links.about", href: "/about" },
-      { nameKey: "footer.links.anpg", href: "/about/anpg" },
-      { nameKey: "footer.links.socialResponsibility", href: "/about/social-responsibility" },
-      { nameKey: "footer.links.history", href: "/about/history" },
-    ],
-    services: [
-      { nameKey: "footer.links.regulation", href: "/regulation" },
-      { nameKey: "footer.links.licensing", href: "/regulation/licensing" },
-      { nameKey: "footer.links.oversight", href: "/regulation/oversight" },
-      { nameKey: "footer.links.tenders", href: "/regulation/tenders" },
-    ],
-    investors: [
-      { nameKey: "footer.links.opportunities", href: "/opportunities" },
-      { nameKey: "footer.links.investorPortal", href: "/investor-portal" },
-      { nameKey: "footer.links.availableBlocks", href: "/ep-data/maps" },
-      { nameKey: "footer.links.faq", href: "/faq" },
-      { nameKey: "footer.links.contact", href: "/contacts" },
-    ],
-    resources: [
-      { nameKey: "footer.links.energyData", href: "/ep-data" },
-      { nameKey: "footer.links.production", href: "/production" },
-      { nameKey: "footer.links.news", href: "/media" },
-      { nameKey: "footer.links.localContent", href: "/local-content" },
-      { nameKey: "footer.links.whistleblower", href: "/whistleblower" },
-    ],
-  };
 
   return (
     <footer className="bg-foreground text-pearl">
@@ -73,23 +47,15 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/">
-              <img
-                src={logoUrl}
-                alt="ANPG"
-                className="h-24 w-auto mb-6"
-              />
+              <img src={logoUrl} alt="ANPG" className="h-24 w-auto mb-6" />
             </Link>
             <p className="text-pearl/70 text-sm leading-relaxed mb-8 max-w-xs">
               {footerText.tagline || t("footer.description")}
             </p>
-            
-            {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm">
                 <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
-                <span className="text-pearl/70 whitespace-pre-line">
-                  {contact.address}
-                </span>
+                <span className="text-pearl/70 whitespace-pre-line">{contact.address}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="w-4 h-4 text-primary flex-shrink-0" />
@@ -102,58 +68,21 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links Columns */}
-          <div>
-            <h4 className="footer-heading text-primary-foreground">{t("footer.institutional")}</h4>
-            <ul className="space-y-3">
-              {footerLinks.institutional.map((link) => (
-                <li key={link.nameKey}>
-                  <Link to={link.href} className="footer-link">
-                    {t(link.nameKey)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-primary-foreground">{t("footer.services")}</h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.nameKey}>
-                  <Link to={link.href} className="footer-link">
-                    {t(link.nameKey)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-primary-foreground">{t("footer.investors")}</h4>
-            <ul className="space-y-3">
-              {footerLinks.investors.map((link) => (
-                <li key={link.nameKey}>
-                  <Link to={link.href} className="footer-link">
-                    {t(link.nameKey)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="footer-heading text-primary-foreground">{t("footer.resources")}</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.nameKey}>
-                  <Link to={link.href} className="footer-link">
-                    {t(link.nameKey)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Links Columns - Dynamic from CMS */}
+          {footerMenuItems?.map((column) => (
+            <div key={column.id}>
+              <h4 className="footer-heading text-primary-foreground">{column.label}</h4>
+              <ul className="space-y-3">
+                {column.children.map((link) => (
+                  <li key={link.id}>
+                    <Link to={link.url || "#"} className="footer-link">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
