@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 
 export interface MegaMenuItem {
-  nameKey: string;
-  descriptionKey: string;
+  nameKey?: string;
+  label?: string;
+  descriptionKey?: string;
+  description?: string;
   href: string;
   icon: LucideIcon;
 }
@@ -34,7 +36,6 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
           columns === 3 ? "w-[600px]" : columns === 1 ? "w-[320px]" : "w-[480px]"
         )}
       >
-        {/* Decorative top border */}
         <div className="h-1 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-t-2xl" />
         
         <div className={cn(
@@ -43,9 +44,11 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
         )}>
           {items.map((item, index) => {
             const Icon = item.icon;
+            const label = item.label || (item.nameKey ? t(item.nameKey) : "");
+            const description = item.description || (item.descriptionKey ? t(item.descriptionKey) : "");
             return (
               <Link
-                key={item.nameKey}
+                key={item.href}
                 to={item.href}
                 onClick={onItemClick}
                 className="group flex items-start gap-3 p-3 rounded-xl hover:bg-secondary transition-all duration-200 hover:shadow-sm"
@@ -60,11 +63,13 @@ export const MegaMenu = forwardRef<HTMLDivElement, MegaMenuProps>(
                 </motion.div>
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {t(item.nameKey)}
+                    {label}
                   </h4>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                    {t(item.descriptionKey)}
-                  </p>
+                  {description && (
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                      {description}
+                    </p>
+                  )}
                 </div>
               </Link>
             );

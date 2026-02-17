@@ -3,160 +3,25 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useHistoryEvents } from "@/hooks/useCMSData";
 import heroImage from "@/assets/angola-coast.jpg";
 
-// Timeline images
-import img1910 from "@/assets/history/1910-exploration.jpg";
-import img1958 from "@/assets/history/1958-refinery.jpg";
-import img1999 from "@/assets/history/1999-fpso.jpg";
-import img2013 from "@/assets/history/2013-lng.jpg";
-import img2019 from "@/assets/history/2019-anpg.jpg";
-
-interface TimelineEvent {
-  year: string;
-  title: string;
-  description: string;
-  image?: string;
-  icon: React.ReactNode;
-  highlight?: boolean;
-}
-
-const getTimelineEvents = (t: (key: string) => string): TimelineEvent[] => [
-  {
-    year: "1910",
-    title: t("pages.history.timeline.1910.title"),
-    description: t("pages.history.timeline.1910.description"),
-    image: img1910,
-    icon: <Droplets className="w-5 h-5" />,
-  },
-  {
-    year: "1915",
-    title: t("pages.history.timeline.1915.title"),
-    description: t("pages.history.timeline.1915.description"),
-    icon: <Factory className="w-5 h-5" />,
-  },
-  {
-    year: "1955",
-    title: t("pages.history.timeline.1955.title"),
-    description: t("pages.history.timeline.1955.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
-  {
-    year: "1958",
-    title: t("pages.history.timeline.1958.title"),
-    description: t("pages.history.timeline.1958.description"),
-    image: img1958,
-    icon: <Factory className="w-5 h-5" />,
-  },
-  {
-    year: "1966",
-    title: t("pages.history.timeline.1966.title"),
-    description: t("pages.history.timeline.1966.description"),
-    icon: <Droplets className="w-5 h-5" />,
-  },
-  {
-    year: "1968",
-    title: t("pages.history.timeline.1968.title"),
-    description: t("pages.history.timeline.1968.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "1973",
-    title: t("pages.history.timeline.1973.title"),
-    description: t("pages.history.timeline.1973.description"),
-    icon: <Award className="w-5 h-5" />,
-  },
-  {
-    year: "1976",
-    title: t("pages.history.timeline.1976.title"),
-    description: t("pages.history.timeline.1976.description"),
-    icon: <Building2 className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "1978",
-    title: t("pages.history.timeline.1978.title"),
-    description: t("pages.history.timeline.1978.description"),
-    icon: <Landmark className="w-5 h-5" />,
-  },
-  {
-    year: "1990",
-    title: t("pages.history.timeline.1990.title"),
-    description: t("pages.history.timeline.1990.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
-  {
-    year: "1999",
-    title: t("pages.history.timeline.1999.title"),
-    description: t("pages.history.timeline.1999.description"),
-    image: img1999,
-    icon: <Ship className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "2000",
-    title: t("pages.history.timeline.2000.title"),
-    description: t("pages.history.timeline.2000.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
-  {
-    year: "2007",
-    title: t("pages.history.timeline.2007.title"),
-    description: t("pages.history.timeline.2007.description"),
-    icon: <Award className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "2008",
-    title: t("pages.history.timeline.2008.title"),
-    description: t("pages.history.timeline.2008.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "2009",
-    title: t("pages.history.timeline.2009.title"),
-    description: t("pages.history.timeline.2009.description"),
-    icon: <Award className="w-5 h-5" />,
-  },
-  {
-    year: "2011",
-    title: t("pages.history.timeline.2011.title"),
-    description: t("pages.history.timeline.2011.description"),
-    icon: <Droplets className="w-5 h-5" />,
-  },
-  {
-    year: "2013",
-    title: t("pages.history.timeline.2013.title"),
-    description: t("pages.history.timeline.2013.description"),
-    image: img2013,
-    icon: <Flame className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "2019",
-    title: t("pages.history.timeline.2019.title"),
-    description: t("pages.history.timeline.2019.description"),
-    image: img2019,
-    icon: <Building2 className="w-5 h-5" />,
-    highlight: true,
-  },
-  {
-    year: "2020",
-    title: t("pages.history.timeline.2020.title"),
-    description: t("pages.history.timeline.2020.description"),
-    icon: <Landmark className="w-5 h-5" />,
-  },
-  {
-    year: "2021",
-    title: t("pages.history.timeline.2021.title"),
-    description: t("pages.history.timeline.2021.description"),
-    icon: <TrendingUp className="w-5 h-5" />,
-  },
+// Icon rotation for events without specific icon mapping
+const iconPool = [
+  <Droplets className="w-5 h-5" />,
+  <Factory className="w-5 h-5" />,
+  <TrendingUp className="w-5 h-5" />,
+  <Ship className="w-5 h-5" />,
+  <Building2 className="w-5 h-5" />,
+  <Award className="w-5 h-5" />,
+  <Flame className="w-5 h-5" />,
+  <Landmark className="w-5 h-5" />,
 ];
 
-// Era divisions for the timeline
+// Highlight years (key milestones)
+const highlightYears = new Set(["1968", "1976", "1999", "2007", "2008", "2013", "2019"]);
+
 const getEras = (t: (key: string) => string) => [
   { name: t("pages.history.eras.pioneering"), years: "1910-1955", color: "from-amber-500/20 to-amber-600/20" },
   { name: t("pages.history.eras.growth"), years: "1958-1990", color: "from-orange-500/20 to-orange-600/20" },
@@ -166,7 +31,7 @@ const getEras = (t: (key: string) => string) => [
 
 export default function HistoryPage() {
   const { t } = useTranslation();
-  const timelineEvents = getTimelineEvents(t);
+  const { data: events, isLoading } = useHistoryEvents();
   const eras = getEras(t);
 
   return (
@@ -224,115 +89,94 @@ export default function HistoryPage() {
             </h2>
           </div>
 
-          <div className="relative">
-            {/* Central timeline line - desktop only */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2 rounded-full" />
-            
-            {/* Mobile timeline line */}
-            <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 rounded-full" />
+          {isLoading ? (
+            <div className="space-y-8">
+              {[1, 2, 3, 4].map((i) => (
+                <Skeleton key={i} className="h-32 w-full rounded-2xl" />
+              ))}
+            </div>
+          ) : events && events.length > 0 ? (
+            <div className="relative">
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 -translate-x-1/2 rounded-full" />
+              <div className="md:hidden absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/20 via-primary/40 to-primary/20 rounded-full" />
 
-            <div className="space-y-8 md:space-y-0">
-              {timelineEvents.map((event, index) => {
-                const isLeft = index % 2 === 0;
-                const hasImage = !!event.image;
+              <div className="space-y-8 md:space-y-0">
+                {events.map((event, index) => {
+                  const isLeft = index % 2 === 0;
+                  const hasImage = !!event.image;
+                  const isHighlight = highlightYears.has(event.year);
+                  const icon = iconPool[index % iconPool.length];
 
-                return (
-                  <motion.div
-                    key={event.year}
-                    initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className={`relative flex items-start ${
-                      isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                    } md:py-8`}
-                  >
-                    {/* Timeline node */}
-                    <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 z-10 ${
-                      event.highlight 
-                        ? "w-12 h-12 bg-primary shadow-lg shadow-primary/30" 
-                        : "w-10 h-10 bg-secondary border-2 border-primary/30"
-                    } rounded-full flex items-center justify-center`}>
-                      <span className={event.highlight ? "text-primary-foreground" : "text-primary"}>
-                        {event.icon}
-                      </span>
-                    </div>
+                  return (
+                    <motion.div
+                      key={event.id}
+                      initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className={`relative flex items-start ${
+                        isLeft ? "md:flex-row" : "md:flex-row-reverse"
+                      } md:py-8`}
+                    >
+                      <div className={`absolute left-6 md:left-1/2 -translate-x-1/2 z-10 ${
+                        isHighlight
+                          ? "w-12 h-12 bg-primary shadow-lg shadow-primary/30"
+                          : "w-10 h-10 bg-secondary border-2 border-primary/30"
+                      } rounded-full flex items-center justify-center`}>
+                        <span className={isHighlight ? "text-primary-foreground" : "text-primary"}>
+                          {icon}
+                        </span>
+                      </div>
 
-                    {/* Content card */}
-                    <div className={`
-                      flex-1 ml-20 md:ml-0 
-                      ${isLeft ? "md:pr-20 md:mr-8" : "md:pl-20 md:ml-8"}
-                    `}>
-                      <div className={`
-                        group relative overflow-hidden rounded-2xl 
-                        ${hasImage ? "bg-foreground text-pearl" : "bg-secondary/50 border border-border/50"}
-                        ${event.highlight ? "ring-2 ring-primary/30 shadow-lg" : ""}
-                        hover:shadow-xl transition-all duration-500
-                      `}>
-                        {/* Background image */}
-                        {hasImage && (
-                          <div className="absolute inset-0">
-                            <img
-                              src={event.image}
-                              alt={event.title}
-                              className="w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/80 to-foreground/40" />
-                          </div>
-                        )}
-
-                        {/* Content */}
-                        <div className="relative p-6 md:p-8">
-                          {/* Year badge */}
-                          <div className={`
-                            inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4
-                            ${hasImage 
-                              ? "bg-primary text-primary-foreground" 
-                              : "bg-primary/10 text-primary"
-                            }
-                          `}>
-                            <span className="font-bold text-lg">{event.year}</span>
-                          </div>
-
-                          <h3 className={`text-xl md:text-2xl font-bold mb-3 ${
-                            hasImage ? "text-pearl" : "text-foreground"
-                          }`}>
-                            {event.title}
-                          </h3>
-
-                          <p className={`leading-relaxed ${
-                            hasImage ? "text-pearl/80" : "text-muted-foreground"
-                          }`}>
-                            {event.description}
-                          </p>
-
-                          {/* Highlight indicator */}
-                          {event.highlight && !hasImage && (
-                            <div className="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-2xl" />
+                      <div className={`flex-1 ml-20 md:ml-0 ${isLeft ? "md:pr-20 md:mr-8" : "md:pl-20 md:ml-8"}`}>
+                        <div className={`group relative overflow-hidden rounded-2xl ${
+                          hasImage ? "bg-foreground text-pearl" : "bg-secondary/50 border border-border/50"
+                        } ${isHighlight ? "ring-2 ring-primary/30 shadow-lg" : ""} hover:shadow-xl transition-all duration-500`}>
+                          {hasImage && (
+                            <div className="absolute inset-0">
+                              <img src={event.image} alt={event.title} className="w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700" />
+                              <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/80 to-foreground/40" />
+                            </div>
                           )}
+                          <div className="relative p-6 md:p-8">
+                            <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 ${
+                              hasImage ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
+                            }`}>
+                              <span className="font-bold text-lg">{event.year}</span>
+                            </div>
+                            <h3 className={`text-xl md:text-2xl font-bold mb-3 ${hasImage ? "text-pearl" : "text-foreground"}`}>
+                              {event.title}
+                            </h3>
+                            <p className={`leading-relaxed ${hasImage ? "text-pearl/80" : "text-muted-foreground"}`}>
+                              {event.description}
+                            </p>
+                            {isHighlight && !hasImage && (
+                              <div className="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-2xl" />
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Empty space for desktop alternating layout */}
-                    <div className="hidden md:block flex-1" />
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* End marker */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="flex justify-center pt-8"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
-                <span className="text-primary-foreground font-bold text-sm">{t("pages.history.today")}</span>
+                      <div className="hidden md:block flex-1" />
+                    </motion.div>
+                  );
+                })}
               </div>
-            </motion.div>
-          </div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="flex justify-center pt-8"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
+                  <span className="text-primary-foreground font-bold text-sm">{t("pages.history.today")}</span>
+                </div>
+              </motion.div>
+            </div>
+          ) : (
+            <p className="text-center text-muted-foreground">Sem eventos disponíveis.</p>
+          )}
         </section>
       </SectionTransition>
 
@@ -354,9 +198,7 @@ export default function HistoryPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center p-6 rounded-2xl bg-secondary/50 border border-border/50"
               >
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
                 <div className="text-sm text-muted-foreground">{t(stat.labelKey)}</div>
               </motion.div>
             ))}
