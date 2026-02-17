@@ -43,25 +43,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Fetch user profile and roles
   const fetchUserData = async (userId: string) => {
     try {
-      // Fetch profile
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', userId)
-        .maybeSingle();
+      // Fetch profile and roles in parallel
+      const [profileResult, rolesResult] = await Promise.all([
+        supabase.from('profiles').select('*').eq('user_id', userId).maybeSingle(),
+        supabase.from('user_roles').select('role').eq('user_id', userId),
+      ]);
 
-      if (profileData) {
-        setProfile(profileData as UserProfile);
+      if (profileResult.data) {
+        setProfile(profileResult.data as UserProfile);
       }
 
-      // Fetch roles
-      const { data: rolesData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', userId);
-
-      if (rolesData) {
-        setRoles(rolesData as UserRole[]);
+      if (rolesResult.data) {
+        setRoles(rolesResult.data as UserRole[]);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -69,36 +62,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    let isMounted = true;
+
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
 
-        // Defer Supabase calls with setTimeout to avoid deadlock
         if (session?.user) {
-          setTimeout(() => {
-            fetchUserData(session.user.id);
+          // Use setTimeout to avoid Supabase deadlock, but keep loading true
+          setTimeout(async () => {
+            await fetchUserData(session.user.id);
+            if (isMounted) setLoading(false);
           }, 0);
         } else {
           setProfile(null);
           setRoles([]);
+          setLoading(false);
         }
-        setLoading(false);
       }
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!isMounted) return;
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        fetchUserData(session.user.id);
+        await fetchUserData(session.user.id);
       }
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
