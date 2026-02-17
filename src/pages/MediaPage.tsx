@@ -42,22 +42,46 @@ import {
   PaginationEllipsis
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { useNewsArticles } from "@/hooks/useCMSData";
+import { useNewsArticles, useMediaItems } from "@/hooks/useCMSData";
 import { newsItems as fallbackNews, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 
 const NEWS_PER_PAGE = 6;
 
-const dateFilters = [
-  { key: "all", label: "Todas as datas" },
-  { key: "week", label: "Última semana" },
-  { key: "month", label: "Último mês" },
-  { key: "quarter", label: "Últimos 3 meses" },
-  { key: "year", label: "Último ano" },
+// Fallback data kept for offline resilience
+const defaultPublications: Publication[] = [
+  { id: "1", title: "Boletim N.º 44", image: "https://anpg.co.ao/wp-content/uploads/2025/08/44-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao44.pdf" },
+  { id: "2", title: "Boletim N.º 43", image: "https://anpg.co.ao/wp-content/uploads/2025/08/43-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao43.pdf" },
+  { id: "3", title: "Boletim N.º 42", image: "https://anpg.co.ao/wp-content/uploads/2025/08/42-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_42.pdf" },
+  { id: "4", title: "Boletim N.º 41", image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_41_cover_846x1169px-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_41_Web.pdf" },
+  { id: "5", title: "Boletim N.º 40", image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_40_cover_846x1169px-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_40_Web.pdf" },
+  { id: "6", title: "Boletim N.º 39", image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_39_cover_846x1169px-741x1024.jpg", pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_39_web.pdf" },
 ];
 
-const sortOptions = [
-  { key: "newest", label: "Mais recentes", icon: ArrowDown },
-  { key: "oldest", label: "Mais antigas", icon: ArrowUp },
+const defaultPressClippings: PressClipping[] = [
+  { id: "1", title: "Angola busca novos investidores para sector petrolífero", source: "Jornal de Angola", date: "20 de Janeiro, 2026", url: "#" },
+  { id: "2", title: "ANPG lança concurso para novos blocos offshore", source: "Correio Kianda", date: "18 de Janeiro, 2026", url: "#" },
+  { id: "3", title: "Produção de petróleo atinge novo recorde mensal", source: "Expansão", date: "15 de Janeiro, 2026", url: "#" },
+  { id: "4", title: "Biocombustíveis: Angola prepara legislação pioneira", source: "Novo Jornal", date: "10 de Janeiro, 2026", url: "#" },
+];
+
+const defaultEvents: Event[] = [
+  { id: "1", title: "1.ª MISSÃO EMPRESARIAL ANGOLA – CANADÁ", date: "Novembro, 2025", image: "", url: "#" },
+  { id: "2", title: "CONFERÊNCIA DE DADOS E&P 2023", date: "Outubro, 2023", image: "", url: "/ep-data/conference-2023" },
+  { id: "3", title: "ANGOLA OIL & GAS 2025", date: "Junho, 2025", image: "", url: "#" },
+];
+
+interface VideoItem {
+  id: string;
+  title: string;
+  description: string;
+  youtubeUrl: string;
+}
+
+const defaultVideos: VideoItem[] = [
+  { id: "1", title: "Angola Oil & Gas 2024: Opening Remarks", description: "Cerimónia de abertura e discurso especial", youtubeUrl: "https://www.youtube.com/embed/6cs4tVX9siI" },
+  { id: "2", title: "Angola Oil & Gas 2023 Highlights", description: "Destaques e vozes-chave do evento", youtubeUrl: "https://www.youtube.com/embed/izPuSt7wzJg" },
+  { id: "3", title: "Conferência Angola Oil & Gas", description: "Cobertura do evento", youtubeUrl: "https://www.youtube.com/embed/LeSAb7xaT4U" },
+  { id: "4", title: "Entrevistas Angola Oil & Gas", description: "Entrevistas com representantes do sector", youtubeUrl: "https://www.youtube.com/embed/m1rhQ6Xiwz4" },
 ];
 const parsePortugueseDate = (dateStr: string): Date | null => {
   const months: { [key: string]: number } = {
@@ -120,107 +144,7 @@ interface Event {
   url: string;
 }
 
-const newsCategories = [
-  { key: "all", label: "Todas" },
-  { key: "press", label: "Comunicado de Imprensa" },
-  { key: "tender", label: "Licitação" },
-  { key: "highlight", label: "Destaque" },
-  { key: "production", label: "Produção Mensal" },
-];
-
-const publications: Publication[] = [
-  {
-    id: "1",
-    title: "Boletim N.º 44",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/08/44-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao44.pdf",
-  },
-  {
-    id: "2",
-    title: "Boletim N.º 43",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/08/43-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao43.pdf",
-  },
-  {
-    id: "3",
-    title: "Boletim N.º 42",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/08/42-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/08/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_42.pdf",
-  },
-  {
-    id: "4",
-    title: "Boletim N.º 41",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_41_cover_846x1169px-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_41_Web.pdf",
-  },
-  {
-    id: "5",
-    title: "Boletim N.º 40",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_40_cover_846x1169px-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_40_Web.pdf",
-  },
-  {
-    id: "6",
-    title: "Boletim N.º 39",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/06/NL_39_cover_846x1169px-741x1024.jpg",
-    pdfUrl: "https://anpg.co.ao/wp-content/uploads/2025/06/0.ANPG_Newsletter_Primeiro_Oleo_Edicao_39_web.pdf",
-  },
-];
-
-const pressClippings: PressClipping[] = [
-  {
-    id: "1",
-    title: "Angola busca novos investidores para sector petrolífero",
-    source: "Jornal de Angola",
-    date: "20 de Janeiro, 2026",
-    url: "#",
-  },
-  {
-    id: "2",
-    title: "ANPG lança concurso para novos blocos offshore",
-    source: "Correio Kianda",
-    date: "18 de Janeiro, 2026",
-    url: "#",
-  },
-  {
-    id: "3",
-    title: "Produção de petróleo atinge novo recorde mensal",
-    source: "Expansão",
-    date: "15 de Janeiro, 2026",
-    url: "#",
-  },
-  {
-    id: "4",
-    title: "Biocombustíveis: Angola prepara legislação pioneira",
-    source: "Novo Jornal",
-    date: "10 de Janeiro, 2026",
-    url: "#",
-  },
-];
-
-const events: Event[] = [
-  {
-    id: "1",
-    title: "1.ª MISSÃO EMPRESARIAL ANGOLA – CANADÁ",
-    date: "Novembro, 2025",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/11/canada-mission.jpg",
-    url: "#",
-  },
-  {
-    id: "2",
-    title: "CONFERÊNCIA DE DADOS E&P 2023",
-    date: "Outubro, 2023",
-    image: "https://anpg.co.ao/wp-content/uploads/2023/10/conference-2023.jpg",
-    url: "/ep-data/conference-2023",
-  },
-  {
-    id: "3",
-    title: "ANGOLA OIL & GAS 2025",
-    date: "Junho, 2025",
-    image: "https://anpg.co.ao/wp-content/uploads/2025/06/aog-2025.jpg",
-    url: "#",
-  },
-];
+// Old hardcoded arrays removed - data now comes from CMS
 
 export default function MediaPage() {
   const { t } = useTranslation();
@@ -230,8 +154,53 @@ export default function MediaPage() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
+  // CMS data
   const { data: cmsNews } = useNewsArticles();
+  const { data: cmsPublications } = useMediaItems("publication");
+  const { data: cmsPressClippings } = useMediaItems("press_clipping");
+  const { data: cmsEvents } = useMediaItems("event");
+  const { data: cmsVideos } = useMediaItems("video");
+
   const newsSource = cmsNews?.length ? cmsNews : fallbackNews;
+
+  // Map CMS data to component format with fallbacks
+  const publications: Publication[] = cmsPublications?.length
+    ? cmsPublications.map(p => ({ id: p.id, title: p.title, image: p.image_url || "", pdfUrl: p.file_url || "" }))
+    : defaultPublications;
+
+  const pressClippings: PressClipping[] = cmsPressClippings?.length
+    ? cmsPressClippings.map(c => ({ id: c.id, title: c.title, source: c.source || "", date: c.event_date || "", url: c.external_url || "#" }))
+    : defaultPressClippings;
+
+  const events: Event[] = cmsEvents?.length
+    ? cmsEvents.map(e => ({ id: e.id, title: e.title, date: e.event_date || "", image: e.image_url || "", url: e.external_url || "#" }))
+    : defaultEvents;
+
+  const videos: VideoItem[] = cmsVideos?.length
+    ? cmsVideos.map(v => ({ id: v.id, title: v.title, description: v.description || "", youtubeUrl: v.youtube_url || "" }))
+    : defaultVideos;
+
+  // Dynamic filter/sort options from i18n
+  const dateFilters = [
+    { key: "all", label: t("pages.media.dateFilters.all") },
+    { key: "week", label: t("pages.media.dateFilters.week") },
+    { key: "month", label: t("pages.media.dateFilters.month") },
+    { key: "quarter", label: t("pages.media.dateFilters.quarter") },
+    { key: "year", label: t("pages.media.dateFilters.year") },
+  ];
+
+  const sortOptions = [
+    { key: "newest", label: t("pages.media.sort.newest"), icon: ArrowDown },
+    { key: "oldest", label: t("pages.media.sort.oldest"), icon: ArrowUp },
+  ];
+
+  const newsCategories = [
+    { key: "all", label: t("pages.media.categories.all") },
+    { key: "press", label: t("pages.media.categories.press") },
+    { key: "tender", label: t("pages.media.categories.tender") },
+    { key: "highlight", label: t("pages.media.categories.highlight") },
+    { key: "production", label: t("pages.media.categories.production") },
+  ];
 
   const filteredNews = useMemo(() => {
     let results = [...newsSource];
@@ -342,35 +311,35 @@ export default function MediaPage() {
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-secondary/50 border border-border rounded-lg py-3"
             >
               <Newspaper className="w-4 h-4 mr-2" />
-              Notícias
+              {t("pages.media.tabs.news")}
             </TabsTrigger>
             <TabsTrigger 
               value="publications"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-secondary/50 border border-border rounded-lg py-3"
             >
               <FileText className="w-4 h-4 mr-2" />
-              Publicações
+              {t("pages.media.tabs.publications")}
             </TabsTrigger>
             <TabsTrigger 
               value="videos"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-secondary/50 border border-border rounded-lg py-3"
             >
               <Video className="w-4 h-4 mr-2" />
-              Vídeos
+              {t("pages.media.tabs.videos")}
             </TabsTrigger>
             <TabsTrigger 
               value="press"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-secondary/50 border border-border rounded-lg py-3"
             >
               <Scissors className="w-4 h-4 mr-2" />
-              Recortes
+              {t("pages.media.tabs.press")}
             </TabsTrigger>
             <TabsTrigger 
               value="events"
               className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-secondary/50 border border-border rounded-lg py-3"
             >
               <CalendarDays className="w-4 h-4 mr-2" />
-              Eventos
+              {t("pages.media.tabs.events")}
             </TabsTrigger>
           </TabsList>
         </SectionTransition>
@@ -386,7 +355,7 @@ export default function MediaPage() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     type="text"
-                    placeholder="Pesquisar notícias por palavra-chave..."
+                    placeholder={t("pages.media.search")}
                     value={searchQuery}
                     onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-10 bg-background"
@@ -439,7 +408,7 @@ export default function MediaPage() {
                     className="text-muted-foreground hover:text-foreground"
                   >
                     <X className="w-4 h-4 mr-1" />
-                    Limpar
+                    {t("pages.media.clear")}
                   </Button>
                 )}
               </div>
@@ -468,8 +437,8 @@ export default function MediaPage() {
             {hasActiveFilters && (
               <p className="text-sm text-muted-foreground mb-6">
                 {filteredNews.length === 0 
-                  ? "Nenhuma notícia encontrada" 
-                  : `${filteredNews.length} notícia${filteredNews.length !== 1 ? 's' : ''} encontrada${filteredNews.length !== 1 ? 's' : ''}`
+                  ? t("pages.media.noResults")
+                  : t("pages.media.resultsCount", { count: filteredNews.length })
                 }
               </p>
             )}
@@ -589,7 +558,7 @@ export default function MediaPage() {
                 </Pagination>
                 
                 <p className="text-center text-sm text-muted-foreground mt-4">
-                  Página {currentPage} de {totalPages} • {filteredNews.length} notícias
+                  {t("pages.media.pageInfo", { current: currentPage, total: totalPages, count: filteredNews.length })}
                 </p>
               </div>
             )}
@@ -600,9 +569,9 @@ export default function MediaPage() {
         <TabsContent value="publications">
           <SectionTransition delay={0.1}>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Boletim "Primeiro Óleo"</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.media.publicationsTitle")}</h2>
               <p className="text-muted-foreground">
-                Newsletter oficial da ANPG com informações sobre o sector petrolífero angolano.
+                {t("pages.media.publicationsDescription")}
               </p>
             </div>
 
@@ -640,7 +609,7 @@ export default function MediaPage() {
 
             <div className="mt-8 text-center">
               <Button variant="outline" size="lg">
-                Ver Todas as Publicações
+                {t("pages.media.viewAllPublications")}
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -651,88 +620,32 @@ export default function MediaPage() {
         <TabsContent value="videos">
           <SectionTransition delay={0.1}>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Canal ANPG</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.media.videosTitle")}</h2>
               <p className="text-muted-foreground">
-                Vídeos institucionais, reportagens e cobertura de eventos do sector petrolífero.
+                {t("pages.media.videosDescription")}
               </p>
             </div>
 
             <StaggerContainer className="grid md:grid-cols-2 gap-6">
-              {/* Angola Oil & Gas 2024: Opening remarks & special address */}
-              <StaggerItem>
-                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
-                  <div className="aspect-video">
-                    <iframe
-                      src="https://www.youtube.com/embed/6cs4tVX9siI"
-                      title="Angola Oil & Gas 2024: Opening remarks & special address"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
+              {videos.map((video) => (
+                <StaggerItem key={video.id}>
+                  <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
+                    <div className="aspect-video">
+                      <iframe
+                        src={video.youtubeUrl}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="w-full h-full"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-foreground mb-1">{video.title}</h3>
+                      <p className="text-sm text-muted-foreground">{video.description}</p>
+                    </div>
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-foreground mb-1">Angola Oil & Gas 2024: Opening Remarks</h3>
-                    <p className="text-sm text-muted-foreground">Cerimónia de abertura e discurso especial</p>
-                  </div>
-                </div>
-              </StaggerItem>
-
-              {/* Angola Oil and Gas Conference 2023 Highlights */}
-              <StaggerItem>
-                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
-                  <div className="aspect-video">
-                    <iframe
-                      src="https://www.youtube.com/embed/izPuSt7wzJg"
-                      title="Angola Oil and Gas Conference 2023 Highlights"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-foreground mb-1">Angola Oil & Gas 2023 Highlights</h3>
-                    <p className="text-sm text-muted-foreground">Destaques e vozes-chave do evento</p>
-                  </div>
-                </div>
-              </StaggerItem>
-
-              {/* Additional Video */}
-              <StaggerItem>
-                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
-                  <div className="aspect-video">
-                    <iframe
-                      src="https://www.youtube.com/embed/LeSAb7xaT4U"
-                      title="Angola Oil & Gas Conference"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-foreground mb-1">Conferência Angola Oil & Gas</h3>
-                    <p className="text-sm text-muted-foreground">Cobertura do evento</p>
-                  </div>
-                </div>
-              </StaggerItem>
-
-              {/* ANPG Interview */}
-              <StaggerItem>
-                <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all">
-                  <div className="aspect-video">
-                    <iframe
-                      src="https://www.youtube.com/embed/m1rhQ6Xiwz4"
-                      title="Angola Oil & Gas Interview"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-foreground mb-1">Entrevistas Angola Oil & Gas</h3>
-                    <p className="text-sm text-muted-foreground">Entrevistas com representantes do sector</p>
-                  </div>
-                </div>
-              </StaggerItem>
+                </StaggerItem>
+              ))}
             </StaggerContainer>
 
             <div className="mt-8 text-center">
@@ -742,7 +655,7 @@ export default function MediaPage() {
                 rel="noopener noreferrer"
               >
                 <Button variant="outline" size="lg">
-                  Ver Mais Vídeos no YouTube
+                  {t("pages.media.viewMoreVideos")}
                   <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </a>
@@ -754,9 +667,9 @@ export default function MediaPage() {
         <TabsContent value="press">
           <SectionTransition delay={0.1}>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Recortes de Imprensa</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.media.pressTitle")}</h2>
               <p className="text-muted-foreground">
-                Cobertura mediática sobre a ANPG e o sector petrolífero angolano.
+                {t("pages.media.pressDescription")}
               </p>
             </div>
 
@@ -790,7 +703,7 @@ export default function MediaPage() {
 
             <div className="mt-8 text-center">
               <Button variant="outline" size="lg">
-                Ver Mais Recortes
+                {t("pages.media.viewMorePress")}
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
@@ -801,9 +714,9 @@ export default function MediaPage() {
         <TabsContent value="events">
           <SectionTransition delay={0.1}>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Eventos</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.media.eventsTitle")}</h2>
               <p className="text-muted-foreground">
-                Conferências, missões empresariais e eventos do sector petrolífero.
+                {t("pages.media.eventsDescription")}
               </p>
             </div>
 
@@ -832,7 +745,7 @@ export default function MediaPage() {
 
             <div className="mt-8 text-center">
               <Button variant="outline" size="lg">
-                Ver Todos os Eventos
+                {t("pages.media.viewAllEvents")}
                 <ChevronRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
