@@ -3,64 +3,37 @@ import { motion, useInView } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { 
-  FileCheck, 
-  Shield, 
-  BarChart3, 
-  ArrowUpRight,
-  Scale,
-  Globe2,
-  Leaf
+  FileCheck, Shield, BarChart3, ArrowUpRight, Scale, Globe2, Leaf
 } from "lucide-react";
+import { useContentBlock } from "@/hooks/useCMSData";
+
+const defaultServices = [
+  { iconKey: "FileCheck", titleKey: "services.licensing.title", descriptionKey: "services.licensing.description", href: "/regulation/licensing", color: "bg-primary/10 text-primary" },
+  { iconKey: "Shield", titleKey: "services.oversight.title", descriptionKey: "services.oversight.description", href: "/regulation/oversight", color: "bg-primary/10 text-primary" },
+  { iconKey: "Scale", titleKey: "services.regulation.title", descriptionKey: "services.regulation.description", href: "/regulation", color: "bg-primary/10 text-primary" },
+  { iconKey: "Globe2", titleKey: "services.tenders.title", descriptionKey: "services.tenders.description", href: "/regulation/tenders", color: "bg-primary/10 text-primary" },
+  { iconKey: "BarChart3", titleKey: "services.analytics.title", descriptionKey: "services.analytics.description", href: "/data", color: "bg-primary/10 text-primary" },
+  { iconKey: "Leaf", titleKey: "services.sustainability.title", descriptionKey: "services.sustainability.description", href: "/sustainability", color: "bg-primary/10 text-primary" },
+];
+
+const iconMap: Record<string, React.ReactNode> = {
+  FileCheck: <FileCheck className="w-7 h-7" />,
+  Shield: <Shield className="w-7 h-7" />,
+  Scale: <Scale className="w-7 h-7" />,
+  Globe2: <Globe2 className="w-7 h-7" />,
+  BarChart3: <BarChart3 className="w-7 h-7" />,
+  Leaf: <Leaf className="w-7 h-7" />,
+};
 
 export function ServicesSection() {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  const services = [
-    {
-      icon: <FileCheck className="w-7 h-7" />,
-      titleKey: "services.licensing.title",
-      descriptionKey: "services.licensing.description",
-      href: "/regulation/licensing",
-      color: "bg-primary/10 text-primary",
-    },
-    {
-      icon: <Shield className="w-7 h-7" />,
-      titleKey: "services.oversight.title",
-      descriptionKey: "services.oversight.description",
-      href: "/regulation/oversight",
-      color: "bg-primary/10 text-primary",
-    },
-    {
-      icon: <Scale className="w-7 h-7" />,
-      titleKey: "services.regulation.title",
-      descriptionKey: "services.regulation.description",
-      href: "/regulation",
-      color: "bg-primary/10 text-primary",
-    },
-    {
-      icon: <Globe2 className="w-7 h-7" />,
-      titleKey: "services.tenders.title",
-      descriptionKey: "services.tenders.description",
-      href: "/regulation/tenders",
-      color: "bg-primary/10 text-primary",
-    },
-    {
-      icon: <BarChart3 className="w-7 h-7" />,
-      titleKey: "services.analytics.title",
-      descriptionKey: "services.analytics.description",
-      href: "/data",
-      color: "bg-primary/10 text-primary",
-    },
-    {
-      icon: <Leaf className="w-7 h-7" />,
-      titleKey: "services.sustainability.title",
-      descriptionKey: "services.sustainability.description",
-      href: "/sustainability",
-      color: "bg-primary/10 text-primary",
-    },
-  ];
+  // CMS content block with fallback
+  const { data: cmsBlock } = useContentBlock("home", "services");
+  const cms = cmsBlock?.content;
+  const services = cms?.items?.length ? cms.items : defaultServices;
 
   return (
     <section ref={ref} className="section-padding bg-foreground text-primary-foreground overflow-hidden">
@@ -81,21 +54,21 @@ export function ServicesSection() {
           className="text-center mb-16"
         >
           <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-            {t("services.label")}
+            {cms?.label || t("services.label")}
           </span>
           <h2 className="section-title mb-4 text-primary-foreground">
-            {t("services.title")}
+            {cms?.title || t("services.title")}
           </h2>
           <p className="section-subtitle mx-auto text-pearl/70">
-            {t("services.subtitle")}
+            {cms?.subtitle || t("services.subtitle")}
           </p>
         </motion.div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
+          {services.map((service: any, index: number) => (
             <motion.div
-              key={service.titleKey}
+              key={service.titleKey || index}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -105,16 +78,16 @@ export function ServicesSection() {
                 className="group relative p-8 rounded-sm border border-pearl/10 hover:border-primary/50 bg-pearl/5 hover:bg-primary/10 transition-all duration-300 block h-full"
               >
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-sm ${service.color} flex items-center justify-center mb-6`}>
-                  {service.icon}
+                <div className={`w-14 h-14 rounded-sm ${service.color || "bg-primary/10 text-primary"} flex items-center justify-center mb-6`}>
+                  {iconMap[service.iconKey] || <FileCheck className="w-7 h-7" />}
                 </div>
 
                 {/* Content */}
                 <h3 className="text-xl font-semibold text-primary-foreground mb-3 group-hover:text-primary transition-colors">
-                  {t(service.titleKey)}
+                  {service.title || (service.titleKey ? t(service.titleKey) : "")}
                 </h3>
                 <p className="text-pearl/70 text-sm leading-relaxed">
-                  {t(service.descriptionKey)}
+                  {service.description || (service.descriptionKey ? t(service.descriptionKey) : "")}
                 </p>
 
                 {/* Arrow */}
