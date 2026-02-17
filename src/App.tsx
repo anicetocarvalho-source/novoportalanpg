@@ -72,6 +72,12 @@ import AdminDocumentsPage from "./pages/admin/AdminDocumentsPage";
 import AdminAuditPage from "./pages/admin/AdminAuditPage";
 import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
 import AdminKnowledgeBasePage from "./pages/admin/AdminKnowledgeBasePage";
+import AdminContentBlocksPage from "./pages/admin/AdminContentBlocksPage";
+import AdminMenuItemsPage from "./pages/admin/AdminMenuItemsPage";
+import AdminBoardMembersPage from "./pages/admin/AdminBoardMembersPage";
+import AdminFAQPage from "./pages/admin/AdminFAQPage";
+import AdminPageBannersPage from "./pages/admin/AdminPageBannersPage";
+import AdminHistoryEventsPage from "./pages/admin/AdminHistoryEventsPage";
 import { SobaWidget } from "./components/chat/SobaWidget";
 const queryClient = new QueryClient();
 
@@ -146,6 +152,12 @@ function AnimatedRoutes() {
           <Route path="/admin/audit" element={<ProtectedRoute requiredPermission="admin"><AdminAuditPage /></ProtectedRoute>} />
           <Route path="/admin/settings" element={<ProtectedRoute requiredPermission="admin"><AdminSettingsPage /></ProtectedRoute>} />
           <Route path="/admin/knowledge-base" element={<ProtectedRoute requiredPermission="content"><AdminKnowledgeBasePage /></ProtectedRoute>} />
+          <Route path="/admin/content-blocks" element={<ProtectedRoute requiredPermission="content"><AdminContentBlocksPage /></ProtectedRoute>} />
+          <Route path="/admin/menu-items" element={<ProtectedRoute requiredPermission="content"><AdminMenuItemsPage /></ProtectedRoute>} />
+          <Route path="/admin/board-members" element={<ProtectedRoute requiredPermission="content"><AdminBoardMembersPage /></ProtectedRoute>} />
+          <Route path="/admin/faq" element={<ProtectedRoute requiredPermission="content"><AdminFAQPage /></ProtectedRoute>} />
+          <Route path="/admin/page-banners" element={<ProtectedRoute requiredPermission="content"><AdminPageBannersPage /></ProtectedRoute>} />
+          <Route path="/admin/history-events" element={<ProtectedRoute requiredPermission="content"><AdminHistoryEventsPage /></ProtectedRoute>} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
