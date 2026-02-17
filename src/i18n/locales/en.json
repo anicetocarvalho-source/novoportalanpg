@@ -651,6 +651,220 @@
         "partnerships": "Partnerships",
         "other": "Other"
       }
+    },
+    "licensing": {
+      "title": "Licensing",
+      "subtitle": "Services & Competencies",
+      "description": "Management of concessions and licenses for hydrocarbon exploration and production.",
+      "intro": "ANPG is responsible for managing concessions and licenses for hydrocarbon exploration and production in Angola. The licensing process is conducted in a transparent and competitive manner, ensuring the country's natural resources are developed efficiently and sustainably.",
+      "licenseTypesTitle": "License Types",
+      "licenseTypes": [
+        { "title": "Exploration License", "description": "Authorization for hydrocarbon prospecting and exploration activities in defined areas.", "duration": "Up to 4 years, renewable" },
+        { "title": "Appraisal License", "description": "Authorization for discovery evaluation and commercial feasibility studies.", "duration": "Up to 2 years" },
+        { "title": "Production License", "description": "Authorization for commercial development and production of hydrocarbons.", "duration": "Up to 25 years, renewable" }
+      ],
+      "processTitle": "Licensing Process",
+      "processSubtitle": "Stages of the petroleum concession allocation process",
+      "processSteps": [
+        { "title": "Expression of Interest", "description": "Formal submission of interest in participating in a tender or permanent offer." },
+        { "title": "Technical Qualification", "description": "Assessment of the candidate's technical and financial capabilities." },
+        { "title": "Proposal Submission", "description": "Presentation of a detailed technical and commercial proposal." },
+        { "title": "Evaluation and Negotiation", "description": "Analysis of proposals and negotiation of contractual terms." },
+        { "title": "Government Approval", "description": "Submission for final approval by competent authorities." },
+        { "title": "Contract Signing", "description": "Formalisation of the petroleum concession contract." }
+      ],
+      "ctaTitle": "Interested in investing?",
+      "ctaDescription": "Browse current opportunities and start your application process.",
+      "ctaOpportunities": "View Opportunities",
+      "ctaContact": "Contact Us"
+    },
+    "oversight": {
+      "title": "Oversight",
+      "subtitle": "Services & Competencies",
+      "description": "Supervision and control of petroleum operations throughout the national territory.",
+      "intro": "ANPG exercises supervision and control functions over all petroleum operations in the national territory. Our objective is to ensure that activities are conducted in accordance with industry best practices, contractual terms and current legislation.",
+      "stats": [
+        { "value": "450+", "label": "Annual Inspections" },
+        { "value": "47", "label": "Blocks Monitored" },
+        { "value": "100%", "label": "National Coverage" },
+        { "value": "24/7", "label": "Continuous Monitoring" }
+      ],
+      "areasTitle": "Oversight Areas",
+      "areas": [
+        { "title": "Operations Monitoring", "description": "Continuous monitoring of exploration and production activities across all petroleum blocks." },
+        { "title": "Technical Audits", "description": "Conducting regular audits to verify compliance with approved development plans." },
+        { "title": "Operational Safety", "description": "Oversight of safety and occupational health standards at petroleum facilities." },
+        { "title": "Environmental Compliance", "description": "Verification of compliance with environmental standards and impact management plans." }
+      ],
+      "complianceTitle": "Compliance Areas",
+      "complianceIntro": "ANPG verifies compliance with obligations across several fundamental areas:",
+      "complianceAreas": [
+        "Field Development Plans",
+        "Work Programmes and Budgets",
+        "Production Reports",
+        "Reservoir Management",
+        "Facility Safety",
+        "Environmental Protection",
+        "Local Content",
+        "Contractual Obligations"
+      ],
+      "reportingTitle": "Incident Reporting",
+      "reportingDescription": "All operators are required to report safety incidents, spills or operational anomalies to ANPG. Reporting must be immediate for critical incidents and within 24 hours for other occurrences.",
+      "emergencyLine": "Emergency Line: +244 222 XXX XXX"
+    },
+    "tendersPage": {
+      "title": "Public Tenders",
+      "subtitle": "Services & Competencies",
+      "description": "Organization of bidding processes for the allocation of exploration rights.",
+      "intro": "ANPG organises international public tenders for the allocation of hydrocarbon exploration and production rights. The processes are conducted in a transparent, competitive manner and in accordance with international best practices.",
+      "activeTitle": "Active Opportunities",
+      "activeTenders": [
+        { "id": "tender-2025", "title": "Tender 2025", "status": "active", "blocks": 10, "deadline": "30 June 2025", "href": "/opportunities/tender-2025" },
+        { "id": "permanent-offer", "title": "Permanent Offer", "status": "ongoing", "blocks": 15, "deadline": "Continuous", "href": "/opportunities/permanent-offer" }
+      ],
+      "statusActive": "In Progress",
+      "statusOngoing": "Permanent",
+      "blocksLabel": "blocks",
+      "viewDetails": "View details",
+      "phasesTitle": "Tender Phases",
+      "phasesSubtitle": "The typical process of a petroleum block tender",
+      "phases": [
+        { "title": "Announcement & Data Room", "description": "Publication of the tender notice and availability of technical data to interested parties." },
+        { "title": "Qualification", "description": "Analysis of the technical and financial credentials of candidates." },
+        { "title": "Proposal Submission", "description": "Period for the presentation of technical and commercial proposals." },
+        { "title": "Evaluation", "description": "Analysis and ranking of received proposals." },
+        { "title": "Negotiation", "description": "Negotiation of contractual terms with selected candidates." },
+        { "title": "Award", "description": "Announcement of results and contract signing." }
+      ],
+      "pastTitle": "Previous Tenders",
+      "pastTenders": [
+        { "year": "2023", "title": "Tender 2023", "blocksOffered": 12, "blocksAwarded": 8, "investment": "USD 2.3B", "href": "/opportunities/tender-2023" },
+        { "year": "2020", "title": "First Licensing Round", "blocksOffered": 10, "blocksAwarded": 6, "investment": "USD 1.8B", "href": "#" }
+      ],
+      "blocksOffered": "blocks offered",
+      "blocksAwarded": "awarded",
+      "investmentCaptured": "Investment Captured"
+    },
+    "tender2025Content": {
+      "launchDate": "Launch: Q4 2025",
+      "bannerTitle": "Angola, the right place for your investment!",
+      "bannerDescription": "The National Oil, Gas and Biofuels Agency (ANPG), in its capacity as National Concessionaire, announces the 2025 Tender for the allocation of petroleum concessions for the exploration of the Maritime Basins of Kwanza and Benguela, open to national or foreign entities.",
+      "bannerHighlight": "Maritime Basins of Kwanza and Benguela",
+      "objectivesTitle": "Objectives",
+      "objectivesSubtitle": "Strategic goals of the 2025 Tender",
+      "objectives": [
+        { "title": "Reassess Potential", "description": "Reassess the existing petroleum potential in the Lower Congo and Kwanza Onshore Basins." },
+        { "title": "Technological Innovation", "description": "Leverage technological innovation and good governance practices." },
+        { "title": "Relaunch E&P", "description": "Relaunch hydrocarbon exploration and production in the onshore basin areas." },
+        { "title": "SMEs and Employment", "description": "Stimulate the participation of small and medium petroleum companies and promote the incorporation of qualified Angolan labour." },
+        { "title": "Mitigate Decline", "description": "Mitigate production decline by increasing exploration activities and discovering new resources." }
+      ],
+      "phasesTitle": "Process Phases",
+      "phasesSubtitle": "Detailed tender timeline",
+      "phases": [
+        { "title": "Letter Dispatch", "description": "Sending letters to inform about the process and promotion.", "period": "March - October 2025", "status": "active" },
+        { "title": "Official Launch", "description": "Launch of the Tender for petroleum concession allocation.", "period": "Q4 2025", "status": "upcoming" },
+        { "title": "Proposal Submission", "description": "30 to 40 day period for proposal submission after official launch.", "period": "Q1 2026", "status": "upcoming" },
+        { "title": "Public Act", "description": "Opening of proposals on the first business day after the deadline.", "period": "Q1 2026", "status": "upcoming" },
+        { "title": "Qualification & Evaluation", "description": "30 to 45 day period for qualification and evaluation of proposals.", "period": "Q1 2026", "status": "upcoming" },
+        { "title": "Award", "description": "Communication of results to bidders.", "period": "Q1 2026", "status": "upcoming" },
+        { "title": "Negotiation", "description": "15 to 65 day period for contract negotiation.", "period": "Q1 - Q2 2026", "status": "upcoming" },
+        { "title": "Signing", "description": "Final signing of concession contracts.", "period": "Q1 - Q3 2026", "status": "upcoming" }
+      ],
+      "statusInProgress": "In progress",
+      "mapTitle": "Block Map",
+      "mapSubtitle": "Location of available blocks in the Kwanza and Benguela Basins",
+      "documentsTitle": "Useful Documents",
+      "documentsSubtitle": "Supporting materials for the process",
+      "documents": [
+        { "title": "Technical Brochure", "description": "Technical information about the Kwanza and Benguela Basins", "type": "PDF", "size": "4.2 MB" },
+        { "title": "Model Contract", "description": "2025 Production Sharing Contract", "type": "PDF", "size": "1.8 MB" },
+        { "title": "Terms of Reference", "description": "Requirements and evaluation criteria", "type": "PDF", "size": "2.1 MB" },
+        { "title": "Block Map", "description": "Geographic location of available blocks", "type": "PDF", "size": "8.5 MB" }
+      ],
+      "faqTitle": "Frequently Asked Questions",
+      "faqSubtitle": "Clarifications about the tender process",
+      "ctaTitle": "Interested in Participating?",
+      "ctaDescription": "Express your interest and receive updated information about the tender process, including important dates and participation requirements.",
+      "ctaInterest": "Express Interest",
+      "ctaContact": "Contact Team",
+      "heroInterest": "Express Interest",
+      "heroBrochure": "Download Brochure"
+    },
+    "dataPage": {
+      "title": "Data & Analytics",
+      "subtitle": "Services & Competencies",
+      "description": "Publication of statistics and reports on the energy sector.",
+      "intro": "ANPG is responsible for collecting, analysing and publishing data and statistics on Angola's energy sector. We provide updated and transparent information to support decision-making by investors, operators and government entities.",
+      "metrics": [
+        { "value": "1.1M", "label": "Barrels/Day", "description": "Current oil production" },
+        { "value": "47", "label": "Active Blocks", "description": "In exploration and production" },
+        { "value": "15+", "label": "Operators", "description": "International companies" },
+        { "value": "8B+", "label": "Barrels", "description": "Proven reserves" }
+      ],
+      "resourcesTitle": "Data Resources",
+      "resources": [
+        { "title": "Concessions Map", "description": "Interactive map of all petroleum blocks with information on operators and partnerships.", "href": "/ep-data/maps" },
+        { "title": "IONA Platform", "description": "Integrated exploration and production data management system.", "href": "/ep-data/iona" },
+        { "title": "Data Packages", "description": "Technical data available for licensing by operators and investors.", "href": "/ep-data/packages" },
+        { "title": "Production Statistics", "description": "Updated data on Angolan petroleum production.", "href": "/production" }
+      ],
+      "publicationsTitle": "Recent Publications",
+      "viewAll": "View All",
+      "publications": [
+        { "title": "Annual Report 2024", "type": "Report", "date": "January 2025" },
+        { "title": "Q4 2024 Production Statistics", "type": "Statistics", "date": "January 2025" },
+        { "title": "Monthly Bulletin December 2024", "type": "Bulletin", "date": "December 2024" },
+        { "title": "Petroleum Sector Analysis", "type": "Analysis", "date": "November 2024" }
+      ],
+      "dashboardTitle": "Interactive Dashboard",
+      "dashboardDescription": "Explore production data and real-time statistics.",
+      "dashboardCta": "Access Dashboard"
+    },
+    "productionHistoryContent": {
+      "downloadReport": "Download Report",
+      "statsLabels": {
+        "start": "Start",
+        "firstExport": "First export",
+        "historicPeak": "Historic Peak",
+        "peakUnit": "Thousand bbl/day (2008)",
+        "current": "Current (Jun 2025)",
+        "currentUnit": "Thousand bbl/day",
+        "gas": "Gas (Jun 2025)",
+        "gasUnit": "MMscf/day"
+      },
+      "longTermTitle": "Historical Evolution (1978-2025)",
+      "longTermSubtitle": "Crude oil production in thousands of barrels per day",
+      "declineNote": "The decline since 2008 is due to natural field maturation and the lack of significant new discoveries. The 2023 and 2025 tenders aim to reverse this trend.",
+      "monthlyTitle": "Monthly Production (2024-2025)",
+      "monthlySubtitle": "Detailed monthly oil and associated gas data",
+      "chartLabels": {
+        "production": "Production",
+        "oil": "Oil (kbbl/day)",
+        "gas": "Gas (MMscf/day)"
+      },
+      "decadeTitle": "Production by Decade",
+      "decadeSubtitle": "Average and peak production by period",
+      "decadeLabels": {
+        "peak": "Peak",
+        "average": "Average"
+      },
+      "milestonesTitle": "Historical Milestones",
+      "milestonesSubtitle": "Key moments in Angola's petroleum history",
+      "milestones": [
+        { "year": "1955", "title": "Start of Exploration", "description": "First petroleum prospecting activities in Angola by Petrangol." },
+        { "year": "1966", "title": "First Offshore Discovery", "description": "Discovery of the offshore oil field in the Cabinda enclave." },
+        { "year": "1968", "title": "Start of Production", "description": "Angola begins commercial crude oil exports." },
+        { "year": "1978", "title": "Creation of Sonangol", "description": "Foundation of the National Fuel Company of Angola." },
+        { "year": "2002", "title": "End of Civil War", "description": "Peace allows significant expansion of exploration activities." },
+        { "year": "2008", "title": "Peak Production", "description": "Angola reaches a historic peak of 1,875 thousand barrels per day." },
+        { "year": "2019", "title": "Creation of ANPG", "description": "National Oil, Gas and Biofuels Agency assumes National Concessionaire functions." },
+        { "year": "2024", "title": "Stabilisation", "description": "Implementation of strategies to stabilise production above 1 million bbl/day." }
+      ],
+      "ctaTitle": "Access Complete Data",
+      "ctaDescription": "Explore the interactive dashboard with detailed production data by block, operator and time period.",
+      "ctaDashboard": "Production Dashboard",
+      "ctaData": "Explore E&P Data"
     }
   },
   "hero": {
