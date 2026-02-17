@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const stepIcons = [Search, FileText, Handshake, Award];
@@ -36,6 +37,7 @@ function SectionDivider({ label, icon: Icon }: { label?: string; icon?: React.Co
 
 export default function PermanentOfferPage() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const steps = t("pages.permanentOffer.howItWorks", { returnObjects: true }) as Array<{ title: string; desc: string }>;
   const advantages = t("pages.permanentOffer.advantages", { returnObjects: true }) as Array<{ title: string; desc: string }>;
@@ -234,7 +236,7 @@ export default function PermanentOfferPage() {
                 </a>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <a href="mailto:info@anpg.co.ao">
+                <a href={`mailto:${settings.contact.email}`}>
                   <Mail className="w-4 h-4 mr-2" />
                   {t("pages.permanentOffer.ctaEmail")}
                 </a>

@@ -471,7 +471,10 @@
     "epMaps": {
       "title": "Concessions Map",
       "subtitle": "Blocks & Operators",
-      "description": "Interactive map of all Angolan petroleum blocks with detailed information on operators and partnerships."
+      "description": "Interactive map of all Angolan petroleum blocks with detailed information on operators and partnerships.",
+      "updatedData": "Updated Data",
+      "updatedDataDesc": "The data presented on this page is based on the ANPG Concessions Map from May 2025. For more detailed or updated information, please visit the",
+      "officialPortal": "official ANPG portal"
     },
     "blockDetails": {
       "title": "Block Details",
