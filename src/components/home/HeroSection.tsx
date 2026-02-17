@@ -3,7 +3,35 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Play, BarChart3, Shield, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContentBlock } from "@/hooks/useCMSData";
 import heroImage from "@/assets/hero-offshore.jpg";
+
+const defaultQuickAccess = [
+  {
+    iconKey: "TrendingUp",
+    titleKey: "nav.investment",
+    descriptionKey: "services.tenders.description",
+    href: "/investor-portal",
+  },
+  {
+    iconKey: "Shield",
+    titleKey: "services.regulation.title",
+    descriptionKey: "services.regulation.description",
+    href: "/regulation",
+  },
+  {
+    iconKey: "BarChart3",
+    titleKey: "nav.data",
+    descriptionKey: "services.analytics.description",
+    href: "/ep-data",
+  },
+];
+
+const iconMap: Record<string, React.ReactNode> = {
+  TrendingUp: <TrendingUp className="w-6 h-6" />,
+  Shield: <Shield className="w-6 h-6" />,
+  BarChart3: <BarChart3 className="w-6 h-6" />,
+};
 
 export function HeroSection() {
   const { t } = useTranslation();
@@ -12,6 +40,12 @@ export function HeroSection() {
     target: containerRef,
     offset: ["start start", "end start"],
   });
+
+  // CMS content block with fallback
+  const { data: cmsBlock } = useContentBlock("home", "hero");
+  const cmsContent = cmsBlock?.content;
+  const heroImg = cmsContent?.image || heroImage;
+  const quickAccessItems = cmsContent?.quickAccess?.length ? cmsContent.quickAccess : defaultQuickAccess;
 
   // Multi-layer parallax transforms with different speeds
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
@@ -38,7 +72,7 @@ export function HeroSection() {
         className="absolute inset-0 z-0"
       >
         <img
-          src={heroImage}
+          src={heroImg}
           alt="Offshore oil platform"
           className="w-full h-full object-cover"
         />
@@ -52,51 +86,23 @@ export function HeroSection() {
       
       {/* Layer 3: Floating Particles/Orbs for depth */}
       <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
-        {/* Large soft orb - top right */}
         <motion.div
           style={{ y: particle1Y }}
           className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-primary/5 blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ 
-            duration: 8, 
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
-        
-        {/* Medium orb - bottom left */}
         <motion.div
           style={{ y: particle2Y }}
           className="absolute bottom-40 -left-32 w-64 h-64 rounded-full bg-primary/10 blur-2xl"
-          animate={{ 
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2]
-          }}
-          transition={{ 
-            duration: 6, 
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
+          animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
-        
-        {/* Small accent orb - center right */}
         <motion.div
           style={{ y: particle3Y }}
           className="absolute top-1/3 right-1/4 w-32 h-32 rounded-full bg-primary/15 blur-xl"
-          animate={{ 
-            scale: [1, 1.4, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ 
-            duration: 5, 
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
+          animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
       </div>
 
@@ -111,7 +117,7 @@ export function HeroSection() {
       {/* Layer 5: Radial vignette */}
       <div className="absolute inset-0 z-[4] opacity-40 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_black_100%)]" />
 
-      {/* Layer 6: Content (fastest parallax for depth perception) */}
+      {/* Layer 6: Content */}
       <motion.div
         style={{ opacity, y: contentY }}
         className="relative z-10 container mx-auto px-6 lg:px-8 pt-24"
@@ -126,7 +132,7 @@ export function HeroSection() {
           >
             <span className="w-2 h-2 bg-primary rounded-full animate-pulse-slow" />
             <span className="text-sm text-primary-foreground font-medium">
-              {t("hero.subtitle")}
+              {cmsContent?.subtitle || t("hero.subtitle")}
             </span>
           </motion.div>
 
@@ -137,8 +143,8 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="hero-title text-primary-foreground mb-6"
           >
-            {t("hero.title")}<br />
-            <span className="text-primary">{t("hero.titleHighlight")}</span>
+            {cmsContent?.title || t("hero.title")}<br />
+            <span className="text-primary">{cmsContent?.titleHighlight || t("hero.titleHighlight")}</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -148,7 +154,7 @@ export function HeroSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hero-subtitle text-primary-foreground/80 max-w-2xl mb-10"
           >
-            {t("hero.description")}
+            {cmsContent?.description || t("hero.description")}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -159,48 +165,39 @@ export function HeroSection() {
             className="flex flex-wrap gap-4"
           >
             <Button variant="hero" size="xl" className="group">
-              {t("hero.ctaPrimary")}
+              {cmsContent?.ctaPrimary || t("hero.ctaPrimary")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button variant="heroOutline" size="xl" className="group">
               <Play className="w-5 h-5" />
-              {t("hero.ctaSecondary")}
+              {cmsContent?.ctaSecondary || t("hero.ctaSecondary")}
             </Button>
           </motion.div>
         </div>
 
-        {/* Quick Access Cards with staggered parallax */}
+        {/* Quick Access Cards */}
         <motion.div
           initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          <QuickAccessCard
-            icon={<TrendingUp className="w-6 h-6" />}
-            titleKey="nav.investment"
-            descriptionKey="services.tenders.description"
-            href="/investor-portal"
-            delay={0.6}
-          />
-          <QuickAccessCard
-            icon={<Shield className="w-6 h-6" />}
-            titleKey="services.regulation.title"
-            descriptionKey="services.regulation.description"
-            href="/regulation"
-            delay={0.7}
-          />
-          <QuickAccessCard
-            icon={<BarChart3 className="w-6 h-6" />}
-            titleKey="nav.data"
-            descriptionKey="services.analytics.description"
-            href="/ep-data"
-            delay={0.8}
-          />
+          {quickAccessItems.map((item: any, idx: number) => (
+            <QuickAccessCard
+              key={idx}
+              icon={iconMap[item.iconKey] || <TrendingUp className="w-6 h-6" />}
+              titleKey={item.titleKey}
+              title={item.title}
+              descriptionKey={item.descriptionKey}
+              description={item.description}
+              href={item.href}
+              delay={0.6 + idx * 0.1}
+            />
+          ))}
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator with floating animation */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -230,13 +227,15 @@ export function HeroSection() {
 
 interface QuickAccessCardProps {
   icon: React.ReactNode;
-  titleKey: string;
-  descriptionKey: string;
+  titleKey?: string;
+  title?: string;
+  descriptionKey?: string;
+  description?: string;
   href: string;
   delay: number;
 }
 
-function QuickAccessCard({ icon, titleKey, descriptionKey, href, delay }: QuickAccessCardProps) {
+function QuickAccessCard({ icon, titleKey, title, descriptionKey, description, href, delay }: QuickAccessCardProps) {
   const { t } = useTranslation();
   
   return (
@@ -254,10 +253,10 @@ function QuickAccessCard({ icon, titleKey, descriptionKey, href, delay }: QuickA
         </div>
         <div>
           <h3 className="text-primary-foreground font-semibold mb-1 group-hover:text-primary transition-colors">
-            {t(titleKey)}
+            {title || (titleKey ? t(titleKey) : "")}
           </h3>
           <p className="text-sm text-primary-foreground/60">
-            {t(descriptionKey)}
+            {description || (descriptionKey ? t(descriptionKey) : "")}
           </p>
         </div>
       </div>
