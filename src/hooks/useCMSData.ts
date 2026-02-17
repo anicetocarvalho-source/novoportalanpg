@@ -156,6 +156,118 @@ export function useBoardMemberBySlug(slug: string | undefined) {
   });
 }
 
+// ─── Page Banners ───
+export interface CMSPageBanner {
+  id: string;
+  page_key: string;
+  title: string | null;
+  subtitle: string | null;
+  image_url: string | null;
+  overlay_opacity: number | null;
+  is_active: boolean;
+}
+
+export function usePageBanner(pageKey: string | undefined) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
+  return useQuery({
+    queryKey: ["page_banner", pageKey, isEn],
+    queryFn: async () => {
+      if (!pageKey) return null;
+      const { data, error } = await supabase
+        .from("page_banners")
+        .select("*")
+        .eq("page_key", pageKey)
+        .eq("is_active", true)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) return null;
+
+      return {
+        id: data.id,
+        page_key: data.page_key,
+        title: isEn ? (data.title_en || data.title_pt) : data.title_pt,
+        subtitle: isEn ? (data.subtitle_en || data.subtitle_pt) : data.subtitle_pt,
+        image_url: data.image_url,
+        overlay_opacity: data.overlay_opacity,
+        is_active: data.is_active,
+      } as CMSPageBanner;
+    },
+    enabled: !!pageKey,
+  });
+}
+
+// ─── Content Blocks ───
+export interface CMSContentBlock {
+  id: string;
+  page_key: string;
+  section_key: string;
+  content: Record<string, any>;
+  sort_order: number;
+  is_active: boolean;
+}
+
+export function useContentBlock(pageKey: string, sectionKey: string) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "pt";
+
+  return useQuery({
+    queryKey: ["content_block", pageKey, sectionKey, lang],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("content_blocks")
+        .select("*")
+        .eq("page_key", pageKey)
+        .eq("section_key", sectionKey)
+        .eq("language", lang)
+        .eq("is_active", true)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) return null;
+
+      return {
+        id: data.id,
+        page_key: data.page_key,
+        section_key: data.section_key,
+        content: data.content as Record<string, any>,
+        sort_order: data.sort_order,
+        is_active: data.is_active,
+      } as CMSContentBlock;
+    },
+  });
+}
+
+export function useContentBlocks(pageKey: string) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language === "en" ? "en" : "pt";
+
+  return useQuery({
+    queryKey: ["content_blocks", pageKey, lang],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("content_blocks")
+        .select("*")
+        .eq("page_key", pageKey)
+        .eq("language", lang)
+        .eq("is_active", true)
+        .order("sort_order");
+
+      if (error) throw error;
+      return data.map((d) => ({
+        id: d.id,
+        page_key: d.page_key,
+        section_key: d.section_key,
+        content: d.content as Record<string, any>,
+        sort_order: d.sort_order,
+        is_active: d.is_active,
+      })) as CMSContentBlock[];
+    },
+  });
+}
+
 // ─── Menu Items ───
 export interface CMSMenuItem {
   id: string;

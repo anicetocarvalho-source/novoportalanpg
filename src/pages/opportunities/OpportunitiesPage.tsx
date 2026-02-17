@@ -30,6 +30,7 @@ export default function OpportunitiesPage() {
 
   return (
     <PageLayout
+      pageKey="opportunities"
       titleKey="pages.opportunities.title"
       subtitleKey="pages.opportunities.subtitle"
       descriptionKey="pages.opportunities.description"

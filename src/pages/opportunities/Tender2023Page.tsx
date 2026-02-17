@@ -8,6 +8,7 @@ export default function Tender2023Page() {
 
   return (
     <PageLayout
+      pageKey="tender-2023"
       titleKey="pages.tender2023.title"
       subtitleKey="pages.tender2023.subtitle"
       descriptionKey="pages.tender2023.description"

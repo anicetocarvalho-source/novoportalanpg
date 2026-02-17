@@ -329,6 +329,7 @@ export default function MediaPage() {
 
   return (
     <PageLayout
+      pageKey="media"
       titleKey="pages.media.title"
       subtitleKey="pages.media.subtitle"
       descriptionKey="pages.media.description"

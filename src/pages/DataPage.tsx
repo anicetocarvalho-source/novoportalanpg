@@ -69,6 +69,7 @@ export default function DataPage() {
 
   return (
     <PageLayout
+      pageKey="data"
       title={t("services.analytics.title")}
       subtitle={t("services.label")}
       description={t("services.analytics.description")}

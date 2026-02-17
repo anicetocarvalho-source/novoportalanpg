@@ -7,6 +7,7 @@ export default function IonaPage() {
 
   return (
     <PageLayout
+      pageKey="iona"
       titleKey="pages.iona.title"
       subtitleKey="pages.iona.subtitle"
       descriptionKey="pages.iona.description"

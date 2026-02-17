@@ -56,6 +56,7 @@ export default function RegulationPage() {
 
   return (
     <PageLayout
+      pageKey="regulation"
       title={t("services.regulation.title")}
       subtitle={t("services.label")}
       description={t("services.regulation.description")}

@@ -36,6 +36,7 @@ export default function HistoryPage() {
 
   return (
     <PageLayout
+      pageKey="history"
       titleKey="pages.history.title"
       subtitleKey="pages.history.subtitle"
       descriptionKey="pages.history.description"

@@ -30,6 +30,7 @@ export default function AnpgPage() {
 
   return (
     <PageLayout
+      pageKey="anpg"
       titleKey="pages.anpg.title"
       subtitleKey="pages.anpg.subtitle"
       descriptionKey="pages.anpg.description"

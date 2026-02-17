@@ -56,6 +56,7 @@ export default function LocalContentPage() {
 
   return (
     <PageLayout
+      pageKey="local-content"
       titleKey="pages.localContent.title"
       subtitleKey="pages.localContent.subtitle"
       descriptionKey="pages.localContent.description"
