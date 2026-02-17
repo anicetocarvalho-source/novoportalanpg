@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Upload, X, Loader2, ImageIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ImageCropDialog } from './ImageCropDialog';
 
 interface ImageUploadProps {
   value: string;
@@ -22,12 +23,16 @@ interface ImageUploadProps {
   quality?: number;
   /** Max file size in MB before compression (default 5) */
   maxSizeMB?: number;
+  /** Enable interactive crop dialog (default true) */
+  enableCrop?: boolean;
+  /** Fixed aspect ratio for cropper (e.g. 16/9) */
+  cropAspectRatio?: number;
 }
 
 /**
  * Loads an image file into an HTMLImageElement and returns its natural dimensions.
  */
-function loadImage(file: File): Promise<HTMLImageElement> {
+function loadImage(file: File | Blob): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);
@@ -43,7 +48,7 @@ function loadImage(file: File): Promise<HTMLImageElement> {
  * – Converts to WebP for best compression (JPEG fallback)
  */
 async function compressImage(
-  file: File,
+  file: File | Blob,
   maxW: number,
   maxH: number,
   quality: number,
@@ -52,7 +57,6 @@ async function compressImage(
   let { naturalWidth: w, naturalHeight: h } = img;
   const wasResized = w > maxW || h > maxH;
 
-  // Scale down keeping aspect ratio
   if (w > maxW) {
     h = Math.round(h * (maxW / w));
     w = maxW;
@@ -67,16 +71,12 @@ async function compressImage(
   canvas.height = h;
   const ctx = canvas.getContext('2d')!;
   ctx.drawImage(img, 0, 0, w, h);
-
-  // Free object URL
   URL.revokeObjectURL(img.src);
 
-  // Try WebP first, fallback to JPEG
   const blob = await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(
       (b) => {
         if (b) return resolve(b);
-        // Fallback to JPEG
         canvas.toBlob(
           (bJpeg) => (bJpeg ? resolve(bJpeg) : reject(new Error('Compression failed'))),
           'image/jpeg',
@@ -102,46 +102,40 @@ export function ImageUpload({
   maxHeight = 1920,
   quality = 0.82,
   maxSizeMB = 5,
+  enableCrop = true,
+  cropAspectRatio,
 }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [compressionInfo, setCompressionInfo] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // Crop dialog state
+  const [cropDialogOpen, setCropDialogOpen] = useState(false);
+  const [pendingImageSrc, setPendingImageSrc] = useState<string | null>(null);
+  const pendingFileRef = useRef<File | null>(null);
 
-    // Validate raw size (max before compression)
-    if (file.size > maxSizeMB * 1024 * 1024) {
-      toast.error(`Ficheiro demasiado grande. Máximo: ${maxSizeMB}MB`);
-      return;
-    }
-
+  const uploadBlob = async (blob: Blob, originalSize: number) => {
     setIsUploading(true);
-    setCompressionInfo(null);
-
     try {
-      // Compress & resize
-      const { blob, width, height, wasResized } = await compressImage(file, maxWidth, maxHeight, quality);
+      const { blob: compressed, width, height, wasResized } = await compressImage(blob, maxWidth, maxHeight, quality);
 
-      const savedPct = Math.round((1 - blob.size / file.size) * 100);
+      const savedPct = Math.round((1 - compressed.size / originalSize) * 100);
       const info = wasResized
-        ? `Redimensionado para ${width}×${height}px • ${(blob.size / 1024).toFixed(0)}KB (−${savedPct}%)`
+        ? `Redimensionado para ${width}×${height}px • ${(compressed.size / 1024).toFixed(0)}KB (−${savedPct}%)`
         : savedPct > 5
-          ? `Comprimido: ${(blob.size / 1024).toFixed(0)}KB (−${savedPct}%)`
-          : `${width}×${height}px • ${(blob.size / 1024).toFixed(0)}KB`;
+          ? `Comprimido: ${(compressed.size / 1024).toFixed(0)}KB (−${savedPct}%)`
+          : `${width}×${height}px • ${(compressed.size / 1024).toFixed(0)}KB`;
       setCompressionInfo(info);
 
-      // Determine extension from blob type
-      const ext = blob.type === 'image/webp' ? 'webp' : 'jpg';
+      const ext = compressed.type === 'image/webp' ? 'webp' : 'jpg';
       const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
 
       const { error: uploadError } = await supabase.storage
         .from('cms-assets')
-        .upload(fileName, blob, {
+        .upload(fileName, compressed, {
           cacheControl: '3600',
           upsert: false,
-          contentType: blob.type,
+          contentType: compressed.type,
         });
 
       if (uploadError) throw uploadError;
@@ -159,6 +153,47 @@ export function ImageUpload({
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > maxSizeMB * 1024 * 1024) {
+      toast.error(`Ficheiro demasiado grande. Máximo: ${maxSizeMB}MB`);
+      return;
+    }
+
+    if (enableCrop) {
+      // Open crop dialog instead of uploading directly
+      pendingFileRef.current = file;
+      const objectUrl = URL.createObjectURL(file);
+      setPendingImageSrc(objectUrl);
+      setCropDialogOpen(true);
+    } else {
+      // Direct upload (legacy behaviour)
+      setCompressionInfo(null);
+      await uploadBlob(file, file.size);
+    }
+  };
+
+  const handleCropComplete = async (croppedBlob: Blob) => {
+    setCropDialogOpen(false);
+    const originalSize = pendingFileRef.current?.size ?? croppedBlob.size;
+    // Clean up object URL
+    if (pendingImageSrc) URL.revokeObjectURL(pendingImageSrc);
+    setPendingImageSrc(null);
+    pendingFileRef.current = null;
+    setCompressionInfo(null);
+    await uploadBlob(croppedBlob, originalSize);
+  };
+
+  const handleCropClose = () => {
+    setCropDialogOpen(false);
+    if (pendingImageSrc) URL.revokeObjectURL(pendingImageSrc);
+    setPendingImageSrc(null);
+    pendingFileRef.current = null;
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleRemove = () => {
@@ -247,6 +282,17 @@ export function ImageUpload({
         onChange={handleFileSelect}
         className="hidden"
       />
+
+      {/* Crop dialog */}
+      {pendingImageSrc && (
+        <ImageCropDialog
+          open={cropDialogOpen}
+          onClose={handleCropClose}
+          imageSrc={pendingImageSrc}
+          aspectRatio={cropAspectRatio}
+          onCropComplete={handleCropComplete}
+        />
+      )}
     </div>
   );
 }
