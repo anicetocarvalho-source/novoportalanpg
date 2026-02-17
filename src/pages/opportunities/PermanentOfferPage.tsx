@@ -62,6 +62,7 @@ export default function PermanentOfferPage() {
 
   return (
     <PageLayout
+      pageKey="permanent-offer"
       title={t("pages.permanentOffer.title")}
       subtitle={t("pages.permanentOffer.subtitle")}
       backgroundImage={heroImage}

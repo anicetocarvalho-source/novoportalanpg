@@ -113,6 +113,7 @@ export default function SocialResponsibilityPage() {
 
   return (
     <PageLayout
+      pageKey="social-responsibility"
       titleKey="pages.socialResponsibility.title"
       subtitleKey="pages.socialResponsibility.subtitle"
       descriptionKey="pages.socialResponsibility.description"

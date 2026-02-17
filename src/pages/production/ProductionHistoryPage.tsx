@@ -128,6 +128,7 @@ export default function ProductionHistoryPage() {
 
   return (
     <PageLayout
+      pageKey="production-history"
       titleKey="pages.productionHistory.title"
       subtitleKey="pages.productionHistory.subtitle"
       descriptionKey="pages.productionHistory.description"

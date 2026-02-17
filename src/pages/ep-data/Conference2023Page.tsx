@@ -7,6 +7,7 @@ export default function Conference2023Page() {
 
   return (
     <PageLayout
+      pageKey="conference-2023"
       titleKey="pages.conference2023.title"
       subtitleKey="pages.conference2023.subtitle"
       descriptionKey="pages.conference2023.description"

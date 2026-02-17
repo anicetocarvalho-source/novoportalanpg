@@ -83,6 +83,7 @@ export default function InvestorPortalPage() {
 
   return (
     <PageLayout
+      pageKey="investor-portal"
       titleKey="pages.investorPortal.title"
       subtitleKey="pages.investorPortal.subtitle"
       descriptionKey="pages.investorPortal.description"

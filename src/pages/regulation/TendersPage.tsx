@@ -84,6 +84,7 @@ export default function TendersPage() {
 
   return (
     <PageLayout
+      pageKey="tenders"
       title={t("services.tenders.title")}
       subtitle={t("services.label")}
       description={t("services.tenders.description")}

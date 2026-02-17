@@ -41,6 +41,7 @@ export default function TermsPage() {
 
   return (
     <PageLayout
+      pageKey="terms"
       title={t("pages.terms.title")}
       subtitle={t("pages.terms.subtitle")}
       description={t("pages.terms.description")}

@@ -41,6 +41,7 @@ export default function PrivacyPage() {
 
   return (
     <PageLayout
+      pageKey="privacy"
       title={t("pages.privacy.title")}
       subtitle={t("pages.privacy.subtitle")}
       description={t("pages.privacy.description")}

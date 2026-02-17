@@ -15,6 +15,7 @@ export default function GasPage() {
 
   return (
     <PageLayout
+      pageKey="gas"
       title={t("pages.gas.title")}
       subtitle={t("pages.gas.subtitle")}
       breadcrumbs={[

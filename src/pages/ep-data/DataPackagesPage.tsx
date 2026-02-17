@@ -7,6 +7,7 @@ export default function DataPackagesPage() {
 
   return (
     <PageLayout
+      pageKey="data-packages"
       titleKey="pages.dataPackages.title"
       subtitleKey="pages.dataPackages.subtitle"
       descriptionKey="pages.dataPackages.description"

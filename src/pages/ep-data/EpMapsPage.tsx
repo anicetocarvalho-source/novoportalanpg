@@ -39,6 +39,7 @@ export default function EpMapsPage() {
 
   return (
     <PageLayout
+      pageKey="ep-maps"
       titleKey="pages.epMaps.title"
       subtitleKey="pages.epMaps.subtitle"
       descriptionKey="pages.epMaps.description"

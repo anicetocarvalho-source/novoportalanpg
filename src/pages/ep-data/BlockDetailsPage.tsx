@@ -137,6 +137,7 @@ export default function BlockDetailsPage() {
 
   return (
     <PageLayout
+      pageKey={`block-${block.id}`}
       title={block.name}
       subtitle={`Bacia do ${basinLabels[block.basin]}`}
       description={`Informações detalhadas sobre o ${block.name}, operado por ${block.operator}.`}

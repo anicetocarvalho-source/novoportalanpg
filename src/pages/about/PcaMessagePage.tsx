@@ -10,6 +10,7 @@ export default function PcaMessagePage() {
 
   return (
     <PageLayout
+      pageKey="pca-message"
       titleKey="pages.pcaMessage.title"
       subtitleKey="pages.pcaMessage.subtitle"
       descriptionKey="pages.pcaMessage.description"
