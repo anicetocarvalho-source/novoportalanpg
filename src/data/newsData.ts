@@ -1,5 +1,6 @@
 export interface NewsItem {
   id: string;
+  slug?: string;
   title: string;
   date: string;
   category: string;

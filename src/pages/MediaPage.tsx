@@ -42,7 +42,8 @@ import {
   PaginationEllipsis
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
+import { useNewsArticles } from "@/hooks/useCMSData";
+import { newsItems as fallbackNews, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 
 const NEWS_PER_PAGE = 6;
 
@@ -229,15 +230,16 @@ export default function MediaPage() {
   const [dateFilter, setDateFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
+  const { data: cmsNews } = useNewsArticles();
+  const newsSource = cmsNews?.length ? cmsNews : fallbackNews;
+
   const filteredNews = useMemo(() => {
-    let results = [...newsItems]; // Clone to avoid mutating original
+    let results = [...newsSource];
     
-    // Filter by category
     if (selectedCategory !== "all") {
       results = results.filter(item => item.category === selectedCategory);
     }
     
-    // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
       results = results.filter(item => 
@@ -248,27 +250,21 @@ export default function MediaPage() {
       );
     }
     
-    // Filter by date
     if (dateFilter !== "all") {
       results = results.filter(item => isWithinDateRange(item.date, dateFilter));
     }
     
-    // Sort by date
     results.sort((a, b) => {
       const dateA = parsePortugueseDate(a.date);
       const dateB = parsePortugueseDate(b.date);
-      
       if (!dateA || !dateB) return 0;
-      
-      if (sortOrder === "newest") {
-        return dateB.getTime() - dateA.getTime();
-      } else {
-        return dateA.getTime() - dateB.getTime();
-      }
+      return sortOrder === "newest"
+        ? dateB.getTime() - dateA.getTime()
+        : dateA.getTime() - dateB.getTime();
     });
     
     return results;
-  }, [selectedCategory, searchQuery, dateFilter, sortOrder]);
+  }, [selectedCategory, searchQuery, dateFilter, sortOrder, newsSource]);
 
   // Reset to page 1 when filters change
   const handleCategoryChange = (category: string) => {

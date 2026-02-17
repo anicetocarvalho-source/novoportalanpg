@@ -279,18 +279,18 @@ export interface CMSMenuItem {
   children: CMSMenuItem[];
 }
 
-export function useMenuItems() {
+export function useMenuItems(group: string = "main") {
   const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
 
   return useQuery({
-    queryKey: ["menu_items", isEn],
+    queryKey: ["menu_items", isEn, group],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("menu_items")
         .select("*")
         .eq("is_visible", true)
-        .eq("menu_group", "main")
+        .eq("menu_group", group)
         .order("sort_order");
 
       if (error) throw error;
@@ -316,6 +316,124 @@ export function useMenuItems() {
       });
 
       return topLevel.sort((a, b) => a.sort_order - b.sort_order);
+    },
+  });
+}
+
+// ─── News Articles ───
+
+function formatPortugueseDate(dateStr: string | null): string {
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  const months = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
+  ];
+  return `${date.getDate()} de ${months[date.getMonth()]}, ${date.getFullYear()}`;
+}
+
+export interface CMSNewsArticle {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  category: string;
+  image: string;
+  excerpt: string;
+  content: string;
+  author?: string;
+  tags?: string[];
+  published_at: string | null;
+}
+
+export function useNewsArticles(options?: {
+  category?: string;
+  limit?: number;
+}) {
+  return useQuery({
+    queryKey: ["news_articles", options?.category, options?.limit],
+    queryFn: async () => {
+      let query = supabase
+        .from("news_articles")
+        .select("*")
+        .eq("status", "published")
+        .not("published_at", "is", null)
+        .order("published_at", { ascending: false });
+
+      if (options?.category && options.category !== "all") {
+        query = query.eq("category", options.category);
+      }
+      if (options?.limit) {
+        query = query.limit(options.limit);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return data;
+    },
+    select: (data) =>
+      data.map((a) => ({
+        id: a.slug,
+        slug: a.slug,
+        title: a.title,
+        date: formatPortugueseDate(a.published_at),
+        category: a.category || "geral",
+        image: a.featured_image || "/placeholder.svg",
+        excerpt: a.excerpt || "",
+        content: a.content || "",
+        published_at: a.published_at,
+      } as CMSNewsArticle)),
+  });
+}
+
+export function useNewsArticleBySlug(slug: string | undefined) {
+  return useQuery({
+    queryKey: ["news_article", slug],
+    queryFn: async () => {
+      if (!slug) return null;
+      const { data, error } = await supabase
+        .from("news_articles")
+        .select("*")
+        .eq("slug", slug)
+        .eq("status", "published")
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) return null;
+
+      return {
+        id: data.slug,
+        slug: data.slug,
+        title: data.title,
+        date: formatPortugueseDate(data.published_at),
+        category: data.category || "geral",
+        image: data.featured_image || "/placeholder.svg",
+        excerpt: data.excerpt || "",
+        content: data.content || "",
+        published_at: data.published_at,
+      } as CMSNewsArticle;
+    },
+    enabled: !!slug,
+  });
+}
+
+// ─── Dashboard Stats ───
+export function useDashboardCounts() {
+  return useQuery({
+    queryKey: ["dashboard_counts"],
+    queryFn: async () => {
+      const [news, blocks, eois, docs] = await Promise.all([
+        supabase.from("news_articles").select("id", { count: "exact", head: true }).eq("status", "published"),
+        supabase.from("petroleum_blocks").select("id", { count: "exact", head: true }),
+        supabase.from("expressions_of_interest").select("id", { count: "exact", head: true }).eq("status", "pending"),
+        supabase.from("investor_documents").select("id", { count: "exact", head: true }),
+      ]);
+      return {
+        newsCount: news.count ?? 0,
+        blocksCount: blocks.count ?? 0,
+        eoisCount: eois.count ?? 0,
+        docsCount: docs.count ?? 0,
+      };
     },
   });
 }

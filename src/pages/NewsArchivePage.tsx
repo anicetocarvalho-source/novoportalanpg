@@ -47,7 +47,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
+import { useNewsArticles } from "@/hooks/useCMSData";
+import { newsItems as fallbackNews, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -75,10 +76,8 @@ const sortOptions = [
   { key: "title", label: "Título (A-Z)", icon: ArrowUpDown },
 ];
 
-// Get all unique tags from news items
-const allTags = Array.from(
-  new Set(newsItems.flatMap(item => item.tags || []))
-).sort();
+// Get all unique tags from news items (computed from current source)
+const allTags: string[] = [];
 
 const parsePortugueseDate = (dateStr: string): Date | null => {
   const months: { [key: string]: number } = {
@@ -126,6 +125,9 @@ export default function NewsArchivePage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"list" | "compact">("compact");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+
+  const { data: cmsNews } = useNewsArticles();
+  const newsItems = cmsNews?.length ? cmsNews : fallbackNews;
 
   const filteredNews = useMemo(() => {
     let results = [...newsItems];

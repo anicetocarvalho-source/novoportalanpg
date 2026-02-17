@@ -113,7 +113,7 @@ export function NewsSection() {
                 <div className="grid lg:grid-cols-12 gap-6 mb-6">
                   {/* Featured News - Large Card */}
                   {featuredNews && (
-                    <Link to={`/news/${featuredNews.id}`} className="lg:col-span-6">
+                    <Link to={`/news/${featuredNews.slug || featuredNews.id}`} className="lg:col-span-6">
                       <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export function NewsSection() {
                   {/* Secondary News Grid - 3 Medium Cards */}
                   <div className="lg:col-span-6 grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
                     {secondaryNews.map((item, index) => (
-                      <Link key={item.id} to={`/news/${item.id}`}>
+                      <Link key={item.id} to={`/news/${item.slug || item.id}`}>
                         <motion.div
                           initial={{ opacity: 0, x: 30 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -196,7 +196,7 @@ export function NewsSection() {
                 {compactNews.length > 0 && (
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {compactNews.map((item, index) => (
-                      <Link key={item.id} to={`/news/${item.id}`}>
+                      <Link key={item.id} to={`/news/${item.slug || item.id}`}>
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
