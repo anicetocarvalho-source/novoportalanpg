@@ -471,7 +471,10 @@
     "epMaps": {
       "title": "Mapa de Concessões",
       "subtitle": "Blocos & Operadores",
-      "description": "Mapa interactivo de todos os blocos petrolíferos de Angola com informações detalhadas sobre operadores e participações."
+      "description": "Mapa interactivo de todos os blocos petrolíferos de Angola com informações detalhadas sobre operadores e participações.",
+      "updatedData": "Dados Actualizados",
+      "updatedDataDesc": "Os dados apresentados nesta página são baseados no Mapa de Concessões da ANPG de Maio 2025. Para informações mais detalhadas ou actualizações, consulte o",
+      "officialPortal": "portal oficial da ANPG"
     },
     "blockDetails": {
       "title": "Detalhes do Bloco",

@@ -161,12 +161,11 @@ export default function EpMapsPage() {
                 <Map className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-2">Dados Actualizados</h3>
+                <h3 className="font-semibold text-foreground mb-2">{t("pages.epMaps.updatedData")}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Os dados apresentados nesta página são baseados no Mapa de Concessões da ANPG de Maio 2025. 
-                  Para informações mais detalhadas ou actualizações, consulte o{" "}
+                  {t("pages.epMaps.updatedDataDesc")}{" "}
                   <a href="https://anpg.co.ao" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    portal oficial da ANPG
+                    {t("pages.epMaps.officialPortal")}
                   </a>.
                 </p>
               </div>
