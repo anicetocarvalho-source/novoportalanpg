@@ -5,15 +5,26 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/hero-offshore.jpg";
 
 const licenseIcons = [ClipboardList, FileText, CheckCircle2];
 
 export default function LicensingPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("licensing");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const licenseTypes = t("pages.licensing.licenseTypes", { returnObjects: true }) as Array<{ title: string; description: string; duration: string }>;
-  const processSteps = t("pages.licensing.processSteps", { returnObjects: true }) as Array<{ title: string; description: string }>;
+  const introSection = getSection("intro");
+  const typesSection = getSection("types");
+  const processSection = getSection("process");
+  const ctaSection = getSection("cta");
+
+  const defaultLicenseTypes = t("pages.licensing.licenseTypes", { returnObjects: true }) as Array<{ title: string; description: string; duration: string }>;
+  const defaultProcessSteps = t("pages.licensing.processSteps", { returnObjects: true }) as Array<{ title: string; description: string }>;
+
+  const licenseTypes = typesSection?.items?.length ? typesSection.items : defaultLicenseTypes;
+  const processSteps = processSection?.items?.length ? processSection.items : defaultProcessSteps;
 
   return (
     <PageLayout
@@ -37,7 +48,7 @@ export default function LicensingPage() {
         >
           <div className="prose prose-lg max-w-none">
             <p className="text-muted-foreground leading-relaxed text-lg">
-              {t("pages.licensing.intro")}
+              {introSection?.text || t("pages.licensing.intro")}
             </p>
           </div>
         </motion.section>
@@ -48,7 +59,7 @@ export default function LicensingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold text-foreground mb-8">{t("pages.licensing.licenseTypesTitle")}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">{typesSection?.title || t("pages.licensing.licenseTypesTitle")}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {Array.isArray(licenseTypes) && licenseTypes.map((license, index) => {
               const Icon = licenseIcons[index] || FileText;
@@ -88,8 +99,8 @@ export default function LicensingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.licensing.processTitle")}</h2>
-          <p className="text-muted-foreground mb-8">{t("pages.licensing.processSubtitle")}</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{processSection?.title || t("pages.licensing.processTitle")}</h2>
+          <p className="text-muted-foreground mb-8">{processSection?.subtitle || t("pages.licensing.processSubtitle")}</p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.isArray(processSteps) && processSteps.map((step, index) => (
@@ -131,8 +142,8 @@ export default function LicensingPage() {
                     <Users className="w-7 h-7 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">{t("pages.licensing.ctaTitle")}</h3>
-                    <p className="text-primary-foreground/70">{t("pages.licensing.ctaDescription")}</p>
+                    <h3 className="text-xl font-semibold">{ctaSection?.title || t("pages.licensing.ctaTitle")}</h3>
+                    <p className="text-primary-foreground/70">{ctaSection?.description || t("pages.licensing.ctaDescription")}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">

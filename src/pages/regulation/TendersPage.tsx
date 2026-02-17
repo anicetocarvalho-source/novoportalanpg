@@ -6,14 +6,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/angola-coast.jpg";
 
 export default function TendersPage() {
   const { t } = useTranslation();
+  const { data: cmsBlocks } = useContentBlocks("tenders");
+  const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
-  const activeTenders = t("pages.tendersPage.activeTenders", { returnObjects: true }) as Array<{ id: string; title: string; status: string; blocks: number; deadline: string; href: string }>;
-  const phases = t("pages.tendersPage.phases", { returnObjects: true }) as Array<{ title: string; description: string }>;
-  const pastTenders = t("pages.tendersPage.pastTenders", { returnObjects: true }) as Array<{ year: string; title: string; blocksOffered: number; blocksAwarded: number; investment: string; href: string }>;
+  const introSection = getSection("intro");
+  const activeSection = getSection("active");
+  const phasesSection = getSection("phases");
+  const pastSection = getSection("past");
+
+  const defaultActiveTenders = t("pages.tendersPage.activeTenders", { returnObjects: true }) as Array<{ id: string; title: string; status: string; blocks: number; deadline: string; href: string }>;
+  const defaultPhases = t("pages.tendersPage.phases", { returnObjects: true }) as Array<{ title: string; description: string }>;
+  const defaultPastTenders = t("pages.tendersPage.pastTenders", { returnObjects: true }) as Array<{ year: string; title: string; blocksOffered: number; blocksAwarded: number; investment: string; href: string }>;
+
+  const activeTenders = activeSection?.items?.length ? activeSection.items : defaultActiveTenders;
+  const phases = phasesSection?.items?.length ? phasesSection.items : defaultPhases;
+  const pastTenders = pastSection?.items?.length ? pastSection.items : defaultPastTenders;
 
   return (
     <PageLayout
@@ -32,13 +44,13 @@ export default function TendersPage() {
         {/* Introduction */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="prose prose-lg max-w-none">
-            <p className="text-muted-foreground leading-relaxed text-lg">{t("pages.tendersPage.intro")}</p>
+            <p className="text-muted-foreground leading-relaxed text-lg">{introSection?.text || t("pages.tendersPage.intro")}</p>
           </div>
         </motion.section>
 
         {/* Active Tenders */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-          <h2 className="text-2xl font-bold text-foreground mb-8">{t("pages.tendersPage.activeTitle")}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">{activeSection?.title || t("pages.tendersPage.activeTitle")}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {Array.isArray(activeTenders) && activeTenders.map((tender, index) => (
               <motion.div key={tender.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}>
@@ -70,8 +82,8 @@ export default function TendersPage() {
 
         {/* Tender Phases */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-          <h2 className="text-2xl font-bold text-foreground mb-2">{t("pages.tendersPage.phasesTitle")}</h2>
-          <p className="text-muted-foreground mb-8">{t("pages.tendersPage.phasesSubtitle")}</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{phasesSection?.title || t("pages.tendersPage.phasesTitle")}</h2>
+          <p className="text-muted-foreground mb-8">{phasesSection?.subtitle || t("pages.tendersPage.phasesSubtitle")}</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.isArray(phases) && phases.map((phase, index) => (
               <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}>
@@ -93,7 +105,7 @@ export default function TendersPage() {
 
         {/* Past Tenders */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}>
-          <h2 className="text-2xl font-bold text-foreground mb-8">{t("pages.tendersPage.pastTitle")}</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-8">{pastSection?.title || t("pages.tendersPage.pastTitle")}</h2>
           <div className="space-y-4">
             {Array.isArray(pastTenders) && pastTenders.map((tender, index) => (
               <motion.div key={tender.year} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}>
