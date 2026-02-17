@@ -22,6 +22,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { toast } from 'sonner';
 import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Clock } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 type HistoryEvent = Tables<'history_events'>;
 
@@ -153,7 +154,7 @@ export default function AdminHistoryEventsPage() {
               <div className="space-y-2"><Label>Título EN</Label><Input value={formData.title_en} onChange={e => setFormData({...formData, title_en: e.target.value})} /></div>
               <div className="space-y-2"><Label>Descrição PT</Label><Textarea value={formData.description_pt} onChange={e => setFormData({...formData, description_pt: e.target.value})} rows={4} /></div>
               <div className="space-y-2"><Label>Descrição EN</Label><Textarea value={formData.description_en} onChange={e => setFormData({...formData, description_en: e.target.value})} rows={4} /></div>
-              <div className="space-y-2"><Label>URL da Imagem</Label><Input value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="https://..." /></div>
+              <ImageUpload value={formData.image_url} onChange={(url) => setFormData({...formData, image_url: url})} folder="history-events" label="Imagem do Evento" />
             </div>
             <DialogFooter><Button type="button" variant="outline" onClick={handleClose}>Cancelar</Button><Button type="submit" disabled={isSaving}>{isSaving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}{editing ? 'Guardar' : 'Criar'}</Button></DialogFooter>
           </form>

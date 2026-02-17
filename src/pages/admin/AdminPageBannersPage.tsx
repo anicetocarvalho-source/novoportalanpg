@@ -21,6 +21,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { toast } from 'sonner';
 import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Image } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 type PageBanner = Tables<'page_banners'>;
 
@@ -152,7 +153,7 @@ export default function AdminPageBannersPage() {
                 <div className="space-y-2"><Label>Subtítulo PT</Label><Input value={formData.subtitle_pt} onChange={e => setFormData({...formData, subtitle_pt: e.target.value})} /></div>
                 <div className="space-y-2"><Label>Subtítulo EN</Label><Input value={formData.subtitle_en} onChange={e => setFormData({...formData, subtitle_en: e.target.value})} /></div>
               </div>
-              <div className="space-y-2"><Label>URL da Imagem</Label><Input value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} placeholder="https://..." /></div>
+              <ImageUpload value={formData.image_url} onChange={(url) => setFormData({...formData, image_url: url})} folder="page-banners" label="Imagem do Banner" />
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2"><Label>Opacidade do Overlay ({formData.overlay_opacity})</Label><Input type="range" min="0" max="1" step="0.1" value={formData.overlay_opacity} onChange={e => setFormData({...formData, overlay_opacity: Number(e.target.value)})} /></div>
                 <div className="flex items-end gap-2 pb-1"><Switch checked={formData.is_active} onCheckedChange={v => setFormData({...formData, is_active: v})} /><Label>Activo</Label></div>

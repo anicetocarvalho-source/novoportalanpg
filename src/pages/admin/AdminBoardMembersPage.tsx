@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 type BoardMember = Tables<'board_members'>;
 
@@ -181,7 +182,7 @@ export default function AdminBoardMembersPage() {
                     <div className="space-y-2"><Label>Ordem</Label><Input type="number" value={formData.sort_order} onChange={e => setFormData({...formData, sort_order: Number(e.target.value)})} /></div>
                     <div className="flex items-end gap-2 pb-1"><Switch checked={formData.is_active} onCheckedChange={v => setFormData({...formData, is_active: v})} /><Label>Activo</Label></div>
                   </div>
-                  <div className="space-y-2"><Label>URL da Foto</Label><Input value={formData.photo_url} onChange={e => setFormData({...formData, photo_url: e.target.value})} placeholder="https://..." /></div>
+                  <ImageUpload value={formData.photo_url} onChange={(url) => setFormData({...formData, photo_url: url})} folder="board-members" label="Foto do Membro" />
                 </div>
               </TabsContent>
               <TabsContent value="bio">
