@@ -72,24 +72,24 @@ export default function EpMapsPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 border border-blue-500/30">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30">
               <h3 className="font-bold text-foreground mb-1">Bacia do Baixo Congo</h3>
-              <p className="text-3xl font-bold text-blue-600">{basinStats["baixo-congo"] || 0}</p>
+              <p className="text-3xl font-bold text-primary">{basinStats["baixo-congo"] || 0}</p>
               <p className="text-sm text-muted-foreground">blocos concessionados</p>
             </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30">
               <h3 className="font-bold text-foreground mb-1">Bacia do Kwanza</h3>
-              <p className="text-3xl font-bold text-green-600">{basinStats["kwanza"] || 0}</p>
+              <p className="text-3xl font-bold text-accent-foreground">{basinStats["kwanza"] || 0}</p>
               <p className="text-sm text-muted-foreground">blocos concessionados</p>
             </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 border border-amber-500/30">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-secondary/40 to-secondary/10 border border-border">
               <h3 className="font-bold text-foreground mb-1">Bacia de Benguela</h3>
-              <p className="text-3xl font-bold text-amber-600">{basinStats["benguela"] || 0}</p>
+              <p className="text-3xl font-bold text-foreground">{basinStats["benguela"] || 0}</p>
               <p className="text-sm text-muted-foreground">blocos disponíveis</p>
             </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/30">
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-muted/60 to-muted/20 border border-border">
               <h3 className="font-bold text-foreground mb-1">Bacia do Namibe</h3>
-              <p className="text-3xl font-bold text-purple-600">{basinStats["namibe"] || 0}</p>
+              <p className="text-3xl font-bold text-muted-foreground">{basinStats["namibe"] || 0}</p>
               <p className="text-sm text-muted-foreground">blocos concessionados</p>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function EpMapsPage() {
                 </div>
                 <div className="flex justify-between text-sm mt-1">
                   <span className="text-muted-foreground">Em Produção</span>
-                  <span className="font-medium text-green-600">{operator.production}</span>
+                  <span className="font-medium text-primary">{operator.production}</span>
                 </div>
               </div>
             ))}
