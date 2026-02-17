@@ -17,7 +17,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
-import { newsItems, getCategoryLabel, getCategoryColor } from "@/data/newsData";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useNewsArticleBySlug, useNewsArticles } from "@/hooks/useCMSData";
+import { newsItems as fallbackNews, getCategoryLabel, getCategoryColor } from "@/data/newsData";
 import { cn } from "@/lib/utils";
 
 export default function NewsDetailPage() {
@@ -25,17 +27,41 @@ export default function NewsDetailPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const news = newsItems.find((item) => item.id === newsId);
-  
-  // Get related news (same category, excluding current)
-  const relatedNews = newsItems
-    .filter((item) => item.id !== newsId && item.category === news?.category)
-    .slice(0, 3);
+  // Try CMS first
+  const { data: cmsArticle, isLoading } = useNewsArticleBySlug(newsId);
+  const { data: cmsAllNews } = useNewsArticles({ limit: 20 });
 
-  // If no related in same category, get latest
+  // Fallback to local data
+  const fallbackArticle = fallbackNews.find((item) => item.id === newsId);
+  const news = cmsArticle || fallbackArticle;
+
+  // Related news
+  const allNews = cmsAllNews?.length ? cmsAllNews : fallbackNews;
+  const relatedNews = allNews
+    .filter((item) => (item.slug || item.id) !== newsId && item.category === news?.category)
+    .slice(0, 3);
   const displayRelated = relatedNews.length > 0 
     ? relatedNews 
-    : newsItems.filter((item) => item.id !== newsId).slice(0, 3);
+    : allNews.filter((item) => (item.slug || item.id) !== newsId).slice(0, 3);
+
+  if (isLoading) {
+    return (
+      <PageLayout
+        title="A carregar..."
+        subtitle="Media"
+        icon={<Newspaper className="w-8 h-8 text-primary" />}
+        breadcrumbs={[{ labelKey: "nav.media", href: "/media" }, { label: "..." }]}
+      >
+        <div className="max-w-4xl mx-auto space-y-6">
+          <Skeleton className="h-8 w-3/4" />
+          <Skeleton className="h-64 w-full rounded-2xl" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+          <Skeleton className="h-4 w-4/6" />
+        </div>
+      </PageLayout>
+    );
+  }
 
   if (!news) {
     return (
@@ -149,72 +175,36 @@ export default function NewsDetailPage() {
                 const trimmed = paragraph.trim();
                 if (!trimmed) return null;
                 
-                // Handle headers
                 if (trimmed.startsWith('## ')) {
-                  return (
-                    <h2 key={index} className="text-2xl font-bold text-foreground mt-8 mb-4">
-                      {trimmed.replace('## ', '')}
-                    </h2>
-                  );
+                  return <h2 key={index} className="text-2xl font-bold text-foreground mt-8 mb-4">{trimmed.replace('## ', '')}</h2>;
                 }
                 if (trimmed.startsWith('### ')) {
-                  return (
-                    <h3 key={index} className="text-xl font-semibold text-foreground mt-6 mb-3">
-                      {trimmed.replace('### ', '')}
-                    </h3>
-                  );
+                  return <h3 key={index} className="text-xl font-semibold text-foreground mt-6 mb-3">{trimmed.replace('### ', '')}</h3>;
                 }
-                
-                // Handle blockquotes
                 if (trimmed.startsWith('> ')) {
-                  return (
-                    <blockquote key={index} className="border-l-4 border-primary pl-4 my-6 italic text-muted-foreground bg-secondary/30 py-4 pr-4 rounded-r-lg">
-                      {trimmed.replace('> ', '')}
-                    </blockquote>
-                  );
+                  return <blockquote key={index} className="border-l-4 border-primary pl-4 my-6 italic text-muted-foreground bg-secondary/30 py-4 pr-4 rounded-r-lg">{trimmed.replace('> ', '')}</blockquote>;
                 }
-                
-                // Handle list items
                 if (trimmed.startsWith('- ')) {
-                  return (
-                    <li key={index} className="text-muted-foreground ml-4 mb-2">
-                      {trimmed.replace('- ', '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>')}
-                    </li>
-                  );
+                  return <li key={index} className="text-muted-foreground ml-4 mb-2">{trimmed.replace('- ', '')}</li>;
                 }
-                
-                // Handle numbered list items
                 if (/^\d+\.\s/.test(trimmed)) {
-                  return (
-                    <li key={index} className="text-muted-foreground ml-4 mb-2 list-decimal">
-                      {trimmed.replace(/^\d+\.\s/, '')}
-                    </li>
-                  );
+                  return <li key={index} className="text-muted-foreground ml-4 mb-2 list-decimal">{trimmed.replace(/^\d+\.\s/, '')}</li>;
                 }
+                if (trimmed.startsWith('|')) return null;
                 
-                // Handle tables (simplified)
-                if (trimmed.startsWith('|')) {
-                  return null; // Skip table rows for now, could be enhanced
-                }
-                
-                // Regular paragraphs
-                return (
-                  <p key={index} className="text-muted-foreground mb-4 leading-relaxed">
-                    {trimmed}
-                  </p>
-                );
+                return <p key={index} className="text-muted-foreground mb-4 leading-relaxed">{trimmed}</p>;
               })}
             </div>
           </article>
         </SectionTransition>
 
         {/* Tags */}
-        {news.tags && news.tags.length > 0 && (
+        {'tags' in news && news.tags && news.tags.length > 0 && (
           <SectionTransition delay={0.4}>
             <div className="mt-8 pt-8 border-t border-border">
               <div className="flex items-center gap-2 flex-wrap">
                 <Tag className="w-4 h-4 text-muted-foreground" />
-                {news.tags.map((tag) => (
+                {news.tags.map((tag: string) => (
                   <Badge key={tag} variant="secondary" className="rounded-full">
                     {tag}
                   </Badge>
@@ -233,28 +223,13 @@ export default function NewsDetailPage() {
                 <span className="text-muted-foreground">Partilhar:</span>
               </div>
               <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('facebook')}
-                  className="rounded-full hover:bg-blue-500/10 hover:text-blue-600 hover:border-blue-500/30"
-                >
+                <Button variant="outline" size="icon" onClick={() => handleShare('facebook')} className="rounded-full hover:bg-blue-500/10 hover:text-blue-600 hover:border-blue-500/30">
                   <Facebook className="w-4 h-4" />
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('twitter')}
-                  className="rounded-full hover:bg-sky-500/10 hover:text-sky-600 hover:border-sky-500/30"
-                >
+                <Button variant="outline" size="icon" onClick={() => handleShare('twitter')} className="rounded-full hover:bg-sky-500/10 hover:text-sky-600 hover:border-sky-500/30">
                   <Twitter className="w-4 h-4" />
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => handleShare('linkedin')}
-                  className="rounded-full hover:bg-blue-700/10 hover:text-blue-700 hover:border-blue-700/30"
-                >
+                <Button variant="outline" size="icon" onClick={() => handleShare('linkedin')} className="rounded-full hover:bg-blue-700/10 hover:text-blue-700 hover:border-blue-700/30">
                   <Linkedin className="w-4 h-4" />
                 </Button>
               </div>
@@ -271,17 +246,10 @@ export default function NewsDetailPage() {
           <StaggerContainer className="grid md:grid-cols-3 gap-6">
             {displayRelated.map((item) => (
               <StaggerItem key={item.id}>
-                <Link
-                  to={`/news/${item.id}`}
-                  className="group block h-full"
-                >
+                <Link to={`/news/${item.slug || item.id}`} className="group block h-full">
                   <div className="bg-secondary/50 border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg h-full flex flex-col">
                     <div className="aspect-video overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="p-5 flex flex-col flex-1">
                       <Badge className={cn("w-fit mb-3", getCategoryColor(item.category))}>

@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactMap } from "@/components/contact/ContactMap";
-
-const ANPG_ADDRESS = "Edifício Torres do Carmo, Torre 2, Avenida de Portugal, Luanda, Angola";
+import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 
 export default function ContactsPage() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
+
+  const contact = settings.contact;
 
   return (
     <PageLayout
@@ -40,10 +42,8 @@ export default function ContactsPage() {
                 <h3 className="font-semibold text-foreground mb-1">
                   {t("pages.contacts.info.address.title")}
                 </h3>
-                <p className="text-muted-foreground">
-                  Edifício Torres do Carmo - Torre 2<br />
-                  Avenida de Portugal, Rua Lopes de Lima<br />
-                  Município de Luanda, Angola
+                <p className="text-muted-foreground whitespace-pre-line">
+                  {contact.address}
                 </p>
               </div>
             </div>
@@ -57,7 +57,7 @@ export default function ContactsPage() {
                 <h3 className="font-semibold text-foreground mb-1">
                   {t("pages.contacts.info.phone.title")}
                 </h3>
-                <p className="text-muted-foreground">+244 226 428 000</p>
+                <p className="text-muted-foreground">{contact.phone}</p>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ export default function ContactsPage() {
                 <h3 className="font-semibold text-foreground mb-1">
                   {t("pages.contacts.info.email.title")}
                 </h3>
-                <p className="text-muted-foreground">info@anpg.co.ao</p>
+                <p className="text-muted-foreground">{contact.email}</p>
               </div>
             </div>
 
@@ -84,14 +84,14 @@ export default function ContactsPage() {
                   {t("pages.contacts.info.hours.title")}
                 </h3>
                 <p className="text-muted-foreground">
-                  {t("pages.contacts.info.hours.content")}
+                  {contact.hours || t("pages.contacts.info.hours.content")}
                 </p>
               </div>
             </div>
           </div>
 
           {/* Google Maps */}
-          <ContactMap address={ANPG_ADDRESS} />
+          <ContactMap address={contact.address} />
         </div>
 
         {/* Contact Form */}

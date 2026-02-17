@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import { useDashboardCounts } from '@/hooks/useCMSData';
 import {
   LayoutDashboard,
   Newspaper,
@@ -168,7 +169,7 @@ function getRoleBadge(role: string) {
 
 export default function AdminDashboard() {
   const { profile, roles, signOut, isAdmin, canManageContent, canManageOperations, canManageInvestors } = useAuth();
-
+  const { data: counts } = useDashboardCounts();
   const hasPermission = (permission: string) => {
     switch (permission) {
       case 'admin':
@@ -234,25 +235,25 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <Card>
             <CardContent className="pt-6">
-              <div className="text-2xl font-bold">--</div>
+              <div className="text-2xl font-bold">{counts?.newsCount ?? '--'}</div>
               <p className="text-sm text-muted-foreground">Notícias publicadas</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-2xl font-bold">--</div>
+              <div className="text-2xl font-bold">{counts?.blocksCount ?? '--'}</div>
               <p className="text-sm text-muted-foreground">Blocos activos</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-2xl font-bold">--</div>
+              <div className="text-2xl font-bold">{counts?.eoisCount ?? '--'}</div>
               <p className="text-sm text-muted-foreground">EOIs pendentes</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-2xl font-bold">--</div>
+              <div className="text-2xl font-bold">{counts?.docsCount ?? '--'}</div>
               <p className="text-sm text-muted-foreground">Documentos</p>
             </CardContent>
           </Card>
