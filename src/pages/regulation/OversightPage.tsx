@@ -51,6 +51,7 @@ export default function OversightPage() {
 
   return (
     <PageLayout
+      pageKey="oversight"
       title={t("services.oversight.title")}
       subtitle={t("services.label")}
       description={t("services.oversight.description")}

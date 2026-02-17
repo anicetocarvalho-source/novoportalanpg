@@ -14,6 +14,7 @@ export default function WhistleblowerPage() {
 
   return (
     <PageLayout
+      pageKey="whistleblower"
       title={t("pages.whistleblower.title")}
       subtitle={t("pages.whistleblower.subtitle")}
       breadcrumbs={[

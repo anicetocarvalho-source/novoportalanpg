@@ -11,6 +11,7 @@ export default function ContactsPage() {
 
   return (
     <PageLayout
+      pageKey="contacts"
       titleKey="pages.contacts.title"
       subtitleKey="pages.contacts.subtitle"
       descriptionKey="pages.contacts.description"

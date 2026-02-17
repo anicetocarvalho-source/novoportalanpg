@@ -127,6 +127,7 @@ export default function Tender2025Page() {
 
   return (
     <PageLayout
+      pageKey="tender-2025"
       titleKey="pages.tender2025.title"
       subtitleKey="pages.tender2025.subtitle"
       descriptionKey="pages.tender2025.description"

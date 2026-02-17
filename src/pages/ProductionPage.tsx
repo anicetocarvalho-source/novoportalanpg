@@ -89,6 +89,7 @@ export default function ProductionPage() {
 
   return (
     <PageLayout
+      pageKey="production"
       titleKey="pages.production.title"
       subtitleKey="pages.production.subtitle"
       descriptionKey="pages.production.description"

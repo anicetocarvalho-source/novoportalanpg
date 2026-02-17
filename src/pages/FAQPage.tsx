@@ -29,6 +29,7 @@ export default function FAQPage() {
 
   return (
     <PageLayout
+      pageKey="faq"
       titleKey="faq.hero.title"
       descriptionKey="faq.hero.description"
       icon={<HelpCircle className="w-8 h-8" />}

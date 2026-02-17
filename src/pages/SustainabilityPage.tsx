@@ -70,6 +70,7 @@ export default function SustainabilityPage() {
 
   return (
     <PageLayout
+      pageKey="sustainability"
       title={t("services.sustainability.title")}
       subtitle={t("services.label")}
       description={t("services.sustainability.description")}

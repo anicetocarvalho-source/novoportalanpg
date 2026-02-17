@@ -18,6 +18,7 @@ export default function EpDataPage() {
 
   return (
     <PageLayout
+      pageKey="ep-data"
       titleKey="pages.epData.title"
       subtitleKey="pages.epData.subtitle"
       descriptionKey="pages.epData.description"

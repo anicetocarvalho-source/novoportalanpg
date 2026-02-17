@@ -7,6 +7,7 @@ export default function OasisPage() {
 
   return (
     <PageLayout
+      pageKey="oasis"
       titleKey="pages.oasis.title"
       subtitleKey="pages.oasis.subtitle"
       descriptionKey="pages.oasis.description"

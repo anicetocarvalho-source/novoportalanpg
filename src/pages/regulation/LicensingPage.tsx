@@ -66,6 +66,7 @@ export default function LicensingPage() {
 
   return (
     <PageLayout
+      pageKey="licensing"
       title={t("services.licensing.title")}
       subtitle={t("services.label")}
       description={t("services.licensing.description")}

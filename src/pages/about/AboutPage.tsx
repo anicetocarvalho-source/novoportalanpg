@@ -25,6 +25,7 @@ export default function AboutPage() {
 
   return (
     <PageLayout
+      pageKey="about"
       titleKey="pages.about.title"
       subtitleKey="pages.about.subtitle"
       descriptionKey="pages.about.description"
