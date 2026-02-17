@@ -81,6 +81,7 @@ export default function EnergyIntegrationPage() {
 
   return (
     <PageLayout
+      pageKey="energy-integration"
       title={t("pages.energyIntegration.title")}
       subtitle={t("pages.energyIntegration.subtitle")}
       backgroundImage={heroImage}
