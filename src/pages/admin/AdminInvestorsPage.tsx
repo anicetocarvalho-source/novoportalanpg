@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -34,11 +34,16 @@ import {
   Loader2,
   Eye,
   Copy,
+  TrendingUp,
+  Percent,
+  CalendarDays,
 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { format } from "date-fns";
+import { format, subMonths, startOfMonth, isAfter } from "date-fns";
 import { pt } from "date-fns/locale";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 
 type Registration = {
   id: string;
@@ -134,12 +139,49 @@ export default function AdminInvestorsPage() {
     rejected: registrations.filter((r) => r.status === "rejected").length,
   };
 
+  const approvalRate = stats.total > 0 ? Math.round((stats.approved / stats.total) * 100) : 0;
+
+  // Registrations by month (last 6 months)
+  const monthlyData = useMemo(() => {
+    const months: { month: string; registos: number; aprovados: number; rejeitados: number }[] = [];
+    for (let i = 5; i >= 0; i--) {
+      const monthStart = startOfMonth(subMonths(new Date(), i));
+      const monthEnd = startOfMonth(subMonths(new Date(), i - 1));
+      const monthRegs = registrations.filter((r) => {
+        const d = new Date(r.created_at);
+        return isAfter(d, monthStart) && !isAfter(d, monthEnd);
+      });
+      months.push({
+        month: format(monthStart, "MMM yy", { locale: pt }),
+        registos: monthRegs.length,
+        aprovados: monthRegs.filter((r) => r.status === "approved").length,
+        rejeitados: monthRegs.filter((r) => r.status === "rejected").length,
+      });
+    }
+    return months;
+  }, [registrations]);
+
+  // Status distribution for pie chart
+  const pieData = useMemo(() => [
+    { name: "Pendentes", value: stats.pending, color: "hsl(var(--muted-foreground))" },
+    { name: "Aprovados", value: stats.approved, color: "hsl(var(--primary))" },
+    { name: "Rejeitados", value: stats.rejected, color: "hsl(var(--destructive))" },
+  ].filter((d) => d.value > 0), [stats]);
+
+  // Last 5 approved investors
+  const recentApproved = useMemo(() =>
+    registrations
+      .filter((r) => r.status === "approved" && r.reviewed_at)
+      .sort((a, b) => new Date(b.reviewed_at!).getTime() - new Date(a.reviewed_at!).getTime())
+      .slice(0, 5),
+  [registrations]);
+
   const statusBadge = (status: string) => {
     switch (status) {
       case "pending":
         return <Badge variant="outline" className="gap-1"><Clock className="w-3 h-3" />Pendente</Badge>;
       case "approved":
-        return <Badge className="gap-1 bg-green-600"><CheckCircle className="w-3 h-3" />Aprovado</Badge>;
+        return <Badge className="gap-1 bg-primary"><CheckCircle className="w-3 h-3" />Aprovado</Badge>;
       case "rejected":
         return <Badge variant="destructive" className="gap-1"><XCircle className="w-3 h-3" />Rejeitado</Badge>;
       default:
@@ -171,12 +213,94 @@ export default function AdminInvestorsPage() {
 
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold">{stats.total}</div><p className="text-xs text-muted-foreground">Total</p></CardContent></Card>
-          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-yellow-600">{stats.pending}</div><p className="text-xs text-muted-foreground">Pendentes</p></CardContent></Card>
-          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-green-600">{stats.approved}</div><p className="text-xs text-muted-foreground">Aprovados</p></CardContent></Card>
-          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-red-600">{stats.rejected}</div><p className="text-xs text-muted-foreground">Rejeitados</p></CardContent></Card>
+          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-status-warning">{stats.pending}</div><p className="text-xs text-muted-foreground">Pendentes</p></CardContent></Card>
+          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-status-success">{stats.approved}</div><p className="text-xs text-muted-foreground">Aprovados</p></CardContent></Card>
+          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-destructive">{stats.rejected}</div><p className="text-xs text-muted-foreground">Rejeitados</p></CardContent></Card>
+          <Card><CardContent className="pt-4 text-center"><div className="text-2xl font-bold text-primary flex items-center justify-center gap-1"><Percent className="w-4 h-4" />{approvalRate}</div><p className="text-xs text-muted-foreground">Taxa Aprovação</p></CardContent></Card>
         </div>
+
+        {/* Dashboard Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Monthly registrations chart */}
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Registos por Mês (últimos 6 meses)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                  <XAxis dataKey="month" className="text-xs" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                  <YAxis allowDecimals={false} tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                  <Tooltip
+                    contentStyle={{
+                      background: 'hsl(var(--background))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                    }}
+                  />
+                  <Bar dataKey="registos" name="Registos" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="aprovados" name="Aprovados" fill="hsl(var(--primary) / 0.5)" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          {/* Pie chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Distribuição</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {pieData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={250}>
+                  <PieChart>
+                    <Pie data={pieData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" nameKey="name" label={({ name, value }) => `${name}: ${value}`}>
+                      {pieData.map((entry, i) => (
+                        <Cell key={i} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex items-center justify-center h-[250px] text-muted-foreground text-sm">Sem dados</div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent approvals */}
+        {recentApproved.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <CalendarDays className="w-4 h-4" />
+                Últimas Aprovações
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {recentApproved.map((r) => (
+                  <div key={r.id} className="flex items-center justify-between py-2 border-b last:border-0">
+                    <div>
+                      <div className="font-medium text-sm">{r.full_name}</div>
+                      <div className="text-xs text-muted-foreground">{r.company_name} · {r.email}</div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {r.reviewed_at && format(new Date(r.reviewed_at), "dd MMM yyyy", { locale: pt })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4">
@@ -248,7 +372,7 @@ export default function AdminInvestorsPage() {
                                 size="sm"
                                 onClick={() => approveMutation.mutate(reg.id)}
                                 disabled={approveMutation.isPending}
-                                className="bg-green-600 hover:bg-green-700"
+                                className="bg-primary hover:bg-primary/90"
                               >
                                 {approveMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
                               </Button>
