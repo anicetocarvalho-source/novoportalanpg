@@ -1,10 +1,22 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Play, BarChart3, Shield, TrendingUp } from "lucide-react";
+import { ArrowRight, Play, BarChart3, Shield, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContentBlock } from "@/hooks/useCMSData";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import heroImage from "@/assets/hero-offshore.jpg";
+import angolaCoast from "@/assets/angola-coast.jpg";
+import refineryImg from "@/assets/refinery.jpg";
+import platformImg from "@/assets/angola-offshore-platform.jpg";
+
+const defaultSlides = [
+  { image: heroImage },
+  { image: angolaCoast },
+  { image: refineryImg },
+  { image: platformImg },
+];
 
 const defaultQuickAccess = [
   {
@@ -41,83 +53,88 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  // CMS content block with fallback
   const { data: cmsBlock } = useContentBlock("home", "hero");
   const cmsContent = cmsBlock?.content;
-  const heroImg = cmsContent?.image || heroImage;
+
+  // Build slides: CMS slides or defaults
+  const slides = cmsContent?.slides?.length
+    ? cmsContent.slides.slice(0, 6)
+    : defaultSlides;
+
   const quickAccessItems = cmsContent?.quickAccess?.length ? cmsContent.quickAccess : defaultQuickAccess;
 
-  // Multi-layer parallax transforms with different speeds
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.3]);
-  const midgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const foregroundY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }),
+  ]);
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi, onSelect]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
+
+  // Parallax transforms
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.8], [0.6, 0.9]);
-  
-  // Floating particles parallax
-  const particle1Y = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
-  const particle2Y = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
-  const particle3Y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
     <section
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Layer 1: Background Image (slowest parallax) */}
-      <motion.div
-        style={{ y: backgroundY, scale: backgroundScale }}
-        className="absolute inset-0 z-0"
-      >
-        <img
-          src={heroImg}
-          alt="Offshore oil platform"
-          className="w-full h-full object-cover"
-        />
-      </motion.div>
+      {/* Carousel Background */}
+      <div ref={emblaRef} className="absolute inset-0 z-0 overflow-hidden">
+        <div className="flex h-full">
+          {slides.map((slide: any, idx: number) => (
+            <div key={idx} className="flex-[0_0_100%] min-w-0 h-full relative">
+              <img
+                src={slide.image}
+                alt={`Slide ${idx + 1}`}
+                className="w-full h-full object-cover scale-110"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
 
-      {/* Layer 2: Gradient Overlay with parallax */}
-      <motion.div 
-        style={{ y: midgroundY, opacity: overlayOpacity }}
-        className="absolute inset-0 z-[1] hero-overlay" 
-      />
-      
-      {/* Layer 3: Floating Particles/Orbs for depth */}
+      {/* Overlay */}
+      <div className="absolute inset-0 z-[1] hero-overlay" />
+
+      {/* Floating Orbs */}
       <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
         <motion.div
-          style={{ y: particle1Y }}
           className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-primary/5 blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          style={{ y: particle2Y }}
           className="absolute bottom-40 -left-32 w-64 h-64 rounded-full bg-primary/10 blur-2xl"
           animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
-        <motion.div
-          style={{ y: particle3Y }}
-          className="absolute top-1/3 right-1/4 w-32 h-32 rounded-full bg-primary/15 blur-xl"
-          animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
       </div>
 
-      {/* Layer 4: Geometric patterns overlay */}
-      <motion.div 
-        style={{ y: foregroundY }}
-        className="absolute inset-0 z-[3] opacity-[0.03]"
-      >
+      {/* Geometric pattern */}
+      <div className="absolute inset-0 z-[3] opacity-[0.03]">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,hsl(var(--primary))_49%,hsl(var(--primary))_51%,transparent_52%)] bg-[length:60px_60px]" />
-      </motion.div>
-      
-      {/* Layer 5: Radial vignette */}
+      </div>
+
+      {/* Vignette */}
       <div className="absolute inset-0 z-[4] opacity-40 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_black_100%)]" />
 
-      {/* Layer 6: Content */}
+      {/* Content */}
       <motion.div
         style={{ opacity, y: contentY }}
         className="relative z-10 container mx-auto px-6 lg:px-8 pt-24"
@@ -197,6 +214,44 @@ export function HeroSection() {
         </motion.div>
       </motion.div>
 
+      {/* Slide Navigation Arrows */}
+      {slides.length > 1 && (
+        <>
+          <button
+            onClick={scrollPrev}
+            className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass flex items-center justify-center text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-all"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass flex items-center justify-center text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-all"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </>
+      )}
+
+      {/* Dot Indicators */}
+      {slides.length > 1 && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+          {slides.map((_: any, idx: number) => (
+            <button
+              key={idx}
+              onClick={() => scrollTo(idx)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === selectedIndex
+                  ? "w-8 bg-primary"
+                  : "w-2 bg-primary-foreground/40 hover:bg-primary-foreground/60"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -237,7 +292,7 @@ interface QuickAccessCardProps {
 
 function QuickAccessCard({ icon, titleKey, title, descriptionKey, description, href, delay }: QuickAccessCardProps) {
   const { t } = useTranslation();
-  
+
   return (
     <motion.a
       href={href}
