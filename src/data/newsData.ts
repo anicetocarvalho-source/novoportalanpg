@@ -391,10 +391,10 @@ export const getCategoryLabel = (category: string) => {
 
 export const getCategoryColor = (category: string) => {
   switch (category) {
-    case "press": return "bg-blue-500/10 text-blue-600 border-blue-500/20";
-    case "tender": return "bg-amber-500/10 text-amber-600 border-amber-500/20";
+    case "press": return "bg-status-info/10 text-status-info-foreground border-status-info/20";
+    case "tender": return "bg-status-warning/10 text-status-warning-foreground border-status-warning/20";
     case "highlight": return "bg-primary/10 text-primary border-primary/20";
-    case "production": return "bg-green-500/10 text-green-600 border-green-500/20";
+    case "production": return "bg-status-success/10 text-status-success-foreground border-status-success/20";
     default: return "bg-muted text-muted-foreground";
   }
 };

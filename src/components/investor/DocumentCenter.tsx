@@ -226,10 +226,10 @@ export function DocumentCenter() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "PDF": return "bg-red-500/10 text-red-600";
-      case "DOC": return "bg-blue-500/10 text-blue-600";
-      case "XLS": return "bg-green-500/10 text-green-600";
-      case "ZIP": return "bg-purple-500/10 text-purple-600";
+      case "PDF": return "bg-destructive/10 text-destructive";
+      case "DOC": return "bg-status-info/10 text-status-info-foreground";
+      case "XLS": return "bg-status-success/10 text-status-success-foreground";
+      case "ZIP": return "bg-muted text-muted-foreground";
       default: return "bg-muted text-muted-foreground";
     }
   };

@@ -23,10 +23,10 @@ const iconPool = [
 const highlightYears = new Set(["1968", "1976", "1999", "2007", "2008", "2013", "2019"]);
 
 const getEras = (t: (key: string) => string) => [
-  { name: t("pages.history.eras.pioneering"), years: "1910-1955", color: "from-amber-500/20 to-amber-600/20" },
-  { name: t("pages.history.eras.growth"), years: "1958-1990", color: "from-orange-500/20 to-orange-600/20" },
+  { name: t("pages.history.eras.pioneering"), years: "1910-1955", color: "from-status-warning/20 to-status-warning/30" },
+  { name: t("pages.history.eras.growth"), years: "1958-1990", color: "from-status-warning/30 to-status-warning/40" },
   { name: t("pages.history.eras.expansion"), years: "1999-2008", color: "from-primary/20 to-primary/30" },
-  { name: t("pages.history.eras.modernization"), years: "2009-2021", color: "from-emerald-500/20 to-emerald-600/20" },
+  { name: t("pages.history.eras.modernization"), years: "2009-2021", color: "from-status-success/20 to-status-success/30" },
 ];
 
 export default function HistoryPage() {

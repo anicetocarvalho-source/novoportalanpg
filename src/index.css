@@ -46,6 +46,16 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
+    /* Status semantic colors */
+    --status-success: 142 71% 45%;
+    --status-success-foreground: 142 71% 35%;
+    --status-warning: 38 92% 50%;
+    --status-warning-foreground: 38 92% 40%;
+    --status-info: 217 91% 60%;
+    --status-info-foreground: 217 91% 48%;
+    --status-neutral: 220 10% 50%;
+    --status-neutral-foreground: 220 10% 40%;
+
     --border: 220 10% 90%;
     --input: 220 10% 90%;
     --ring: 356 90% 58%;
@@ -120,6 +130,16 @@
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
+
+    /* Status semantic colors - dark */
+    --status-success: 142 71% 45%;
+    --status-success-foreground: 142 71% 55%;
+    --status-warning: 38 92% 50%;
+    --status-warning-foreground: 38 92% 60%;
+    --status-info: 217 91% 60%;
+    --status-info-foreground: 217 91% 70%;
+    --status-neutral: 220 10% 50%;
+    --status-neutral-foreground: 220 10% 60%;
 
     --border: 220 12% 20%;
     --input: 220 12% 20%;

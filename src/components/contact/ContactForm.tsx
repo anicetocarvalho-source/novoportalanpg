@@ -112,8 +112,8 @@ export function ContactForm() {
     return (
       <div className="bg-secondary/50 rounded-2xl p-8 border border-border">
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-            <CheckCircle2 className="w-8 h-8 text-green-500" />
+          <div className="w-16 h-16 rounded-full bg-status-success/10 flex items-center justify-center mb-4">
+            <CheckCircle2 className="w-8 h-8 text-status-success" />
           </div>
           <h3 className="text-xl font-bold text-foreground mb-2">
             {t("contactForm.success.title")}

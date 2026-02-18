@@ -177,8 +177,8 @@ export default function PermanentOfferPage() {
                         <Badge variant="secondary" className={cn(
                           "text-xs",
                           block.status === "available"
-                            ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 hover:bg-emerald-500/20"
-                            : "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/20"
+                            ? "bg-status-success/10 text-status-success-foreground border-status-success/20 hover:bg-status-success/20"
+                            : "bg-status-warning/10 text-status-warning-foreground border-status-warning/20 hover:bg-status-warning/20"
                         )}>
                           {getStatusLabel(block.status || "available")}
                         </Badge>

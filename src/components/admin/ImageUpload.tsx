@@ -239,7 +239,7 @@ export function ImageUpload({
             </div>
           </div>
           {compressionInfo && (
-            <p className="text-xs text-green-600 mt-1">{compressionInfo}</p>
+            <p className="text-xs text-status-success-foreground mt-1">{compressionInfo}</p>
           )}
           <p className="text-xs text-muted-foreground mt-1 truncate">{value}</p>
         </div>

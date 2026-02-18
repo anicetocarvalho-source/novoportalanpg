@@ -17,8 +17,8 @@ const defaultStats = [
 
 const defaultRegimes = [
   { title: "Regime de Exclusividade", iconKey: "CheckCircle2", color: "bg-primary/10 text-primary", description: "Consiste na obrigação que impede sobre as empresas do sector dos petróleo e as associadas da concessionária Nacional de utilizar os bens e serviços das sociedades comercias Angolanas (empresas 100% Angolanas) que constem na lista de bens e serviços exclusivos." },
-  { title: "Regime de Preferência", iconKey: "Award", color: "bg-amber-500/10 text-amber-600", description: "Consiste na obrigação que impede sobre as sociedades comercias do sector dos petróleos e associadas da concessionária Nacional de utilizar os bens e serviços das sociedades de direito Angolano (empresas constituídas e estabelecidas de acordo com a legislação angolana)." },
-  { title: "Regime de Concorrência", iconKey: "Users", color: "bg-emerald-500/10 text-emerald-600", description: "Consiste na permissão de contratar livremente bens e serviços que não constem das listas de exclusividade e preferência." },
+  { title: "Regime de Preferência", iconKey: "Award", color: "bg-status-warning/10 text-status-warning-foreground", description: "Consiste na obrigação que impede sobre as sociedades comercias do sector dos petróleos e associadas da concessionária Nacional de utilizar os bens e serviços das sociedades de direito Angolano (empresas constituídas e estabelecidas de acordo com a legislação angolana)." },
+  { title: "Regime de Concorrência", iconKey: "Users", color: "bg-status-success/10 text-status-success-foreground", description: "Consiste na permissão de contratar livremente bens e serviços que não constem das listas de exclusividade e preferência." },
 ];
 
 const defaultRegistrationSteps = [
@@ -212,8 +212,8 @@ export default function LocalContentPage() {
             </Card>
             <Card className="hover:shadow-elevated transition-all duration-300">
               <CardContent className="p-6 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                  <ClipboardList className="w-6 h-6 text-amber-600" />
+                <div className="w-12 h-12 rounded-xl bg-status-warning/10 flex items-center justify-center flex-shrink-0">
+                  <ClipboardList className="w-6 h-6 text-status-warning-foreground" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-foreground mb-2">{docsData?.decree?.title || "Decreto Presidencial nº 271/20"}</h3>

@@ -99,7 +99,7 @@ export default function AdminFAQPage() {
       <header className="bg-background border-b sticky top-0 z-50">
         <div className="container mx-auto px-4 h-16 flex items-center gap-4">
           <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-          <HelpCircle className="h-6 w-6 text-cyan-500" />
+          <HelpCircle className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Perguntas Frequentes</span>
         </div>
       </header>

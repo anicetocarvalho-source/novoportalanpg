@@ -46,9 +46,9 @@ import type { Tables } from '@/integrations/supabase/types';
 type AuditLog = Tables<'audit_logs'>;
 
 const ACTIONS = [
-  { value: 'INSERT', label: 'Criação', icon: Plus, color: 'bg-green-500' },
-  { value: 'UPDATE', label: 'Actualização', icon: Pencil, color: 'bg-blue-500' },
-  { value: 'DELETE', label: 'Eliminação', icon: Trash2, color: 'bg-red-500' },
+  { value: 'INSERT', label: 'Criação', icon: Plus, color: 'bg-status-success' },
+  { value: 'UPDATE', label: 'Actualização', icon: Pencil, color: 'bg-status-info' },
+  { value: 'DELETE', label: 'Eliminação', icon: Trash2, color: 'bg-destructive' },
 ];
 
 const TABLES = [
@@ -151,7 +151,7 @@ export default function AdminAuditPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <History className="h-6 w-6 text-gray-500" />
+          <History className="h-6 w-6 text-muted-foreground" />
           <span className="font-semibold text-lg">Audit Logs</span>
         </div>
       </header>
@@ -308,7 +308,7 @@ export default function AdminAuditPage() {
               {selectedLog.old_data && (
                 <div className="space-y-2">
                   <p className="font-semibold text-sm">Dados Anteriores</p>
-                  <pre className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 rounded-lg p-4 text-xs overflow-x-auto">
+                  <pre className="bg-destructive/5 dark:bg-destructive/10 border border-destructive/20 rounded-lg p-4 text-xs overflow-x-auto">
                     {formatJson(selectedLog.old_data)}
                   </pre>
                 </div>
@@ -318,7 +318,7 @@ export default function AdminAuditPage() {
               {selectedLog.new_data && (
                 <div className="space-y-2">
                   <p className="font-semibold text-sm">Dados Novos</p>
-                  <pre className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg p-4 text-xs overflow-x-auto">
+                  <pre className="bg-status-success/5 dark:bg-status-success/10 border border-status-success/20 rounded-lg p-4 text-xs overflow-x-auto">
                     {formatJson(selectedLog.new_data)}
                   </pre>
                 </div>

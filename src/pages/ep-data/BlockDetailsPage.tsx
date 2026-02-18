@@ -84,9 +84,9 @@ const statusLabels: Record<string, string> = {
 };
 
 const statusColors: Record<string, string> = {
-  production: "bg-green-500/20 text-green-600 border-green-500/30",
-  exploration: "bg-blue-500/20 text-blue-600 border-blue-500/30",
-  development: "bg-amber-500/20 text-amber-600 border-amber-500/30",
+  production: "bg-status-success/20 text-status-success-foreground border-status-success/30",
+  exploration: "bg-status-info/20 text-status-info-foreground border-status-info/30",
+  development: "bg-status-warning/20 text-status-warning-foreground border-status-warning/30",
   available: "bg-primary/20 text-primary border-primary/30",
 };
 

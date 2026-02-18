@@ -32,7 +32,7 @@ const modules = [
     icon: Newspaper,
     href: '/admin/news',
     permission: 'content',
-    color: 'bg-blue-500',
+    color: 'bg-status-info',
   },
   {
     title: 'Páginas CMS',
@@ -40,7 +40,7 @@ const modules = [
     icon: FileText,
     href: '/admin/pages',
     permission: 'content',
-    color: 'bg-purple-500',
+    color: 'bg-primary/80',
   },
   {
     title: 'Blocos de Conteúdo',
@@ -48,7 +48,7 @@ const modules = [
     icon: LayoutGrid,
     href: '/admin/content-blocks',
     permission: 'content',
-    color: 'bg-indigo-500',
+    color: 'bg-status-info/80',
   },
   {
     title: 'Banners de Página',
@@ -56,7 +56,7 @@ const modules = [
     icon: Image,
     href: '/admin/page-banners',
     permission: 'content',
-    color: 'bg-pink-500',
+    color: 'bg-primary/60',
   },
   {
     title: 'Menu / Navegação',
@@ -64,7 +64,7 @@ const modules = [
     icon: Menu,
     href: '/admin/menu-items',
     permission: 'content',
-    color: 'bg-violet-500',
+    color: 'bg-primary/70',
   },
   {
     title: 'Conselho de Administração',
@@ -72,7 +72,7 @@ const modules = [
     icon: UserCheck,
     href: '/admin/board-members',
     permission: 'content',
-    color: 'bg-rose-500',
+    color: 'bg-primary',
   },
   {
     title: 'FAQ',
@@ -80,7 +80,7 @@ const modules = [
     icon: HelpCircle,
     href: '/admin/faq',
     permission: 'content',
-    color: 'bg-cyan-500',
+    color: 'bg-status-info/60',
   },
   {
     title: 'Linha do Tempo',
@@ -88,7 +88,7 @@ const modules = [
     icon: Clock,
     href: '/admin/history-events',
     permission: 'content',
-    color: 'bg-amber-500',
+    color: 'bg-status-warning',
   },
   {
     title: 'Blocos Petrolíferos',
@@ -96,7 +96,7 @@ const modules = [
     icon: MapPin,
     href: '/admin/blocks',
     permission: 'operations',
-    color: 'bg-orange-500',
+    color: 'bg-status-warning/80',
   },
   {
     title: 'Estatísticas de Produção',
@@ -104,7 +104,7 @@ const modules = [
     icon: BarChart3,
     href: '/admin/production',
     permission: 'operations',
-    color: 'bg-green-500',
+    color: 'bg-status-success',
   },
   {
     title: 'Expressões de Interesse',
@@ -112,7 +112,7 @@ const modules = [
     icon: Briefcase,
     href: '/admin/eoi',
     permission: 'investors',
-    color: 'bg-amber-500',
+    color: 'bg-status-warning',
   },
   {
     title: 'Documentos',
@@ -120,7 +120,7 @@ const modules = [
     icon: FolderOpen,
     href: '/admin/documents',
     permission: 'investors',
-    color: 'bg-teal-500',
+    color: 'bg-status-info/70',
   },
   {
     title: 'Utilizadores',
@@ -128,7 +128,7 @@ const modules = [
     icon: Users,
     href: '/admin/users',
     permission: 'admin',
-    color: 'bg-red-500',
+    color: 'bg-destructive',
   },
   {
     title: 'Audit Logs',
@@ -136,7 +136,7 @@ const modules = [
     icon: History,
     href: '/admin/audit',
     permission: 'admin',
-    color: 'bg-gray-500',
+    color: 'bg-status-neutral',
   },
   {
     title: 'Configurações',
@@ -144,7 +144,7 @@ const modules = [
     icon: Settings,
     href: '/admin/settings',
     permission: 'admin',
-    color: 'bg-slate-600',
+    color: 'bg-status-neutral',
   },
   {
     title: 'Base de Conhecimento',
@@ -152,7 +152,7 @@ const modules = [
     icon: BookOpen,
     href: '/admin/knowledge-base',
     permission: 'content',
-    color: 'bg-emerald-500',
+    color: 'bg-status-success/80',
   },
 ];
 
