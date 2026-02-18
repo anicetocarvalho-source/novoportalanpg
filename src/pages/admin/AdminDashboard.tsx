@@ -197,6 +197,11 @@ export default function AdminDashboard() {
             <span className="font-semibold text-lg">Backoffice ANPG</span>
           </div>
           <div className="flex items-center gap-4">
+            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
+              <a href="/" target="_blank" rel="noopener noreferrer">
+                Ver Website ↗
+              </a>
+            </Button>
             <div className="text-right hidden sm:block">
               <p className="text-sm font-medium">{profile?.full_name}</p>
               <div className="flex gap-1 justify-end">
