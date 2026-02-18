@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
-import { useNewsArticles, type CMSNewsArticle } from "@/hooks/useCMSData";
+import { useNewsArticles, useContentBlock, type CMSNewsArticle } from "@/hooks/useCMSData";
 import { newsItems as fallbackNewsItems, getCategoryLabel } from "@/data/newsData";
 
-const categories = [
+const defaultCategories = [
   { id: "all", label: "Todos" },
   { id: "highlight", label: "Destaques" },
   { id: "press", label: "Comunicados" },
@@ -22,6 +22,10 @@ export function NewsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState("all");
+
+  const { data: cmsBlock } = useContentBlock("home", "news");
+  const cms = cmsBlock?.content;
+  const categories = cms?.categories?.length ? cms.categories : defaultCategories;
 
   // Fetch from CMS, fallback to hardcoded data
   const { data: cmsNews, isLoading } = useNewsArticles({ limit: 20 });
@@ -61,15 +65,15 @@ export function NewsSection() {
         >
           <div>
             <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
-              {t("news.label")}
+              {cms?.label || t("news.label")}
             </span>
             <h2 className="section-title">
-              {t("news.title")}
+              {cms?.title || t("news.title")}
             </h2>
           </div>
           <Link to="/media">
             <Button variant="heroOutlineLight" size="default" className="mt-6 md:mt-0 group">
-              {t("news.viewAll")}
+              {cms?.viewAll || t("news.viewAll")}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
