@@ -132,6 +132,14 @@ const modules = [
     color: 'bg-status-success',
   },
   {
+    title: 'Gestão de Investidores',
+    description: 'Registos, aprovações e acessos',
+    icon: Users,
+    href: '/admin/investors',
+    permission: 'investors',
+    color: 'bg-primary/80',
+  },
+  {
     title: 'Expressões de Interesse',
     description: 'Gerir submissões de investidores',
     icon: Briefcase,
