@@ -17,7 +17,7 @@ import {
 import { toast } from 'sonner';
 import {
   ArrowLeft, Save, Loader2, Home, BarChart3, Briefcase, Info,
-  Megaphone, Image, Plus, Trash2, GripVertical,
+  Megaphone, Image, Plus, Trash2, GripVertical, Newspaper,
 } from 'lucide-react';
 import type { Json } from '@/integrations/supabase/types';
 
@@ -39,6 +39,7 @@ const SECTION_META: Record<string, { label: string; icon: React.ReactNode; descr
   about: { label: 'Sobre Nós', icon: <Info className="h-4 w-4" />, description: 'Secção institucional com valores' },
   investment: { label: 'Investimento', icon: <Briefcase className="h-4 w-4" />, description: 'Oportunidades de investimento e blocos' },
   cta: { label: 'Call to Action', icon: <Megaphone className="h-4 w-4" />, description: 'Secção final com contactos' },
+  news: { label: 'Notícias', icon: <Newspaper className="h-4 w-4" />, description: 'Títulos e categorias da secção de notícias' },
 };
 
 export default function AdminHomepageContentPage() {
@@ -80,7 +81,7 @@ export default function AdminHomepageContentPage() {
   const getBlocks = (sectionKey: string) =>
     allBlocks?.filter(b => b.section_key === sectionKey) || [];
 
-  const sections = ['hero', 'hero-slide', 'stats', 'services', 'about', 'investment', 'cta'];
+  const sections = ['hero', 'hero-slide', 'stats', 'services', 'about', 'investment', 'cta', 'news'];
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -190,6 +191,8 @@ function SectionEditor({ sectionKey, block, meta, onSave, isSaving }: SectionEdi
     switch (sectionKey) {
       case 'hero':
         return <HeroFields content={content} update={update} />;
+      case 'news':
+        return <NewsFields content={content} update={update} />;
       case 'stats':
         return <StatsFields content={content} update={update} />;
       case 'services':
@@ -269,14 +272,60 @@ function HeroFields({ content, update }: { content: Record<string, any>; update:
           <Input value={content.ctaSecondary || ''} onChange={e => update('ctaSecondary', e.target.value)} />
         </Field>
       </div>
-      <Field label="Quick Access (JSON)">
-        <Textarea
-          value={JSON.stringify(content.quickAccess || [], null, 2)}
-          onChange={e => { try { update('quickAccess', JSON.parse(e.target.value)); } catch {} }}
-          rows={6}
-          className="font-mono text-xs"
-        />
-      </Field>
+      <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Quick Access (cards no fundo do hero)</Label>
+      <div className="grid gap-3">
+        {(content.quickAccess || []).map((item: any, i: number) => (
+          <div key={i} className="p-3 border rounded-md bg-muted/30 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Card {i + 1}</span>
+              <Button variant="ghost" size="icon" onClick={() => {
+                const items = [...(content.quickAccess || [])];
+                items.splice(i, 1);
+                update('quickAccess', items);
+              }}>
+                <Trash2 className="h-4 w-4 text-destructive" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Field label="Ícone">
+                <Input value={item.iconKey || ''} onChange={e => {
+                  const items = [...(content.quickAccess || [])];
+                  items[i] = { ...items[i], iconKey: e.target.value };
+                  update('quickAccess', items);
+                }} placeholder="TrendingUp, Shield, BarChart3" />
+              </Field>
+              <Field label="Link">
+                <Input value={item.href || ''} onChange={e => {
+                  const items = [...(content.quickAccess || [])];
+                  items[i] = { ...items[i], href: e.target.value };
+                  update('quickAccess', items);
+                }} />
+              </Field>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Field label="Título">
+                <Input value={item.title || item.titleKey || ''} onChange={e => {
+                  const items = [...(content.quickAccess || [])];
+                  items[i] = { ...items[i], title: e.target.value };
+                  update('quickAccess', items);
+                }} />
+              </Field>
+              <Field label="Descrição">
+                <Input value={item.description || item.descriptionKey || ''} onChange={e => {
+                  const items = [...(content.quickAccess || [])];
+                  items[i] = { ...items[i], description: e.target.value };
+                  update('quickAccess', items);
+                }} />
+              </Field>
+            </div>
+          </div>
+        ))}
+        <Button variant="outline" size="sm" onClick={() => {
+          update('quickAccess', [...(content.quickAccess || []), { iconKey: 'TrendingUp', title: '', description: '', href: '/' }]);
+        }} className="w-fit">
+          <Plus className="h-4 w-4 mr-2" />Adicionar Card
+        </Button>
+      </div>
     </div>
   );
 }
@@ -557,6 +606,51 @@ function CTAFields({ content, update }: { content: Record<string, any>; update: 
         <Field label="Telefone">
           <Input value={content.phone || ''} onChange={e => update('phone', e.target.value)} />
         </Field>
+      </div>
+    </div>
+  );
+}
+
+// ─── News Fields ───
+
+function NewsFields({ content, update }: { content: Record<string, any>; update: (k: string, v: any) => void }) {
+  const categories = (content.categories || []) as { id: string; label: string }[];
+
+  const updateCategory = (index: number, field: string, value: string) => {
+    const newCats = [...categories];
+    newCats[index] = { ...newCats[index], [field]: value };
+    update('categories', newCats);
+  };
+
+  return (
+    <div className="grid gap-4">
+      <Field label="Etiqueta">
+        <Input value={content.label || ''} onChange={e => update('label', e.target.value)} />
+      </Field>
+      <Field label="Título">
+        <Input value={content.title || ''} onChange={e => update('title', e.target.value)} />
+      </Field>
+      <Field label="Texto 'Ver Todas'">
+        <Input value={content.viewAll || ''} onChange={e => update('viewAll', e.target.value)} />
+      </Field>
+      <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Categorias (tabs de filtro)</Label>
+      <div className="grid gap-2">
+        {categories.map((cat, i) => (
+          <div key={i} className="grid grid-cols-[1fr_2fr_auto] gap-2 items-end">
+            <Field label="ID">
+              <Input value={cat.id} onChange={e => updateCategory(i, 'id', e.target.value)} placeholder="all, highlight..." />
+            </Field>
+            <Field label="Label">
+              <Input value={cat.label} onChange={e => updateCategory(i, 'label', e.target.value)} />
+            </Field>
+            <Button variant="ghost" size="icon" onClick={() => update('categories', categories.filter((_, idx) => idx !== i))}>
+              <Trash2 className="h-4 w-4 text-destructive" />
+            </Button>
+          </div>
+        ))}
+        <Button variant="outline" size="sm" onClick={() => update('categories', [...categories, { id: '', label: '' }])} className="w-fit">
+          <Plus className="h-4 w-4 mr-2" />Adicionar Categoria
+        </Button>
       </div>
     </div>
   );
