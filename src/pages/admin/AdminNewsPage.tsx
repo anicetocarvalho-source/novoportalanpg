@@ -117,7 +117,7 @@ export default function AdminNewsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'published':
-        return <Badge className="bg-green-500 text-white">Publicado</Badge>;
+        return <Badge className="bg-status-success text-white">Publicado</Badge>;
       case 'draft':
         return <Badge variant="secondary">Rascunho</Badge>;
       case 'archived':
@@ -136,7 +136,7 @@ export default function AdminNewsPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <Newspaper className="h-6 w-6 text-blue-500" />
+          <Newspaper className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Gestão de Notícias</span>
         </div>
       </header>

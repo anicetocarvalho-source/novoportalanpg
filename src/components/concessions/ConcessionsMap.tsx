@@ -398,9 +398,9 @@ const statusLabels = {
 };
 
 const statusColors = {
-  production: "bg-green-500/20 text-green-600 border-green-500/30",
-  exploration: "bg-blue-500/20 text-blue-600 border-blue-500/30",
-  development: "bg-amber-500/20 text-amber-600 border-amber-500/30",
+  production: "bg-status-success/20 text-status-success-foreground border-status-success/30",
+  exploration: "bg-status-info/20 text-status-info-foreground border-status-info/30",
+  development: "bg-status-warning/20 text-status-warning-foreground border-status-warning/30",
   available: "bg-primary/20 text-primary border-primary/30",
 };
 
@@ -448,12 +448,12 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
     <div className="space-y-6">
       {/* Stats Summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-          <p className="text-2xl font-bold text-green-600">{stats.production}</p>
+        <div className="p-4 rounded-xl bg-status-success/10 border border-status-success/20">
+          <p className="text-2xl font-bold text-status-success-foreground">{stats.production}</p>
           <p className="text-sm text-muted-foreground">Em Produção</p>
         </div>
-        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-          <p className="text-2xl font-bold text-blue-600">{stats.exploration}</p>
+        <div className="p-4 rounded-xl bg-status-info/10 border border-status-info/20">
+          <p className="text-2xl font-bold text-status-info-foreground">{stats.exploration}</p>
           <p className="text-sm text-muted-foreground">Em Exploração</p>
         </div>
         <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">

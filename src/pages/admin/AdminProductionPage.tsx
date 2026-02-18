@@ -249,7 +249,7 @@ export default function AdminProductionPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <BarChart3 className="h-6 w-6 text-green-500" />
+          <BarChart3 className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Estatísticas de Produção</span>
         </div>
       </header>
@@ -260,8 +260,8 @@ export default function AdminProductionPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-blue-500/10">
-                  <Droplets className="h-6 w-6 text-blue-500" />
+                <div className="p-3 rounded-lg bg-status-info/10">
+                  <Droplets className="h-6 w-6 text-status-info" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Produção de Petróleo</p>
@@ -273,8 +273,8 @@ export default function AdminProductionPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-orange-500/10">
-                  <Flame className="h-6 w-6 text-orange-500" />
+                <div className="p-3 rounded-lg bg-status-warning/10">
+                  <Flame className="h-6 w-6 text-status-warning" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Produção de Gás</p>
@@ -286,8 +286,8 @@ export default function AdminProductionPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-green-500/10">
-                  <TrendingUp className="h-6 w-6 text-green-500" />
+                <div className="p-3 rounded-lg bg-status-success/10">
+                  <TrendingUp className="h-6 w-6 text-status-success" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Registos</p>

@@ -272,7 +272,7 @@ export default function AdminDocumentsPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <FolderOpen className="h-6 w-6 text-teal-500" />
+          <FolderOpen className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Biblioteca de Documentos</span>
         </div>
       </header>
@@ -367,7 +367,7 @@ export default function AdminDocumentsPage() {
                           </TableCell>
                           <TableCell>
                             {doc.is_public ? (
-                              <Badge className="bg-green-500 text-white">
+                              <Badge className="bg-status-success text-white">
                                 <Eye className="h-3 w-3 mr-1" />
                                 Público
                               </Badge>

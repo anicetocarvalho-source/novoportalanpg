@@ -59,11 +59,11 @@ type PetroleumBlock = Tables<'petroleum_blocks'>;
 
 const BASINS = ['Kwanza', 'Benguela', 'Namibe', 'Congo', 'Cabinda'];
 const STATUSES = [
-  { value: 'available', label: 'Disponível', color: 'bg-green-500' },
-  { value: 'licensed', label: 'Licenciado', color: 'bg-blue-500' },
-  { value: 'exploration', label: 'Exploração', color: 'bg-amber-500' },
-  { value: 'production', label: 'Produção', color: 'bg-purple-500' },
-  { value: 'relinquished', label: 'Devolvido', color: 'bg-gray-500' },
+  { value: 'available', label: 'Disponível', color: 'bg-status-success' },
+  { value: 'licensed', label: 'Licenciado', color: 'bg-status-info' },
+  { value: 'exploration', label: 'Exploração', color: 'bg-status-warning' },
+  { value: 'production', label: 'Produção', color: 'bg-primary' },
+  { value: 'relinquished', label: 'Devolvido', color: 'bg-status-neutral' },
 ];
 
 const emptyBlock: Partial<TablesInsert<'petroleum_blocks'>> = {
@@ -235,7 +235,7 @@ export default function AdminBlocksPage() {
                 <ArrowLeft className="h-5 w-5" />
               </Link>
             </Button>
-            <MapPin className="h-6 w-6 text-orange-500" />
+            <MapPin className="h-6 w-6 text-primary" />
             <span className="font-semibold text-lg">Blocos Petrolíferos</span>
           </div>
           <Button variant="ghost" onClick={signOut}>

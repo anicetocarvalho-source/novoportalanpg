@@ -112,10 +112,10 @@ export default function OversightPage() {
 
         {/* Reporting */}
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}>
-          <Card className="border-amber-500/30 bg-amber-500/5">
+          <Card className="border-status-warning/30 bg-status-warning/5">
             <CardContent className="p-6 flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-6 h-6 text-amber-600" />
+              <div className="w-12 h-12 rounded-xl bg-status-warning/10 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-6 h-6 text-status-warning-foreground" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-2">{reportingSection?.title || t("pages.oversight.reportingTitle")}</h3>

@@ -55,10 +55,10 @@ import type { Tables, TablesUpdate } from '@/integrations/supabase/types';
 type EOI = Tables<'expressions_of_interest'>;
 
 const STATUSES = [
-  { value: 'pending', label: 'Pendente', icon: Clock, color: 'bg-amber-500' },
-  { value: 'under_review', label: 'Em Análise', icon: Eye, color: 'bg-blue-500' },
-  { value: 'approved', label: 'Aprovado', icon: CheckCircle, color: 'bg-green-500' },
-  { value: 'rejected', label: 'Rejeitado', icon: XCircle, color: 'bg-red-500' },
+  { value: 'pending', label: 'Pendente', icon: Clock, color: 'bg-status-warning' },
+  { value: 'under_review', label: 'Em Análise', icon: Eye, color: 'bg-status-info' },
+  { value: 'approved', label: 'Aprovado', icon: CheckCircle, color: 'bg-status-success' },
+  { value: 'rejected', label: 'Rejeitado', icon: XCircle, color: 'bg-destructive' },
 ];
 
 export default function AdminEOIPage() {
@@ -153,7 +153,7 @@ export default function AdminEOIPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <Briefcase className="h-6 w-6 text-amber-500" />
+          <Briefcase className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Expressões de Interesse</span>
         </div>
       </header>
@@ -164,8 +164,8 @@ export default function AdminEOIPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-amber-500/10">
-                  <Clock className="h-6 w-6 text-amber-500" />
+                <div className="p-3 rounded-lg bg-status-warning/10">
+                  <Clock className="h-6 w-6 text-status-warning" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Pendentes</p>
@@ -177,8 +177,8 @@ export default function AdminEOIPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-blue-500/10">
-                  <Eye className="h-6 w-6 text-blue-500" />
+                <div className="p-3 rounded-lg bg-status-info/10">
+                  <Eye className="h-6 w-6 text-status-info" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Em Análise</p>
@@ -190,8 +190,8 @@ export default function AdminEOIPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-lg bg-green-500/10">
-                  <CheckCircle className="h-6 w-6 text-green-500" />
+                <div className="p-3 rounded-lg bg-status-success/10">
+                  <CheckCircle className="h-6 w-6 text-status-success" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Aprovados</p>

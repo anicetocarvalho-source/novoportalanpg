@@ -223,13 +223,13 @@ export default function NewsDetailPage() {
                 <span className="text-muted-foreground">Partilhar:</span>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="icon" onClick={() => handleShare('facebook')} className="rounded-full hover:bg-blue-500/10 hover:text-blue-600 hover:border-blue-500/30">
+                <Button variant="outline" size="icon" onClick={() => handleShare('facebook')} className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
                   <Facebook className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon" onClick={() => handleShare('twitter')} className="rounded-full hover:bg-sky-500/10 hover:text-sky-600 hover:border-sky-500/30">
+                <Button variant="outline" size="icon" onClick={() => handleShare('twitter')} className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
                   <Twitter className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon" onClick={() => handleShare('linkedin')} className="rounded-full hover:bg-blue-700/10 hover:text-blue-700 hover:border-blue-700/30">
+                <Button variant="outline" size="icon" onClick={() => handleShare('linkedin')} className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary/30">
                   <Linkedin className="w-4 h-4" />
                 </Button>
               </div>

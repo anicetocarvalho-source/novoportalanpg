@@ -212,7 +212,7 @@ export default function AdminCMSPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'published':
-        return <Badge className="bg-green-500 text-white">Publicado</Badge>;
+        return <Badge className="bg-status-success text-white">Publicado</Badge>;
       case 'draft':
         return <Badge variant="secondary">Rascunho</Badge>;
       case 'archived':
@@ -233,7 +233,7 @@ export default function AdminCMSPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <FileText className="h-6 w-6 text-purple-500" />
+          <FileText className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Páginas CMS</span>
         </div>
       </header>

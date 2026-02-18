@@ -80,7 +80,7 @@ export default function SustainabilityPage() {
             {stats.map((stat: any, index: number) => (
               <motion.div key={stat.label || index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}>
                 <Card className="text-center p-6 hover:shadow-elevated transition-all duration-300">
-                  <div className="text-3xl font-bold text-emerald-600 mb-1">{stat.value}</div>
+                  <div className="text-3xl font-bold text-status-success-foreground mb-1">{stat.value}</div>
                   <div className="text-foreground font-medium mb-1">{stat.label}</div>
                   <div className="text-muted-foreground text-xs">{stat.description}</div>
                 </Card>
@@ -99,8 +99,8 @@ export default function SustainabilityPage() {
                 <motion.div key={pillar.title || index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}>
                   <Card className="h-full hover:shadow-elevated transition-all duration-300">
                     <CardContent className="p-6 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-6 h-6 text-emerald-600" />
+                      <div className="w-12 h-12 rounded-xl bg-status-success/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-6 h-6 text-status-success-foreground" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground mb-2">{pillar.title}</h3>
@@ -124,15 +124,15 @@ export default function SustainabilityPage() {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                          <Target className="w-5 h-5 text-emerald-600" />
+                        <div className="w-10 h-10 rounded-lg bg-status-success/10 flex items-center justify-center flex-shrink-0">
+                          <Target className="w-5 h-5 text-status-success-foreground" />
                         </div>
                         <div>
                           <h3 className="font-semibold text-foreground mb-2">{initiative.title}</h3>
                           <p className="text-muted-foreground text-sm">{initiative.description}</p>
                         </div>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-xs font-medium flex-shrink-0">
+                      <span className="px-3 py-1 rounded-full bg-status-success/10 text-status-success-foreground text-xs font-medium flex-shrink-0">
                         {initiative.status}
                       </span>
                     </div>

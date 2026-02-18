@@ -186,7 +186,7 @@ export function BlocksMap() {
               <g transform="translate(300, 340)">
                 <rect x="0" y="0" width="12" height="12" rx="2" className="fill-primary/60 stroke-primary" strokeWidth="1" />
                 <text x="18" y="10" className="fill-muted-foreground text-[9px]">Disponível</text>
-                <rect x="0" y="18" width="12" height="12" rx="2" className="fill-amber-500/40 stroke-amber-500" strokeWidth="1" />
+                <rect x="0" y="18" width="12" height="12" rx="2" className="fill-status-warning/40 stroke-status-warning" strokeWidth="1" />
                 <text x="18" y="28" className="fill-muted-foreground text-[9px]">Em avaliação</text>
               </g>
 
@@ -234,7 +234,7 @@ export function BlocksMap() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Estado:</span>
-                      <span className={hoveredBlock.status === "available" ? "text-primary font-medium" : "text-amber-500 font-medium"}>
+                      <span className={hoveredBlock.status === "available" ? "text-primary font-medium" : "text-status-warning font-medium"}>
                         {hoveredBlock.status === "available" ? "Disponível" : "Em avaliação"}
                       </span>
                     </div>
@@ -270,7 +270,7 @@ export function BlocksMap() {
                   <span className={`text-xs px-2 py-0.5 rounded-full ${
                     block.status === "available"
                       ? "bg-primary/20 text-primary"
-                      : "bg-amber-500/20 text-amber-600"
+                      : "bg-status-warning/20 text-status-warning-foreground"
                   }`}>
                     {block.status === "available" ? "Disponível" : "Avaliação"}
                   </span>

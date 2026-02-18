@@ -177,7 +177,7 @@ export default function AdminSettingsPage() {
               <ArrowLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <Settings className="h-6 w-6 text-slate-500" />
+          <Settings className="h-6 w-6 text-primary" />
           <span className="font-semibold text-lg">Configurações Gerais</span>
         </div>
       </header>
@@ -257,7 +257,7 @@ export default function AdminSettingsPage() {
                   <div className="space-y-4">
                     <Label>Logo Modo Escuro</Label>
                     {logoData.dark ? (
-                      <div className="relative aspect-[3/1] rounded-lg overflow-hidden bg-slate-900 border p-4">
+                      <div className="relative aspect-[3/1] rounded-lg overflow-hidden bg-graphite border p-4">
                         <img
                           src={logoData.dark}
                           alt="Logo Dark"
@@ -274,7 +274,7 @@ export default function AdminSettingsPage() {
                         </Button>
                       </div>
                     ) : (
-                      <label className="flex flex-col items-center justify-center aspect-[3/1] rounded-lg border-2 border-dashed border-muted-foreground/25 cursor-pointer hover:border-primary/50 transition-colors bg-slate-900">
+                      <label className="flex flex-col items-center justify-center aspect-[3/1] rounded-lg border-2 border-dashed border-muted-foreground/25 cursor-pointer hover:border-primary/50 transition-colors bg-graphite">
                         {uploading === 'dark' ? (
                           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                         ) : (

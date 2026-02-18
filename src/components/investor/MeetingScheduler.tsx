@@ -346,8 +346,8 @@ export function MeetingScheduler() {
           {/* Confirmation */}
           {step === "confirmation" && (
             <div className="text-center space-y-6 py-8">
-              <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-10 h-10 text-green-600 dark:text-green-400" />
+              <div className="w-20 h-20 rounded-full bg-status-success/10 flex items-center justify-center mx-auto">
+                <CheckCircle2 className="w-10 h-10 text-status-success" />
               </div>
               
               <div>

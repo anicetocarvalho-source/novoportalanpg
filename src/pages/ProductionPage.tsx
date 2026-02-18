@@ -81,7 +81,7 @@ function StatCard({ icon: Icon, value, label, change, suffix }: StatCardProps) {
           <Icon className="w-6 h-6 text-primary" />
         </div>
         {change !== undefined && (
-          <div className={`flex items-center gap-1 text-sm font-medium ${change >= 0 ? "text-green-600" : "text-red-500"}`}>
+          <div className={`flex items-center gap-1 text-sm font-medium ${change >= 0 ? "text-status-success-foreground" : "text-destructive"}`}>
             {change >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
             {Math.abs(change)}%
           </div>
@@ -320,7 +320,7 @@ export default function ProductionPage() {
                       <td className="py-4 px-4 text-right font-mono text-foreground">{operator.barrels}</td>
                       <td className="py-4 px-4 text-right font-mono text-muted-foreground">{operator.value}%</td>
                       <td className="py-4 px-4">
-                        <div className="flex items-center gap-1 text-green-600">
+                        <div className="flex items-center gap-1 text-status-success-foreground">
                           <TrendingUp className="w-4 h-4" />
                           <span className="text-sm">Estável</span>
                         </div>

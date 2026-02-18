@@ -171,10 +171,10 @@ export default function ProductionHistoryPage() {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-              <TrendingDown className="w-5 h-5 text-amber-500 flex-shrink-0" />
+            <div className="flex items-center gap-2 mt-4 p-3 rounded-lg bg-status-warning/10 border border-status-warning/20">
+              <TrendingDown className="w-5 h-5 text-status-warning flex-shrink-0" />
               <p className="text-sm text-muted-foreground">
-                <strong className="text-amber-500">Nota:</strong> {t("pages.productionHistoryContent.declineNote")}
+                <strong className="text-status-warning">Nota:</strong> {t("pages.productionHistoryContent.declineNote")}
               </p>
             </div>
           </div>
