@@ -53,6 +53,7 @@ import LocalContentPage from "./pages/LocalContentPage";
 import DataPage from "./pages/DataPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
 import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
+import InvestorLoginPage from "./pages/investor/InvestorLoginPage";
 import PrivacyPage from "./pages/legal/PrivacyPage";
 import TermsPage from "./pages/legal/TermsPage";
 import FAQPage from "./pages/FAQPage";
@@ -81,6 +82,7 @@ import AdminHistoryEventsPage from "./pages/admin/AdminHistoryEventsPage";
 import AdminHeroSlidesPage from "./pages/admin/AdminHeroSlidesPage";
 import AdminHomepageContentPage from "./pages/admin/AdminHomepageContentPage";
 import AdminMediaPage from "./pages/admin/AdminMediaPage";
+import AdminInvestorsPage from "./pages/admin/AdminInvestorsPage";
 import { SobaWidget } from "./components/chat/SobaWidget";
 const queryClient = new QueryClient();
 
@@ -136,6 +138,7 @@ function AnimatedRoutes() {
           <Route path="/data" element={<DataPage />} />
           <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/investor-portal" element={<InvestorPortalPage />} />
+          <Route path="/investor-portal/login" element={<InvestorLoginPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/faq" element={<FAQPage />} />
@@ -164,6 +167,7 @@ function AnimatedRoutes() {
           <Route path="/admin/hero-slides" element={<ProtectedRoute requiredPermission="content"><AdminHeroSlidesPage /></ProtectedRoute>} />
           <Route path="/admin/homepage-content" element={<ProtectedRoute requiredPermission="content"><AdminHomepageContentPage /></ProtectedRoute>} />
           <Route path="/admin/media" element={<ProtectedRoute requiredPermission="content"><AdminMediaPage /></ProtectedRoute>} />
+          <Route path="/admin/investors" element={<ProtectedRoute requiredPermission="investors"><AdminInvestorsPage /></ProtectedRoute>} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

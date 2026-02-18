@@ -398,6 +398,57 @@ export type Database = {
           },
         ]
       }
+      investor_registrations: {
+        Row: {
+          company_name: string
+          country: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string | null
+          phone: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sector: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company_name: string
+          country?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sector?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company_name?: string
+          country?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sector?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       knowledge_base: {
         Row: {
           category: string | null
@@ -849,6 +900,7 @@ export type Database = {
         | "editor_tecnico"
         | "gestor_investidores"
         | "viewer"
+        | "investor"
       department:
         | "administracao"
         | "comunicacao"
@@ -988,6 +1040,7 @@ export const Constants = {
         "editor_tecnico",
         "gestor_investidores",
         "viewer",
+        "investor",
       ],
       department: [
         "administracao",
