@@ -350,8 +350,11 @@ export function useNewsArticles(options?: {
   category?: string;
   limit?: number;
 }) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
   return useQuery({
-    queryKey: ["news_articles", options?.category, options?.limit],
+    queryKey: ["news_articles", options?.category, options?.limit, isEn],
     queryFn: async () => {
       let query = supabase
         .from("news_articles")
@@ -375,20 +378,23 @@ export function useNewsArticles(options?: {
       data.map((a) => ({
         id: a.slug,
         slug: a.slug,
-        title: a.title,
+        title: isEn ? ((a as any).title_en || a.title) : a.title,
         date: formatPortugueseDate(a.published_at),
         category: a.category || "geral",
         image: a.featured_image || "/placeholder.svg",
-        excerpt: a.excerpt || "",
-        content: a.content || "",
+        excerpt: isEn ? ((a as any).excerpt_en || a.excerpt || "") : (a.excerpt || ""),
+        content: isEn ? ((a as any).content_en || a.content || "") : (a.content || ""),
         published_at: a.published_at,
       } as CMSNewsArticle)),
   });
 }
 
 export function useNewsArticleBySlug(slug: string | undefined) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
   return useQuery({
-    queryKey: ["news_article", slug],
+    queryKey: ["news_article", slug, isEn],
     queryFn: async () => {
       if (!slug) return null;
       const { data, error } = await supabase
@@ -404,12 +410,12 @@ export function useNewsArticleBySlug(slug: string | undefined) {
       return {
         id: data.slug,
         slug: data.slug,
-        title: data.title,
+        title: isEn ? ((data as any).title_en || data.title) : data.title,
         date: formatPortugueseDate(data.published_at),
         category: data.category || "geral",
         image: data.featured_image || "/placeholder.svg",
-        excerpt: data.excerpt || "",
-        content: data.content || "",
+        excerpt: isEn ? ((data as any).excerpt_en || data.excerpt || "") : (data.excerpt || ""),
+        content: isEn ? ((data as any).content_en || data.content || "") : (data.content || ""),
         published_at: data.published_at,
       } as CMSNewsArticle;
     },

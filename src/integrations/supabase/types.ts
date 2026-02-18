@@ -549,42 +549,51 @@ export type Database = {
           author_id: string | null
           category: string | null
           content: string | null
+          content_en: string | null
           created_at: string
           excerpt: string | null
+          excerpt_en: string | null
           featured_image: string | null
           id: string
           published_at: string | null
           slug: string
           status: string
           title: string
+          title_en: string | null
           updated_at: string
         }
         Insert: {
           author_id?: string | null
           category?: string | null
           content?: string | null
+          content_en?: string | null
           created_at?: string
           excerpt?: string | null
+          excerpt_en?: string | null
           featured_image?: string | null
           id?: string
           published_at?: string | null
           slug: string
           status?: string
           title: string
+          title_en?: string | null
           updated_at?: string
         }
         Update: {
           author_id?: string | null
           category?: string | null
           content?: string | null
+          content_en?: string | null
           created_at?: string
           excerpt?: string | null
+          excerpt_en?: string | null
           featured_image?: string | null
           id?: string
           published_at?: string | null
           slug?: string
           status?: string
           title?: string
+          title_en?: string | null
           updated_at?: string
         }
         Relationships: [
