@@ -44,7 +44,7 @@ export default function AdminNewsEditorPage() {
   const queryClient = useQueryClient();
   const isNew = !id || id === 'new';
 
-  const [formData, setFormData] = useState<Partial<TablesInsert<'news_articles'>>>({
+  const [formData, setFormData] = useState<Partial<TablesInsert<'news_articles'>> & { title_en?: string; excerpt_en?: string; content_en?: string }>({
     title: '',
     slug: '',
     excerpt: '',
@@ -52,6 +52,9 @@ export default function AdminNewsEditorPage() {
     category: 'geral',
     status: 'draft',
     featured_image: '',
+    title_en: '',
+    excerpt_en: '',
+    content_en: '',
   });
   const [uploading, setUploading] = useState(false);
 
@@ -81,6 +84,9 @@ export default function AdminNewsEditorPage() {
         category: article.category || 'geral',
         status: article.status,
         featured_image: article.featured_image || '',
+        title_en: (article as any).title_en || '',
+        excerpt_en: (article as any).excerpt_en || '',
+        content_en: (article as any).content_en || '',
       });
     }
   }, [article]);
@@ -153,7 +159,7 @@ export default function AdminNewsEditorPage() {
       return;
     }
 
-    const submitData: TablesInsert<'news_articles'> = {
+    const submitData: any = {
       title: formData.title!,
       slug: formData.slug!,
       excerpt: formData.excerpt || null,
@@ -163,6 +169,9 @@ export default function AdminNewsEditorPage() {
       featured_image: formData.featured_image || null,
       author_id: user?.id || null,
       published_at: formData.status === 'published' ? new Date().toISOString() : null,
+      title_en: formData.title_en || null,
+      excerpt_en: formData.excerpt_en || null,
+      content_en: formData.content_en || null,
     };
 
     saveMutation.mutate(submitData);
@@ -269,6 +278,45 @@ export default function AdminNewsEditorPage() {
                     content={formData.content || ''}
                     onChange={(html) => setFormData({ ...formData, content: html })}
                     placeholder="Escreva o conteúdo da notícia..."
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* English Content */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Conteúdo em Inglês (EN)</CardTitle>
+                <CardDescription>Traduções opcionais — se vazias, será exibido o conteúdo em Português</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="title_en">Title (EN)</Label>
+                  <Input
+                    id="title_en"
+                    value={formData.title_en || ''}
+                    onChange={(e) => setFormData({ ...formData, title_en: e.target.value })}
+                    placeholder="Article title in English"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="excerpt_en">Excerpt (EN)</Label>
+                  <Textarea
+                    id="excerpt_en"
+                    value={formData.excerpt_en || ''}
+                    onChange={(e) => setFormData({ ...formData, excerpt_en: e.target.value })}
+                    placeholder="Brief description in English..."
+                    rows={3}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Content (EN)</Label>
+                  <RichTextEditor
+                    content={formData.content_en || ''}
+                    onChange={(html) => setFormData({ ...formData, content_en: html })}
+                    placeholder="Write the article content in English..."
                   />
                 </div>
               </CardContent>
