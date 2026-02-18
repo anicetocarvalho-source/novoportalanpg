@@ -23,6 +23,7 @@ import {
   HelpCircle,
   Image,
   Clock,
+  SlidersHorizontal,
 } from 'lucide-react';
 
 const modules = [
@@ -49,6 +50,14 @@ const modules = [
     href: '/admin/content-blocks',
     permission: 'content',
     color: 'bg-status-info/80',
+  },
+  {
+    title: 'Slides do Hero',
+    description: 'Carrossel de imagens da homepage',
+    icon: SlidersHorizontal,
+    href: '/admin/hero-slides',
+    permission: 'content',
+    color: 'bg-primary/90',
   },
   {
     title: 'Banners de Página',
