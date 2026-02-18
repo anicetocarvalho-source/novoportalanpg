@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight, Play, BarChart3, Shield, TrendingUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContentBlock } from "@/hooks/useCMSData";
+import { useHeroSlides } from "@/hooks/useHeroSlides";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import heroImage from "@/assets/hero-offshore.jpg";
@@ -56,9 +57,10 @@ export function HeroSection() {
   const { data: cmsBlock } = useContentBlock("home", "hero");
   const cmsContent = cmsBlock?.content;
 
-  // Build slides: CMS slides or defaults
-  const slides = cmsContent?.slides?.length
-    ? cmsContent.slides.slice(0, 6)
+  // Build slides: CMS hero-slide blocks or defaults
+  const { data: cmsSlides } = useHeroSlides();
+  const slides = cmsSlides?.length
+    ? cmsSlides.slice(0, 6)
     : defaultSlides;
 
   const quickAccessItems = cmsContent?.quickAccess?.length ? cmsContent.quickAccess : defaultQuickAccess;
