@@ -44,6 +44,14 @@ const modules = [
     color: 'bg-primary/80',
   },
   {
+    title: 'Homepage',
+    description: 'Editor visual das secções da homepage',
+    icon: SlidersHorizontal,
+    href: '/admin/homepage-content',
+    permission: 'content',
+    color: 'bg-primary/90',
+  },
+  {
     title: 'Blocos de Conteúdo',
     description: 'Secções editáveis (Hero, Stats, etc.)',
     icon: LayoutGrid,
