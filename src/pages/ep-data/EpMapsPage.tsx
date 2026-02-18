@@ -2,23 +2,25 @@ import { Map, Download, Building2, Layers } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
-import { ConcessionsMap, blocksData } from "@/components/concessions/ConcessionsMap";
+import { ConcessionsMap } from "@/components/concessions/ConcessionsMap";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-offshore.jpg";
 import { useMemo } from "react";
+import { usePetroleumBlocks, basinLabels } from "@/hooks/usePetroleumBlocks";
 
 export default function EpMapsPage() {
   const { t } = useTranslation();
+  const { data: blocks = [] } = usePetroleumBlocks();
 
   const operatorStats = useMemo(() => {
     const operators: Record<string, { blocks: number; production: number }> = {};
     
-    blocksData.forEach(block => {
+    blocks.forEach(block => {
       if (!operators[block.operator]) {
         operators[block.operator] = { blocks: 0, production: 0 };
       }
       operators[block.operator].blocks++;
-      if (block.status === "production") {
+      if (block.statusKey === "production") {
         operators[block.operator].production++;
       }
     });
@@ -27,15 +29,20 @@ export default function EpMapsPage() {
       .map(([name, data]) => ({ name, ...data }))
       .sort((a, b) => b.blocks - a.blocks)
       .slice(0, 8);
-  }, []);
+  }, [blocks]);
 
   const basinStats = useMemo(() => {
     const basins: Record<string, number> = {};
-    blocksData.forEach(block => {
-      basins[block.basin] = (basins[block.basin] || 0) + 1;
+    blocks.forEach(block => {
+      basins[block.basinKey] = (basins[block.basinKey] || 0) + 1;
     });
     return basins;
-  }, []);
+  }, [blocks]);
+
+  // Get unique basins from data for display
+  const uniqueBasins = useMemo(() => {
+    return [...new Set(blocks.map(b => b.basinKey))].sort();
+  }, [blocks]);
 
   return (
     <PageLayout
@@ -72,26 +79,21 @@ export default function EpMapsPage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30">
-              <h3 className="font-bold text-foreground mb-1">Bacia do Baixo Congo</h3>
-              <p className="text-3xl font-bold text-primary">{basinStats["baixo-congo"] || 0}</p>
-              <p className="text-sm text-muted-foreground">blocos concessionados</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30">
-              <h3 className="font-bold text-foreground mb-1">Bacia do Kwanza</h3>
-              <p className="text-3xl font-bold text-accent-foreground">{basinStats["kwanza"] || 0}</p>
-              <p className="text-sm text-muted-foreground">blocos concessionados</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-secondary/40 to-secondary/10 border border-border">
-              <h3 className="font-bold text-foreground mb-1">Bacia de Benguela</h3>
-              <p className="text-3xl font-bold text-foreground">{basinStats["benguela"] || 0}</p>
-              <p className="text-sm text-muted-foreground">blocos disponíveis</p>
-            </div>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-muted/60 to-muted/20 border border-border">
-              <h3 className="font-bold text-foreground mb-1">Bacia do Namibe</h3>
-              <p className="text-3xl font-bold text-muted-foreground">{basinStats["namibe"] || 0}</p>
-              <p className="text-sm text-muted-foreground">blocos concessionados</p>
-            </div>
+            {uniqueBasins.map((key, index) => {
+              const colors = [
+                "from-primary/20 to-primary/5 border-primary/30",
+                "from-accent/20 to-accent/5 border-accent/30",
+                "from-secondary/40 to-secondary/10 border-border",
+                "from-muted/60 to-muted/20 border-border",
+              ];
+              return (
+                <div key={key} className={`p-6 rounded-2xl bg-gradient-to-br ${colors[index % colors.length]} border`}>
+                  <h3 className="font-bold text-foreground mb-1">{basinLabels[key] || key}</h3>
+                  <p className="text-3xl font-bold text-primary">{basinStats[key] || 0}</p>
+                  <p className="text-sm text-muted-foreground">blocos</p>
+                </div>
+              );
+            })}
           </div>
         </section>
       </SectionTransition>
