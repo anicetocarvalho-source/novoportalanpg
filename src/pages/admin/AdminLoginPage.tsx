@@ -113,8 +113,14 @@ export default function AdminLoginPage() {
           className="w-full max-w-md space-y-8"
         >
           {/* Mobile Logo */}
-          <div className="lg:hidden flex justify-center mb-4">
+          <div className="lg:hidden flex items-center justify-between mb-4">
             <img src={logoRed} alt="ANPG Logo" className="h-14" />
+            <a href="/" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">Ver Website ↗</a>
+          </div>
+
+          {/* Desktop website link */}
+          <div className="hidden lg:flex justify-end">
+            <a href="/" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">Ver Website ↗</a>
           </div>
 
           {/* Header */}
