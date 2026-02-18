@@ -130,14 +130,19 @@ export default function AdminNewsPage() {
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild>
-            <Link to="/admin">
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" asChild>
+              <Link to="/admin">
+                <ArrowLeft className="h-5 w-5" />
+              </Link>
+            </Button>
+            <Newspaper className="h-6 w-6 text-primary" />
+            <span className="font-semibold text-lg">Gestão de Notícias</span>
+          </div>
+          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
+            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
           </Button>
-          <Newspaper className="h-6 w-6 text-primary" />
-          <span className="font-semibold text-lg">Gestão de Notícias</span>
         </div>
       </header>
 

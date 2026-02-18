@@ -171,9 +171,12 @@ export default function AdminKnowledgeBasePage() {
   return (
     <div className="min-h-screen bg-muted/30">
       <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-14 flex items-center gap-4">
+        <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <Button variant="ghost" size="sm" asChild>
             <Link to="/admin"><ArrowLeft className="h-4 w-4 mr-1" /> Backoffice</Link>
+          </Button>
+          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
+            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
           </Button>
         </div>
       </header>

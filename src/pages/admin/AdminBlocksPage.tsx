@@ -238,9 +238,14 @@ export default function AdminBlocksPage() {
             <MapPin className="h-6 w-6 text-primary" />
             <span className="font-semibold text-lg">Blocos Petrolíferos</span>
           </div>
-          <Button variant="ghost" onClick={signOut}>
-            Sair
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
+              <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
+            </Button>
+            <Button variant="ghost" onClick={signOut}>
+              Sair
+            </Button>
+          </div>
         </div>
       </header>
 
