@@ -54,6 +54,7 @@ import DataPage from "./pages/DataPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
 import InvestorPortalPage from "./pages/investor/InvestorPortalPage";
 import InvestorLoginPage from "./pages/investor/InvestorLoginPage";
+import InvestorResetPasswordPage from "./pages/investor/InvestorResetPasswordPage";
 import PrivacyPage from "./pages/legal/PrivacyPage";
 import TermsPage from "./pages/legal/TermsPage";
 import FAQPage from "./pages/FAQPage";
@@ -139,6 +140,7 @@ function AnimatedRoutes() {
           <Route path="/sustainability" element={<SustainabilityPage />} />
           <Route path="/investor-portal" element={<InvestorPortalPage />} />
           <Route path="/investor-portal/login" element={<InvestorLoginPage />} />
+          <Route path="/investor-portal/reset-password" element={<InvestorResetPasswordPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/faq" element={<FAQPage />} />
