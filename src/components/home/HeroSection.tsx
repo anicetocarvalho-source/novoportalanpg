@@ -8,16 +8,18 @@ import { useHeroSlides } from "@/hooks/useHeroSlides";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
-import heroImage from "@/assets/hero-offshore.jpg";
-import angolaCoast from "@/assets/angola-coast.jpg";
-import refineryImg from "@/assets/refinery.jpg";
-import platformImg from "@/assets/angola-offshore-platform.jpg";
+import slideLuanda from "@/assets/slides/cidade-luanda.jpg";
+import slideRefinaria from "@/assets/slides/refinaria-noite.jpg";
+import slideDalia from "@/assets/slides/fpso-dalia.jpg";
+import slidePazflor from "@/assets/slides/fpso-pazflor.jpg";
+import slideMiradouro from "@/assets/slides/miradouro-lua.jpg";
 
 const defaultSlides = [
-  { image: heroImage },
-  { image: angolaCoast },
-  { image: refineryImg },
-  { image: platformImg },
+  { image: slidePazflor },
+  { image: slideLuanda },
+  { image: slideRefinaria },
+  { image: slideDalia },
+  { image: slideMiradouro },
 ];
 
 const defaultQuickAccess = [
