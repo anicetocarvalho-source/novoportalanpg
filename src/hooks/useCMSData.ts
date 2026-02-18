@@ -438,6 +438,39 @@ export function useDashboardCounts() {
   });
 }
 
+// ─── Investor Documents ───
+export interface CMSInvestorDocument {
+  id: string;
+  document_name: string;
+  description: string | null;
+  category: string;
+  file_url: string;
+  file_size_bytes: number | null;
+  is_public: boolean;
+  created_at: string;
+}
+
+export function useInvestorDocuments(category?: string) {
+  return useQuery({
+    queryKey: ["investor_documents", category],
+    queryFn: async () => {
+      let query = supabase
+        .from("investor_documents")
+        .select("*")
+        .eq("is_public", true)
+        .order("created_at", { ascending: false });
+
+      if (category && category !== "all") {
+        query = query.eq("category", category);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return data as CMSInvestorDocument[];
+    },
+  });
+}
+
 // ─── Media Items ───
 export function useMediaItems(mediaType: string) {
   return useQuery({
