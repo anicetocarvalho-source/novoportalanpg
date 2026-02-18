@@ -79,6 +79,7 @@ import AdminFAQPage from "./pages/admin/AdminFAQPage";
 import AdminPageBannersPage from "./pages/admin/AdminPageBannersPage";
 import AdminHistoryEventsPage from "./pages/admin/AdminHistoryEventsPage";
 import AdminHeroSlidesPage from "./pages/admin/AdminHeroSlidesPage";
+import AdminHomepageContentPage from "./pages/admin/AdminHomepageContentPage";
 import { SobaWidget } from "./components/chat/SobaWidget";
 const queryClient = new QueryClient();
 
@@ -160,6 +161,7 @@ function AnimatedRoutes() {
           <Route path="/admin/page-banners" element={<ProtectedRoute requiredPermission="content"><AdminPageBannersPage /></ProtectedRoute>} />
           <Route path="/admin/history-events" element={<ProtectedRoute requiredPermission="content"><AdminHistoryEventsPage /></ProtectedRoute>} />
           <Route path="/admin/hero-slides" element={<ProtectedRoute requiredPermission="content"><AdminHeroSlidesPage /></ProtectedRoute>} />
+          <Route path="/admin/homepage-content" element={<ProtectedRoute requiredPermission="content"><AdminHomepageContentPage /></ProtectedRoute>} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
