@@ -191,6 +191,9 @@ export default function AdminNewsEditorPage() {
             </span>
           </div>
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
+              <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
+            </Button>
             {!isNew && formData.status === 'published' && (
               <Button variant="outline" asChild>
                 <Link to={`/news/${formData.slug}`} target="_blank">
