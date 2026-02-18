@@ -100,6 +100,14 @@ const modules = [
     color: 'bg-status-info/60',
   },
   {
+    title: 'Central de Media',
+    description: 'Publicações, vídeos, recortes e eventos',
+    icon: Image,
+    href: '/admin/media',
+    permission: 'content',
+    color: 'bg-status-info/90',
+  },
+  {
     title: 'Linha do Tempo',
     description: 'Marcos históricos da ANPG',
     icon: Clock,
