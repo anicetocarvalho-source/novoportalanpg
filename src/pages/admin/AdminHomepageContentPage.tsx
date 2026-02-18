@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -437,9 +438,13 @@ function AboutFields({ content, update }: { content: Record<string, any>; update
           <Input value={content.cta || ''} onChange={e => update('cta', e.target.value)} />
         </Field>
       </div>
-      <Field label="URL Imagem">
-        <Input value={content.image || ''} onChange={e => update('image', e.target.value)} />
-      </Field>
+      <ImageUpload
+        value={content.image || ''}
+        onChange={v => update('image', v)}
+        folder="homepage/about"
+        label="Imagem"
+        cropAspectRatio={4 / 3}
+      />
       <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Valores</Label>
       <div className="grid gap-3">
         {values.map((val, i) => (
@@ -482,9 +487,13 @@ function InvestmentFields({ content, update }: { content: Record<string, any>; u
       <Field label="Descrição">
         <Textarea value={content.description || ''} onChange={e => update('description', e.target.value)} rows={3} />
       </Field>
-      <Field label="URL Imagem">
-        <Input value={content.image || ''} onChange={e => update('image', e.target.value)} />
-      </Field>
+      <ImageUpload
+        value={content.image || ''}
+        onChange={v => update('image', v)}
+        folder="homepage/investment"
+        label="Imagem"
+        cropAspectRatio={4 / 3}
+      />
       <Field label="Localização">
         <Input value={content.location || ''} onChange={e => update('location', e.target.value)} />
       </Field>
@@ -597,9 +606,13 @@ function HeroSlidesEditor({ slides, meta, onSave, isSaving }: HeroSlidesEditorPr
                     <CardTitle className="text-sm">Slide {i + 1}</CardTitle>
                   </CardHeader>
                   <CardContent className="px-4 pb-4 space-y-3">
-                    <Field label="URL da Imagem">
-                      <Input value={c.image || ''} onChange={e => updateSlide(slide.id, 'image', e.target.value)} />
-                    </Field>
+                    <ImageUpload
+                      value={c.image || ''}
+                      onChange={v => updateSlide(slide.id, 'image', v)}
+                      folder="homepage/hero-slides"
+                      label="Imagem do Slide"
+                      cropAspectRatio={16 / 9}
+                    />
                     <div className="grid grid-cols-2 gap-3">
                       <Field label="Título PT">
                         <Input value={c.title_pt || ''} onChange={e => updateSlide(slide.id, 'title_pt', e.target.value)} />
