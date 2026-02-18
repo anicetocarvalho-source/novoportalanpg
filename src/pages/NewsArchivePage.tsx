@@ -177,7 +177,7 @@ export default function NewsArchivePage() {
     });
     
     return results;
-  }, [selectedCategory, searchQuery, dateFilter, sortOrder, selectedTags]);
+  }, [newsItems, selectedCategory, searchQuery, dateFilter, sortOrder, selectedTags]);
 
   const totalPages = Math.max(1, Math.ceil(filteredNews.length / ITEMS_PER_PAGE));
   const paginatedNews = filteredNews.slice(
