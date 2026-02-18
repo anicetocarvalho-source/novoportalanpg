@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight, Calendar, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "react-router-dom";
-import { newsItems, getCategoryLabel } from "@/data/newsData";
+import { useNewsArticles, type CMSNewsArticle } from "@/hooks/useCMSData";
+import { newsItems as fallbackNewsItems, getCategoryLabel } from "@/data/newsData";
 
 const categories = [
   { id: "all", label: "Todos" },
@@ -21,13 +23,27 @@ export function NewsSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Filter and get news items based on selected category
+  // Fetch from CMS, fallback to hardcoded data
+  const { data: cmsNews, isLoading } = useNewsArticles({ limit: 20 });
+
+  const newsSource = cmsNews?.length ? cmsNews : fallbackNewsItems.map((item) => ({
+    id: item.id,
+    slug: item.slug || item.id,
+    title: item.title,
+    date: item.date,
+    category: item.category,
+    image: item.image,
+    excerpt: item.excerpt,
+    content: item.content,
+    published_at: null,
+  } as CMSNewsArticle));
+
   const filteredNews = useMemo(() => {
     if (activeCategory === "all") {
-      return newsItems.slice(0, 8);
+      return newsSource.slice(0, 8);
     }
-    return newsItems.filter(item => item.category === activeCategory).slice(0, 8);
-  }, [activeCategory]);
+    return newsSource.filter(item => item.category === activeCategory).slice(0, 8);
+  }, [activeCategory, newsSource]);
 
   const featuredNews = filteredNews[0];
   const secondaryNews = filteredNews.slice(1, 4);
@@ -104,7 +120,16 @@ export function NewsSection() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            {filteredNews.length === 0 ? (
+            {isLoading ? (
+              <div className="grid lg:grid-cols-12 gap-6">
+                <Skeleton className="lg:col-span-6 h-80 rounded-xl" />
+                <div className="lg:col-span-6 space-y-4">
+                  <Skeleton className="h-24 rounded-xl" />
+                  <Skeleton className="h-24 rounded-xl" />
+                  <Skeleton className="h-24 rounded-xl" />
+                </div>
+              </div>
+            ) : filteredNews.length === 0 ? (
               <div className="text-center py-16 bg-background rounded-xl shadow-card">
                 <p className="text-muted-foreground">Nenhuma notícia encontrada nesta categoria.</p>
               </div>
