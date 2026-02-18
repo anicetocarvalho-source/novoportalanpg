@@ -473,8 +473,11 @@ export function useInvestorDocuments(category?: string) {
 
 // ─── Media Items ───
 export function useMediaItems(mediaType: string) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
   return useQuery({
-    queryKey: ["media_items", mediaType],
+    queryKey: ["media_items", mediaType, isEn],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("media_items")
@@ -486,5 +489,11 @@ export function useMediaItems(mediaType: string) {
       if (error) throw error;
       return data;
     },
+    select: (data) =>
+      data.map((item) => ({
+        ...item,
+        title: isEn ? ((item as any).title_en || item.title) : item.title,
+        description: isEn ? ((item as any).description_en || item.description) : item.description,
+      })),
   });
 }

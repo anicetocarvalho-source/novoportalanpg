@@ -85,39 +85,30 @@ export default function AdminMediaPage() {
 
   const upsertMutation = useMutation({
     mutationFn: async (item: Partial<MediaItem>) => {
+      const payload: any = {
+        title: item.title!,
+        description: item.description || null,
+        image_url: item.image_url || null,
+        file_url: item.file_url || null,
+        external_url: item.external_url || null,
+        youtube_url: item.youtube_url || null,
+        source: item.source || null,
+        event_date: item.event_date || null,
+        sort_order: item.sort_order || 0,
+        is_active: item.is_active ?? true,
+        title_en: (item as any).title_en || null,
+        description_en: (item as any).description_en || null,
+      };
       if (editingItem) {
         const { error } = await supabase
           .from('media_items')
-          .update({
-            title: item.title!,
-            description: item.description || null,
-            image_url: item.image_url || null,
-            file_url: item.file_url || null,
-            external_url: item.external_url || null,
-            youtube_url: item.youtube_url || null,
-            source: item.source || null,
-            event_date: item.event_date || null,
-            sort_order: item.sort_order || 0,
-            is_active: item.is_active ?? true,
-          })
+          .update(payload)
           .eq('id', editingItem.id);
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from('media_items')
-          .insert({
-            media_type: item.media_type || activeType,
-            title: item.title!,
-            description: item.description || null,
-            image_url: item.image_url || null,
-            file_url: item.file_url || null,
-            external_url: item.external_url || null,
-            youtube_url: item.youtube_url || null,
-            source: item.source || null,
-            event_date: item.event_date || null,
-            sort_order: item.sort_order || 0,
-            is_active: item.is_active ?? true,
-          });
+          .insert({ ...payload, media_type: item.media_type || activeType });
         if (error) throw error;
       }
     },
@@ -332,21 +323,40 @@ export default function AdminMediaPage() {
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid gap-1.5">
-                <Label>Título *</Label>
+                <Label>Título (PT) *</Label>
                 <Input
                   value={form.title || ''}
                   onChange={e => updateField('title', e.target.value)}
-                  placeholder="Título do item"
+                  placeholder="Título do item em português"
                 />
               </div>
 
               <div className="grid gap-1.5">
-                <Label>Descrição</Label>
+                <Label>Title (EN)</Label>
+                <Input
+                  value={(form as any).title_en || ''}
+                  onChange={e => updateField('title_en', e.target.value)}
+                  placeholder="Item title in English"
+                />
+              </div>
+
+              <div className="grid gap-1.5">
+                <Label>Descrição (PT)</Label>
                 <Textarea
                   value={form.description || ''}
                   onChange={e => updateField('description', e.target.value)}
                   rows={3}
-                  placeholder="Descrição breve"
+                  placeholder="Descrição breve em português"
+                />
+              </div>
+
+              <div className="grid gap-1.5">
+                <Label>Description (EN)</Label>
+                <Textarea
+                  value={(form as any).description_en || ''}
+                  onChange={e => updateField('description_en', e.target.value)}
+                  rows={3}
+                  placeholder="Brief description in English"
                 />
               </div>
 

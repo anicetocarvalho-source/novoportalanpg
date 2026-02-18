@@ -438,6 +438,7 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          description_en: string | null
           event_date: string | null
           external_url: string | null
           file_url: string | null
@@ -448,12 +449,14 @@ export type Database = {
           sort_order: number
           source: string | null
           title: string
+          title_en: string | null
           updated_at: string
           youtube_url: string | null
         }
         Insert: {
           created_at?: string
           description?: string | null
+          description_en?: string | null
           event_date?: string | null
           external_url?: string | null
           file_url?: string | null
@@ -464,12 +467,14 @@ export type Database = {
           sort_order?: number
           source?: string | null
           title: string
+          title_en?: string | null
           updated_at?: string
           youtube_url?: string | null
         }
         Update: {
           created_at?: string
           description?: string | null
+          description_en?: string | null
           event_date?: string | null
           external_url?: string | null
           file_url?: string | null
@@ -480,6 +485,7 @@ export type Database = {
           sort_order?: number
           source?: string | null
           title?: string
+          title_en?: string | null
           updated_at?: string
           youtube_url?: string | null
         }
