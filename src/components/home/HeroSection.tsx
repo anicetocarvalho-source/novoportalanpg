@@ -7,6 +7,7 @@ import { useContentBlock } from "@/hooks/useCMSData";
 import { useHeroSlides } from "@/hooks/useHeroSlides";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import Fade from "embla-carousel-fade";
 import heroImage from "@/assets/hero-offshore.jpg";
 import angolaCoast from "@/assets/angola-coast.jpg";
 import refineryImg from "@/assets/refinery.jpg";
@@ -66,6 +67,7 @@ export function HeroSection() {
   const quickAccessItems = cmsContent?.quickAccess?.length ? cmsContent.quickAccess : defaultQuickAccess;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Fade(),
     Autoplay({ delay: 6000, stopOnInteraction: false, stopOnMouseEnter: true }),
   ]);
 
