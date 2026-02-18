@@ -176,6 +176,26 @@ export default function InvestorLoginPage() {
                     {loginLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <LogIn className="w-4 h-4 mr-2" />}
                     Entrar
                   </Button>
+                  
+                  <div className="relative my-4">
+                    <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
+                    <div className="relative flex justify-center text-xs uppercase"><span className="bg-background px-2 text-muted-foreground">Acesso Demo</span></div>
+                  </div>
+                  <button
+                    type="button"
+                    className="w-full flex items-center gap-3 rounded-lg border p-3 text-left text-sm hover:bg-accent transition-colors"
+                    onClick={() => {
+                      setLoginEmail("investor@anpg.co.ao");
+                      setLoginPassword("Investor2024!");
+                    }}
+                  >
+                    <Briefcase className="w-8 h-8 text-primary shrink-0" />
+                    <div className="min-w-0">
+                      <p className="font-medium truncate">Investidor Demo</p>
+                      <p className="text-muted-foreground text-xs truncate">investor@anpg.co.ao</p>
+                    </div>
+                    <Badge variant="outline" className="ml-auto shrink-0">Demo</Badge>
+                  </button>
                 </form>
               </TabsContent>
 
