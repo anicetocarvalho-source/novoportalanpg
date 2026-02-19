@@ -16,9 +16,10 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Save, Eye, Loader2, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Save, Eye, Loader2 } from 'lucide-react';
 import type { Tables, TablesInsert, TablesUpdate } from '@/integrations/supabase/types';
 import RichTextEditor from '@/components/admin/RichTextEditor';
+import { ImageUpload } from '@/components/admin/ImageUpload';
 
 type NewsArticle = Tables<'news_articles'>;
 
@@ -56,7 +57,7 @@ export default function AdminNewsEditorPage() {
     excerpt_en: '',
     content_en: '',
   });
-  const [uploading, setUploading] = useState(false);
+  
 
   // Fetch article if editing
   const { data: article, isLoading } = useQuery({
@@ -99,35 +100,6 @@ export default function AdminNewsEditorPage() {
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
-  };
-
-  // Handle image upload
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploading(true);
-    const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
-    const filePath = `articles/${fileName}`;
-
-    const { error: uploadError } = await supabase.storage
-      .from('news-images')
-      .upload(filePath, file);
-
-    if (uploadError) {
-      toast.error('Erro ao fazer upload da imagem');
-      setUploading(false);
-      return;
-    }
-
-    const { data: { publicUrl } } = supabase.storage
-      .from('news-images')
-      .getPublicUrl(filePath);
-
-    setFormData({ ...formData, featured_image: publicUrl });
-    setUploading(false);
-    toast.success('Imagem carregada com sucesso');
   };
 
   // Save mutation
@@ -373,45 +345,18 @@ export default function AdminNewsEditorPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Imagem de Destaque</CardTitle>
-                <CardDescription>Imagem principal da notícia</CardDescription>
+                <CardDescription>Imagem principal da notícia (16:9)</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {formData.featured_image ? (
-                  <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
-                    <img
-                      src={formData.featured_image}
-                      alt="Featured"
-                      className="object-cover w-full h-full"
-                    />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="sm"
-                      className="absolute top-2 right-2"
-                      onClick={() => setFormData({ ...formData, featured_image: '' })}
-                    >
-                      Remover
-                    </Button>
-                  </div>
-                ) : (
-                  <label className="flex flex-col items-center justify-center aspect-video rounded-lg border-2 border-dashed border-muted-foreground/25 cursor-pointer hover:border-primary/50 transition-colors">
-                    {uploading ? (
-                      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-                    ) : (
-                      <>
-                        <ImageIcon className="h-8 w-8 text-muted-foreground mb-2" />
-                        <span className="text-sm text-muted-foreground">Clique para carregar</span>
-                      </>
-                    )}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleImageUpload}
-                      disabled={uploading}
-                    />
-                  </label>
-                )}
+              <CardContent>
+                <ImageUpload
+                  value={formData.featured_image || ''}
+                  onChange={(url) => setFormData({ ...formData, featured_image: url })}
+                  folder="news"
+                  label="Imagem de destaque"
+                  cropAspectRatio={16 / 9}
+                  maxWidth={1920}
+                  maxHeight={1080}
+                />
               </CardContent>
             </Card>
           </div>
