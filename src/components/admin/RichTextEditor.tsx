@@ -1,6 +1,7 @@
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
+import { supabase } from '@/integrations/supabase/client';
 import Image from '@tiptap/extension-image';
 import Placeholder from '@tiptap/extension-placeholder';
 import TextAlign from '@tiptap/extension-text-align';
@@ -38,6 +39,8 @@ import {
   Heading3,
   Minus,
   Code,
+  Upload,
+  Loader2,
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -52,6 +55,7 @@ interface RichTextEditorProps {
 function MenuBar({ editor }: { editor: Editor | null }) {
   const [linkUrl, setLinkUrl] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   if (!editor) {
     return null;
@@ -68,6 +72,39 @@ function MenuBar({ editor }: { editor: Editor | null }) {
     if (imageUrl) {
       editor.chain().focus().setImage({ src: imageUrl }).run();
       setImageUrl('');
+    }
+  };
+
+  const handleImageFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const fileName = `inline/${Date.now()}-${Math.random().toString(36).slice(2, 9)}.webp`;
+      
+      // Compress to WebP via canvas
+      const bitmap = await createImageBitmap(file);
+      const canvas = document.createElement('canvas');
+      const maxW = 1200;
+      const scale = Math.min(1, maxW / bitmap.width);
+      canvas.width = bitmap.width * scale;
+      canvas.height = bitmap.height * scale;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise<Blob>((resolve) =>
+        canvas.toBlob((b) => resolve(b!), 'image/webp', 0.82)
+      );
+
+      const { error } = await supabase.storage.from('cms-assets').upload(fileName, blob, { contentType: 'image/webp' });
+      if (error) throw error;
+
+      const { data: { publicUrl } } = supabase.storage.from('cms-assets').getPublicUrl(fileName);
+      editor.chain().focus().setImage({ src: publicUrl }).run();
+    } catch (err: any) {
+      console.error('Upload failed', err);
+    } finally {
+      setUploadingImage(false);
+      if (e.target) e.target.value = '';
     }
   };
 
@@ -268,6 +305,23 @@ function MenuBar({ editor }: { editor: Editor | null }) {
         </PopoverTrigger>
         <PopoverContent className="w-80">
           <div className="space-y-3">
+            <Label>Carregar Imagem</Label>
+            <label className="flex items-center justify-center gap-2 px-3 py-2 border-2 border-dashed rounded-md cursor-pointer hover:border-primary/50 transition-colors text-sm text-muted-foreground">
+              {uploadingImage ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <>
+                  <Upload className="h-4 w-4" />
+                  Escolher ficheiro
+                </>
+              )}
+              <input type="file" accept="image/*" className="hidden" onChange={handleImageFileUpload} disabled={uploadingImage} />
+            </label>
+            <div className="relative flex items-center">
+              <div className="flex-grow border-t border-muted" />
+              <span className="px-2 text-xs text-muted-foreground">ou</span>
+              <div className="flex-grow border-t border-muted" />
+            </div>
             <Label>URL da Imagem</Label>
             <Input
               placeholder="https://..."
@@ -276,7 +330,7 @@ function MenuBar({ editor }: { editor: Editor | null }) {
               onKeyDown={(e) => e.key === 'Enter' && addImage()}
             />
             <Button type="button" size="sm" onClick={addImage}>
-              Inserir Imagem
+              Inserir por URL
             </Button>
           </div>
         </PopoverContent>
