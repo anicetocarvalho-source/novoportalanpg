@@ -16,6 +16,8 @@ export interface PetroleumBlock {
   water_depth_m: number | null;
   offer_type: string;
   description: string | null;
+  lat: number | null;
+  lng: number | null;
 }
 
 function toBasinKey(basin: string): string {
@@ -121,6 +123,8 @@ export function usePetroleumBlocks() {
           water_depth_m: b.water_depth_m,
           offer_type: b.offer_type,
           description: b.description,
+          lat: (b.coordinates as any)?.lat ?? null,
+          lng: (b.coordinates as any)?.lng ?? null,
         };
       }),
   });
@@ -159,6 +163,8 @@ export function usePetroleumBlockById(blockId: string | undefined) {
         water_depth_m: data.water_depth_m,
         offer_type: data.offer_type,
         description: data.description,
+        lat: (data.coordinates as any)?.lat ?? null,
+        lng: (data.coordinates as any)?.lng ?? null,
       } as PetroleumBlock;
     },
     enabled: !!blockId,
