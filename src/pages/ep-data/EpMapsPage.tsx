@@ -1,11 +1,14 @@
-import { Map, Download, Building2, Layers } from "lucide-react";
+import { Map, Download, Building2, Layers, List } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { ConcessionsMap } from "@/components/concessions/ConcessionsMap";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import heroImage from "@/assets/hero-offshore.jpg";
-import { useMemo } from "react";
+import { lazy, Suspense, useMemo } from "react";
+
+const GeographicMap = lazy(() => import("@/components/concessions/GeographicMap").then(m => ({ default: m.GeographicMap })));
 import { usePetroleumBlocks, basinLabels } from "@/hooks/usePetroleumBlocks";
 
 export default function EpMapsPage() {
@@ -14,7 +17,6 @@ export default function EpMapsPage() {
 
   const operatorStats = useMemo(() => {
     const operators: Record<string, { blocks: number; production: number }> = {};
-    
     blocks.forEach(block => {
       if (!operators[block.operator]) {
         operators[block.operator] = { blocks: 0, production: 0 };
@@ -24,7 +26,6 @@ export default function EpMapsPage() {
         operators[block.operator].production++;
       }
     });
-
     return Object.entries(operators)
       .map(([name, data]) => ({ name, ...data }))
       .sort((a, b) => b.blocks - a.blocks)
@@ -39,7 +40,6 @@ export default function EpMapsPage() {
     return basins;
   }, [blocks]);
 
-  // Get unique basins from data for display
   const uniqueBasins = useMemo(() => {
     return [...new Set(blocks.map(b => b.basinKey))].sort();
   }, [blocks]);
@@ -98,7 +98,7 @@ export default function EpMapsPage() {
         </section>
       </SectionTransition>
 
-      {/* Interactive Map */}
+      {/* Interactive Map with Tabs */}
       <SectionTransition delay={0.1}>
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-8">
@@ -111,7 +111,28 @@ export default function EpMapsPage() {
             </div>
           </div>
 
-          <ConcessionsMap />
+          <Tabs defaultValue="map" className="w-full">
+            <TabsList className="mb-6">
+              <TabsTrigger value="map" className="gap-2">
+                <Map className="w-4 h-4" />
+                Vista Mapa
+              </TabsTrigger>
+              <TabsTrigger value="list" className="gap-2">
+                <List className="w-4 h-4" />
+                Vista Lista
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="map">
+              <Suspense fallback={<div className="h-[600px] w-full rounded-2xl border border-border bg-muted/50 flex items-center justify-center text-muted-foreground">A carregar mapa...</div>}>
+                <GeographicMap blocks={blocks} />
+              </Suspense>
+            </TabsContent>
+
+            <TabsContent value="list">
+              <ConcessionsMap />
+            </TabsContent>
+          </Tabs>
         </section>
       </SectionTransition>
 
