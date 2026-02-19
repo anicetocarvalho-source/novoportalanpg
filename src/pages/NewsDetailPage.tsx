@@ -16,6 +16,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SectionTransition } from "@/components/layout/SectionTransition";
+import { WPContent } from "@/components/wordpress/WPContent";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNewsArticleBySlug, useNewsArticles } from "@/hooks/useCMSData";
@@ -171,29 +172,33 @@ export default function NewsDetailPage() {
             </div>
             
             <div className="article-content">
-              {news.content.split('\n').map((paragraph, index) => {
-                const trimmed = paragraph.trim();
-                if (!trimmed) return null;
-                
-                if (trimmed.startsWith('## ')) {
-                  return <h2 key={index} className="text-2xl font-bold text-foreground mt-8 mb-4">{trimmed.replace('## ', '')}</h2>;
-                }
-                if (trimmed.startsWith('### ')) {
-                  return <h3 key={index} className="text-xl font-semibold text-foreground mt-6 mb-3">{trimmed.replace('### ', '')}</h3>;
-                }
-                if (trimmed.startsWith('> ')) {
-                  return <blockquote key={index} className="border-l-4 border-primary pl-4 my-6 italic text-muted-foreground bg-secondary/30 py-4 pr-4 rounded-r-lg">{trimmed.replace('> ', '')}</blockquote>;
-                }
-                if (trimmed.startsWith('- ')) {
-                  return <li key={index} className="text-muted-foreground ml-4 mb-2">{trimmed.replace('- ', '')}</li>;
-                }
-                if (/^\d+\.\s/.test(trimmed)) {
-                  return <li key={index} className="text-muted-foreground ml-4 mb-2 list-decimal">{trimmed.replace(/^\d+\.\s/, '')}</li>;
-                }
-                if (trimmed.startsWith('|')) return null;
-                
-                return <p key={index} className="text-muted-foreground mb-4 leading-relaxed">{trimmed}</p>;
-              })}
+              {news.content.includes('<') ? (
+                <WPContent html={news.content} maxWidth="none" />
+              ) : (
+                news.content.split('\n').map((paragraph, index) => {
+                  const trimmed = paragraph.trim();
+                  if (!trimmed) return null;
+                  
+                  if (trimmed.startsWith('## ')) {
+                    return <h2 key={index} className="text-2xl font-bold text-foreground mt-8 mb-4">{trimmed.replace('## ', '')}</h2>;
+                  }
+                  if (trimmed.startsWith('### ')) {
+                    return <h3 key={index} className="text-xl font-semibold text-foreground mt-6 mb-3">{trimmed.replace('### ', '')}</h3>;
+                  }
+                  if (trimmed.startsWith('> ')) {
+                    return <blockquote key={index} className="border-l-4 border-primary pl-4 my-6 italic text-muted-foreground bg-secondary/30 py-4 pr-4 rounded-r-lg">{trimmed.replace('> ', '')}</blockquote>;
+                  }
+                  if (trimmed.startsWith('- ')) {
+                    return <li key={index} className="text-muted-foreground ml-4 mb-2">{trimmed.replace('- ', '')}</li>;
+                  }
+                  if (/^\d+\.\s/.test(trimmed)) {
+                    return <li key={index} className="text-muted-foreground ml-4 mb-2 list-decimal">{trimmed.replace(/^\d+\.\s/, '')}</li>;
+                  }
+                  if (trimmed.startsWith('|')) return null;
+                  
+                  return <p key={index} className="text-muted-foreground mb-4 leading-relaxed">{trimmed}</p>;
+                })
+              )}
             </div>
           </article>
         </SectionTransition>
