@@ -1,4 +1,4 @@
-import { Database, Layers, Image, Map, Calendar, Users } from "lucide-react";
+import { Database, Layers, Image, Map } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
@@ -12,8 +12,6 @@ export default function EpDataPage() {
     { icon: Image, titleKey: "nav.submenu.oasisImageBank", descriptionKey: "nav.submenu.oasisImageBankDesc", href: "/ep-data/oasis" },
     { icon: Database, titleKey: "nav.submenu.dataPackages", descriptionKey: "nav.submenu.dataPackagesDesc", href: "/ep-data/packages" },
     { icon: Map, titleKey: "nav.submenu.epMaps", descriptionKey: "nav.submenu.epMapsDesc", href: "/ep-data/maps" },
-    { icon: Calendar, titleKey: "nav.submenu.conference2021", descriptionKey: "nav.submenu.conference2021Desc", href: "/ep-data/conference-2021" },
-    { icon: Users, titleKey: "nav.submenu.dataConference2023", descriptionKey: "nav.submenu.dataConference2023Desc", href: "/ep-data/conference-2023" },
   ];
 
   return (
