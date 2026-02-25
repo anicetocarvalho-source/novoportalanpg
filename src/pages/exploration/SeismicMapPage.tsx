@@ -9,9 +9,8 @@ import {
   seismic4dSurveys,
   basinColors,
   type SeismicSurvey,
-} from "@/data/seismicData";
+} from "@/data/seismic";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import heroImage from "@/assets/angola-coast.jpg";
 import L from "leaflet";
@@ -45,19 +44,25 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
 
   const [selectedBasins, setSelectedBasins] = useState<Set<string>>(new Set(allBasins));
   const [yearRange, setYearRange] = useState<[number, number]>(allYears);
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set(["proprietary", "multiclient"]));
 
   // Reset filters when type changes
   useEffect(() => {
     setSelectedBasins(new Set(allBasins));
     setYearRange(allYears);
+    setSelectedCategories(new Set(["proprietary", "multiclient"]));
   }, [type]);
 
   const filteredSurveys = useMemo(
     () =>
       allSurveys.filter(
-        (s) => selectedBasins.has(s.basin) && s.year >= yearRange[0] && s.year <= yearRange[1]
+        (s) =>
+          selectedBasins.has(s.basin) &&
+          s.year >= yearRange[0] &&
+          s.year <= yearRange[1] &&
+          selectedCategories.has(s.category)
       ),
-    [allSurveys, selectedBasins, yearRange]
+    [allSurveys, selectedBasins, yearRange, selectedCategories]
   );
 
   const titleKey = `pages.exploration.seismic${type}`;
@@ -79,14 +84,20 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
       const div = L.DomUtil.create("div", "leaflet-legend");
       div.style.cssText =
         "background:white;padding:10px 14px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:13px;line-height:1.8;";
-      div.innerHTML =
-        `<strong style="margin-bottom:4px;display:block">${isEn ? "Basins" : "Bacias"}</strong>` +
-        allBasins
-          .map(
-            (b) =>
-              `<span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:${basinColors[b] || "#8e44ad"};display:inline-block"></span>${b}</span>`
-          )
-          .join("");
+      let html = `<strong style="margin-bottom:4px;display:block">${isEn ? "Basins" : "Bacias"}</strong>`;
+      html += allBasins
+        .map(
+          (b) =>
+            `<span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:${basinColors[b] || "#8e44ad"};display:inline-block"></span>${b}</span>`
+        )
+        .join("");
+      if (type === "2d") {
+        html += `<hr style="margin:6px 0;border-color:#eee"/>`;
+        html += `<strong style="margin-bottom:4px;display:block">${isEn ? "Category" : "Categoria"}</strong>`;
+        html += `<span style="display:flex;align-items:center;gap:6px"><span style="width:20px;border-top:3px solid #666;display:inline-block"></span>${isEn ? "Proprietary" : "Proprietária"}</span>`;
+        html += `<span style="display:flex;align-items:center;gap:6px"><span style="width:20px;border-top:3px dashed #666;display:inline-block"></span>${isEn ? "Multiclient" : "Multicliente"}</span>`;
+      }
+      div.innerHTML = html;
       return div;
     };
     legend.addTo(map);
@@ -102,7 +113,6 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
     const map = mapInstanceRef.current;
     if (!map) return;
 
-    // Remove old layers
     layersRef.current.forEach((l) => map.removeLayer(l));
     layersRef.current = [];
 
@@ -112,7 +122,8 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
       let layer: L.Layer;
 
       if (type === "2d") {
-        layer = L.polyline(coords, { color, weight: 3, opacity: 0.8, dashArray: "6 4" }).addTo(map);
+        const dash = survey.category === "multiclient" ? "8 6" : undefined;
+        layer = L.polyline(coords, { color, weight: 3, opacity: 0.8, dashArray: dash }).addTo(map);
       } else {
         layer = L.polygon(coords, { color, fillColor: color, fillOpacity: 0.2, weight: 2 }).addTo(map);
       }
@@ -126,6 +137,15 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
       const next = new Set(prev);
       if (next.has(basin)) next.delete(basin);
       else next.add(basin);
+      return next;
+    });
+  };
+
+  const toggleCategory = (cat: string) => {
+    setSelectedCategories((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
       return next;
     });
   };
@@ -148,8 +168,8 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
       <div className="space-y-8">
         {intro ? (
           <>
-            <h2 className="text-2xl font-bold text-foreground">{intro.title}</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">{intro.body}</p>
+            <h2 className="text-2xl font-bold text-foreground">{(intro as any).title}</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">{(intro as any).body}</p>
           </>
         ) : (
           <p className="text-muted-foreground text-lg leading-relaxed">
@@ -165,6 +185,7 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
           </div>
 
           <div className="flex flex-wrap gap-x-6 gap-y-3">
+            {/* Basin filter */}
             <div className="space-y-2">
               <p className="text-sm font-medium text-muted-foreground">
                 {isEn ? "Basins" : "Bacias"}
@@ -188,6 +209,32 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
               </div>
             </div>
 
+            {/* Category filter (2D only) */}
+            {type === "2d" && (
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-muted-foreground">
+                  {isEn ? "Category" : "Categoria"}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox
+                      checked={selectedCategories.has("proprietary")}
+                      onCheckedChange={() => toggleCategory("proprietary")}
+                    />
+                    <span className="text-sm text-foreground">{isEn ? "Proprietary" : "Proprietária"}</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox
+                      checked={selectedCategories.has("multiclient")}
+                      onCheckedChange={() => toggleCategory("multiclient")}
+                    />
+                    <span className="text-sm text-foreground">{isEn ? "Multiclient" : "Multicliente"}</span>
+                  </label>
+                </div>
+              </div>
+            )}
+
+            {/* Year range */}
             <div className="space-y-2 min-w-[220px] flex-1 max-w-sm">
               <p className="text-sm font-medium text-muted-foreground">
                 {isEn ? "Year Range" : "Intervalo de Anos"}: {yearRange[0]} – {yearRange[1]}
@@ -211,7 +258,7 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
         </div>
 
         {/* Stats bar */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="p-4 rounded-xl bg-secondary/50 border border-border text-center">
             <p className="text-3xl font-bold text-primary">{filteredSurveys.length}</p>
             <p className="text-sm text-muted-foreground">{isEn ? "Surveys" : "Levantamentos"}</p>
@@ -222,11 +269,17 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
               {isEn ? `Total Coverage (${unit})` : `Cobertura Total (${unit})`}
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-secondary/50 border border-border text-center col-span-2 md:col-span-1">
+          <div className="p-4 rounded-xl bg-secondary/50 border border-border text-center">
             <p className="text-3xl font-bold text-primary">
               {[...new Set(filteredSurveys.map((s) => s.basin))].length}
             </p>
             <p className="text-sm text-muted-foreground">{isEn ? "Basins Covered" : "Bacias Cobertas"}</p>
+          </div>
+          <div className="p-4 rounded-xl bg-secondary/50 border border-border text-center">
+            <p className="text-3xl font-bold text-primary">
+              {[...new Set(filteredSurveys.map((s) => s.operator))].length}
+            </p>
+            <p className="text-sm text-muted-foreground">{isEn ? "Operators" : "Operadores"}</p>
           </div>
         </div>
 
@@ -245,6 +298,9 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
                 <th className="text-left p-3 font-semibold text-foreground">{isEn ? "Year" : "Ano"}</th>
                 <th className="text-left p-3 font-semibold text-foreground">{isEn ? "Basin" : "Bacia"}</th>
                 <th className="text-left p-3 font-semibold text-foreground">{isEn ? "Operator" : "Operador"}</th>
+                {type === "2d" && (
+                  <th className="text-left p-3 font-semibold text-foreground">{isEn ? "Category" : "Categoria"}</th>
+                )}
                 <th className="text-right p-3 font-semibold text-foreground">
                   {isEn ? `Coverage (${unit})` : `Cobertura (${unit})`}
                 </th>
@@ -265,6 +321,19 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
                     </span>
                   </td>
                   <td className="p-3 text-muted-foreground">{s.operator}</td>
+                  {type === "2d" && (
+                    <td className="p-3">
+                      <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
+                        s.category === "proprietary"
+                          ? "bg-primary/10 text-primary"
+                          : "bg-accent/50 text-accent-foreground"
+                      }`}>
+                        {s.category === "proprietary"
+                          ? (isEn ? "Proprietary" : "Proprietária")
+                          : (isEn ? "Multiclient" : "Multicliente")}
+                      </span>
+                    </td>
+                  )}
                   <td className="p-3 text-right text-muted-foreground">{s.coverage.toLocaleString()}</td>
                 </tr>
               ))}
@@ -278,12 +347,16 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
 
 function buildPopup(survey: SeismicSurvey, isEn: boolean): string {
   const unit = survey.type === "2d" ? "km" : "km²";
+  const catLabel = survey.category === "proprietary"
+    ? (isEn ? "Proprietary" : "Proprietária")
+    : (isEn ? "Multiclient" : "Multicliente");
   return `
     <div style="min-width:200px">
       <strong style="font-size:14px">${survey.name}</strong><br/>
       <span style="color:#666">${isEn ? "Year" : "Ano"}: ${survey.year}</span><br/>
       <span style="color:#666">${isEn ? "Basin" : "Bacia"}: ${survey.basin}</span><br/>
       <span style="color:#666">${isEn ? "Operator" : "Operador"}: ${survey.operator}</span><br/>
+      <span style="color:#666">${isEn ? "Category" : "Categoria"}: ${catLabel}</span><br/>
       <span style="color:#666">${isEn ? "Coverage" : "Cobertura"}: ${survey.coverage.toLocaleString()} ${unit}</span>
     </div>
   `;
