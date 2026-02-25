@@ -556,7 +556,35 @@
     "production": {
       "title": "Production",
       "subtitle": "Statistics",
-      "description": "Data and statistics on Angola's petroleum production."
+      "description": "Data and statistics on Angola's petroleum production.",
+      "keyIndicators": "Key Indicators",
+      "historicalTitle": "Historical Production",
+      "historicalSubtitle": "Oil and natural gas production evolution (2018-2024)",
+      "oilLabel": "Oil (kbbl/day)",
+      "gasLabel": "Gas (MMscf/day)",
+      "oilName": "Oil",
+      "gasName": "Natural Gas",
+      "monthlyTitle": "Monthly Production 2024",
+      "monthlySubtitle": "Monthly oil production (kbbl/day)",
+      "productionLabel": "Production",
+      "operatorTitle": "Production by Operator",
+      "operatorSubtitle": "Market share by operator",
+      "quotaLabel": "Share",
+      "basinTitle": "Production by Sedimentary Basin",
+      "basinSubtitle": "Oil production distribution by region",
+      "tableTitle": "Production Data by Operator",
+      "tableSubtitle": "Daily production details by operator",
+      "tableOperator": "Operator",
+      "tableProduction": "Production (kbbl/day)",
+      "tableQuota": "Share (%)",
+      "tableTrend": "Trend",
+      "trendStable": "Stable",
+      "defaultStats": {
+        "oilProduction": "Oil Production",
+        "gasProduction": "Natural Gas Production",
+        "activeBlocks": "Active Blocks",
+        "intlOperators": "International Operators"
+      }
     },
     "productionHistory": {
       "title": "Production History",

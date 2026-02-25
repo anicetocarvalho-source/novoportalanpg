@@ -556,7 +556,35 @@
     "production": {
       "title": "Produção",
       "subtitle": "Estatísticas",
-      "description": "Dados e estatísticas sobre a produção petrolífera angolana."
+      "description": "Dados e estatísticas sobre a produção petrolífera angolana.",
+      "keyIndicators": "Indicadores Chave",
+      "historicalTitle": "Produção Histórica",
+      "historicalSubtitle": "Evolução da produção de petróleo e gás natural (2018-2024)",
+      "oilLabel": "Petróleo (kbbl/dia)",
+      "gasLabel": "Gás (MMscf/dia)",
+      "oilName": "Petróleo",
+      "gasName": "Gás Natural",
+      "monthlyTitle": "Produção Mensal 2024",
+      "monthlySubtitle": "Produção de petróleo por mês (kbbl/dia)",
+      "productionLabel": "Produção",
+      "operatorTitle": "Produção por Operador",
+      "operatorSubtitle": "Quota de mercado por operador",
+      "quotaLabel": "Quota",
+      "basinTitle": "Produção por Bacia Sedimentar",
+      "basinSubtitle": "Distribuição da produção petrolífera por região",
+      "tableTitle": "Dados de Produção por Operador",
+      "tableSubtitle": "Detalhes de produção diária por operador",
+      "tableOperator": "Operador",
+      "tableProduction": "Produção (kbbl/dia)",
+      "tableQuota": "Quota (%)",
+      "tableTrend": "Tendência",
+      "trendStable": "Estável",
+      "defaultStats": {
+        "oilProduction": "Produção de Petróleo",
+        "gasProduction": "Produção de Gás Natural",
+        "activeBlocks": "Blocos Activos",
+        "intlOperators": "Operadores Internacionais"
+      }
     },
     "productionHistory": {
       "title": "Histórico de Produção",
