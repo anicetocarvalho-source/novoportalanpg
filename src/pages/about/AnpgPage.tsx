@@ -4,6 +4,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 import offshoreImage from "@/assets/angola-offshore-platform.jpg";
 
@@ -27,6 +28,11 @@ function SectionDivider({ label, icon: Icon }: { label?: string; icon?: typeof B
 
 export default function AnpgPage() {
   const { t } = useTranslation();
+  const { data: blocks } = useContentBlocks("anpg");
+
+  const getSection = (key: string) => blocks?.find(b => b.section_key === key)?.content;
+
+  const intro = getSection("intro");
 
   return (
     <PageLayout
@@ -45,21 +51,18 @@ export default function AnpgPage() {
       <SectionTransition>
         <section className="mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
-            {/* Text content - 3 columns */}
             <div className="lg:col-span-3 space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                {t("pages.anpg.content.intro")}
+                {intro?.intro || t("pages.anpg.content.intro")}
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                {t("pages.anpg.content.role")}
+                {intro?.role || t("pages.anpg.content.role")}
               </p>
             </div>
-
-            {/* Image - 2 columns */}
             <div className="lg:col-span-2">
               <div className="relative rounded-2xl overflow-hidden shadow-card aspect-[4/3]">
                 <img
-                  src={offshoreImage}
+                  src={intro?.image || offshoreImage}
                   alt="Plataforma Petrolífera Offshore em Angola"
                   className="w-full h-full object-cover"
                 />
@@ -75,7 +78,7 @@ export default function AnpgPage() {
         <SectionDivider label={t("pages.anpg.board.title")} icon={Users} />
       </SectionTransition>
 
-      {/* Board of Directors - Creative Org Chart */}
+      {/* Board of Directors */}
       <SectionTransition delay={0.1}>
         <section className="py-12">
           <BoardOrgChart />
@@ -87,10 +90,10 @@ export default function AnpgPage() {
         <SectionDivider label={t("pages.anpg.institutional.purpose.title")} icon={Landmark} />
       </SectionTransition>
 
-      {/* Institutional Content: Purpose, Principles, Objectives, Social Responsibility, Environment */}
+      {/* Institutional Content */}
       <SectionTransition delay={0.3}>
         <section className="pt-12">
-          <InstitutionalContent />
+          <InstitutionalContent cmsBlocks={blocks} />
         </section>
       </SectionTransition>
     </PageLayout>

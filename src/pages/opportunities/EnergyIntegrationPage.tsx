@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 
 function SectionDivider({ label, icon: Icon }: { label?: string; icon?: React.ComponentType<{ className?: string }> }) {
@@ -36,24 +37,39 @@ function SectionDivider({ label, icon: Icon }: { label?: string; icon?: React.Co
   );
 }
 
+const areaIcons = [Fuel, Zap, Leaf, Globe2];
+const statIcons = [Briefcase, TrendingUp, Users, BarChart3];
+
 export default function EnergyIntegrationPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { data: blocks } = useContentBlocks("energy-integration");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", organization: "", interest: "", message: "" });
 
-  const areas = [
+  const getSection = (key: string) => blocks?.find(b => b.section_key === key)?.content;
+
+  const introContent = getSection("intro");
+  const areasContent = getSection("areas");
+  const statsContent = getSection("stats");
+  const timelineContent = getSection("timeline");
+  const contactContent = getSection("contact");
+
+  // Default data from i18n
+  const defaultAreas = [
     { icon: Fuel, titleKey: "pages.energyIntegration.areas.biofuels.title", descKey: "pages.energyIntegration.areas.biofuels.desc" },
     { icon: Zap, titleKey: "pages.energyIntegration.areas.transition.title", descKey: "pages.energyIntegration.areas.transition.desc" },
     { icon: Leaf, titleKey: "pages.energyIntegration.areas.sustainability.title", descKey: "pages.energyIntegration.areas.sustainability.desc" },
     { icon: Globe2, titleKey: "pages.energyIntegration.areas.partnerships.title", descKey: "pages.energyIntegration.areas.partnerships.desc" },
   ];
 
-  const statIcons = [Briefcase, TrendingUp, Users, BarChart3];
-  const statKeys = ["projects", "investment", "jobs", "reduction"];
+  const cmsAreas = areasContent?.items as Array<{ title: string; desc: string }> | undefined;
+  const cmsStats = statsContent?.items as Array<{ value: string; label: string }> | undefined;
+  const cmsTimeline = timelineContent?.items as Array<{ year: string; title: string; desc: string }> | undefined;
 
-  const timeline = t("pages.energyIntegration.timeline", { returnObjects: true }) as Array<{ year: string; title: string; desc: string }>;
+  const defaultStatKeys = ["projects", "investment", "jobs", "reduction"];
+  const defaultTimeline = t("pages.energyIntegration.timeline", { returnObjects: true }) as Array<{ year: string; title: string; desc: string }>;
 
   const interestOptions = [
     { value: "biofuels", labelKey: "pages.energyIntegration.interestOptions.biofuels" },
@@ -79,6 +95,8 @@ export default function EnergyIntegrationPage() {
     }, 3000);
   };
 
+  const timeline = cmsTimeline || (Array.isArray(defaultTimeline) ? defaultTimeline : []);
+
   return (
     <PageLayout
       pageKey="energy-integration"
@@ -94,7 +112,7 @@ export default function EnergyIntegrationPage() {
       <SectionTransition>
         <section className="mb-16">
           <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl">
-            {t("pages.energyIntegration.intro")}
+            {introContent?.text || t("pages.energyIntegration.intro")}
           </p>
         </section>
       </SectionTransition>
@@ -103,10 +121,21 @@ export default function EnergyIntegrationPage() {
       <SectionTransition delay={0.1}>
         <section>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-10">
-            {t("pages.energyIntegration.areasTitle")}
+            {areasContent?.title || t("pages.energyIntegration.areasTitle")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {areas.map((area) => {
+            {cmsAreas ? cmsAreas.map((area, i) => {
+              const Icon = areaIcons[i % areaIcons.length];
+              return (
+                <div key={i} className="group p-6 rounded-2xl border border-border bg-card hover:shadow-card transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-200">
+                    <Icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{area.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{area.desc}</p>
+                </div>
+              );
+            }) : defaultAreas.map((area) => {
               const Icon = area.icon;
               return (
                 <div key={area.titleKey} className="group p-6 rounded-2xl border border-border bg-card hover:shadow-card transition-all duration-300">
@@ -124,14 +153,23 @@ export default function EnergyIntegrationPage() {
 
       {/* Divider */}
       <SectionTransition delay={0.15}>
-        <SectionDivider label={t("pages.energyIntegration.statsTitle")} icon={BarChart3} />
+        <SectionDivider label={statsContent?.title || t("pages.energyIntegration.statsTitle")} icon={BarChart3} />
       </SectionTransition>
 
       {/* Statistics */}
       <SectionTransition delay={0.2}>
         <section className="mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {statKeys.map((key, i) => {
+            {cmsStats ? cmsStats.map((stat, i) => {
+              const Icon = statIcons[i % statIcons.length];
+              return (
+                <div key={i} className="text-center p-6 rounded-2xl bg-primary/5 border border-primary/10">
+                  <Icon className="w-8 h-8 text-primary mx-auto mb-3" />
+                  <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">{stat.value}</p>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                </div>
+              );
+            }) : defaultStatKeys.map((key, i) => {
               const Icon = statIcons[i];
               return (
                 <div key={key} className="text-center p-6 rounded-2xl bg-primary/5 border border-primary/10">
@@ -151,29 +189,24 @@ export default function EnergyIntegrationPage() {
 
       {/* Divider */}
       <SectionTransition delay={0.25}>
-        <SectionDivider label={t("pages.energyIntegration.timelineTitle")} icon={Landmark} />
+        <SectionDivider label={timelineContent?.title || t("pages.energyIntegration.timelineTitle")} icon={Landmark} />
       </SectionTransition>
 
       {/* Timeline */}
       <SectionTransition delay={0.3}>
         <section className="mb-16">
           <div className="relative ml-4 md:ml-0">
-            {/* Vertical line */}
             <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent" />
-
             <div className="space-y-8 md:space-y-0">
-              {Array.isArray(timeline) && timeline.map((item, index) => {
+              {timeline.map((item, index) => {
                 const isLeft = index % 2 === 0;
                 return (
                   <div key={item.year} className="relative md:grid md:grid-cols-2 md:gap-12 md:py-6">
-                    {/* Center dot */}
                     <div className="absolute left-5 md:left-1/2 top-6 md:top-8 -translate-x-1/2 z-10">
                       <div className="w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold shadow-lg ring-4 ring-background">
                         {item.year.slice(-2)}
                       </div>
                     </div>
-
-                    {/* Content card */}
                     <div className={cn(
                       "ml-16 md:ml-0",
                       isLeft ? "md:col-start-1 md:text-right md:pr-8" : "md:col-start-2 md:pl-8"
@@ -186,8 +219,6 @@ export default function EnergyIntegrationPage() {
                         <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
-
-                    {/* Empty column for alternating layout */}
                     {isLeft && <div className="hidden md:block md:col-start-2" />}
                     {!isLeft && <div className="hidden md:block md:col-start-1 md:row-start-1" />}
                   </div>
@@ -200,14 +231,14 @@ export default function EnergyIntegrationPage() {
 
       {/* Divider */}
       <SectionTransition delay={0.35}>
-        <SectionDivider label={t("pages.energyIntegration.contactTitle")} icon={Send} />
+        <SectionDivider label={contactContent?.title || t("pages.energyIntegration.contactTitle")} icon={Send} />
       </SectionTransition>
 
       {/* Contact Form */}
       <SectionTransition delay={0.4}>
         <section className="max-w-2xl mx-auto">
           <p className="text-muted-foreground mb-8 text-center">
-            {t("pages.energyIntegration.contactIntro")}
+            {contactContent?.intro || t("pages.energyIntegration.contactIntro")}
           </p>
 
           {isSuccess ? (

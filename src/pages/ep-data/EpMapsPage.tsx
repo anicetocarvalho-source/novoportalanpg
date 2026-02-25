@@ -60,7 +60,7 @@ export default function EpMapsPage() {
         <div className="flex flex-wrap gap-4 mt-4">
           <Button variant="hero" size="lg">
             <Download className="w-4 h-4 mr-2" />
-            Descarregar Mapa PDF
+            {t("pages.epMaps.downloadPdf")}
           </Button>
         </div>
       }
@@ -73,8 +73,8 @@ export default function EpMapsPage() {
               <Layers className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Distribuição por Bacia</h2>
-              <p className="text-muted-foreground text-sm">Blocos concessionados por região sedimentar</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("pages.epMaps.basinDistribution")}</h2>
+              <p className="text-muted-foreground text-sm">{t("pages.epMaps.basinDistributionDesc")}</p>
             </div>
           </div>
 
@@ -90,7 +90,7 @@ export default function EpMapsPage() {
                 <div key={key} className={`p-6 rounded-2xl bg-gradient-to-br ${colors[index % colors.length]} border`}>
                   <h3 className="font-bold text-foreground mb-1">{basinLabels[key] || key}</h3>
                   <p className="text-3xl font-bold text-primary">{basinStats[key] || 0}</p>
-                  <p className="text-sm text-muted-foreground">blocos</p>
+                  <p className="text-sm text-muted-foreground">{t("pages.epMaps.blocks")}</p>
                 </div>
               );
             })}
@@ -106,8 +106,8 @@ export default function EpMapsPage() {
               <Map className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Mapa de Concessões</h2>
-              <p className="text-muted-foreground text-sm">Pesquise e explore todos os blocos por bacia, operador e estado</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("pages.epMaps.concessionsMap")}</h2>
+              <p className="text-muted-foreground text-sm">{t("pages.epMaps.concessionsMapDesc")}</p>
             </div>
           </div>
 
@@ -115,16 +115,16 @@ export default function EpMapsPage() {
             <TabsList className="mb-6">
               <TabsTrigger value="map" className="gap-2">
                 <Map className="w-4 h-4" />
-                Vista Mapa
+                {t("pages.epMaps.mapView")}
               </TabsTrigger>
               <TabsTrigger value="list" className="gap-2">
                 <List className="w-4 h-4" />
-                Vista Lista
+                {t("pages.epMaps.listView")}
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="map">
-              <Suspense fallback={<div className="h-[600px] w-full rounded-2xl border border-border bg-muted/50 flex items-center justify-center text-muted-foreground">A carregar mapa...</div>}>
+              <Suspense fallback={<div className="h-[600px] w-full rounded-2xl border border-border bg-muted/50 flex items-center justify-center text-muted-foreground">{t("pages.epMaps.loadingMap")}</div>}>
                 <GeographicMap blocks={blocks} />
               </Suspense>
             </TabsContent>
@@ -144,8 +144,8 @@ export default function EpMapsPage() {
               <Building2 className="w-6 h-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Principais Operadores</h2>
-              <p className="text-muted-foreground text-sm">Empresas com maior presença no sector</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">{t("pages.epMaps.topOperators")}</h2>
+              <p className="text-muted-foreground text-sm">{t("pages.epMaps.topOperatorsDesc")}</p>
             </div>
           </div>
 
@@ -162,11 +162,11 @@ export default function EpMapsPage() {
                   <h3 className="font-semibold text-foreground">{operator.name}</h3>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Blocos Operados</span>
+                  <span className="text-muted-foreground">{t("pages.epMaps.operatedBlocks")}</span>
                   <span className="font-medium text-foreground">{operator.blocks}</span>
                 </div>
                 <div className="flex justify-between text-sm mt-1">
-                  <span className="text-muted-foreground">Em Produção</span>
+                  <span className="text-muted-foreground">{t("pages.epMaps.inProduction")}</span>
                   <span className="font-medium text-primary">{operator.production}</span>
                 </div>
               </div>
