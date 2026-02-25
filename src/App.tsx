@@ -45,6 +45,7 @@ import TendersPage from "./pages/regulation/TendersPage";
 
 // Other pages
 import MediaPage from "./pages/MediaPage";
+import EventsPage from "./pages/media/EventsPage";
 import NewsArchivePage from "./pages/NewsArchivePage";
 import NewsDetailPage from "./pages/NewsDetailPage";
 import ProductionPage from "./pages/ProductionPage";
@@ -131,6 +132,7 @@ function AnimatedRoutes() {
           
           {/* Other pages */}
           <Route path="/media" element={<MediaPage />} />
+          <Route path="/media/events" element={<EventsPage />} />
           <Route path="/media/archive" element={<NewsArchivePage />} />
           <Route path="/news/:newsId" element={<NewsDetailPage />} />
           <Route path="/production" element={<ProductionPage />} />
