@@ -300,7 +300,8 @@ export default function MediaPage() {
       descriptionKey="pages.media.description"
       icon={<Newspaper className="w-8 h-8 text-primary" />}
       breadcrumbs={[
-        { labelKey: "nav.media" },
+        { labelKey: "nav.media", href: "/media" },
+        { label: "Imprensa" },
       ]}
     >
       <Tabs defaultValue="news" className="w-full">
