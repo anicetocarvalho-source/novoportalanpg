@@ -51,12 +51,17 @@ export default function ProcessingPage() {
 
   // Chart data: coverage by basin (bar chart)
   const basinChartData = useMemo(() =>
-    basinStats.map(([basin, d]) => ({
-      basin,
-      "2D (km)": allSurveys.filter(s => s.basin === basin && s.type === "2d").reduce((a, s) => a + s.coverage, 0),
-      "3D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "3d").reduce((a, s) => a + s.coverage, 0),
-      "4D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "4d").reduce((a, s) => a + s.coverage, 0),
-    })),
+    basinStats.map(([basin, d]) => {
+      const ops = [...d.operators].sort();
+      return {
+        basin,
+        "2D (km)": allSurveys.filter(s => s.basin === basin && s.type === "2d").reduce((a, s) => a + s.coverage, 0),
+        "3D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "3d").reduce((a, s) => a + s.coverage, 0),
+        "4D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "4d").reduce((a, s) => a + s.coverage, 0),
+        count: d.count2d + d.count3d + d.count4d,
+        operators: ops,
+      };
+    }),
     [basinStats, allSurveys]
   );
 
@@ -64,14 +69,16 @@ export default function ProcessingPage() {
   const temporalData = useMemo(() => {
     const minYear = Math.min(...years);
     const maxYear = Math.max(...years);
-    const data: { year: number; "2D": number; "3D": number; "4D": number; cumulative: number }[] = [];
+    const data: { year: number; "2D": number; "3D": number; "4D": number; cumulative: number; operators: string[] }[] = [];
     let cum = 0;
     for (let y = minYear; y <= maxYear; y++) {
-      const c2d = allSurveys.filter(s => s.year === y && s.type === "2d").length;
-      const c3d = allSurveys.filter(s => s.year === y && s.type === "3d").length;
-      const c4d = allSurveys.filter(s => s.year === y && s.type === "4d").length;
+      const yearSurveys = allSurveys.filter(s => s.year === y);
+      const c2d = yearSurveys.filter(s => s.type === "2d").length;
+      const c3d = yearSurveys.filter(s => s.type === "3d").length;
+      const c4d = yearSurveys.filter(s => s.type === "4d").length;
+      const ops = [...new Set(yearSurveys.map(s => s.operator))].sort();
       cum += c2d + c3d + c4d;
-      data.push({ year: y, "2D": c2d, "3D": c3d, "4D": c4d, cumulative: cum });
+      data.push({ year: y, "2D": c2d, "3D": c3d, "4D": c4d, cumulative: cum, operators: ops });
     }
     return data;
   }, [allSurveys, years]);
@@ -128,6 +135,99 @@ export default function ProcessingPage() {
     { href: "/exploration/seismic-3d", label: isPt ? "Mapa Sísmico 3D" : "3D Seismic Map", desc: isPt ? "Polígonos de cobertura 3D" : "3D coverage polygons" },
     { href: "/exploration/seismic-4d", label: isPt ? "Mapa Sísmico 4D" : "4D Seismic Map", desc: isPt ? "Monitorização time-lapse 4D" : "4D time-lapse monitoring" },
   ];
+
+  const tooltipStyle = { backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const BasinTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload?.length) return null;
+    const d = basinChartData.find(b => b.basin === label);
+    return (
+      <div style={tooltipStyle} className="p-3 shadow-lg text-sm max-w-[260px]">
+        <p className="font-bold text-foreground mb-1">{label}</p>
+        <p className="text-muted-foreground text-xs mb-2">{d?.count} {isPt ? "levantamentos" : "surveys"}</p>
+        {payload.map((p: any) => (
+          <div key={p.dataKey} className="flex justify-between gap-4">
+            <span style={{ color: p.color }}>{p.dataKey}</span>
+            <span className="font-mono">{p.value?.toLocaleString()}</span>
+          </div>
+        ))}
+        {d?.operators && d.operators.length > 0 && (
+          <div className="mt-2 pt-2 border-t border-border">
+            <p className="text-xs text-muted-foreground mb-1">{isPt ? "Operadores:" : "Operators:"}</p>
+            <p className="text-xs leading-relaxed">{d.operators.join(", ")}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const TemporalTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload?.length) return null;
+    const d = temporalData.find(t => t.year === label);
+    const total = (d?.["2D"] || 0) + (d?.["3D"] || 0) + (d?.["4D"] || 0);
+    if (total === 0) return null;
+    return (
+      <div style={tooltipStyle} className="p-3 shadow-lg text-sm max-w-[260px]">
+        <p className="font-bold text-foreground mb-1">{label}</p>
+        <p className="text-muted-foreground text-xs mb-2">{total} {isPt ? "novos levantamentos" : "new surveys"}</p>
+        {payload.filter((p: any) => p.value > 0).map((p: any) => (
+          <div key={p.dataKey} className="flex justify-between gap-4">
+            <span style={{ color: p.color }}>{p.dataKey || p.name}</span>
+            <span className="font-mono">{p.value}</span>
+          </div>
+        ))}
+        {d?.operators && d.operators.length > 0 && (
+          <div className="mt-2 pt-2 border-t border-border">
+            <p className="text-xs text-muted-foreground mb-1">{isPt ? "Operadores:" : "Operators:"}</p>
+            <p className="text-xs leading-relaxed">{d.operators.join(", ")}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const PieTooltip = ({ active, payload }: any) => {
+    if (!active || !payload?.length) return null;
+    const entry = payload[0];
+    const type = entry.name.toLowerCase() as "2d" | "3d" | "4d";
+    const ops = [...new Set(allSurveys.filter(s => s.type === type).map(s => s.operator))].sort();
+    const totalCov = allSurveys.filter(s => s.type === type).reduce((a, s) => a + s.coverage, 0);
+    const unit = type === "2d" ? "km" : "km²";
+    return (
+      <div style={tooltipStyle} className="p-3 shadow-lg text-sm max-w-[260px]">
+        <p className="font-bold text-foreground mb-1">{entry.name}</p>
+        <div className="flex justify-between gap-4">
+          <span className="text-muted-foreground">{isPt ? "Levantamentos" : "Surveys"}</span>
+          <span className="font-mono">{entry.value}</span>
+        </div>
+        <div className="flex justify-between gap-4">
+          <span className="text-muted-foreground">{isPt ? "Cobertura" : "Coverage"}</span>
+          <span className="font-mono">{totalCov.toLocaleString()} {unit}</span>
+        </div>
+        <div className="mt-2 pt-2 border-t border-border">
+          <p className="text-xs text-muted-foreground mb-1">{isPt ? "Operadores:" : "Operators:"} ({ops.length})</p>
+          <p className="text-xs leading-relaxed">{ops.slice(0, 6).join(", ")}{ops.length > 6 ? ` +${ops.length - 6}` : ""}</p>
+        </div>
+      </div>
+    );
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const CumulativeTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload?.length) return null;
+    return (
+      <div style={tooltipStyle} className="p-3 shadow-lg text-sm">
+        <p className="font-bold text-foreground">{label}</p>
+        <div className="flex justify-between gap-4 mt-1">
+          <span className="text-muted-foreground">{isPt ? "Total acumulado" : "Cumulative total"}</span>
+          <span className="font-mono">{payload[0].value}</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <PageLayout
@@ -189,7 +289,7 @@ export default function ProcessingPage() {
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis dataKey="basin" tick={{ fontSize: 11 }} angle={-35} textAnchor="end" className="fill-muted-foreground" />
                     <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
-                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Tooltip content={<BasinTooltip />} />
                     <Legend />
                     <Bar dataKey="2D (km)" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     <Bar dataKey="3D (km²)" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
@@ -210,7 +310,7 @@ export default function ProcessingPage() {
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis dataKey="year" tick={{ fontSize: 11 }} className="fill-muted-foreground" />
                     <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
-                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Tooltip content={<TemporalTooltip />} />
                     <Legend />
                     <Area type="monotone" dataKey="2D" stackId="1" fill="hsl(var(--primary))" stroke="hsl(var(--primary))" fillOpacity={0.6} />
                     <Area type="monotone" dataKey="3D" stackId="1" fill="hsl(var(--accent))" stroke="hsl(var(--accent))" fillOpacity={0.6} />
@@ -233,7 +333,7 @@ export default function ProcessingPage() {
                         <Cell key={i} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Tooltip content={<PieTooltip />} />
                   </PieChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -250,7 +350,7 @@ export default function ProcessingPage() {
                     <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                     <XAxis dataKey="year" tick={{ fontSize: 11 }} className="fill-muted-foreground" />
                     <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
-                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Tooltip content={<CumulativeTooltip />} />
                     <Area type="monotone" dataKey="cumulative" fill="hsl(var(--primary))" stroke="hsl(var(--primary))" fillOpacity={0.3} name={isPt ? "Total Acumulado" : "Cumulative Total"} />
                   </AreaChart>
                 </ResponsiveContainer>
