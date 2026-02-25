@@ -1,53 +1,119 @@
 
 
-## Plano: Novo Menu "Exploração"
+## Plano: Substituir dados sintéticos por levantamentos sísmicos reais dos PDFs
 
 ### Contexto
 
-A estrutura de menus actual tem 7 itens principais (sort_order 1-7). A "Produção" está na posição 6. O novo menu "Exploração" ficará na posição 6 (antes de "Produção"), e "Produção" passará para 7, "Conteúdo Local" para 8.
+Analisei os 3 PDFs carregados, que contêm mapas oficiais da ANPG com levantamentos sísmicos reais:
 
-### Estrutura do Menu
+1. **Mapas_Print_II.pdf** -- "Sísmica 2D Proprietária" (15 levantamentos)
+2. **Mapas_Print_II - copia.pdf** -- "Sísmica 2D Multicliente" (14 levantamentos)
+3. **Mapas_Print_II - copia_2.pdf** -- "Sísmica 3D/4D Proprietária" (~100+ levantamentos com cobertura em km²)
+
+Os dados actuais em `src/data/seismicData.ts` são completamente sintéticos. Este plano substitui-os por dados reais extraídos dos mapas.
+
+---
+
+### Alterações Propostas
+
+#### 1. Reestruturar o modelo de dados (`src/data/seismicData.ts`)
+
+Adicionar campo `category` ao interface `SeismicSurvey` para distinguir entre "proprietária" e "multicliente":
 
 ```text
-Exploração (novo - posição 6)
-├── Campanhas Sísmicas
-├── Processamento e Interpretação
-├── Novas Áreas de Exploração
-├── Mapa Sísmica 2D
-├── Mapa Sísmica 3D
-└── Mapa Sísmica 4D
+SeismicSurvey
+├── id, name, year, basin, operator, type (2d/3d/4d)
+├── coverage, coverageUnit
+├── category: "proprietary" | "multiclient"  ← NOVO
+└── coordinates: [lat, lng][]
 ```
 
-### Alterações Necessárias
+**Dados 2D Proprietária** (do PDF 1) -- ~15 levantamentos reais:
+- Lower Congo 2D (Gulf Oil Corp, 1968)
+- 2D-KONCGG69_BA (CGG, 1969)
+- 2D-KONCGG70_S (CGG, 1970)
+- 2D-KONCGG72_G (CGG, 1973)
+- 2D-KONCGG73 (CGG, 1973)
+- 2D-KONCGG74 (CGG, 1974)
+- 2D-BBCTNG08 (Group Alrosa, 2008)
+- Angola 2D (CGG, 2012)
+- Cabinda Norte 2D (Grant Geophysical, 2007)
+- Cabinda Centro (BGP, 2022)
+- Cabinda Sul 3D (Geophysical Institute of Israel, 2005)
+- KON 6 (BGP, 2025)
+- KON 8 (BGP, 2024)
 
-#### 1. Base de Dados — Menu Items
-- Actualizar sort_order de "Produção" para 7 e "Conteúdo Local" para 8
-- Inserir novo item pai "Exploração" (sort_order 6, url `/exploration`)
-- Inserir 6 sub-itens com ícones apropriados (Map, Layers, Globe2, etc.)
+**Dados 2D Multicliente** (do PDF 2) -- ~14 levantamentos reais:
+- A89 (WesternGeco, 1989)
+- NB91 (WesternGeco, 1991)
+- WG96 (WesternGeco, 1996)
+- AWG97 (Western Geophysical, 1997)
+- AWG99 (Western Geophysical Co, 1999)
+- Angola Offshore MC2D (PGS, 2010)
+- CongoSpan II (GX Technology Corp, 2007)
+- NamibeSPAN (GX Technology Corp, 2019)
+- Southern Angola MC2D (Geokinetics Inc, 2012)
+- 2D-BBCTNG07 (Tyumenneftegeofizika, 2007)
+- 2D-KONCGG83_GLF (CGG, 1983)
+- 2D-KONGSI70 (Geophysical Service Inc, 1970)
+- 2D-KONGSI71_PGP (Geophysical Service Inc, 1971)
+- 2D-KONGSI82_MCP (Geophysical Service Inc, 1982)
 
-#### 2. Novas Páginas React
-- **`/exploration`** — Página índice da secção Exploração (similar à EpDataPage, com cards de navegação)
-- **`/exploration/seismic-campaigns`** — Campanhas Sísmicas
-- **`/exploration/processing`** — Processamento e Interpretação
-- **`/exploration/new-areas`** — Novas Áreas de Exploração
-- **`/exploration/seismic-2d`** — Mapa Sísmica 2D (com componente Leaflet)
-- **`/exploration/seismic-3d`** — Mapa Sísmica 3D (com componente Leaflet)
-- **`/exploration/seismic-4d`** — Mapa Sísmica 4D (com componente Leaflet)
+**Dados 3D/4D Proprietária** (do PDF 3) -- ~100+ levantamentos reais com cobertura em km²:
+- Block 14 MC3D (PGS, 2013, 3698.2 km²)
+- Block 15 3D Phase I-V (WesternGeco, 1995-1999)
+- Block 16 South 3D (WesternGeco, 1997, 183 km²)
+- Block 17 3D (PGS, 2002, 685 km²)
+- Block 18 3D (CGG, 2000, 510 km²)
+- Block 31/14 3D (PGS, 2021, 3000 km²)
+- Block 32 4D (PGS, 2019, 883.1 km²)
+- Girassol complex 4D (WesternGeco, 2012, 967.42 km²)
+- CLOV 4D (PGS, 2017, 1649.51 km²)
+- E muitos mais...
 
-Cada página utilizará `PageLayout` com `useContentBlocks` para conteúdo dinâmico via CMS, seguindo o padrão existente. As páginas de mapas incluirão um componente Leaflet para visualização geográfica dos levantamentos sísmicos.
+As coordenadas serão aproximadas a partir das posições visíveis nos mapas UTM, convertidas para lat/lng com base nas bacias conhecidas (Baixo Congo ~5-8°S, Kwanza ~8-11°S, Namibe ~12-17°S, Cabinda onshore).
 
-#### 3. Rotas (App.tsx)
-- Adicionar 7 novas rotas no bloco de rotas, antes das rotas de produção
+#### 2. Actualizar a página SeismicMapPage (`src/pages/exploration/SeismicMapPage.tsx`)
 
-#### 4. Traduções (i18n)
-- Adicionar chaves em `en.json` e `pt.json` para títulos, descrições e conteúdo das páginas
+- Adicionar filtro por **categoria** (Proprietária / Multicliente) na barra de filtros, aplicável apenas na vista 2D
+- Actualizar a legenda do mapa para incluir a distinção de categoria (linha contínua vs tracejada)
+- Adicionar coluna "Categoria" na tabela de dados
+- Manter todos os filtros existentes (bacia, ano)
 
-#### 5. Icon Map
-- Adicionar ícones adicionais ao `iconMap` se necessário (ex: `Compass`, `Radar`)
+#### 3. Actualizar a página SeismicCampaignsPage (`src/pages/exploration/SeismicCampaignsPage.tsx`)
+
+- Adicionar resumo estatístico com dados reais (total de levantamentos por tipo e por bacia)
+- Apresentar tabela resumo das campanhas mais recentes extraída dos dados
+
+#### 4. Copiar os PDFs dos mapas para o projecto
+
+- Copiar os 3 PDFs para `public/documents/seismic/` para que possam ser disponibilizados como downloads directos na página de Campanhas Sísmicas
+
+---
 
 ### Detalhes Técnicos
 
-- As páginas de mapas sísmicos serão inicialmente criadas com placeholder de mapa Leaflet, preparadas para receber dados de coordenadas de levantamentos sísmicos (que poderão ser geridos via CMS ou tabela dedicada futuramente)
-- Todo o conteúdo textual será dinâmico via `content_blocks`, com fallback i18n
-- Os banners de página poderão ser configurados via `page_banners` no backoffice
+**Conversão UTM para Lat/Lng**: Os mapas usam projecção UTM (zonas 32S/33S). As coordenadas serão convertidas usando referências conhecidas: costa angolana (5°S-17°S), longitude offshore (8°E-13°E). As linhas 2D serão traçadas como polilinhas e os levantamentos 3D/4D como polígonos rectangulares baseados nos blocos de referência.
+
+**Interface actualizada**:
+```typescript
+export interface SeismicSurvey {
+  id: string;
+  name: string;
+  year: number;
+  basin: string;
+  operator: string;
+  type: "2d" | "3d" | "4d";
+  category: "proprietary" | "multiclient";
+  coverage: number;
+  coverageUnit: "km" | "km²";
+  coordinates: [number, number][];
+}
+```
+
+**Ficheiros a criar/modificar**:
+- `src/data/seismicData.ts` -- reescrita completa com ~130 levantamentos reais
+- `src/pages/exploration/SeismicMapPage.tsx` -- filtro de categoria + legenda actualizada
+- `src/pages/exploration/SeismicCampaignsPage.tsx` -- resumo estatístico + downloads
+- `public/documents/seismic/` -- PDFs copiados para download
 
