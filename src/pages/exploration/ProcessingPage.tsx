@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
 import { seismic2dSurveys, seismic3dSurveys, seismic4dSurveys, basinColors } from "@/data/seismic";
 import type { SeismicSurvey } from "@/data/seismic";
 import heroImage from "@/assets/angola-offshore-platform.jpg";
@@ -46,6 +47,45 @@ export default function ProcessingPage() {
       b.operators.add(s.operator);
     });
     return Object.entries(rec).sort((a, b) => b[1].coverage - a[1].coverage);
+  }, [allSurveys]);
+
+  // Chart data: coverage by basin (bar chart)
+  const basinChartData = useMemo(() =>
+    basinStats.map(([basin, d]) => ({
+      basin,
+      "2D (km)": allSurveys.filter(s => s.basin === basin && s.type === "2d").reduce((a, s) => a + s.coverage, 0),
+      "3D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "3d").reduce((a, s) => a + s.coverage, 0),
+      "4D (km²)": allSurveys.filter(s => s.basin === basin && s.type === "4d").reduce((a, s) => a + s.coverage, 0),
+    })),
+    [basinStats, allSurveys]
+  );
+
+  // Chart data: temporal evolution (area chart)
+  const temporalData = useMemo(() => {
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    const data: { year: number; "2D": number; "3D": number; "4D": number; cumulative: number }[] = [];
+    let cum = 0;
+    for (let y = minYear; y <= maxYear; y++) {
+      const c2d = allSurveys.filter(s => s.year === y && s.type === "2d").length;
+      const c3d = allSurveys.filter(s => s.year === y && s.type === "3d").length;
+      const c4d = allSurveys.filter(s => s.year === y && s.type === "4d").length;
+      cum += c2d + c3d + c4d;
+      data.push({ year: y, "2D": c2d, "3D": c3d, "4D": c4d, cumulative: cum });
+    }
+    return data;
+  }, [allSurveys, years]);
+
+  // Pie chart: surveys by type
+  const typeDistribution = useMemo(() => {
+    const c2d = allSurveys.filter(s => s.type === "2d").length;
+    const c3d = allSurveys.filter(s => s.type === "3d").length;
+    const c4d = allSurveys.filter(s => s.type === "4d").length;
+    return [
+      { name: "2D", value: c2d, color: "hsl(var(--primary))" },
+      { name: "3D", value: c3d, color: "hsl(var(--accent))" },
+      { name: "4D", value: c4d, color: "hsl(var(--destructive))" },
+    ];
   }, [allSurveys]);
 
   // Block extraction
@@ -129,6 +169,93 @@ export default function ProcessingPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </section>
+
+        {/* Charts */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-6">
+            {isPt ? "Análise Gráfica" : "Graphical Analysis"}
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Coverage by basin */}
+            <Card className="hover:-translate-y-0">
+              <CardHeader>
+                <CardTitle className="text-lg">{isPt ? "Cobertura Sísmica por Bacia" : "Seismic Coverage by Basin"}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={320}>
+                  <BarChart data={basinChartData} margin={{ top: 5, right: 20, left: 10, bottom: 60 }}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                    <XAxis dataKey="basin" tick={{ fontSize: 11 }} angle={-35} textAnchor="end" className="fill-muted-foreground" />
+                    <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Legend />
+                    <Bar dataKey="2D (km)" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="3D (km²)" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="4D (km²)" fill="hsl(var(--destructive))" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Temporal evolution */}
+            <Card className="hover:-translate-y-0">
+              <CardHeader>
+                <CardTitle className="text-lg">{isPt ? "Evolução Temporal de Campanhas" : "Campaign Temporal Evolution"}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={320}>
+                  <AreaChart data={temporalData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                    <XAxis dataKey="year" tick={{ fontSize: 11 }} className="fill-muted-foreground" />
+                    <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Legend />
+                    <Area type="monotone" dataKey="2D" stackId="1" fill="hsl(var(--primary))" stroke="hsl(var(--primary))" fillOpacity={0.6} />
+                    <Area type="monotone" dataKey="3D" stackId="1" fill="hsl(var(--accent))" stroke="hsl(var(--accent))" fillOpacity={0.6} />
+                    <Area type="monotone" dataKey="4D" stackId="1" fill="hsl(var(--destructive))" stroke="hsl(var(--destructive))" fillOpacity={0.6} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Type distribution pie */}
+            <Card className="hover:-translate-y-0">
+              <CardHeader>
+                <CardTitle className="text-lg">{isPt ? "Distribuição por Tipo" : "Distribution by Type"}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={280}>
+                  <PieChart>
+                    <Pie data={typeDistribution} cx="50%" cy="50%" outerRadius={100} dataKey="value" label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}>
+                      {typeDistribution.map((entry, i) => (
+                        <Cell key={i} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+
+            {/* Cumulative growth */}
+            <Card className="hover:-translate-y-0">
+              <CardHeader>
+                <CardTitle className="text-lg">{isPt ? "Crescimento Acumulado" : "Cumulative Growth"}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={280}>
+                  <AreaChart data={temporalData} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+                    <XAxis dataKey="year" tick={{ fontSize: 11 }} className="fill-muted-foreground" />
+                    <YAxis className="fill-muted-foreground" tick={{ fontSize: 11 }} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, color: "hsl(var(--foreground))" }} />
+                    <Area type="monotone" dataKey="cumulative" fill="hsl(var(--primary))" stroke="hsl(var(--primary))" fillOpacity={0.3} name={isPt ? "Total Acumulado" : "Cumulative Total"} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
