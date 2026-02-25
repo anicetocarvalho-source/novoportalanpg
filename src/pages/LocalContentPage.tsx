@@ -52,7 +52,7 @@ export default function LocalContentPage() {
       descriptionKey="pages.localContent.description"
       backgroundImage={heroImage}
       icon={<Users className="w-8 h-8 text-primary" />}
-      breadcrumbs={[{ labelKey: "nav.localContent" }]}
+      breadcrumbs={[{ labelKey: "nav.opportunities", href: "/opportunities" }, { labelKey: "nav.localContent" }]}
     >
       <div className="space-y-16">
         {/* Introduction */}
