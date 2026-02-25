@@ -35,7 +35,7 @@ function cmsToNavItems(cmsItems: CMSMenuItem[]): NavItem[] {
       submenu: hasChildren
         ? item.children.map((child) => ({
             label: child.label,
-            description: "",
+            description: child.description || "",
             href: child.url || "#",
             icon: getIcon(child.icon) || Building2,
           }))

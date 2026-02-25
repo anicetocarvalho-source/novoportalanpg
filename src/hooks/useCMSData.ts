@@ -272,6 +272,7 @@ export function useContentBlocks(pageKey: string) {
 export interface CMSMenuItem {
   id: string;
   label: string;
+  description: string | null;
   url: string | null;
   icon: string | null;
   sort_order: number;
@@ -300,6 +301,7 @@ export function useMenuItems(group: string = "main") {
       const items = data.map((item) => ({
         id: item.id,
         label: isEn ? (item.label_en || item.label_pt) : item.label_pt,
+        description: isEn ? ((item as any).description_en || (item as any).description_pt || null) : ((item as any).description_pt || null),
         url: item.url,
         icon: item.icon,
         sort_order: item.sort_order,
