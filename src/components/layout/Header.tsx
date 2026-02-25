@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, Building2, Users } from "lucide-react";
+import { Menu, X, ChevronDown, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import logoWhiteStatic from "@/assets/logo-white.webp";
@@ -58,8 +58,6 @@ export function Header() {
 
   // Convert CMS menu items to nav items
   const navigation: NavItem[] = cmsMenuItems ? cmsToNavItems(cmsMenuItems) : [];
-  const localContentItem = navigation.find(item => item.href === "/local-content");
-  const mainNavigation = navigation.filter(item => item.href !== "/local-content");
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -92,7 +90,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            {mainNavigation.map((item, index) => {
+            {navigation.map((item, index) => {
               const key = getItemKey(item);
               const label = getItemLabel(item);
               return (
@@ -143,21 +141,7 @@ export function Header() {
           </div>
 
           {/* Language Toggle */}
-          <motion.div className="hidden lg:flex items-center gap-2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-            {localContentItem && (
-              <Link
-                to={localContentItem.href}
-                className={cn(
-                  "flex items-center gap-2 px-3 py-1.5 rounded-sm text-sm font-medium transition-all duration-300",
-                  isScrolled
-                    ? "text-foreground hover:bg-secondary border border-border"
-                    : "text-primary-foreground hover:bg-primary-foreground/10 border border-primary-foreground/20"
-                )}
-              >
-                <Users className="w-4 h-4" />
-                <span>{getItemLabel(localContentItem)}</span>
-              </Link>
-            )}
+          <motion.div className="hidden lg:flex items-center gap-4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <LanguageToggle isScrolled={isScrolled} />
           </motion.div>
 
