@@ -27,6 +27,13 @@ import Tender2023Page from "./pages/opportunities/Tender2023Page";
 import EnergyIntegrationPage from "./pages/opportunities/EnergyIntegrationPage";
 import GasPage from "./pages/opportunities/GasPage";
 
+// Exploration pages
+import ExplorationPage from "./pages/exploration/ExplorationPage";
+import SeismicCampaignsPage from "./pages/exploration/SeismicCampaignsPage";
+import ProcessingPage from "./pages/exploration/ProcessingPage";
+import NewAreasPage from "./pages/exploration/NewAreasPage";
+import SeismicMapPage from "./pages/exploration/SeismicMapPage";
+
 // E&P Data pages
 import EpDataPage from "./pages/ep-data/EpDataPage";
 import IonaPage from "./pages/ep-data/IonaPage";
@@ -123,6 +130,15 @@ function AnimatedRoutes() {
           <Route path="/ep-data/blocks/:blockId" element={<BlockDetailsPage />} />
           <Route path="/ep-data/conference-2021" element={<Conference2021Page />} />
           <Route path="/ep-data/conference-2023" element={<Conference2023Page />} />
+          
+          {/* Exploration */}
+          <Route path="/exploration" element={<ExplorationPage />} />
+          <Route path="/exploration/seismic-campaigns" element={<SeismicCampaignsPage />} />
+          <Route path="/exploration/processing" element={<ProcessingPage />} />
+          <Route path="/exploration/new-areas" element={<NewAreasPage />} />
+          <Route path="/exploration/seismic-2d" element={<SeismicMapPage type="2d" />} />
+          <Route path="/exploration/seismic-3d" element={<SeismicMapPage type="3d" />} />
+          <Route path="/exploration/seismic-4d" element={<SeismicMapPage type="4d" />} />
           
           {/* Regulation pages */}
           <Route path="/regulation" element={<RegulationPage />} />
