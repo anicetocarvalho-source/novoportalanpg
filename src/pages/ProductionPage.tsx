@@ -52,11 +52,11 @@ const defaultProductionByBasin = [
   { basin: "Onshore", production: 84, percentage: 7 },
 ];
 
-const defaultKeyStats = [
-  { icon: "fuel", value: "1.14", suffix: "M bbl/dia", label: "Produção de Petróleo", change: 4.0 },
-  { icon: "gas", value: "412", suffix: "MMscf/dia", label: "Produção de Gás Natural", change: 9.0 },
-  { icon: "blocks", value: "47", label: "Blocos Activos" },
-  { icon: "operators", value: "15", label: "Operadores Internacionais" },
+const getDefaultKeyStats = (t: (key: string) => string) => [
+  { icon: "fuel", value: "1.14", suffix: "M bbl/dia", label: t("pages.production.defaultStats.oilProduction"), change: 4.0 },
+  { icon: "gas", value: "412", suffix: "MMscf/dia", label: t("pages.production.defaultStats.gasProduction"), change: 9.0 },
+  { icon: "blocks", value: "47", label: t("pages.production.defaultStats.activeBlocks") },
+  { icon: "operators", value: "15", label: t("pages.production.defaultStats.intlOperators") },
 ];
 
 const COLORS = ["hsl(var(--primary))", "hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))", "hsl(var(--chart-5))", "hsl(var(--muted-foreground))"];
@@ -102,7 +102,7 @@ export default function ProductionPage() {
   const getSection = (key: string) => cmsBlocks?.find(b => b.section_key === key)?.content;
 
   const statsSection = getSection("stats");
-  const keyStats = statsSection?.items?.length ? statsSection.items : defaultKeyStats;
+  const keyStats = statsSection?.items?.length ? statsSection.items : getDefaultKeyStats(t);
 
   const historicalSection = getSection("historical");
   const historicalProduction = historicalSection?.data?.length ? historicalSection.data : defaultHistoricalProduction;
@@ -134,7 +134,7 @@ export default function ProductionPage() {
           <div className="flex items-center gap-3 mb-8">
             <span className="inline-flex items-center gap-2 text-primary font-medium text-sm uppercase tracking-wider">
               <span className="w-8 h-px bg-primary" />
-              {statsSection?.label || "Indicadores Chave"}
+              {statsSection?.label || t("pages.production.keyIndicators")}
             </span>
           </div>
 
@@ -161,20 +161,20 @@ export default function ProductionPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-foreground mb-1">
-                  {historicalSection?.title || "Produção Histórica"}
+                  {historicalSection?.title || t("pages.production.historicalTitle")}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  {historicalSection?.subtitle || "Evolução da produção de petróleo e gás natural (2018-2024)"}
+                  {historicalSection?.subtitle || t("pages.production.historicalSubtitle")}
                 </p>
               </div>
               <div className="flex items-center gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-primary" />
-                  <span className="text-muted-foreground">Petróleo (kbbl/dia)</span>
+                  <span className="text-muted-foreground">{t("pages.production.oilLabel")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "hsl(var(--chart-2))" }} />
-                  <span className="text-muted-foreground">Gás (MMscf/dia)</span>
+                  <span className="text-muted-foreground">{t("pages.production.gasLabel")}</span>
                 </div>
               </div>
             </div>
@@ -196,8 +196,8 @@ export default function ProductionPage() {
                   <XAxis dataKey="year" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
-                  <Area type="monotone" dataKey="oil" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorOil)" strokeWidth={2} name="Petróleo" />
-                  <Area type="monotone" dataKey="gas" stroke="hsl(var(--chart-2))" fillOpacity={1} fill="url(#colorGas)" strokeWidth={2} name="Gás Natural" />
+                  <Area type="monotone" dataKey="oil" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorOil)" strokeWidth={2} name={t("pages.production.oilName")} />
+                  <Area type="monotone" dataKey="gas" stroke="hsl(var(--chart-2))" fillOpacity={1} fill="url(#colorGas)" strokeWidth={2} name={t("pages.production.gasName")} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -211,10 +211,10 @@ export default function ProductionPage() {
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
               <h3 className="text-lg font-bold text-foreground mb-1">
-                {monthlySection?.title || "Produção Mensal 2024"}
+                {monthlySection?.title || t("pages.production.monthlyTitle")}
               </h3>
               <p className="text-sm text-muted-foreground mb-6">
-                {monthlySection?.subtitle || "Produção de petróleo por mês (kbbl/dia)"}
+                {monthlySection?.subtitle || t("pages.production.monthlySubtitle")}
               </p>
               <div className="h-[280px]">
                 <ResponsiveContainer width="100%" height="100%">
@@ -222,8 +222,8 @@ export default function ProductionPage() {
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                     <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={11} />
                     <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} domain={[1100, 1200]} />
-                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value) => [`${value} kbbl/dia`, "Produção"]} />
-                    <Bar dataKey="production" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} name="Produção" />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value) => [`${value} kbbl/dia`, t("pages.production.productionLabel")]} />
+                    <Bar dataKey="production" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} name={t("pages.production.productionLabel")} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -231,10 +231,10 @@ export default function ProductionPage() {
 
             <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
               <h3 className="text-lg font-bold text-foreground mb-1">
-                {operatorSection?.title || "Produção por Operador"}
+                {operatorSection?.title || t("pages.production.operatorTitle")}
               </h3>
               <p className="text-sm text-muted-foreground mb-6">
-                {operatorSection?.subtitle || "Quota de mercado por operador"}
+                {operatorSection?.subtitle || t("pages.production.operatorSubtitle")}
               </p>
               <div className="h-[280px] flex items-center">
                 <div className="w-1/2 h-full">
@@ -245,7 +245,7 @@ export default function ProductionPage() {
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value: any) => [`${value}%`, "Quota"]} />
+                      <Tooltip contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} formatter={(value: any) => [`${value}%`, t("pages.production.quotaLabel")]} />
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
@@ -269,10 +269,10 @@ export default function ProductionPage() {
         <section className="mb-16">
           <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
             <h3 className="text-lg font-bold text-foreground mb-1">
-              {basinSection?.title || "Produção por Bacia Sedimentar"}
+              {basinSection?.title || t("pages.production.basinTitle")}
             </h3>
             <p className="text-sm text-muted-foreground mb-8">
-              {basinSection?.subtitle || "Distribuição da produção petrolífera por região"}
+              {basinSection?.subtitle || t("pages.production.basinSubtitle")}
             </p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {productionByBasin.map((basin: any, index: number) => (
@@ -296,16 +296,16 @@ export default function ProductionPage() {
       <SectionTransition delay={0.4}>
         <section>
           <div className="p-6 md:p-8 rounded-2xl bg-secondary/30 border border-border">
-            <h3 className="text-lg font-bold text-foreground mb-1">Dados de Produção por Operador</h3>
-            <p className="text-sm text-muted-foreground mb-6">Detalhes de produção diária por operador</p>
+            <h3 className="text-lg font-bold text-foreground mb-1">{t("pages.production.tableTitle")}</h3>
+            <p className="text-sm text-muted-foreground mb-6">{t("pages.production.tableSubtitle")}</p>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">Operador</th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-foreground">Produção (kbbl/dia)</th>
-                    <th className="text-right py-3 px-4 text-sm font-semibold text-foreground">Quota (%)</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">Tendência</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">{t("pages.production.tableOperator")}</th>
+                    <th className="text-right py-3 px-4 text-sm font-semibold text-foreground">{t("pages.production.tableProduction")}</th>
+                    <th className="text-right py-3 px-4 text-sm font-semibold text-foreground">{t("pages.production.tableQuota")}</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">{t("pages.production.tableTrend")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -322,7 +322,7 @@ export default function ProductionPage() {
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-1 text-status-success-foreground">
                           <TrendingUp className="w-4 h-4" />
-                          <span className="text-sm">Estável</span>
+                          <span className="text-sm">{t("pages.production.trendStable")}</span>
                         </div>
                       </td>
                     </tr>
