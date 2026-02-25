@@ -19,7 +19,8 @@ export default function Conference2021Page() {
       descriptionKey="pages.conference2021.description"
       icon={<Calendar className="w-8 h-8 text-primary" />}
       breadcrumbs={[
-        { labelKey: "nav.epData", href: "/ep-data" },
+        { labelKey: "nav.media", href: "/media" },
+        { label: "Eventos", href: "/media/events" },
         { labelKey: "nav.submenu.conference2021" },
       ]}
     >

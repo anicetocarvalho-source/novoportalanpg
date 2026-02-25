@@ -553,6 +553,11 @@
       "eventsDescription": "Conferences, business missions and petroleum sector events.",
       "viewAllEvents": "View All Events"
     },
+    "events": {
+      "title": "Events",
+      "subtitle": "Conferences & Events",
+      "description": "Conferences, business missions and oil sector events organized by ANPG."
+    },
     "production": {
       "title": "Production",
       "subtitle": "Statistics",
