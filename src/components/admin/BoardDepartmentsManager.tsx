@@ -177,7 +177,7 @@ export function BoardDepartmentsManager({ memberId, memberName }: Props) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-muted-foreground">Pelouro de {memberName}</h3>
-        <Button size="sm" variant="outline" onClick={() => { closeDeptDialog(); setDeptDialog(true); }}>
+        <Button type="button" size="sm" variant="outline" onClick={() => { closeDeptDialog(); setDeptDialog(true); }}>
           <Plus className="h-3.5 w-3.5 mr-1" />Departamento
         </Button>
       </div>
@@ -201,8 +201,8 @@ export function BoardDepartmentsManager({ memberId, memberName }: Props) {
                     <span className="text-xs text-muted-foreground">EN: {dept.name_en || '—'}</span>
                     <span className="text-xs text-muted-foreground">• Ordem: {dept.sort_order}</span>
                     <div className="ml-auto flex gap-1">
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditDept(dept)}><Pencil className="h-3.5 w-3.5" /></Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setDeleteDept(dept)}><Trash2 className="h-3.5 w-3.5 text-destructive" /></Button>
+                      <Button type="button" variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEditDept(dept)}><Pencil className="h-3.5 w-3.5" /></Button>
+                      <Button type="button" variant="ghost" size="icon" className="h-7 w-7" onClick={() => setDeleteDept(dept)}><Trash2 className="h-3.5 w-3.5 text-destructive" /></Button>
                     </div>
                   </div>
 
@@ -212,14 +212,14 @@ export function BoardDepartmentsManager({ memberId, memberName }: Props) {
                         <div key={sub.id} className="flex items-center gap-2 py-1 px-2 rounded bg-secondary/40 text-xs">
                           <ChevronRight className="w-3 h-3 text-muted-foreground" />
                           <span className="flex-1">{sub.name_pt}</span>
-                          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditSub(sub)}><Pencil className="h-3 w-3" /></Button>
-                          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setDeleteSub(sub)}><Trash2 className="h-3 w-3 text-destructive" /></Button>
+                          <Button type="button" variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEditSub(sub)}><Pencil className="h-3 w-3" /></Button>
+                          <Button type="button" variant="ghost" size="icon" className="h-6 w-6" onClick={() => setDeleteSub(sub)}><Trash2 className="h-3 w-3 text-destructive" /></Button>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <Button variant="ghost" size="sm" className="text-xs h-7" onClick={() => openNewSub(dept.id)}>
+                  <Button type="button" variant="ghost" size="sm" className="text-xs h-7" onClick={() => openNewSub(dept.id)}>
                     <Plus className="h-3 w-3 mr-1" />Sub-departamento
                   </Button>
                 </div>
