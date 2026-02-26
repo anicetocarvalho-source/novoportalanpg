@@ -74,6 +74,16 @@ const emptyBlock: Partial<TablesInsert<'petroleum_blocks'>> = {
   area_km2: undefined,
   water_depth_m: undefined,
   description: '',
+  discovery_year: undefined,
+  geological_formation: '',
+  reservoir_type: '',
+  estimated_reserves_mmboe: undefined,
+  license_start: '',
+  license_end: '',
+  total_wells: undefined,
+  active_wells: undefined,
+  fpso_name: '',
+  geological_notes: '',
 };
 
 export default function AdminBlocksPage() {
@@ -168,6 +178,16 @@ export default function AdminBlocksPage() {
       area_km2: block.area_km2 ? Number(block.area_km2) : undefined,
       water_depth_m: block.water_depth_m || undefined,
       description: block.description || '',
+      discovery_year: block.discovery_year || undefined,
+      geological_formation: block.geological_formation || '',
+      reservoir_type: block.reservoir_type || '',
+      estimated_reserves_mmboe: block.estimated_reserves_mmboe ? Number(block.estimated_reserves_mmboe) : undefined,
+      license_start: block.license_start || '',
+      license_end: block.license_end || '',
+      total_wells: block.total_wells || undefined,
+      active_wells: block.active_wells || undefined,
+      fpso_name: block.fpso_name || '',
+      geological_notes: block.geological_notes || '',
     });
     setIsDialogOpen(true);
   };
@@ -194,6 +214,16 @@ export default function AdminBlocksPage() {
       area_km2: formData.area_km2 || null,
       water_depth_m: formData.water_depth_m || null,
       description: formData.description || null,
+      discovery_year: formData.discovery_year || null,
+      geological_formation: formData.geological_formation || null,
+      reservoir_type: formData.reservoir_type || null,
+      estimated_reserves_mmboe: formData.estimated_reserves_mmboe || null,
+      license_start: formData.license_start || null,
+      license_end: formData.license_end || null,
+      total_wells: formData.total_wells || null,
+      active_wells: formData.active_wells || null,
+      fpso_name: formData.fpso_name || null,
+      geological_notes: formData.geological_notes || null,
     };
 
     if (editingBlock) {
@@ -382,7 +412,7 @@ export default function AdminBlocksPage() {
 
       {/* Create/Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-[700px] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
               {editingBlock ? 'Editar Bloco' : 'Criar Novo Bloco'}
@@ -504,6 +534,59 @@ export default function AdminBlocksPage() {
                   placeholder="Informações adicionais sobre o bloco..."
                   rows={3}
                 />
+              </div>
+
+              {/* Geological & License Fields */}
+              <div className="border-t pt-4 mt-2">
+                <p className="text-sm font-medium text-muted-foreground mb-4">Informação Geológica e Licença</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="discovery_year">Ano de Descoberta</Label>
+                    <Input id="discovery_year" type="number" value={formData.discovery_year || ''} onChange={(e) => setFormData({ ...formData, discovery_year: e.target.value ? Number(e.target.value) : undefined })} placeholder="Ex: 1996" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="estimated_reserves_mmboe">Reservas Estimadas (MMboe)</Label>
+                    <Input id="estimated_reserves_mmboe" type="number" value={formData.estimated_reserves_mmboe || ''} onChange={(e) => setFormData({ ...formData, estimated_reserves_mmboe: e.target.value ? Number(e.target.value) : undefined })} placeholder="Ex: 500" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="geological_formation">Formação Geológica</Label>
+                    <Input id="geological_formation" value={formData.geological_formation || ''} onChange={(e) => setFormData({ ...formData, geological_formation: e.target.value })} placeholder="Ex: Pinda, Albian" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="reservoir_type">Tipo de Reservatório</Label>
+                    <Input id="reservoir_type" value={formData.reservoir_type || ''} onChange={(e) => setFormData({ ...formData, reservoir_type: e.target.value })} placeholder="Ex: Turbidítico, Carbonático" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="license_start">Início da Licença</Label>
+                    <Input id="license_start" type="date" value={formData.license_start || ''} onChange={(e) => setFormData({ ...formData, license_start: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="license_end">Fim da Licença</Label>
+                    <Input id="license_end" type="date" value={formData.license_end || ''} onChange={(e) => setFormData({ ...formData, license_end: e.target.value })} />
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="total_wells">Total de Poços</Label>
+                    <Input id="total_wells" type="number" value={formData.total_wells || ''} onChange={(e) => setFormData({ ...formData, total_wells: e.target.value ? Number(e.target.value) : undefined })} placeholder="0" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="active_wells">Poços Activos</Label>
+                    <Input id="active_wells" type="number" value={formData.active_wells || ''} onChange={(e) => setFormData({ ...formData, active_wells: e.target.value ? Number(e.target.value) : undefined })} placeholder="0" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="fpso_name">Nome do FPSO</Label>
+                    <Input id="fpso_name" value={formData.fpso_name || ''} onChange={(e) => setFormData({ ...formData, fpso_name: e.target.value })} placeholder="Ex: FPSO Dália" />
+                  </div>
+                </div>
+                <div className="space-y-2 mt-4">
+                  <Label htmlFor="geological_notes">Notas Geológicas</Label>
+                  <Textarea id="geological_notes" value={formData.geological_notes || ''} onChange={(e) => setFormData({ ...formData, geological_notes: e.target.value })} placeholder="Notas técnicas adicionais sobre a geologia do bloco..." rows={3} />
+                </div>
               </div>
             </div>
             <DialogFooter>

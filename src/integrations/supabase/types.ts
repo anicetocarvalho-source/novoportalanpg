@@ -789,6 +789,7 @@ export type Database = {
       }
       petroleum_blocks: {
         Row: {
+          active_wells: number | null
           area_km2: number | null
           basin: string | null
           block_name: string
@@ -797,14 +798,24 @@ export type Database = {
           created_at: string
           depth_category: string | null
           description: string | null
+          discovery_year: number | null
+          estimated_reserves_mmboe: number | null
+          fpso_name: string | null
+          geological_formation: string | null
+          geological_notes: string | null
           id: string
+          license_end: string | null
+          license_start: string | null
           offer_type: string
           operator: string | null
+          reservoir_type: string | null
           status: string | null
+          total_wells: number | null
           updated_at: string
           water_depth_m: number | null
         }
         Insert: {
+          active_wells?: number | null
           area_km2?: number | null
           basin?: string | null
           block_name: string
@@ -813,14 +824,24 @@ export type Database = {
           created_at?: string
           depth_category?: string | null
           description?: string | null
+          discovery_year?: number | null
+          estimated_reserves_mmboe?: number | null
+          fpso_name?: string | null
+          geological_formation?: string | null
+          geological_notes?: string | null
           id?: string
+          license_end?: string | null
+          license_start?: string | null
           offer_type?: string
           operator?: string | null
+          reservoir_type?: string | null
           status?: string | null
+          total_wells?: number | null
           updated_at?: string
           water_depth_m?: number | null
         }
         Update: {
+          active_wells?: number | null
           area_km2?: number | null
           basin?: string | null
           block_name?: string
@@ -829,10 +850,19 @@ export type Database = {
           created_at?: string
           depth_category?: string | null
           description?: string | null
+          discovery_year?: number | null
+          estimated_reserves_mmboe?: number | null
+          fpso_name?: string | null
+          geological_formation?: string | null
+          geological_notes?: string | null
           id?: string
+          license_end?: string | null
+          license_start?: string | null
           offer_type?: string
           operator?: string | null
+          reservoir_type?: string | null
           status?: string | null
+          total_wells?: number | null
           updated_at?: string
           water_depth_m?: number | null
         }

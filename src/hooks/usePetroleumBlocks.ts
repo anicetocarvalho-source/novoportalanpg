@@ -18,6 +18,16 @@ export interface PetroleumBlock {
   description: string | null;
   lat: number | null;
   lng: number | null;
+  discovery_year: number | null;
+  geological_formation: string | null;
+  reservoir_type: string | null;
+  estimated_reserves_mmboe: number | null;
+  license_start: string | null;
+  license_end: string | null;
+  total_wells: number | null;
+  active_wells: number | null;
+  fpso_name: string | null;
+  geological_notes: string | null;
 }
 
 function toBasinKey(basin: string): string {
@@ -125,6 +135,16 @@ export function usePetroleumBlocks() {
           description: b.description,
           lat: (b.coordinates as any)?.lat ?? null,
           lng: (b.coordinates as any)?.lng ?? null,
+          discovery_year: b.discovery_year,
+          geological_formation: b.geological_formation,
+          reservoir_type: b.reservoir_type,
+          estimated_reserves_mmboe: b.estimated_reserves_mmboe ? Number(b.estimated_reserves_mmboe) : null,
+          license_start: b.license_start,
+          license_end: b.license_end,
+          total_wells: b.total_wells,
+          active_wells: b.active_wells,
+          fpso_name: b.fpso_name,
+          geological_notes: b.geological_notes,
         };
       }),
   });
@@ -165,6 +185,16 @@ export function usePetroleumBlockById(blockId: string | undefined) {
         description: data.description,
         lat: (data.coordinates as any)?.lat ?? null,
         lng: (data.coordinates as any)?.lng ?? null,
+        discovery_year: data.discovery_year,
+        geological_formation: data.geological_formation,
+        reservoir_type: data.reservoir_type,
+        estimated_reserves_mmboe: data.estimated_reserves_mmboe ? Number(data.estimated_reserves_mmboe) : null,
+        license_start: data.license_start,
+        license_end: data.license_end,
+        total_wells: data.total_wells,
+        active_wells: data.active_wells,
+        fpso_name: data.fpso_name,
+        geological_notes: data.geological_notes,
       } as PetroleumBlock;
     },
     enabled: !!blockId,
