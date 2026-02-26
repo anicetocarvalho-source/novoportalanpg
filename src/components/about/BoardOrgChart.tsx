@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Crown, ArrowRight, Shield, Briefcase } from "lucide-react";
-import { useBoardMembers, type CMSBoardMember } from "@/hooks/useCMSData";
-import { boardMembers as staticBoardData } from "@/data/boardData";
+import { useBoardMembers, useBoardDepartments, type CMSBoardMember, type CMSBoardDepartment } from "@/hooks/useCMSData";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Fallback photos from local assets
@@ -30,19 +29,18 @@ function MemberCard({
   member,
   index,
   isPCA = false,
+  departments = [],
 }: {
   member: CMSBoardMember;
   index: number;
   isPCA?: boolean;
+  departments?: CMSBoardDepartment[];
 }) {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
   const photo = member.photo_url || photoFallbacks[member.slug] || "";
 
-  // Get pelouro (departments) from static data
-  const staticMember = staticBoardData.find(m => m.slug === member.slug);
-  const departments = staticMember?.departments || [];
 
   return (
     <motion.button
@@ -102,7 +100,7 @@ function MemberCard({
                   <span
                     key={dept.acronym}
                     className="inline-block px-1.5 py-0.5 text-[10px] font-medium rounded bg-secondary/80 text-muted-foreground"
-                    title={isEn ? dept.nameEn : dept.name}
+                    title={isEn ? (dept.name_en || dept.name_pt) : dept.name_pt}
                   >
                     {dept.acronym}
                   </span>
@@ -174,6 +172,7 @@ export function BoardOrgChart() {
   const { i18n } = useTranslation();
   const isEn = i18n.language === "en";
   const { data: members, isLoading } = useBoardMembers();
+  const { data: allDepartments } = useBoardDepartments();
 
   if (isLoading) {
     return (
@@ -190,11 +189,12 @@ export function BoardOrgChart() {
 
   const pca = members.find((m) => m.group_key === "pca") || members[0];
   const admins = members.filter((m) => m.id !== pca.id);
+  const getDepts = (memberId: string) => allDepartments?.filter(d => d.member_id === memberId) || [];
 
   return (
     <div className="space-y-0">
       <div className="flex flex-col items-center">
-        <MemberCard member={pca} index={0} isPCA />
+        <MemberCard member={pca} index={0} isPCA departments={getDepts(pca.id)} />
       </div>
 
       <VLine height="2.5rem" delay={0.25} gradient />
@@ -220,7 +220,7 @@ export function BoardOrgChart() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {admins.map((member, index) => (
-          <MemberCard key={member.id} member={member} index={index} />
+          <MemberCard key={member.id} member={member} index={index} departments={getDepts(member.id)} />
         ))}
       </div>
     </div>
