@@ -162,7 +162,7 @@ export default function AdminBoardMembersPage() {
       </main>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto" onInteractOutside={(e) => e.preventDefault()} onPointerDownOutside={(e) => e.preventDefault()}>
           <DialogHeader><DialogTitle>{editing ? 'Editar Membro' : 'Novo Membro'}</DialogTitle><DialogDescription>Preencha todos os campos do perfil do membro</DialogDescription></DialogHeader>
           <form onSubmit={handleSubmit}>
             <Tabs defaultValue="info" className="w-full">
