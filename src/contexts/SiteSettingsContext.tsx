@@ -49,7 +49,7 @@ const defaultSettings: SiteSettings = {
   },
   social: { facebook: '', linkedin: '', twitter: '', youtube: '', instagram: '' },
   footer: {
-    copyright: '© 2024 ANPG - Agência Nacional de Petróleo, Gás e Biocombustíveis. Todos os direitos reservados.',
+    copyright: '© 2025 ANPG - Agência Nacional de Petróleo, Gás e Biocombustíveis. Todos os direitos reservados.',
     tagline: 'Regulando o sector petrolífero angolano com transparência e excelência',
   },
 };

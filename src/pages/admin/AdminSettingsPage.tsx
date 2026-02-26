@@ -463,7 +463,7 @@ export default function AdminSettingsPage() {
                     id="copyright"
                     value={footerData.copyright}
                     onChange={(e) => setFooterData({ ...footerData, copyright: e.target.value })}
-                    placeholder="© 2024 ANPG..."
+                    placeholder="© 2025 ANPG..."
                     rows={2}
                   />
                 </div>
