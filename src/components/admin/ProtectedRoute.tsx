@@ -26,18 +26,7 @@ export function ProtectedRoute({ children, requiredPermission }: ProtectedRouteP
 
   // No backoffice access
   if (!hasBackofficeAccess) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="text-center max-w-md">
-          <h1 className="text-2xl font-bold text-destructive mb-2">Acesso Negado</h1>
-          <p className="text-muted-foreground mb-4">
-            Não tem permissões para aceder ao backoffice. 
-            Contacte o administrador de TI para obter acesso.
-          </p>
-          <Navigate to="/" replace />
-        </div>
-      </div>
-    );
+    return <Navigate to="/" replace />;
   }
 
   // Check specific permission
