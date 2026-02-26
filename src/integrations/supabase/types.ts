@@ -534,6 +534,7 @@ export type Database = {
           content: string
           created_at: string
           created_by: string | null
+          document_url: string | null
           id: string
           is_active: boolean | null
           language: string | null
@@ -545,6 +546,7 @@ export type Database = {
           content: string
           created_at?: string
           created_by?: string | null
+          document_url?: string | null
           id?: string
           is_active?: boolean | null
           language?: string | null
@@ -556,6 +558,7 @@ export type Database = {
           content?: string
           created_at?: string
           created_by?: string | null
+          document_url?: string | null
           id?: string
           is_active?: boolean | null
           language?: string | null
