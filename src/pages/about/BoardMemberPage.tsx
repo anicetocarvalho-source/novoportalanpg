@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ArrowLeft, Crown, Mail, MapPin, Phone, Quote, User } from "lucide-react";
+import { ArrowLeft, Crown, Mail, MapPin, Phone, Quote, User, Briefcase, Building } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBoardMemberBySlug, type CMSBoardMember } from "@/hooks/useCMSData";
+import { boardMembers as staticBoardData, type Department } from "@/data/boardData";
 import heroImage from "@/assets/refinery.jpg";
 
 // Fallback photos
@@ -120,6 +121,55 @@ function ContactSection({ member, isEn }: { member: CMSBoardMember; isEn: boolea
   );
 }
 
+function DepartmentsSection({ slug, isEn }: { slug: string; isEn: boolean }) {
+  const staticMember = staticBoardData.find(m => m.slug === slug);
+  const departments = staticMember?.departments || [];
+
+  if (departments.length === 0) return null;
+
+  return (
+    <SectionTransition delay={0.25}>
+      <Card className="overflow-hidden">
+        <CardContent className="p-0">
+          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
+            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <Briefcase className="w-5 h-5 text-primary" />
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">
+              Pelouro
+            </h2>
+          </div>
+          <div className="px-6 pb-6 space-y-4">
+            {departments.map((dept) => (
+              <div key={dept.acronym} className="rounded-xl border border-border/50 bg-secondary/30 p-4">
+                <div className="flex items-center gap-2.5 mb-1">
+                  <Building className="w-4 h-4 text-primary/70 flex-shrink-0" />
+                  <h3 className="font-semibold text-foreground text-sm">
+                    {isEn ? dept.nameEn : dept.name}
+                  </h3>
+                  <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 bg-secondary px-2 py-0.5 rounded">
+                    {dept.acronym}
+                  </span>
+                </div>
+                {dept.subDepartments && dept.subDepartments.length > 0 && (
+                  <ul className="mt-2 ml-6 space-y-1">
+                    {dept.subDepartments.map((sub) => (
+                      <li key={isEn ? sub.nameEn : sub.name} className="text-xs text-muted-foreground flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
+                        {isEn ? sub.nameEn : sub.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </SectionTransition>
+  );
+}
+
 export default function BoardMemberPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -212,6 +262,10 @@ export default function BoardMemberPage() {
       <div className="grid gap-6 md:grid-cols-2 mb-10">
         <BiographySection member={member} isEn={isEn} />
         <MessageSection member={member} isEn={isEn} />
+      </div>
+
+      <div className="mb-10">
+        <DepartmentsSection slug={member.slug} isEn={isEn} />
       </div>
 
       <div className="mb-10">
