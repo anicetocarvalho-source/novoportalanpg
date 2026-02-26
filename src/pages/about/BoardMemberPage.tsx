@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { ArrowLeft, Crown, Mail, MapPin, Phone, Quote, User, Briefcase, Building } from "lucide-react";
+import { ArrowLeft, Crown, Quote, User, Briefcase, Building } from "lucide-react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Button } from "@/components/ui/button";
@@ -70,50 +70,6 @@ function MessageSection({ member, isEn }: { member: CMSBoardMember; isEn: boolea
               </p>
               <footer className="mt-4 text-sm font-semibold text-foreground">— {member.full_name}</footer>
             </blockquote>
-          </div>
-        </CardContent>
-      </Card>
-    </SectionTransition>
-  );
-}
-
-function ContactSection({ member, isEn }: { member: CMSBoardMember; isEn: boolean }) {
-  if (!member.phone && !member.email && !member.office_location) return null;
-  return (
-    <SectionTransition delay={0.2}>
-      <Card className="overflow-hidden">
-        <CardContent className="p-0">
-          <div className="flex items-center gap-3 px-6 pt-6 pb-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Phone className="w-5 h-5 text-primary" />
-            </div>
-            <h2 className="text-xl md:text-2xl font-bold text-foreground">
-              {isEn ? "Office Contact" : "Contacto do Gabinete"}
-            </h2>
-          </div>
-          <div className="px-6 pb-6 space-y-4">
-            {member.office_location && (
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">{member.office_location}</span>
-              </div>
-            )}
-            {member.phone && (
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-primary/70 flex-shrink-0" />
-                <a href={`tel:${member.phone}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {member.phone}
-                </a>
-              </div>
-            )}
-            {member.email && (
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-primary/70 flex-shrink-0" />
-                <a href={`mailto:${member.email}`} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  {member.email}
-                </a>
-              </div>
-            )}
           </div>
         </CardContent>
       </Card>
@@ -266,10 +222,6 @@ export default function BoardMemberPage() {
 
       <div className="mb-10">
         <DepartmentsSection slug={member.slug} isEn={isEn} />
-      </div>
-
-      <div className="mb-10">
-        <ContactSection member={member} isEn={isEn} />
       </div>
     </PageLayout>
   );
