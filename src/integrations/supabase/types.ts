@@ -53,6 +53,50 @@ export type Database = {
         }
         Relationships: []
       }
+      board_departments: {
+        Row: {
+          acronym: string
+          created_at: string
+          id: string
+          is_active: boolean
+          member_id: string
+          name_en: string | null
+          name_pt: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          acronym: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          member_id: string
+          name_en?: string | null
+          name_pt: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          acronym?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          member_id?: string
+          name_en?: string | null
+          name_pt?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_departments_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "board_members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       board_members: {
         Row: {
           bio_en: string | null
@@ -121,6 +165,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      board_sub_departments: {
+        Row: {
+          created_at: string
+          department_id: string
+          id: string
+          name_en: string | null
+          name_pt: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          department_id: string
+          id?: string
+          name_en?: string | null
+          name_pt: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          department_id?: string
+          id?: string
+          name_en?: string | null
+          name_pt?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_sub_departments_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "board_departments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       cms_pages: {
         Row: {
