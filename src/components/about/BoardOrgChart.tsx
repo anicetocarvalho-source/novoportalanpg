@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Crown, ArrowRight, Shield } from "lucide-react";
+import { Crown, ArrowRight, Shield, Briefcase } from "lucide-react";
 import { useBoardMembers, type CMSBoardMember } from "@/hooks/useCMSData";
+import { boardMembers as staticBoardData } from "@/data/boardData";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // Fallback photos from local assets
@@ -35,7 +36,13 @@ function MemberCard({
   isPCA?: boolean;
 }) {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
   const photo = member.photo_url || photoFallbacks[member.slug] || "";
+
+  // Get pelouro (departments) from static data
+  const staticMember = staticBoardData.find(m => m.slug === member.slug);
+  const departments = staticMember?.departments || [];
 
   return (
     <motion.button
@@ -81,8 +88,31 @@ function MemberCard({
             </div>
           </div>
 
+          {/* Pelouro / Departments */}
+          {departments.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-border/40">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <Briefcase className="w-3 h-3 text-primary/60" />
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+                  {isEn ? "Portfolio" : "Pelouro"}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1">
+                {departments.map((dept) => (
+                  <span
+                    key={dept.acronym}
+                    className="inline-block px-1.5 py-0.5 text-[10px] font-medium rounded bg-secondary/80 text-muted-foreground"
+                    title={isEn ? dept.nameEn : dept.name}
+                  >
+                    {dept.acronym}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="mt-4 flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span>{isPCA ? "Ver perfil" : "Ver perfil"}</span>
+            <span>Ver perfil</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
