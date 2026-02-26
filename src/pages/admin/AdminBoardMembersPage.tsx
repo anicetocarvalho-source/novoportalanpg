@@ -27,6 +27,7 @@ import { toast } from 'sonner';
 import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import { ImageUpload } from '@/components/admin/ImageUpload';
+import { BoardDepartmentsManager } from '@/components/admin/BoardDepartmentsManager';
 
 type BoardMember = Tables<'board_members'>;
 
@@ -165,7 +166,7 @@ export default function AdminBoardMembersPage() {
           <DialogHeader><DialogTitle>{editing ? 'Editar Membro' : 'Novo Membro'}</DialogTitle><DialogDescription>Preencha todos os campos do perfil do membro</DialogDescription></DialogHeader>
           <form onSubmit={handleSubmit}>
             <Tabs defaultValue="info" className="w-full">
-              <TabsList className="mb-4"><TabsTrigger value="info">Informações</TabsTrigger><TabsTrigger value="bio">Biografia</TabsTrigger><TabsTrigger value="message">Mensagem</TabsTrigger><TabsTrigger value="contact">Contactos</TabsTrigger></TabsList>
+              <TabsList className="mb-4"><TabsTrigger value="info">Informações</TabsTrigger><TabsTrigger value="bio">Biografia</TabsTrigger><TabsTrigger value="message">Mensagem</TabsTrigger><TabsTrigger value="contact">Contactos</TabsTrigger>{editing && <TabsTrigger value="departments">Pelouro</TabsTrigger>}</TabsList>
               <TabsContent value="info">
                 <div className="grid gap-4">
                   <div className="grid grid-cols-2 gap-4">
@@ -211,6 +212,11 @@ export default function AdminBoardMembersPage() {
                   <div className="space-y-2"><Label>Localização do Gabinete</Label><Input value={formData.office_location} onChange={e => setFormData({...formData, office_location: e.target.value})} /></div>
                 </div>
               </TabsContent>
+              {editing && (
+                <TabsContent value="departments">
+                  <BoardDepartmentsManager memberId={editing.id} memberName={editing.full_name} />
+                </TabsContent>
+              )}
             </Tabs>
             <DialogFooter className="mt-6"><Button type="button" variant="outline" onClick={handleClose}>Cancelar</Button><Button type="submit" disabled={isSaving}>{isSaving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}{editing ? 'Guardar' : 'Criar'}</Button></DialogFooter>
           </form>

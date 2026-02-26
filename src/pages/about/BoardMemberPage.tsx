@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBoardMemberBySlug, type CMSBoardMember } from "@/hooks/useCMSData";
-import { boardMembers as staticBoardData, type Department } from "@/data/boardData";
+import { useBoardMemberBySlug, useBoardDepartments, type CMSBoardMember } from "@/hooks/useCMSData";
 import heroImage from "@/assets/refinery.jpg";
 
 // Fallback photos
@@ -77,11 +76,10 @@ function MessageSection({ member, isEn }: { member: CMSBoardMember; isEn: boolea
   );
 }
 
-function DepartmentsSection({ slug, isEn }: { slug: string; isEn: boolean }) {
-  const staticMember = staticBoardData.find(m => m.slug === slug);
-  const departments = staticMember?.departments || [];
+function DepartmentsSection({ memberId, isEn }: { memberId: string; isEn: boolean }) {
+  const { data: departments } = useBoardDepartments(memberId);
 
-  if (departments.length === 0) return null;
+  if (!departments || departments.length === 0) return null;
 
   return (
     <SectionTransition delay={0.25}>
@@ -97,22 +95,22 @@ function DepartmentsSection({ slug, isEn }: { slug: string; isEn: boolean }) {
           </div>
           <div className="px-6 pb-6 space-y-4">
             {departments.map((dept) => (
-              <div key={dept.acronym} className="rounded-xl border border-border/50 bg-secondary/30 p-4">
+              <div key={dept.id} className="rounded-xl border border-border/50 bg-secondary/30 p-4">
                 <div className="flex items-center gap-2.5 mb-1">
                   <Building className="w-4 h-4 text-primary/70 flex-shrink-0" />
                   <h3 className="font-semibold text-foreground text-sm">
-                    {isEn ? dept.nameEn : dept.name}
+                    {isEn ? (dept.name_en || dept.name_pt) : dept.name_pt}
                   </h3>
                   <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60 bg-secondary px-2 py-0.5 rounded">
                     {dept.acronym}
                   </span>
                 </div>
-                {dept.subDepartments && dept.subDepartments.length > 0 && (
+                {dept.sub_departments && dept.sub_departments.length > 0 && (
                   <ul className="mt-2 ml-6 space-y-1">
-                    {dept.subDepartments.map((sub) => (
-                      <li key={isEn ? sub.nameEn : sub.name} className="text-xs text-muted-foreground flex items-center gap-2">
+                    {dept.sub_departments.map((sub) => (
+                      <li key={sub.id} className="text-xs text-muted-foreground flex items-center gap-2">
                         <span className="w-1 h-1 rounded-full bg-primary/40 flex-shrink-0" />
-                        {isEn ? sub.nameEn : sub.name}
+                        {isEn ? (sub.name_en || sub.name_pt) : sub.name_pt}
                       </li>
                     ))}
                   </ul>
@@ -221,7 +219,7 @@ export default function BoardMemberPage() {
       </div>
 
       <div className="mb-10">
-        <DepartmentsSection slug={member.slug} isEn={isEn} />
+        <DepartmentsSection memberId={member.id} isEn={isEn} />
       </div>
     </PageLayout>
   );

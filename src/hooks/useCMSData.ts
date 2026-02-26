@@ -505,3 +505,70 @@ export function useMediaItems(mediaType: string) {
       })),
   });
 }
+
+// ─── Board Departments ───
+export interface CMSBoardDepartment {
+  id: string;
+  member_id: string;
+  name_pt: string;
+  name_en: string | null;
+  acronym: string;
+  sort_order: number;
+  is_active: boolean;
+  sub_departments: CMSBoardSubDepartment[];
+}
+
+export interface CMSBoardSubDepartment {
+  id: string;
+  department_id: string;
+  name_pt: string;
+  name_en: string | null;
+  sort_order: number;
+}
+
+export function useBoardDepartments(memberId?: string) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
+  return useQuery({
+    queryKey: ["board_departments", memberId, isEn],
+    queryFn: async () => {
+      let query = supabase
+        .from("board_departments")
+        .select("*")
+        .eq("is_active", true)
+        .order("sort_order");
+
+      if (memberId) {
+        query = query.eq("member_id", memberId);
+      }
+
+      const { data: depts, error } = await query;
+      if (error) throw error;
+
+      // Fetch all sub-departments for these departments
+      const deptIds = depts.map(d => d.id);
+      let subDepts: any[] = [];
+      if (deptIds.length > 0) {
+        const { data, error: subError } = await supabase
+          .from("board_sub_departments")
+          .select("*")
+          .in("department_id", deptIds)
+          .order("sort_order");
+        if (subError) throw subError;
+        subDepts = data || [];
+      }
+
+      return depts.map(d => ({
+        ...d,
+        sub_departments: subDepts.filter(s => s.department_id === d.id),
+      })) as CMSBoardDepartment[];
+    },
+    enabled: memberId !== "",
+  });
+}
+
+export function useBoardDepartmentsBySlug(slug?: string) {
+  const { data: member } = useBoardMemberBySlug(slug);
+  return useBoardDepartments(member?.id);
+}
