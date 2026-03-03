@@ -1,18 +1,20 @@
 
 
-## Plano: Corrigir popup de detalhes do bloco na página Mapas E&P
+## Plano: Adicionar paginação à vista de lista dos blocos
 
 ### Problema
-O popup de detalhes do bloco usa `position: fixed` dentro de um componente que tem `transform` CSS (via framer-motion/SectionTransition). Quando um elemento pai tem `transform`, o `fixed` passa a ser relativo a esse pai em vez do viewport, fazendo o popup aparecer no meio da página em vez de centrado no ecrã.
+A vista de lista mostra todos os blocos de uma vez (grid na linha 204-279), tornando a página muito longa quando há muitos resultados.
 
 ### Solução
-Substituir o popup manual (div com `fixed`) pelo componente `Dialog` do Radix UI que já existe no projecto. O Radix Dialog usa um Portal para renderizar o overlay fora da árvore DOM, evitando o problema do `transform`.
+Adicionar paginação ao grid de blocos, mostrando 12 blocos por página com controlos de navegação.
 
 ### Alteração
 
 **`src/components/concessions/ConcessionsMap.tsx`**
-- Importar `Dialog`, `DialogContent`, `DialogHeader`, `DialogTitle` de `@/components/ui/dialog`
-- Substituir o bloco `AnimatePresence` + `motion.div` (linhas 288-391) por um `<Dialog>` controlado via `open={!!selectedBlock}` e `onOpenChange`
-- Manter todo o conteúdo interno (detalhes do bloco, parceiros, botões) inalterado
-- Remover imports desnecessários de `AnimatePresence`/`motion` se já não forem usados noutro lado do componente (neste caso, `AnimatePresence` e `motion` ainda são usados nos filtros e grid, portanto mantêm-se)
+1. Adicionar estado `currentPage` (default 1) e constante `BLOCKS_PER_PAGE = 12`
+2. Calcular `paginatedBlocks` a partir de `filteredBlocks` com slice baseado na página actual
+3. Resetar `currentPage` para 1 quando os filtros ou pesquisa mudam
+4. Substituir `filteredBlocks.map(...)` no grid por `paginatedBlocks.map(...)`
+5. Adicionar controlos de paginação abaixo do grid usando os componentes `Pagination` já existentes no projecto (`@/components/ui/pagination`)
+6. Actualizar o texto "A mostrar X de Y" para indicar o intervalo actual (ex: "A mostrar 1-12 de 45 blocos")
 
