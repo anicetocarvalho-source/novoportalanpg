@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Building2, Droplets, Filter, Search, ChevronDown, Info, ExternalLink, Loader2 } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -284,31 +285,19 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
         </div>
       )}
 
-      {/* Selected Block Details Modal */}
-      <AnimatePresence>
-        {selectedBlock && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedBlock(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-background rounded-2xl border border-border shadow-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-6">
+      {/* Selected Block Details Dialog */}
+      <Dialog open={!!selectedBlock} onOpenChange={(open) => { if (!open) setSelectedBlock(null); }}>
+        <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+          {selectedBlock && (
+            <>
+              <DialogHeader>
+                <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                       <Building2 className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">{selectedBlock.name}</h2>
+                      <DialogTitle className="text-xl font-bold text-foreground">{selectedBlock.name}</DialogTitle>
                       <p className="text-sm text-muted-foreground">{selectedBlock.basin}</p>
                     </div>
                   </div>
@@ -316,79 +305,79 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
                     {selectedBlock.status}
                   </Badge>
                 </div>
+              </DialogHeader>
 
-                <div className="space-y-4">
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl bg-secondary/50">
+                    <p className="text-sm text-muted-foreground">Operador</p>
+                    <p className="font-semibold text-foreground">{selectedBlock.operator}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-secondary/50">
+                    <p className="text-sm text-muted-foreground">Tipo</p>
+                    <p className="font-semibold text-foreground">{selectedBlock.type}</p>
+                  </div>
+                </div>
+
+                {selectedBlock.area_km2 && (
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl bg-secondary/50">
-                      <p className="text-sm text-muted-foreground">Operador</p>
-                      <p className="font-semibold text-foreground">{selectedBlock.operator}</p>
+                      <p className="text-sm text-muted-foreground">Área</p>
+                      <p className="font-semibold text-foreground">{selectedBlock.area_km2.toLocaleString()} km²</p>
                     </div>
-                    <div className="p-4 rounded-xl bg-secondary/50">
-                      <p className="text-sm text-muted-foreground">Tipo</p>
-                      <p className="font-semibold text-foreground">{selectedBlock.type}</p>
-                    </div>
-                  </div>
-
-                  {selectedBlock.area_km2 && (
-                    <div className="grid grid-cols-2 gap-4">
+                    {selectedBlock.water_depth_m != null && selectedBlock.water_depth_m > 0 && (
                       <div className="p-4 rounded-xl bg-secondary/50">
-                        <p className="text-sm text-muted-foreground">Área</p>
-                        <p className="font-semibold text-foreground">{selectedBlock.area_km2.toLocaleString()} km²</p>
+                        <p className="text-sm text-muted-foreground">Lâmina de Água</p>
+                        <p className="font-semibold text-foreground">{selectedBlock.water_depth_m.toLocaleString()}m</p>
                       </div>
-                      {selectedBlock.water_depth_m != null && selectedBlock.water_depth_m > 0 && (
-                        <div className="p-4 rounded-xl bg-secondary/50">
-                          <p className="text-sm text-muted-foreground">Lâmina de Água</p>
-                          <p className="font-semibold text-foreground">{selectedBlock.water_depth_m.toLocaleString()}m</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                    )}
+                  </div>
+                )}
 
-                  {selectedBlock.partners.length > 0 && (
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-3">Participações</h3>
-                      <div className="space-y-2">
-                        {selectedBlock.partners.map((partner) => (
-                          <div key={partner.name} className="flex items-center gap-3">
-                            <div className="flex-1">
-                              <div className="flex justify-between mb-1">
-                                <span className="text-sm text-foreground">{partner.name}</span>
-                                <span className="text-sm font-medium text-primary">{partner.share}%</span>
-                              </div>
-                              <div className="h-2 rounded-full bg-secondary overflow-hidden">
-                                <div
-                                  className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full"
-                                  style={{ width: `${partner.share}%` }}
-                                />
-                              </div>
+                {selectedBlock.partners.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-3">Participações</h3>
+                    <div className="space-y-2">
+                      {selectedBlock.partners.map((partner) => (
+                        <div key={partner.name} className="flex items-center gap-3">
+                          <div className="flex-1">
+                            <div className="flex justify-between mb-1">
+                              <span className="text-sm text-foreground">{partner.name}</span>
+                              <span className="text-sm font-medium text-primary">{partner.share}%</span>
+                            </div>
+                            <div className="h-2 rounded-full bg-secondary overflow-hidden">
+                              <div
+                                className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full"
+                                style={{ width: `${partner.share}%` }}
+                              />
                             </div>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  )}
-                </div>
-
-                <div className="flex gap-3 mt-6">
-                  <Link
-                    to={`/ep-data/blocks/${selectedBlock.id}`}
-                    className="flex-1 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-center flex items-center justify-center gap-2"
-                  >
-                    Ver Detalhes
-                    <ExternalLink className="w-4 h-4" />
-                  </Link>
-                  <button
-                    onClick={() => setSelectedBlock(null)}
-                    className="flex-1 py-3 rounded-xl bg-secondary text-foreground font-medium hover:bg-secondary/80 transition-colors"
-                  >
-                    Fechar
-                  </button>
-                </div>
+                  </div>
+                )}
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              <div className="flex gap-3 mt-2">
+                <Link
+                  to={`/ep-data/blocks/${selectedBlock.id}`}
+                  className="flex-1 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors text-center flex items-center justify-center gap-2"
+                >
+                  Ver Detalhes
+                  <ExternalLink className="w-4 h-4" />
+                </Link>
+                <button
+                  onClick={() => setSelectedBlock(null)}
+                  className="flex-1 py-3 rounded-xl bg-secondary text-foreground font-medium hover:bg-secondary/80 transition-colors"
+                >
+                  Fechar
+                </button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
