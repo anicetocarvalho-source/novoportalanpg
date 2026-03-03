@@ -19,6 +19,12 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { useContentBlocks } from "@/hooks/useCMSData";
 import heroImage from "@/assets/angola-coast.jpg";
+import chevronLogo from "@/assets/partners/chevron.png";
+import totalLogo from "@/assets/partners/totalenergies.png";
+import essoLogo from "@/assets/partners/esso.png";
+import eniLogo from "@/assets/partners/eni.png";
+import bpLogo from "@/assets/partners/bp.png";
+import sonangolLogo from "@/assets/partners/sonangol.png";
 
 const iconMap: Record<string, React.ElementType> = {
   education: GraduationCap,
@@ -41,6 +47,15 @@ const defaultAreas = [
   { key: "culture", icon: "culture", title: "Cultura", description: "Valorização e preservação do património cultural angolano, apoiando iniciativas artísticas e eventos culturais nas comunidades." },
   { key: "environment", icon: "environment", title: "Ambiente", description: "Projectos de reflorestação, protecção de ecossistemas e conservação de espécies terrestres e marinhas em risco de extinção." },
 ];
+
+const partnerLogos: Record<string, string> = {
+  "Chevron": chevronLogo,
+  "TotalEnergies": totalLogo,
+  "Esso": essoLogo,
+  "Eni": eniLogo,
+  "BP": bpLogo,
+  "Sonangol P&P": sonangolLogo,
+};
 
 const defaultPartners = [
   { name: "Chevron", blocks: "Bloco 0" },
@@ -287,18 +302,27 @@ export default function SocialResponsibilityPage() {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {partners.map((partner: any) => (
-              <div
-                key={partner.name}
-                className="bg-secondary/50 border border-border rounded-xl p-4 text-center hover:border-primary/30 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                  <Building2 className="w-6 h-6 text-primary" />
+            {partners.map((partner: any) => {
+              const logo = partnerLogos[partner.name] || partner.logo;
+              return (
+                <div
+                  key={partner.name}
+                  className="bg-secondary/50 border border-border rounded-xl p-4 text-center hover:border-primary/30 transition-all duration-300 flex flex-col items-center justify-center"
+                >
+                  {logo ? (
+                    <div className="w-16 h-16 rounded-full overflow-hidden bg-background flex items-center justify-center mx-auto mb-3 border border-border">
+                      <img src={logo} alt={partner.name} className="w-12 h-12 object-contain" />
+                    </div>
+                  ) : (
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                      <Building2 className="w-7 h-7 text-primary" />
+                    </div>
+                  )}
+                  <h4 className="font-semibold text-foreground text-sm mb-1">{partner.name}</h4>
+                  <span className="text-xs text-muted-foreground">{partner.blocks}</span>
                 </div>
-                <h4 className="font-semibold text-foreground text-sm mb-1">{partner.name}</h4>
-                <span className="text-xs text-muted-foreground">{partner.blocks}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </SectionTransition>
