@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Shield, Lock, User, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import logoRed from '@/assets/logo-red.webp';
+import logoRed from '@/assets/logo-color.svg';
 import heroImage from '@/assets/hero-offshore.jpg';
 
 const quickAccessUsers = [

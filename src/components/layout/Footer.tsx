@@ -10,7 +10,7 @@ import {
   Facebook,
   Instagram
 } from "lucide-react";
-import logoWhite from "@/assets/logo-white.webp";
+import logoWhite from "@/assets/logo-white.svg";
 import { useSiteSettings } from "@/contexts/SiteSettingsContext";
 import { useMenuItems } from "@/hooks/useCMSData";
 
