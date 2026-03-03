@@ -22,9 +22,9 @@ import heroImage from "@/assets/angola-coast.jpg";
 import chevronLogo from "@/assets/partners/chevron.png";
 import totalLogo from "@/assets/partners/totalenergies.png";
 import essoLogo from "@/assets/partners/esso.png";
-import eniLogo from "@/assets/partners/eni.png";
+import eniLogo from "@/assets/partners/eni.svg";
 import bpLogo from "@/assets/partners/bp.png";
-import sonangolLogo from "@/assets/partners/sonangol.png";
+import sonangolLogo from "@/assets/partners/sonangol.svg";
 
 const iconMap: Record<string, React.ElementType> = {
   education: GraduationCap,
