@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Building2, Droplets, Filter, Search, ChevronDown, Info, ExternalLink, Loader2 } from "lucide-react";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ interface ConcessionsMapProps {
 }
 
 export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
+  const BLOCKS_PER_PAGE = 12;
   const { data: blocks = [], isLoading } = usePetroleumBlocks();
   const [selectedBasin, setSelectedBasin] = useState<string>("all");
   const [selectedType, setSelectedType] = useState<string>("all");
@@ -26,6 +28,7 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBlock, setSelectedBlock] = useState<PetroleumBlock | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Derive available filter options from data
   const availableBasins = useMemo(() => {
@@ -56,6 +59,15 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
       return matchesBasin && matchesType && matchesStatus && matchesSearch;
     });
   }, [blocks, selectedBasin, selectedType, selectedStatus, searchQuery]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedBasin, selectedType, selectedStatus, searchQuery]);
+
+  const totalPages = Math.ceil(filteredBlocks.length / BLOCKS_PER_PAGE);
+  const startIndex = (currentPage - 1) * BLOCKS_PER_PAGE;
+  const paginatedBlocks = filteredBlocks.slice(startIndex, startIndex + BLOCKS_PER_PAGE);
 
   const stats = useMemo(() => {
     const production = blocks.filter(b => b.statusKey === "production").length;
@@ -197,12 +209,12 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
 
       {/* Results count */}
       <p className="text-sm text-muted-foreground">
-        A mostrar <strong className="text-foreground">{filteredBlocks.length}</strong> de {blocks.length} blocos
+        A mostrar <strong className="text-foreground">{Math.min(startIndex + 1, filteredBlocks.length)}-{Math.min(startIndex + BLOCKS_PER_PAGE, filteredBlocks.length)}</strong> de {filteredBlocks.length} blocos
       </p>
 
       {/* Blocks Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredBlocks.map((block) => (
+        {paginatedBlocks.map((block) => (
           <motion.div
             key={block.id}
             initial={{ opacity: 0, y: 20 }}
@@ -277,6 +289,53 @@ export function ConcessionsMap({ onBlockSelect }: ConcessionsMapProps) {
           </motion.div>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+              if (
+                page === 1 ||
+                page === totalPages ||
+                (page >= currentPage - 1 && page <= currentPage + 1)
+              ) {
+                return (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={page === currentPage}
+                      onClick={() => setCurrentPage(page)}
+                      className="cursor-pointer"
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              }
+              if (page === currentPage - 2 || page === currentPage + 2) {
+                return (
+                  <PaginationItem key={page}>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                );
+              }
+              return null;
+            })}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
 
       {filteredBlocks.length === 0 && (
         <div className="text-center py-12">
