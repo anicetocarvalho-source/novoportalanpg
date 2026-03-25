@@ -17,7 +17,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
+import heroImage from "@/assets/biofuels-header.jpg";
 
 function SectionDivider({ label, icon: Icon }: { label?: string; icon?: React.ComponentType<{ className?: string }> }) {
   return (
