@@ -8,7 +8,7 @@ import {
   LineChart, Line, AreaChart, Area, BarChart, Bar, 
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell 
 } from "recharts";
-import heroImage from "@/assets/hero-offshore.jpg";
+import heroImage from "@/assets/production-header.jpg";
 
 // Default data fallbacks
 const defaultHistoricalProduction = [
