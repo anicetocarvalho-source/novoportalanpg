@@ -3,6 +3,7 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Flame, BarChart3, Globe2, TrendingUp } from "lucide-react";
 import { useContentBlocks } from "@/hooks/useCMSData";
+import heroImage from "@/assets/gas-header.jpg";
 
 const defaultHighlightIcons = [Flame, BarChart3, Globe2, TrendingUp];
 
@@ -31,6 +32,7 @@ export default function GasPage() {
       pageKey="gas"
       title={t("pages.gas.title")}
       subtitle={t("pages.gas.subtitle")}
+      backgroundImage={heroImage}
       breadcrumbs={[
         { label: t("nav.opportunities"), href: "/opportunities" },
         { label: t("pages.gas.title") },
