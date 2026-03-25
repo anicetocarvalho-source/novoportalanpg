@@ -69,7 +69,7 @@ function MemberCard({
                 ? "w-20 h-20 ring-3 ring-primary/30 shadow-lg"
                 : "w-16 h-16 ring-2 ring-border/50 group-hover:ring-primary/30 transition-all duration-300"
             }`}>
-              <img src={photo} alt={member.full_name} className="w-full h-full object-cover" />
+              <img src={photo} alt={member.full_name} className={`w-full h-full object-cover ${member.slug === "ana-miala" ? "scale-110" : ""}`} />
               {isPCA && (
                 <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md z-10">
                   <Crown className="w-3.5 h-3.5 text-primary-foreground" />
