@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/angola-coast.jpg";
+import heroImage from "@/assets/local-content-header.jpg";
 
 const iconMap: Record<string, any> = { Building2, ClipboardList, Award, CheckCircle2, Users, FileCheck, BarChart3 };
 
