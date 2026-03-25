@@ -55,8 +55,11 @@ export default function AnpgPage() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {intro?.intro || t("pages.anpg.content.intro")}
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
                 {intro?.role || t("pages.anpg.content.role")}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {intro?.vision || t("pages.anpg.content.vision")}
               </p>
             </div>
             <div className="lg:col-span-2">
