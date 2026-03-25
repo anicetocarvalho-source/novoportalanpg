@@ -1,20 +1,19 @@
 
 
-## Plano: Adicionar paginação à vista de lista dos blocos
+## Plano: Alterar título da página ANPG
 
-### Problema
-A vista de lista mostra todos os blocos de uma vez (grid na linha 204-279), tornando a página muito longa quando há muitos resultados.
+### O que muda
+O título da página ANPG será alterado de **"A ANPG"** (PT) / **"About ANPG"** (EN) para **"Energia para mais Angola."** (PT) / **"Energy for more Angola."** (EN).
 
-### Solução
-Adicionar paginação ao grid de blocos, mostrando 12 blocos por página com controlos de navegação.
+### Alterações necessárias
 
-### Alteração
+1. **`src/i18n/locales/pt.json`** (linha 141)
+   - De: `"title": "A ANPG"`
+   - Para: `"title": "Energia para mais Angola."`
 
-**`src/components/concessions/ConcessionsMap.tsx`**
-1. Adicionar estado `currentPage` (default 1) e constante `BLOCKS_PER_PAGE = 12`
-2. Calcular `paginatedBlocks` a partir de `filteredBlocks` com slice baseado na página actual
-3. Resetar `currentPage` para 1 quando os filtros ou pesquisa mudam
-4. Substituir `filteredBlocks.map(...)` no grid por `paginatedBlocks.map(...)`
-5. Adicionar controlos de paginação abaixo do grid usando os componentes `Pagination` já existentes no projecto (`@/components/ui/pagination`)
-6. Actualizar o texto "A mostrar X de Y" para indicar o intervalo actual (ex: "A mostrar 1-12 de 45 blocos")
+2. **`src/i18n/locales/en.json`** (linha 141)
+   - De: `"title": "About ANPG"`
+   - Para: `"title": "Energy for more Angola."`
+
+3. **Verificação CMS** — Confirmar se existe um registo na tabela `page_banners` com `page_key = 'anpg'` que possa estar a sobrepor o título. Se existir, actualizar o campo `title_pt` e `title_en` na base de dados.
 
