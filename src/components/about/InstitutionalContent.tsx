@@ -96,6 +96,9 @@ function PrinciplesSection({ cms }: { cms?: Record<string, any> }) {
     >
       <SectionIcon icon={HandHeart} delay={0.1} />
       <SectionTitle delay={0.1}>{cms?.title || t("pages.anpg.institutional.principles.title")}</SectionTitle>
+      <p className="text-muted-foreground leading-relaxed mb-6">
+        {cms?.subtitle || t("pages.anpg.institutional.principles.subtitle")}
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {cmsPrinciples ? cmsPrinciples.map((p, i) => (
           <motion.div
