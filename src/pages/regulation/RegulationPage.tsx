@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
+import heroImage from "@/assets/regulation-header.jpeg";
 
 const defaultRegulatoryAreas = [
   { icon: "FileCheck", titleKey: "services.licensing.title", descriptionKey: "services.licensing.description", href: "/regulation/licensing" },
