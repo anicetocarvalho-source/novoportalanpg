@@ -179,7 +179,7 @@ function SocialResponsibilitySection({ cms }: { cms?: Record<string, any> }) {
     >
       <SectionIcon icon={Users} delay={0.2} />
       <SectionTitle delay={0.2}>{cms?.title || t("pages.anpg.institutional.socialResp.title")}</SectionTitle>
-      <p className="text-sm text-muted-foreground leading-relaxed">
+      <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
         {cms?.desc || t("pages.anpg.institutional.socialResp.desc")}
       </p>
     </motion.div>
