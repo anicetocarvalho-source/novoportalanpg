@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import contactsHeroImage from "@/assets/contacts-header.jpg";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -17,6 +18,7 @@ export default function ContactsPage() {
       titleKey="pages.contacts.title"
       subtitleKey="pages.contacts.subtitle"
       descriptionKey="pages.contacts.description"
+      backgroundImage={contactsHeroImage}
       icon={<Phone className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.submenu.contacts" }]}
     >
