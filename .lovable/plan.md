@@ -1,19 +1,32 @@
 
 
-## Plano: Alterar subtítulo da página ANPG
+## Plano: Adicionar subtítulo à secção Princípios
 
 ### O que muda
-A descrição da página ANPG será alterada de **"A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano."** para **"Somos a ANPG, a Agência Nacional de Petróleo, Gás e Biocombustíveis."**
+Após o título "Princípios", será adicionado um subtítulo descritivo antes da grelha de princípios: *"Os nossos princípios orientam, de forma clara e consistente, a nossa actuação diária."*
 
 ### Alterações
 
-1. **`src/i18n/locales/pt.json`** (linha 143)
-   - De: `"description": "A Agência Nacional de Petróleo, Gás e Biocombustíveis é a entidade reguladora do sector petrolífero angolano."`
-   - Para: `"description": "Somos a ANPG, a Agência Nacional de Petróleo, Gás e Biocombustíveis."`
+1. **`src/i18n/locales/pt.json`** — Adicionar chave `subtitle` dentro de `principles`:
+   ```json
+   "principles": {
+     "title": "Princípios",
+     "subtitle": "Os nossos princípios orientam, de forma clara e consistente, a nossa actuação diária.",
+     ...
+   }
+   ```
 
-2. **`src/i18n/locales/en.json`** (linha 143)
-   - De: `"description": "The National Oil, Gas and Biofuels Agency is the regulatory body for Angola's petroleum sector."`
-   - Para: `"description": "We are ANPG, the National Oil, Gas and Biofuels Agency."`
+2. **`src/i18n/locales/en.json`** — Adicionar tradução equivalente:
+   ```json
+   "subtitle": "Our principles guide our daily actions in a clear and consistent way."
+   ```
 
-3. **Verificação CMS** — Confirmar se existe override na tabela `page_banners` com `page_key = 'anpg'` que contenha subtítulo a sobrepor este valor. Se existir, actualizar `subtitle_pt` e `subtitle_en`.
+3. **`src/components/about/InstitutionalContent.tsx`** (linha 98-99) — Adicionar parágrafo de subtítulo entre o `SectionTitle` e a grelha `grid`:
+   ```tsx
+   <SectionTitle ...>{...}</SectionTitle>
+   <p className="text-muted-foreground leading-relaxed mb-6">
+     {cms?.subtitle || t("pages.anpg.institutional.principles.subtitle")}
+   </p>
+   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+   ```
 
