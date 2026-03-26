@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
+import heroImage from "@/assets/media-header.jpg";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
@@ -298,6 +299,7 @@ export default function MediaPage() {
       titleKey="pages.media.title"
       subtitleKey="pages.media.subtitle"
       descriptionKey="pages.media.description"
+      backgroundImage={heroImage}
       icon={<Newspaper className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.media", href: "/media" },

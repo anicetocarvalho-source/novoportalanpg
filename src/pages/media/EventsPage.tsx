@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Calendar, MapPin, ChevronRight, CalendarDays } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
+import heroImage from "@/assets/events-header.jpg";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Badge } from "@/components/ui/badge";
@@ -72,6 +73,7 @@ export default function EventsPage() {
       titleKey="pages.events.title"
       subtitleKey="pages.events.subtitle"
       descriptionKey="pages.events.description"
+      backgroundImage={heroImage}
       icon={<CalendarDays className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.media", href: "/media" },
