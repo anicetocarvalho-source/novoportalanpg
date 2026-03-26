@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
+import heroImage from "@/assets/media-header.jpg";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
