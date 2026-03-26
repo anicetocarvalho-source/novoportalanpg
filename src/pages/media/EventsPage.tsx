@@ -73,6 +73,7 @@ export default function EventsPage() {
       titleKey="pages.events.title"
       subtitleKey="pages.events.subtitle"
       descriptionKey="pages.events.description"
+      backgroundImage={heroImage}
       icon={<CalendarDays className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.media", href: "/media" },
