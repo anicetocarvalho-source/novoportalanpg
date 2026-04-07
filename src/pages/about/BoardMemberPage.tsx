@@ -155,7 +155,7 @@ export default function BoardMemberPage() {
     return (
       <PageLayout
         title={isEn ? "Member Not Found" : "Membro Não Encontrado"}
-        backgroundImage={heroImage}
+        pageKey="board-member"
         breadcrumbs={[
           { labelKey: "nav.aboutUs", href: "/about" },
           { labelKey: "nav.submenu.anpg", href: "/about/anpg" },
