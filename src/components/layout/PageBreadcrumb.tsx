@@ -55,6 +55,6 @@ export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
           })}
         </ol>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
