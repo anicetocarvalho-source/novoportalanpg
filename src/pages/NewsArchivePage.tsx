@@ -242,9 +242,9 @@ export default function NewsArchivePage() {
       <Header />
       
       <PageHero
-        title="Arquivo de Notícias"
-        subtitle="Pesquise e explore o arquivo completo de notícias e comunicados da ANPG"
-        backgroundImage="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920"
+        title={cmsBanner?.title || "Arquivo de Notícias"}
+        subtitle={cmsBanner?.subtitle || "Pesquise e explore o arquivo completo de notícias e comunicados da ANPG"}
+        backgroundImage={cmsBanner?.image_url || undefined}
         icon={<Archive className="w-8 h-8" />}
       />
 
