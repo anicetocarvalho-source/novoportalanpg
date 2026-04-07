@@ -9,7 +9,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBoardMemberBySlug, useBoardDepartments, type CMSBoardMember } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 
 // Fallback photos
 import paulinoPhoto from "@/assets/board/paulino-jeronimo.jpg";
