@@ -12,7 +12,6 @@ import {
 } from "@/data/seismic";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import heroImage from "@/assets/angola-coast.jpg";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
