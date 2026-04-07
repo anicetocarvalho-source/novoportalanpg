@@ -22,6 +22,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageBreadcrumb } from "@/components/layout/PageBreadcrumb";
+import { usePageBanner } from "@/hooks/useCMSData";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
