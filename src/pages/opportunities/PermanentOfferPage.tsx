@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteSettings } from "@/contexts/SiteSettingsContext";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 const stepIcons = [Search, FileText, Handshake, Award];
 const advantageIcons = [Clock, Handshake, RefreshCw, Database];
