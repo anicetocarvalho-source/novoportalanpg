@@ -80,11 +80,10 @@ export default function BlockDetailsPage() {
 
   return (
     <PageLayout
-      pageKey={`block-${block.id}`}
+      pageKey="block-details"
       title={block.name}
       subtitle={`Bacia: ${block.basin}`}
       description={`Informações detalhadas sobre o ${block.name}, operado por ${block.operator}.`}
-      pageKey="block-details"
       icon={<MapPin className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData", href: "/ep-data" },
