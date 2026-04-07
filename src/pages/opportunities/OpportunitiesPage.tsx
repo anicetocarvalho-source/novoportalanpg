@@ -2,7 +2,6 @@ import { Gift, FileCheck, Archive } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 export default function OpportunitiesPage() {
   const { t } = useTranslation();
