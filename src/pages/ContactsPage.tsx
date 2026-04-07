@@ -1,5 +1,4 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import contactsHeroImage from "@/assets/contacts-header.jpg";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { ContactForm } from "@/components/contact/ContactForm";
