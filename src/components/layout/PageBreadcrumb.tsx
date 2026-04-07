@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 
 export interface BreadcrumbItem {
   labelKey?: string;
@@ -17,11 +16,8 @@ export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
   const { t } = useTranslation();
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="bg-secondary/50 border-b border-border"
+    <nav
+      className="bg-secondary/50 border-b border-border animate-in fade-in slide-in-from-top-1 duration-400"
       aria-label="Breadcrumb"
     >
       <div className="container mx-auto px-6 lg:px-8 py-4">
@@ -59,6 +55,6 @@ export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
           })}
         </ol>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
