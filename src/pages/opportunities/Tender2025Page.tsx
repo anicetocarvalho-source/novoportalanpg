@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { BlocksMap } from "@/components/tender/BlocksMap";
 import { TenderFAQ } from "@/components/tender/TenderFAQ";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 const objectiveIcons = [Target, Lightbulb, TrendingUp, Users, Shield];
 
