@@ -118,6 +118,7 @@ const isWithinDateRange = (dateStr: string, range: string): boolean => {
 
 export default function NewsArchivePage() {
   const { t } = useTranslation();
+  const { data: cmsBanner } = usePageBanner("news-archive");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
