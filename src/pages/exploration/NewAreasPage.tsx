@@ -13,7 +13,7 @@ export default function NewAreasPage() {
       pageKey="exploration-new-areas"
       titleKey="pages.exploration.newAreas"
       subtitleKey="pages.exploration.newAreasSubtitle"
-      backgroundImage={heroImage}
+      
       icon={<Globe2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.exploration", href: "/exploration" },

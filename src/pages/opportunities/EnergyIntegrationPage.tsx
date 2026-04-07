@@ -101,7 +101,7 @@ export default function EnergyIntegrationPage() {
       pageKey="energy-integration"
       title={t("pages.energyIntegration.title")}
       subtitle={t("pages.energyIntegration.subtitle")}
-      backgroundImage={heroImage}
+      
       breadcrumbs={[
         { label: t("nav.opportunities"), href: "/opportunities" },
         { label: t("nav.submenu.energyIntegration") },

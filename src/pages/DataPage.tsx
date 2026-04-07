@@ -34,7 +34,7 @@ export default function DataPage() {
       title={t("pages.dataPage.title")}
       subtitle={t("pages.dataPage.subtitle")}
       description={t("pages.dataPage.description")}
-      backgroundImage={heroImage}
+      
       icon={<BarChart3 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("pages.dataPage.title") },

@@ -122,7 +122,7 @@ export default function ProductionPage() {
       titleKey="pages.production.title"
       subtitleKey="pages.production.subtitle"
       descriptionKey="pages.production.description"
-      backgroundImage={heroImage}
+      
       icon={<BarChart3 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.production" },

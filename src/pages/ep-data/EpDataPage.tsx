@@ -19,7 +19,7 @@ export default function EpDataPage() {
       titleKey="pages.epData.title"
       subtitleKey="pages.epData.subtitle"
       descriptionKey="pages.epData.description"
-      backgroundImage={heroImage}
+      
       icon={<Database className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData" },

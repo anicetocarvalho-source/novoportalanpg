@@ -157,7 +157,7 @@ export default function SeismicMapPage({ type }: SeismicMapPageProps) {
       pageKey={pageKey}
       titleKey={titleKey}
       subtitleKey={subtitleKey}
-      backgroundImage={heroImage}
+      
       icon={<MapIcon className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.exploration", href: "/exploration" },

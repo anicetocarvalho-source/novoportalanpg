@@ -66,7 +66,7 @@ export default function PermanentOfferPage() {
       pageKey="permanent-offer"
       title={t("pages.permanentOffer.title")}
       subtitle={t("pages.permanentOffer.subtitle")}
-      backgroundImage={heroImage}
+      
       breadcrumbs={[
         { label: t("nav.opportunities"), href: "/opportunities" },
         { label: t("nav.submenu.permanentOffer") },

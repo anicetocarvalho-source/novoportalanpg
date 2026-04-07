@@ -32,7 +32,7 @@ export default function OversightPage() {
       title={t("pages.oversight.title")}
       subtitle={t("pages.oversight.subtitle")}
       description={t("pages.oversight.description")}
-      backgroundImage={heroImage}
+      
       icon={<Shield className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title"), href: "/regulation" },

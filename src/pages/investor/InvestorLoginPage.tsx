@@ -122,7 +122,7 @@ export default function InvestorLoginPage() {
       pageKey="investor-login"
       titleKey="Portal do Investidor"
       subtitleKey="Acesso restrito para investidores registados"
-      backgroundImage={heroImage}
+      
       icon={<Briefcase className="w-6 h-6" />}
       breadcrumbs={breadcrumbs}
     >

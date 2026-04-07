@@ -39,7 +39,7 @@ export default function HistoryPage() {
       titleKey="pages.history.title"
       subtitleKey="pages.history.subtitle"
       descriptionKey="pages.history.description"
-      backgroundImage={heroImage}
+      
       icon={<History className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

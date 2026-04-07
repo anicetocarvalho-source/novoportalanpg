@@ -233,7 +233,7 @@ export default function ProcessingPage() {
       pageKey="exploration-processing"
       titleKey="pages.exploration.processing"
       subtitleKey="pages.exploration.processingSubtitle"
-      backgroundImage={heroImage}
+      
       icon={<Database className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.exploration", href: "/exploration" },

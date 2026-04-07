@@ -17,7 +17,7 @@ export default function Tender2023Page() {
       titleKey="pages.tender2023.title"
       subtitleKey="pages.tender2023.subtitle"
       descriptionKey="pages.tender2023.description"
-      backgroundImage={heroImage}
+      
       icon={<Archive className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.opportunities", href: "/opportunities" },

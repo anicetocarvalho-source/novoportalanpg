@@ -49,7 +49,7 @@ export default function LocalContentPage() {
       titleKey="pages.localContent.title"
       subtitleKey="pages.localContent.subtitle"
       descriptionKey="pages.localContent.description"
-      backgroundImage={heroImage}
+      
       icon={<Users className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.opportunities", href: "/opportunities" }, { labelKey: "nav.localContent" }]}
     >

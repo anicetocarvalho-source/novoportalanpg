@@ -39,7 +39,7 @@ export default function AnpgPage() {
       titleKey="pages.anpg.title"
       subtitleKey="pages.anpg.subtitle"
       descriptionKey="pages.anpg.description"
-      backgroundImage={heroImage}
+      
       icon={<Building2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

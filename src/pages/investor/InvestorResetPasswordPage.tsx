@@ -52,7 +52,7 @@ export default function InvestorResetPasswordPage() {
       pageKey="investor-reset"
       titleKey="Redefinir Password"
       subtitleKey="Defina uma nova password para a sua conta"
-      backgroundImage={heroImage}
+      
       icon={<Briefcase className="w-6 h-6" />}
       breadcrumbs={[{ labelKey: "Portal do Investidor", href: "/investor-portal" }, { labelKey: "Redefinir Password" }]}
     >

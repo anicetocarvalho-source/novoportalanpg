@@ -59,7 +59,7 @@ export default function SustainabilityPage() {
       title={t("services.sustainability.title")}
       subtitle={t("services.label")}
       description={t("services.sustainability.description")}
-      backgroundImage={heroImage}
+      
       icon={<Leaf className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ label: t("services.sustainability.title") }]}
     >

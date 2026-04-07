@@ -298,7 +298,7 @@ export default function MediaPage() {
       titleKey="pages.media.title"
       subtitleKey="pages.media.subtitle"
       descriptionKey="pages.media.description"
-      backgroundImage={heroImage}
+      
       icon={<Newspaper className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.media", href: "/media" },

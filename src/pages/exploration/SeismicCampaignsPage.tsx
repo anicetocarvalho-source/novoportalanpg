@@ -44,7 +44,7 @@ export default function SeismicCampaignsPage() {
       pageKey="exploration-seismic-campaigns"
       titleKey="pages.exploration.seismicCampaigns"
       subtitleKey="pages.exploration.seismicCampaignsSubtitle"
-      backgroundImage={heroImage}
+      
       icon={<Layers className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.exploration", href: "/exploration" },

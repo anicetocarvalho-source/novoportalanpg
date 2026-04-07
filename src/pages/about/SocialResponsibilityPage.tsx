@@ -116,7 +116,7 @@ export default function SocialResponsibilityPage() {
       titleKey="pages.socialResponsibility.title"
       subtitleKey="pages.socialResponsibility.subtitle"
       descriptionKey="pages.socialResponsibility.description"
-      backgroundImage={heroImage}
+      
       icon={<Heart className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

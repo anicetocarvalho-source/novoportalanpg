@@ -49,7 +49,7 @@ export default function EpMapsPage() {
       titleKey="pages.epMaps.title"
       subtitleKey="pages.epMaps.subtitle"
       descriptionKey="pages.epMaps.description"
-      backgroundImage={heroImage}
+      
       icon={<Map className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData", href: "/ep-data" },

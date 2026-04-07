@@ -179,7 +179,7 @@ export default function BoardMemberPage() {
     <PageLayout
       title={member.full_name}
       subtitle={member.role || member.title}
-      backgroundImage={heroImage}
+      pageKey="board-member"
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },
         { labelKey: "nav.submenu.anpg", href: "/about/anpg" },

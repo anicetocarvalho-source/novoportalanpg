@@ -71,7 +71,7 @@ export default function ProductionHistoryPage() {
       titleKey="pages.productionHistory.title"
       subtitleKey="pages.productionHistory.subtitle"
       descriptionKey="pages.productionHistory.description"
-      backgroundImage={heroImage}
+      
       icon={<History className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.production", href: "/production" },

@@ -84,7 +84,7 @@ export default function BlockDetailsPage() {
       title={block.name}
       subtitle={`Bacia: ${block.basin}`}
       description={`Informações detalhadas sobre o ${block.name}, operado por ${block.operator}.`}
-      backgroundImage={heroImage}
+      pageKey="block-details"
       icon={<MapPin className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData", href: "/ep-data" },

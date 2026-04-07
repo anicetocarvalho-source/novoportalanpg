@@ -20,7 +20,7 @@ export default function ExplorationPage() {
       pageKey="exploration"
       titleKey="pages.exploration.title"
       subtitleKey="pages.exploration.subtitle"
-      backgroundImage={heroImage}
+      
       icon={<Compass className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.exploration" }]}
     >

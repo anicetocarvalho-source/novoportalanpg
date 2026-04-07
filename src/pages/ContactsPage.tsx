@@ -17,7 +17,7 @@ export default function ContactsPage() {
       titleKey="pages.contacts.title"
       subtitleKey="pages.contacts.subtitle"
       descriptionKey="pages.contacts.description"
-      backgroundImage={contactsHeroImage}
+      
       icon={<Phone className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.submenu.contacts" }]}
     >

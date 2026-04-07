@@ -33,7 +33,7 @@ export default function OpportunitiesPage() {
       titleKey="pages.opportunities.title"
       subtitleKey="pages.opportunities.subtitle"
       descriptionKey="pages.opportunities.description"
-      backgroundImage={heroImage}
+      
       icon={<Gift className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.opportunities" },

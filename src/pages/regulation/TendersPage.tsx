@@ -32,7 +32,7 @@ export default function TendersPage() {
       title={t("pages.tendersPage.title")}
       subtitle={t("pages.tendersPage.subtitle")}
       description={t("pages.tendersPage.description")}
-      backgroundImage={heroImage}
+      
       icon={<Globe2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title"), href: "/regulation" },

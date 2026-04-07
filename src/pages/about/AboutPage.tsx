@@ -38,7 +38,7 @@ export default function AboutPage() {
       titleKey="pages.about.title"
       subtitleKey="pages.about.subtitle"
       descriptionKey="pages.about.description"
-      backgroundImage={heroImage}
+      
       icon={<Building2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs" },

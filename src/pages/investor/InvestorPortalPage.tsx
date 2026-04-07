@@ -83,7 +83,7 @@ export default function InvestorPortalPage() {
       titleKey="pages.investorPortal.title"
       subtitleKey="pages.investorPortal.subtitle"
       descriptionKey="pages.investorPortal.description"
-      backgroundImage={heroImage}
+      
       icon={<Briefcase className="w-6 h-6" />}
       breadcrumbs={breadcrumbs}
     >

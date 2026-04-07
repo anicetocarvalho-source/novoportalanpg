@@ -31,7 +31,7 @@ export default function GasPage() {
       pageKey="gas"
       title={t("pages.gas.title")}
       subtitle={t("pages.gas.subtitle")}
-      backgroundImage={heroImage}
+      
       breadcrumbs={[
         { label: t("nav.opportunities"), href: "/opportunities" },
         { label: t("pages.gas.title") },

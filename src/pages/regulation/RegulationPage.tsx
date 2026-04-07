@@ -52,7 +52,7 @@ export default function RegulationPage() {
       title={t("services.regulation.title")}
       subtitle={t("services.label")}
       description={t("services.regulation.description")}
-      backgroundImage={heroImage}
+      
       icon={<Scale className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title") },
