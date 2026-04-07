@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 
 const valueIcons: Record<string, React.ElementType> = {
   integrity: Shield,
