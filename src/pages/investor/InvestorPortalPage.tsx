@@ -14,7 +14,6 @@ import { OpportunitiesDashboard } from "@/components/investor/OpportunitiesDashb
 import { DocumentCenter } from "@/components/investor/DocumentCenter";
 import { MeetingScheduler } from "@/components/investor/MeetingScheduler";
 import { useAuth } from "@/contexts/AuthContext";
-import heroImage from "@/assets/angola-coast.jpg";
 
 export default function InvestorPortalPage() {
   const { t } = useTranslation();
