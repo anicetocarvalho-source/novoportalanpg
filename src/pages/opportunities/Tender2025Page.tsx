@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { BlocksMap } from "@/components/tender/BlocksMap";
 import { TenderFAQ } from "@/components/tender/TenderFAQ";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 const objectiveIcons = [Target, Lightbulb, TrendingUp, Users, Shield];
 
@@ -36,7 +35,7 @@ export default function Tender2025Page() {
       titleKey="pages.tender2025.title"
       subtitleKey="pages.tender2025.subtitle"
       descriptionKey="pages.tender2025.description"
-      backgroundImage={heroImage}
+      
       icon={<FileCheck className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.opportunities", href: "/opportunities" },

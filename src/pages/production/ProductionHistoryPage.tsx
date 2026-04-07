@@ -6,7 +6,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 import {
   AreaChart,
   Area,
@@ -72,7 +71,7 @@ export default function ProductionHistoryPage() {
       titleKey="pages.productionHistory.title"
       subtitleKey="pages.productionHistory.subtitle"
       descriptionKey="pages.productionHistory.description"
-      backgroundImage={heroImage}
+      
       icon={<History className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.production", href: "/production" },

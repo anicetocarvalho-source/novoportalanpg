@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 
 const valueIcons: Record<string, React.ElementType> = {
   integrity: Shield,
@@ -39,7 +38,7 @@ export default function AboutPage() {
       titleKey="pages.about.title"
       subtitleKey="pages.about.subtitle"
       descriptionKey="pages.about.description"
-      backgroundImage={heroImage}
+      
       icon={<Building2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs" },

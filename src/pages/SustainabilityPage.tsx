@@ -4,7 +4,6 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/sustainability-header.jpg";
 
 const iconMap: Record<string, any> = { Wind, Droplets, TreePine, Recycle, Sun, Leaf, Shield, Target };
 
@@ -60,7 +59,7 @@ export default function SustainabilityPage() {
       title={t("services.sustainability.title")}
       subtitle={t("services.label")}
       description={t("services.sustainability.description")}
-      backgroundImage={heroImage}
+      
       icon={<Leaf className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ label: t("services.sustainability.title") }]}
     >

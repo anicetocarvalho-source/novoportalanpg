@@ -17,7 +17,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/biofuels-header.jpg";
 
 function SectionDivider({ label, icon: Icon }: { label?: string; icon?: React.ComponentType<{ className?: string }> }) {
   return (
@@ -102,7 +101,7 @@ export default function EnergyIntegrationPage() {
       pageKey="energy-integration"
       title={t("pages.energyIntegration.title")}
       subtitle={t("pages.energyIntegration.subtitle")}
-      backgroundImage={heroImage}
+      
       breadcrumbs={[
         { label: t("nav.opportunities"), href: "/opportunities" },
         { label: t("nav.submenu.energyIntegration") },

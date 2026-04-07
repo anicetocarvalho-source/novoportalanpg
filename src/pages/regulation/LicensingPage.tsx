@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 const licenseIcons = [ClipboardList, FileText, CheckCircle2];
 
@@ -32,7 +31,7 @@ export default function LicensingPage() {
       title={t("pages.licensing.title")}
       subtitle={t("pages.licensing.subtitle")}
       description={t("pages.licensing.description")}
-      backgroundImage={heroImage}
+      
       icon={<FileCheck className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title"), href: "/regulation" },

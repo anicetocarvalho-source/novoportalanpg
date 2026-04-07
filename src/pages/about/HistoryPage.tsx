@@ -5,7 +5,6 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useHistoryEvents } from "@/hooks/useCMSData";
-import heroImage from "@/assets/history-header.jpg";
 
 // Icon rotation for events without specific icon mapping
 const iconPool = [
@@ -40,7 +39,7 @@ export default function HistoryPage() {
       titleKey="pages.history.title"
       subtitleKey="pages.history.subtitle"
       descriptionKey="pages.history.description"
-      backgroundImage={heroImage}
+      
       icon={<History className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

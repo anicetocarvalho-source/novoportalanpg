@@ -2,7 +2,6 @@ import { Archive } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 export default function Tender2023Page() {
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ export default function Tender2023Page() {
       titleKey="pages.tender2023.title"
       subtitleKey="pages.tender2023.subtitle"
       descriptionKey="pages.tender2023.description"
-      backgroundImage={heroImage}
+      
       icon={<Archive className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.opportunities", href: "/opportunities" },

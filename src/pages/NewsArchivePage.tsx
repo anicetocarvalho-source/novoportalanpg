@@ -22,6 +22,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageBreadcrumb } from "@/components/layout/PageBreadcrumb";
+import { usePageBanner } from "@/hooks/useCMSData";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -117,6 +118,7 @@ const isWithinDateRange = (dateStr: string, range: string): boolean => {
 
 export default function NewsArchivePage() {
   const { t } = useTranslation();
+  const { data: cmsBanner } = usePageBanner("news-archive");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -240,9 +242,9 @@ export default function NewsArchivePage() {
       <Header />
       
       <PageHero
-        title="Arquivo de Notícias"
-        subtitle="Pesquise e explore o arquivo completo de notícias e comunicados da ANPG"
-        backgroundImage="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920"
+        title={cmsBanner?.title || "Arquivo de Notícias"}
+        subtitle={cmsBanner?.subtitle || "Pesquise e explore o arquivo completo de notícias e comunicados da ANPG"}
+        backgroundImage={cmsBanner?.image_url || undefined}
         icon={<Archive className="w-8 h-8" />}
       />
 

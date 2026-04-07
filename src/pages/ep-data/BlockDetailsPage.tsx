@@ -10,7 +10,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import heroImage from "@/assets/hero-offshore.jpg";
 import {
   BarChart, Bar, LineChart, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -81,11 +80,10 @@ export default function BlockDetailsPage() {
 
   return (
     <PageLayout
-      pageKey={`block-${block.id}`}
+      pageKey="block-details"
       title={block.name}
       subtitle={`Bacia: ${block.basin}`}
       description={`Informações detalhadas sobre o ${block.name}, operado por ${block.operator}.`}
-      backgroundImage={heroImage}
       icon={<MapPin className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData", href: "/ep-data" },

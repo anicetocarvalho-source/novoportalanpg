@@ -2,7 +2,6 @@ import { Compass, Layers, Database, Globe2, Map } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
-import heroImage from "@/assets/exploration-header.jpg";
 
 export default function ExplorationPage() {
   const { t } = useTranslation();
@@ -21,7 +20,7 @@ export default function ExplorationPage() {
       pageKey="exploration"
       titleKey="pages.exploration.title"
       subtitleKey="pages.exploration.subtitle"
-      backgroundImage={heroImage}
+      
       icon={<Compass className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.exploration" }]}
     >

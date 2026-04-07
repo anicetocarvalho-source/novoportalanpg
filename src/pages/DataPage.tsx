@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/data-header.jpg";
 
 const resourceIcons = [Map, Database, FileText, TrendingUp];
 
@@ -35,7 +34,7 @@ export default function DataPage() {
       title={t("pages.dataPage.title")}
       subtitle={t("pages.dataPage.subtitle")}
       description={t("pages.dataPage.description")}
-      backgroundImage={heroImage}
+      
       icon={<BarChart3 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("pages.dataPage.title") },

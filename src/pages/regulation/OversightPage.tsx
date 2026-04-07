@@ -4,7 +4,6 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/oversight-header.jpg";
 
 const areaIcons = [Eye, ClipboardCheck, HardHat, FileWarning];
 
@@ -33,7 +32,7 @@ export default function OversightPage() {
       title={t("pages.oversight.title")}
       subtitle={t("pages.oversight.subtitle")}
       description={t("pages.oversight.description")}
-      backgroundImage={heroImage}
+      
       icon={<Shield className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title"), href: "/regulation" },

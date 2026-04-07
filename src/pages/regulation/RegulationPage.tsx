@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/regulation-header.jpeg";
 
 const defaultRegulatoryAreas = [
   { icon: "FileCheck", titleKey: "services.licensing.title", descriptionKey: "services.licensing.description", href: "/regulation/licensing" },
@@ -53,7 +52,7 @@ export default function RegulationPage() {
       title={t("services.regulation.title")}
       subtitle={t("services.label")}
       description={t("services.regulation.description")}
-      backgroundImage={heroImage}
+      
       icon={<Scale className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { label: t("services.regulation.title") },

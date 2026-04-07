@@ -5,7 +5,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { ConcessionsMap } from "@/components/concessions/ConcessionsMap";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import heroImage from "@/assets/hero-offshore.jpg";
 import { lazy, Suspense, useMemo } from "react";
 
 const GeographicMap = lazy(() => import("@/components/concessions/GeographicMap").then(m => ({ default: m.GeographicMap })));
@@ -50,7 +49,7 @@ export default function EpMapsPage() {
       titleKey="pages.epMaps.title"
       subtitleKey="pages.epMaps.subtitle"
       descriptionKey="pages.epMaps.description"
-      backgroundImage={heroImage}
+      
       icon={<Map className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData", href: "/ep-data" },

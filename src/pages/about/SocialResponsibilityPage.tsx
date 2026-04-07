@@ -18,7 +18,6 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/social-responsibility-header.png";
 import chevronLogo from "@/assets/partners/chevron.png";
 import totalLogo from "@/assets/partners/totalenergies.png";
 import essoLogo from "@/assets/partners/esso.png";
@@ -117,7 +116,7 @@ export default function SocialResponsibilityPage() {
       titleKey="pages.socialResponsibility.title"
       subtitleKey="pages.socialResponsibility.subtitle"
       descriptionKey="pages.socialResponsibility.description"
-      backgroundImage={heroImage}
+      
       icon={<Heart className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

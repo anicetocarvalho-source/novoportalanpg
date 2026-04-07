@@ -9,7 +9,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useBoardMemberBySlug, useBoardDepartments, type CMSBoardMember } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 
 // Fallback photos
 import paulinoPhoto from "@/assets/board/paulino-jeronimo.jpg";
@@ -136,7 +135,7 @@ export default function BoardMemberPage() {
 
   if (isLoading) {
     return (
-      <PageLayout title="..." backgroundImage={heroImage} breadcrumbs={[
+      <PageLayout title="..." pageKey="board-member" breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },
         { labelKey: "nav.submenu.anpg", href: "/about/anpg" },
         { label: "..." },
@@ -156,7 +155,7 @@ export default function BoardMemberPage() {
     return (
       <PageLayout
         title={isEn ? "Member Not Found" : "Membro Não Encontrado"}
-        backgroundImage={heroImage}
+        pageKey="board-member"
         breadcrumbs={[
           { labelKey: "nav.aboutUs", href: "/about" },
           { labelKey: "nav.submenu.anpg", href: "/about/anpg" },
@@ -180,7 +179,7 @@ export default function BoardMemberPage() {
     <PageLayout
       title={member.full_name}
       subtitle={member.role || member.title}
-      backgroundImage={heroImage}
+      pageKey="board-member"
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },
         { labelKey: "nav.submenu.anpg", href: "/about/anpg" },

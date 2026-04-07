@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { useContentBlock } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 import pcaPhoto from "@/assets/board/paulino-jeronimo-official.png";
 
 export default function PcaMessagePage() {
@@ -17,7 +16,7 @@ export default function PcaMessagePage() {
       titleKey="pages.pcaMessage.title"
       subtitleKey="pages.pcaMessage.subtitle"
       descriptionKey="pages.pcaMessage.description"
-      backgroundImage={heroImage}
+      
       icon={<MessageSquareQuote className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

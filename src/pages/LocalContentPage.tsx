@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/local-content-header.jpg";
 
 const iconMap: Record<string, any> = { Building2, ClipboardList, Award, CheckCircle2, Users, FileCheck, BarChart3 };
 
@@ -50,7 +49,7 @@ export default function LocalContentPage() {
       titleKey="pages.localContent.title"
       subtitleKey="pages.localContent.subtitle"
       descriptionKey="pages.localContent.description"
-      backgroundImage={heroImage}
+      
       icon={<Users className="w-8 h-8 text-primary" />}
       breadcrumbs={[{ labelKey: "nav.opportunities", href: "/opportunities" }, { labelKey: "nav.localContent" }]}
     >

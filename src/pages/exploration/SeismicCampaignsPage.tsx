@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useContentBlocks } from "@/hooks/useCMSData";
 import { seismic2dSurveys, seismic3dSurveys, seismic4dSurveys } from "@/data/seismic";
-import heroImage from "@/assets/angola-offshore-platform.jpg";
 
 const pdfDownloads = [
   { label: "Sísmica 2D Proprietária", labelEn: "Proprietary 2D Seismic", href: "/documents/seismic/sismica-2d-proprietaria.pdf" },
@@ -45,7 +44,7 @@ export default function SeismicCampaignsPage() {
       pageKey="exploration-seismic-campaigns"
       titleKey="pages.exploration.seismicCampaigns"
       subtitleKey="pages.exploration.seismicCampaignsSubtitle"
-      backgroundImage={heroImage}
+      
       icon={<Layers className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.exploration", href: "/exploration" },

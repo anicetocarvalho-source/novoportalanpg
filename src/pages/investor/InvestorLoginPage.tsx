@@ -13,7 +13,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, LogIn, UserPlus, Loader2, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import heroImage from "@/assets/angola-coast.jpg";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -123,7 +122,7 @@ export default function InvestorLoginPage() {
       pageKey="investor-login"
       titleKey="Portal do Investidor"
       subtitleKey="Acesso restrito para investidores registados"
-      backgroundImage={heroImage}
+      
       icon={<Briefcase className="w-6 h-6" />}
       breadcrumbs={breadcrumbs}
     >

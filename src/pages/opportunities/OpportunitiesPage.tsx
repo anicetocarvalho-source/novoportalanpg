@@ -2,7 +2,6 @@ import { Gift, FileCheck, Archive } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
-import heroImage from "@/assets/hero-offshore.jpg";
 
 export default function OpportunitiesPage() {
   const { t } = useTranslation();
@@ -34,7 +33,7 @@ export default function OpportunitiesPage() {
       titleKey="pages.opportunities.title"
       subtitleKey="pages.opportunities.subtitle"
       descriptionKey="pages.opportunities.description"
-      backgroundImage={heroImage}
+      
       icon={<Gift className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.opportunities" },

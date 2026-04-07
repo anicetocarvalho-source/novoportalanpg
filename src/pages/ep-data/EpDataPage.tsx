@@ -2,7 +2,6 @@ import { Database, Layers, Image, Map } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
-import heroImage from "@/assets/angola-coast.jpg";
 
 export default function EpDataPage() {
   const { t } = useTranslation();
@@ -20,7 +19,7 @@ export default function EpDataPage() {
       titleKey="pages.epData.title"
       subtitleKey="pages.epData.subtitle"
       descriptionKey="pages.epData.description"
-      backgroundImage={heroImage}
+      
       icon={<Database className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.epData" },

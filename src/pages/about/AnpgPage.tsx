@@ -5,7 +5,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 import offshoreImage from "@/assets/angola-flag.jpg";
 
 function SectionDivider({ label, icon: Icon }: { label?: string; icon?: typeof Building2 }) {
@@ -40,7 +39,7 @@ export default function AnpgPage() {
       titleKey="pages.anpg.title"
       subtitleKey="pages.anpg.subtitle"
       descriptionKey="pages.anpg.description"
-      backgroundImage={heroImage}
+      
       icon={<Building2 className="w-8 h-8 text-primary" />}
       breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },

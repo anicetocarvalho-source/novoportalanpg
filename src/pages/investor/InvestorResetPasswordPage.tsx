@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Briefcase, Loader2, CheckCircle, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
-import heroImage from "@/assets/angola-coast.jpg";
 
 const passwordSchema = z.object({
   password: z.string().min(8, "Mínimo 8 caracteres").max(128),
@@ -53,7 +52,7 @@ export default function InvestorResetPasswordPage() {
       pageKey="investor-reset"
       titleKey="Redefinir Password"
       subtitleKey="Defina uma nova password para a sua conta"
-      backgroundImage={heroImage}
+      
       icon={<Briefcase className="w-6 h-6" />}
       breadcrumbs={[{ labelKey: "Portal do Investidor", href: "/investor-portal" }, { labelKey: "Redefinir Password" }]}
     >
