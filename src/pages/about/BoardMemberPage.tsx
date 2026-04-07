@@ -135,7 +135,7 @@ export default function BoardMemberPage() {
 
   if (isLoading) {
     return (
-      <PageLayout title="..." backgroundImage={heroImage} breadcrumbs={[
+      <PageLayout title="..." pageKey="board-member" breadcrumbs={[
         { labelKey: "nav.aboutUs", href: "/about" },
         { labelKey: "nav.submenu.anpg", href: "/about/anpg" },
         { label: "..." },
