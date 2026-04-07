@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { useContentBlock } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 import pcaPhoto from "@/assets/board/paulino-jeronimo-official.png";
 
 export default function PcaMessagePage() {
