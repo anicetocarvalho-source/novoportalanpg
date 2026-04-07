@@ -2,7 +2,6 @@ import { Globe2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/angola-offshore-platform.jpg";
 
 export default function NewAreasPage() {
   const { t } = useTranslation();
