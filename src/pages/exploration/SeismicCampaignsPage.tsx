@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { PageLayout } from "@/components/layout/PageLayout";
 import { useContentBlocks } from "@/hooks/useCMSData";
 import { seismic2dSurveys, seismic3dSurveys, seismic4dSurveys } from "@/data/seismic";
-import heroImage from "@/assets/angola-offshore-platform.jpg";
 
 const pdfDownloads = [
   { label: "Sísmica 2D Proprietária", labelEn: "Proprietary 2D Seismic", href: "/documents/seismic/sismica-2d-proprietaria.pdf" },
