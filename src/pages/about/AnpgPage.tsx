@@ -5,7 +5,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { BoardOrgChart } from "@/components/about/BoardOrgChart";
 import { InstitutionalContent } from "@/components/about/InstitutionalContent";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/refinery.jpg";
 import offshoreImage from "@/assets/angola-flag.jpg";
 
 function SectionDivider({ label, icon: Icon }: { label?: string; icon?: typeof Building2 }) {
