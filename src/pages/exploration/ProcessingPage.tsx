@@ -11,7 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
 import { seismic2dSurveys, seismic3dSurveys, seismic4dSurveys, basinColors } from "@/data/seismic";
 import type { SeismicSurvey } from "@/data/seismic";
-import heroImage from "@/assets/angola-offshore-platform.jpg";
 
 export default function ProcessingPage() {
   const { t, i18n } = useTranslation();
