@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/angola-coast.jpg";
 
 export default function TendersPage() {
   const { t } = useTranslation();
