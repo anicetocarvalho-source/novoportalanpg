@@ -13,7 +13,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, LogIn, UserPlus, Loader2, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
-import heroImage from "@/assets/angola-coast.jpg";
 import { z } from "zod";
 
 const loginSchema = z.object({
