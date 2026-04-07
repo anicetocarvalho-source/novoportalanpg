@@ -5,7 +5,6 @@ import { PageLayout } from "@/components/layout/PageLayout";
 import { SectionTransition } from "@/components/layout/SectionTransition";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useHistoryEvents } from "@/hooks/useCMSData";
-import heroImage from "@/assets/history-header.jpg";
 
 // Icon rotation for events without specific icon mapping
 const iconPool = [
