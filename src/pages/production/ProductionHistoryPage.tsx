@@ -6,7 +6,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { StaggerContainer, StaggerItem } from "@/components/layout/StaggerContainer";
 import { Button } from "@/components/ui/button";
 import { useContentBlocks } from "@/hooks/useCMSData";
-import heroImage from "@/assets/hero-offshore.jpg";
 import {
   AreaChart,
   Area,
