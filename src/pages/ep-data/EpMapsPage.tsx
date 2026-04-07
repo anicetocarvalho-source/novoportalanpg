@@ -5,7 +5,6 @@ import { SectionTransition } from "@/components/layout/SectionTransition";
 import { ConcessionsMap } from "@/components/concessions/ConcessionsMap";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import heroImage from "@/assets/hero-offshore.jpg";
 import { lazy, Suspense, useMemo } from "react";
 
 const GeographicMap = lazy(() => import("@/components/concessions/GeographicMap").then(m => ({ default: m.GeographicMap })));
