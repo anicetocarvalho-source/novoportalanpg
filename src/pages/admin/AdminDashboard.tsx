@@ -3,9 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useDashboardCounts } from '@/hooks/useCMSData';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { formatDistanceToNow } from 'date-fns';
+import { pt } from 'date-fns/locale';
 import {
-  LayoutDashboard,
   Newspaper,
   FileText,
   MapPin,
@@ -13,264 +17,86 @@ import {
   Briefcase,
   FolderOpen,
   Users,
-  History,
-  LogOut,
-  Settings,
-  BookOpen,
-  LayoutGrid,
-  Menu,
-  UserCheck,
-  HelpCircle,
-  Image,
-  Clock,
+  Globe,
   SlidersHorizontal,
+  Clock,
 } from 'lucide-react';
 
-const modules = [
-  {
-    title: 'Notícias',
-    description: 'Gerir artigos e comunicados',
-    icon: Newspaper,
-    href: '/admin/news',
-    permission: 'content',
-    color: 'bg-status-info',
-  },
-  {
-    title: 'Páginas CMS',
-    description: 'Editar páginas do website',
-    icon: FileText,
-    href: '/admin/pages',
-    permission: 'content',
-    color: 'bg-primary/80',
-  },
-  {
-    title: 'Homepage',
-    description: 'Editor visual das secções da homepage',
-    icon: SlidersHorizontal,
-    href: '/admin/homepage-content',
-    permission: 'content',
-    color: 'bg-primary/90',
-  },
-  {
-    title: 'Blocos de Conteúdo',
-    description: 'Secções editáveis (Hero, Stats, etc.)',
-    icon: LayoutGrid,
-    href: '/admin/content-blocks',
-    permission: 'content',
-    color: 'bg-status-info/80',
-  },
-  {
-    title: 'Slides do Hero',
-    description: 'Carrossel de imagens da homepage',
-    icon: SlidersHorizontal,
-    href: '/admin/hero-slides',
-    permission: 'content',
-    color: 'bg-primary/90',
-  },
-  {
-    title: 'Banners de Página',
-    description: 'Imagens e títulos de cabeçalho',
-    icon: Image,
-    href: '/admin/page-banners',
-    permission: 'content',
-    color: 'bg-primary/60',
-  },
-  {
-    title: 'Menu / Navegação',
-    description: 'Estrutura de menus e submenus',
-    icon: Menu,
-    href: '/admin/menu-items',
-    permission: 'content',
-    color: 'bg-primary/70',
-  },
-  {
-    title: 'Conselho de Administração',
-    description: 'Membros, biografias e mensagens',
-    icon: UserCheck,
-    href: '/admin/board-members',
-    permission: 'content',
-    color: 'bg-primary',
-  },
-  {
-    title: 'FAQ',
-    description: 'Perguntas frequentes bilingues',
-    icon: HelpCircle,
-    href: '/admin/faq',
-    permission: 'content',
-    color: 'bg-status-info/60',
-  },
-  {
-    title: 'Central de Media',
-    description: 'Publicações, vídeos, recortes e eventos',
-    icon: Image,
-    href: '/admin/media',
-    permission: 'content',
-    color: 'bg-status-info/90',
-  },
-  {
-    title: 'Linha do Tempo',
-    description: 'Marcos históricos da ANPG',
-    icon: Clock,
-    href: '/admin/history-events',
-    permission: 'content',
-    color: 'bg-status-warning',
-  },
-  {
-    title: 'Blocos Petrolíferos',
-    description: 'Gestão de blocos e concessões',
-    icon: MapPin,
-    href: '/admin/blocks',
-    permission: 'operations',
-    color: 'bg-status-warning/80',
-  },
-  {
-    title: 'Estatísticas de Produção',
-    description: 'Dados de produção mensal',
-    icon: BarChart3,
-    href: '/admin/production',
-    permission: 'operations',
-    color: 'bg-status-success',
-  },
-  {
-    title: 'Gestão de Investidores',
-    description: 'Registos, aprovações e acessos',
-    icon: Users,
-    href: '/admin/investors',
-    permission: 'investors',
-    color: 'bg-primary/80',
-  },
-  {
-    title: 'Expressões de Interesse',
-    description: 'Gerir submissões de investidores',
-    icon: Briefcase,
-    href: '/admin/eoi',
-    permission: 'investors',
-    color: 'bg-status-warning',
-  },
-  {
-    title: 'Documentos',
-    description: 'Biblioteca de documentos',
-    icon: FolderOpen,
-    href: '/admin/documents',
-    permission: 'investors',
-    color: 'bg-status-info/70',
-  },
-  {
-    title: 'Utilizadores',
-    description: 'Gestão de acessos e roles',
-    icon: Users,
-    href: '/admin/users',
-    permission: 'admin',
-    color: 'bg-destructive',
-  },
-  {
-    title: 'Audit Logs',
-    description: 'Histórico de alterações',
-    icon: History,
-    href: '/admin/audit',
-    permission: 'admin',
-    color: 'bg-status-neutral',
-  },
-  {
-    title: 'Configurações',
-    description: 'Logotipos, contactos e rodapé',
-    icon: Settings,
-    href: '/admin/settings',
-    permission: 'admin',
-    color: 'bg-status-neutral',
-  },
-  {
-    title: 'Base de Conhecimento',
-    description: 'Gerir conteúdo do chatbot SOBA',
-    icon: BookOpen,
-    href: '/admin/knowledge-base',
-    permission: 'content',
-    color: 'bg-status-success/80',
-  },
+const quickLinks = [
+  { title: 'Páginas do Site', href: '/admin/site-pages', icon: Globe, color: 'bg-primary' },
+  { title: 'Notícias', href: '/admin/news', icon: Newspaper, color: 'bg-status-info' },
+  { title: 'Homepage', href: '/admin/homepage-content', icon: SlidersHorizontal, color: 'bg-primary/80' },
+  { title: 'Blocos Petrolíferos', href: '/admin/blocks', icon: MapPin, color: 'bg-status-warning/80' },
+  { title: 'Produção', href: '/admin/production', icon: BarChart3, color: 'bg-status-success' },
+  { title: 'Investidores', href: '/admin/investors', icon: Users, color: 'bg-primary/80' },
 ];
 
-function getRoleBadge(role: string) {
-  const roleLabels: Record<string, { label: string; variant: 'default' | 'secondary' | 'outline' | 'destructive' }> = {
-    admin: { label: 'Administrador', variant: 'destructive' },
-    editor_comunicacao: { label: 'Editor Comunicação', variant: 'default' },
-    editor_tecnico: { label: 'Editor Técnico', variant: 'secondary' },
-    gestor_investidores: { label: 'Gestor Investidores', variant: 'outline' },
-    viewer: { label: 'Visualizador', variant: 'outline' },
+function useRecentActivity() {
+  return useQuery({
+    queryKey: ['admin-recent-activity'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('audit_logs')
+        .select('id, action, table_name, record_id, created_at, user_id, new_data')
+        .order('created_at', { ascending: false })
+        .limit(10);
+      if (error) throw error;
+      return data || [];
+    },
+  });
+}
+
+function getActionLabel(action: string, tableName: string, newData: any) {
+  const tableLabels: Record<string, string> = {
+    news_articles: 'Notícia',
+    content_blocks: 'Bloco de Conteúdo',
+    page_banners: 'Banner',
+    board_members: 'Membro do CA',
+    faq_items: 'FAQ',
+    menu_items: 'Menu',
+    media_items: 'Media',
+    petroleum_blocks: 'Bloco Petrolífero',
+    production_statistics: 'Produção',
+    site_settings: 'Configuração',
+    history_events: 'Evento Histórico',
+    cms_pages: 'Página CMS',
+    knowledge_base: 'Base Conhecimento',
   };
-  return roleLabels[role] || { label: role, variant: 'outline' as const };
+  const actionLabels: Record<string, string> = { INSERT: 'criou', UPDATE: 'editou', DELETE: 'removeu' };
+  const table = tableLabels[tableName] || tableName;
+  const act = actionLabels[action] || action;
+  const name = newData?.title || newData?.block_name || newData?.page_key || newData?.full_name || '';
+  return `${act} ${table}${name ? `: ${name}` : ''}`;
 }
 
 export default function AdminDashboard() {
-  const { profile, roles, signOut, isAdmin, canManageContent, canManageOperations, canManageInvestors } = useAuth();
+  const { profile, isAdmin, canManageContent, canManageOperations, canManageInvestors } = useAuth();
   const { data: counts } = useDashboardCounts();
+  const { data: activity } = useRecentActivity();
+
   const hasPermission = (permission: string) => {
     switch (permission) {
-      case 'admin':
-        return isAdmin;
-      case 'content':
-        return canManageContent;
-      case 'operations':
-        return canManageOperations;
-      case 'investors':
-        return canManageInvestors;
-      default:
-        return true;
+      case 'admin': return isAdmin;
+      case 'content': return canManageContent;
+      case 'operations': return canManageOperations;
+      case 'investors': return canManageInvestors;
+      default: return true;
     }
   };
 
-  const availableModules = modules.filter((m) => hasPermission(m.permission));
-
   return (
-    <div className="min-h-screen bg-muted/30">
-      {/* Header */}
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <LayoutDashboard className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Backoffice ANPG</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-              <a href="/" target="_blank" rel="noopener noreferrer">
-                Ver Website ↗
-              </a>
-            </Button>
-            <div className="text-right hidden sm:block">
-              <p className="text-sm font-medium">{profile?.full_name}</p>
-              <div className="flex gap-1 justify-end">
-                {roles.map((r, i) => {
-                  const { label, variant } = getRoleBadge(r.role);
-                  return (
-                    <Badge key={i} variant={variant} className="text-xs">
-                      {label}
-                    </Badge>
-                  );
-                })}
-              </div>
-            </div>
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin/settings">
-                <Settings className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="ghost" size="icon" onClick={signOut}>
-              <LogOut className="h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Bem-vindo, {profile?.full_name?.split(' ')[0]}</h1>
-          <p className="text-muted-foreground mt-1">
-            Seleccione um módulo para começar a gerir o conteúdo.
+    <AdminLayout title="Dashboard" subtitle="Visão geral do backoffice">
+      <div className="p-6 space-y-8">
+        {/* Welcome */}
+        <div>
+          <h2 className="text-2xl font-bold">Bem-vindo, {profile?.full_name?.split(' ')[0]}</h2>
+          <p className="text-muted-foreground text-sm mt-1">
+            Seleccione um módulo na barra lateral para gerir o conteúdo do site.
           </p>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="pt-6">
               <div className="text-2xl font-bold">{counts?.newsCount ?? '--'}</div>
@@ -297,30 +123,59 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Modules Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {availableModules.map((module) => (
-            <Link key={module.href} to={module.href}>
-              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-lg ${module.color} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
-                    <module.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <CardTitle className="text-lg">{module.title}</CardTitle>
-                  <CardDescription>{module.description}</CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
+        {/* Quick Links + Activity Feed */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Quick Links */}
+          <div className="lg:col-span-2">
+            <h3 className="text-lg font-semibold mb-3">Acesso Rápido</h3>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {quickLinks.map((link) => (
+                <Link key={link.href} to={link.href}>
+                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">
+                    <CardHeader className="pb-2">
+                      <div className={`w-10 h-10 rounded-lg ${link.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                        <link.icon className="h-5 w-5 text-white" />
+                      </div>
+                      <CardTitle className="text-sm">{link.title}</CardTitle>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
 
-        {/* Back to Website */}
-        <div className="mt-12 text-center">
-          <Button variant="outline" asChild>
-            <Link to="/">← Voltar ao Website</Link>
-          </Button>
+          {/* Activity Feed */}
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              Actividade Recente
+            </h3>
+            <Card>
+              <CardContent className="p-0">
+                {!activity || activity.length === 0 ? (
+                  <p className="p-4 text-sm text-muted-foreground">Sem actividade recente.</p>
+                ) : (
+                  <div className="divide-y">
+                    {activity.map((log) => (
+                      <div key={log.id} className="px-4 py-3">
+                        <p className="text-sm">
+                          <Badge variant={log.action === 'INSERT' ? 'default' : log.action === 'DELETE' ? 'destructive' : 'secondary'} className="text-[10px] mr-2">
+                            {log.action === 'INSERT' ? 'Novo' : log.action === 'DELETE' ? 'Removido' : 'Editado'}
+                          </Badge>
+                          {getActionLabel(log.action, log.table_name, log.new_data)}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {formatDistanceToNow(new Date(log.created_at), { addSuffix: true, locale: pt })}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </AdminLayout>
   );
 }

@@ -92,6 +92,8 @@ import AdminHeroSlidesPage from "./pages/admin/AdminHeroSlidesPage";
 import AdminHomepageContentPage from "./pages/admin/AdminHomepageContentPage";
 import AdminMediaPage from "./pages/admin/AdminMediaPage";
 import AdminInvestorsPage from "./pages/admin/AdminInvestorsPage";
+import AdminSitePagesPage from "./pages/admin/AdminSitePagesPage";
+import AdminPageEditorPage from "./pages/admin/AdminPageEditorPage";
 import { SobaWidget } from "./components/chat/SobaWidget";
 const queryClient = new QueryClient();
 
