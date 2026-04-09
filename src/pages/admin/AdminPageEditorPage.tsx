@@ -138,10 +138,10 @@ function BannerEditor({ pageKey }: { pageKey: string }) {
         <div>
           <Label>Imagem do Banner</Label>
           <ImageUpload
-            currentImage={form.image_url}
-            onImageUploaded={(url) => setForm(f => ({ ...f, image_url: url }))}
-            bucket="cms-assets"
+            value={form.image_url}
+            onChange={(url) => setForm(f => ({ ...f, image_url: url }))}
             folder={`banners/${pageKey}`}
+            cropAspectRatio={16 / 5}
           />
         </div>
 
