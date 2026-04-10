@@ -177,7 +177,7 @@ export default function AdminDashboard() {
           <CardContent>
             {chartData && chartData.length > 0 ? (
               <ChartContainer config={chartConfig} className="h-[220px] w-full">
-                <BarChart data={chartData} barGap={2}>
+                <BarChart data={chartData} barGap={2} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                   <CartesianGrid vertical={false} strokeDasharray="3 3" />
                   <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
                   <YAxis allowDecimals={false} tickLine={false} axisLine={false} fontSize={12} width={30} />
