@@ -114,6 +114,8 @@ export default function AdminDashboard() {
   const { data: counts } = useDashboardCounts();
   const { data: activity } = useRecentActivity();
 
+  const { data: chartData } = useActivityChart();
+
   const hasPermission = (permission: string) => {
     switch (permission) {
       case 'admin': return isAdmin;
