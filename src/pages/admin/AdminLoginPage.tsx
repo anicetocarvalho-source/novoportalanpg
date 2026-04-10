@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Shield, Lock, User, ChevronRight } from 'lucide-react';
+import { ForgotPasswordDialog } from '@/components/admin/ForgotPasswordDialog';
 import { motion } from 'framer-motion';
 import logoRed from '@/assets/logo-color.svg';
 import heroImage from '@/assets/hero-offshore.jpg';
