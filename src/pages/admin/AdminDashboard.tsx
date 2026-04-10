@@ -49,6 +49,43 @@ function useRecentActivity() {
   });
 }
 
+function useActivityChart() {
+  return useQuery({
+    queryKey: ['admin-activity-chart'],
+    queryFn: async () => {
+      const since = subDays(new Date(), 6);
+      const { data, error } = await supabase
+        .from('audit_logs')
+        .select('action, created_at')
+        .gte('created_at', since.toISOString());
+      if (error) throw error;
+
+      const days: Record<string, { date: string; label: string; inserts: number; updates: number; deletes: number }> = {};
+      for (let i = 6; i >= 0; i--) {
+        const d = startOfDay(subDays(new Date(), i));
+        const key = format(d, 'yyyy-MM-dd');
+        days[key] = { date: key, label: format(d, 'EEE dd', { locale: pt }), inserts: 0, updates: 0, deletes: 0 };
+      }
+
+      (data || []).forEach((row) => {
+        const key = format(new Date(row.created_at), 'yyyy-MM-dd');
+        if (!days[key]) return;
+        if (row.action === 'INSERT') days[key].inserts++;
+        else if (row.action === 'UPDATE') days[key].updates++;
+        else if (row.action === 'DELETE') days[key].deletes++;
+      });
+
+      return Object.values(days);
+    },
+  });
+}
+
+const chartConfig = {
+  inserts: { label: 'Criações', color: 'hsl(var(--primary))' },
+  updates: { label: 'Edições', color: 'hsl(var(--status-warning, 45 93% 47%))' },
+  deletes: { label: 'Remoções', color: 'hsl(var(--destructive))' },
+};
+
 function getActionLabel(action: string, tableName: string, newData: any) {
   const tableLabels: Record<string, string> = {
     news_articles: 'Notícia',
