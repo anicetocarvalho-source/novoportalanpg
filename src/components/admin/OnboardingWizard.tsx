@@ -121,12 +121,8 @@ export function OnboardingWizard({ open, onComplete }: OnboardingWizardProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={() => {}}>
-      <DialogContent
-        className="sm:max-w-lg"
-        onInteractOutside={(e) => e.preventDefault()}
-        onEscapeKeyDown={(e) => e.preventDefault()}
-      >
+    <Dialog open={open} onOpenChange={(v) => { if (!v) handleFinish(); }}>
+      <DialogContent className="sm:max-w-lg">
         {/* Step indicators */}
         <div className="flex justify-center gap-2 mb-2">
           {Array.from({ length: totalSteps }).map((_, i) => (
