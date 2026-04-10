@@ -94,7 +94,10 @@ export default function AdminInvestorsPage() {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["investor-registrations"] });
       if (data?.credentials) {
-        setCredentialsDialog(data.credentials);
+        setCredentialsDialog({
+          email: data.credentials.email,
+          password: data.credentials.temporaryPassword || data.credentials.password,
+        });
       }
       toast.success("Investidor aprovado com sucesso!");
     },
