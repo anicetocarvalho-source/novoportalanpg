@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -9,18 +10,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table';
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Clock } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Clock } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 
@@ -32,8 +30,7 @@ export default function AdminHistoryEventsPage() {
   const [editing, setEditing] = useState<HistoryEvent | null>(null);
   const [deleteItem, setDeleteItem] = useState<HistoryEvent | null>(null);
   const [formData, setFormData] = useState({
-    year: new Date().getFullYear(), title_pt: '', title_en: '', description_pt: '', description_en: '', image_url: '', sort_order: 0, is_active: true,
-  });
+    year: new Date().getFullYear(), title_pt: '', title_en: '', description_pt: '', description_en: '', image_url: '', sort_order: 0, is_active: true });
 
   const { data: events, isLoading } = useQuery({
     queryKey: ['admin-history-events'],
@@ -41,8 +38,7 @@ export default function AdminHistoryEventsPage() {
       const { data, error } = await supabase.from('history_events').select('*').order('year').order('sort_order');
       if (error) throw error;
       return data as HistoryEvent[];
-    },
-  });
+    } });
 
   const createMutation = useMutation({
     mutationFn: async (data: TablesInsert<'history_events'>) => {
@@ -50,8 +46,7 @@ export default function AdminHistoryEventsPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-history-events'] }); toast.success('Evento criado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<HistoryEvent> }) => {
@@ -59,8 +54,7 @@ export default function AdminHistoryEventsPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-history-events'] }); toast.success('Evento actualizado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -68,8 +62,7 @@ export default function AdminHistoryEventsPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-history-events'] }); toast.success('Evento eliminado'); setDeleteItem(null); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => { setIsDialogOpen(false); setEditing(null); setFormData({ year: new Date().getFullYear(), title_pt: '', title_en: '', description_pt: '', description_en: '', image_url: '', sort_order: 0, is_active: true }); };
 
@@ -89,19 +82,7 @@ export default function AdminHistoryEventsPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-            <Clock className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Linha do Tempo</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Linha do Tempo" subtitle="Gerir eventos históricos">
 
       <main className="container mx-auto px-4 py-8">
         <Card>
@@ -171,6 +152,6 @@ export default function AdminHistoryEventsPage() {
           <AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteItem && deleteMutation.mutate(deleteItem.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Eliminar</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

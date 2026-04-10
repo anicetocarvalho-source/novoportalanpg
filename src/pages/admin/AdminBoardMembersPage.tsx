@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -9,22 +10,18 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table';
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 import { BoardDepartmentsManager } from '@/components/admin/BoardDepartmentsManager';
@@ -45,8 +42,7 @@ export default function AdminBoardMembersPage() {
   const [formData, setFormData] = useState({
     full_name: '', slug: '', title_pt: '', title_en: '', role_pt: '', role_en: '',
     bio_pt: '', bio_en: '', message_pt: '', message_en: '', photo_url: '',
-    email: '', phone: '', office_location: '', group_key: 'board', sort_order: 0, is_active: true,
-  });
+    email: '', phone: '', office_location: '', group_key: 'board', sort_order: 0, is_active: true });
 
   const { data: members, isLoading } = useQuery({
     queryKey: ['admin-board-members'],
@@ -54,8 +50,7 @@ export default function AdminBoardMembersPage() {
       const { data, error } = await supabase.from('board_members').select('*').order('group_key').order('sort_order');
       if (error) throw error;
       return data as BoardMember[];
-    },
-  });
+    } });
 
   const createMutation = useMutation({
     mutationFn: async (data: TablesInsert<'board_members'>) => {
@@ -63,8 +58,7 @@ export default function AdminBoardMembersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-board-members'] }); toast.success('Membro criado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<BoardMember> }) => {
@@ -72,8 +66,7 @@ export default function AdminBoardMembersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-board-members'] }); toast.success('Membro actualizado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -81,8 +74,7 @@ export default function AdminBoardMembersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-board-members'] }); toast.success('Membro eliminado'); setDeleteItem(null); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => {
     setIsDialogOpen(false); setEditing(null);
@@ -105,19 +97,7 @@ export default function AdminBoardMembersPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-            <Users className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Conselho de Administração</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Conselho de Administração" subtitle="Gerir membros do conselho">
 
       <main className="container mx-auto px-4 py-8">
         <Card>
@@ -228,6 +208,6 @@ export default function AdminBoardMembersPage() {
           <AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteItem && deleteMutation.mutate(deleteItem.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Eliminar</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

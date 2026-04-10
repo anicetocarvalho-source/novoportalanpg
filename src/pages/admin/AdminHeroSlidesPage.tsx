@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -8,14 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Image, GripVertical, Eye } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Image, GripVertical, Eye } from 'lucide-react';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 
 interface HeroSlide {
@@ -44,8 +43,7 @@ export default function AdminHeroSlidesPage() {
     subtitle_pt: '',
     subtitle_en: '',
     sort_order: 0,
-    is_active: true,
-  });
+    is_active: true });
 
   const { data: slides, isLoading } = useQuery({
     queryKey: ['admin-hero-slides'],
@@ -67,11 +65,9 @@ export default function AdminHeroSlidesPage() {
           subtitle_pt: content.subtitle_pt || '',
           subtitle_en: content.subtitle_en || '',
           sort_order: block.sort_order,
-          is_active: block.is_active,
-        } as HeroSlide;
+          is_active: block.is_active } as HeroSlide;
       });
-    },
-  });
+    } });
 
   const createMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
@@ -86,9 +82,7 @@ export default function AdminHeroSlidesPage() {
           title_pt: data.title_pt,
           title_en: data.title_en,
           subtitle_pt: data.subtitle_pt,
-          subtitle_en: data.subtitle_en,
-        },
-      });
+          subtitle_en: data.subtitle_en } });
       if (error) throw error;
     },
     onSuccess: () => {
@@ -98,8 +92,7 @@ export default function AdminHeroSlidesPage() {
       toast.success('Slide criado');
       handleClose();
     },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: typeof formData }) => {
@@ -111,9 +104,7 @@ export default function AdminHeroSlidesPage() {
           title_pt: data.title_pt,
           title_en: data.title_en,
           subtitle_pt: data.subtitle_pt,
-          subtitle_en: data.subtitle_en,
-        },
-      }).eq('id', id);
+          subtitle_en: data.subtitle_en } }).eq('id', id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -123,8 +114,7 @@ export default function AdminHeroSlidesPage() {
       toast.success('Slide actualizado');
       handleClose();
     },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -138,8 +128,7 @@ export default function AdminHeroSlidesPage() {
       toast.success('Slide eliminado');
       setDeleteItem(null);
     },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => {
     setIsDialogOpen(false);
@@ -156,8 +145,7 @@ export default function AdminHeroSlidesPage() {
       subtitle_pt: slide.subtitle_pt || '',
       subtitle_en: slide.subtitle_en || '',
       sort_order: slide.sort_order,
-      is_active: slide.is_active,
-    });
+      is_active: slide.is_active });
     setIsDialogOpen(true);
   };
 
@@ -178,21 +166,7 @@ export default function AdminHeroSlidesPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link>
-            </Button>
-            <Image className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Slides do Hero</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Slides Hero" subtitle="Gerir slides da página principal">
 
       <main className="container mx-auto px-4 py-8 max-w-5xl">
         <Card className="mb-6">
@@ -414,6 +388,6 @@ export default function AdminHeroSlidesPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

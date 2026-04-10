@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { AdminLayout } from "@/components/admin/AdminLayout";
+import {} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -107,10 +108,8 @@ export default function AdminKnowledgeBasePage() {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
+            Authorization: `Bearer ${token}` },
+          body: formData }
       );
 
       if (!response.ok) {
@@ -217,8 +216,7 @@ export default function AdminKnowledgeBasePage() {
           language,
           is_active: isActive,
           created_by: user?.id,
-          document_url: documentUrl,
-        });
+          document_url: documentUrl });
 
       if (error) {
         toast.error("Erro ao criar entrada");
@@ -261,17 +259,7 @@ export default function AdminKnowledgeBasePage() {
   });
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-14 flex items-center justify-between">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin"><ArrowLeft className="h-4 w-4 mr-1" /> Backoffice</Link>
-          </Button>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Base de Conhecimento" subtitle="Gerir conteúdo do SOBA">
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-3 mb-6">
           <Bot className="h-8 w-8 text-primary" />
@@ -533,6 +521,6 @@ export default function AdminKnowledgeBasePage() {
           </div>
         )}
       </main>
-    </div>
+    </AdminLayout>
   );
 }

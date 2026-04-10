@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -9,21 +10,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table';
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Search, Pencil, Trash2, Loader2, LayoutGrid } from 'lucide-react';
+import { Plus, Search, Pencil, Trash2, Loader2, LayoutGrid } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 
 type ContentBlock = Tables<'content_blocks'>;
@@ -36,8 +33,7 @@ export default function AdminContentBlocksPage() {
   const [editing, setEditing] = useState<ContentBlock | null>(null);
   const [deleteItem, setDeleteItem] = useState<ContentBlock | null>(null);
   const [formData, setFormData] = useState({
-    page_key: '', section_key: '', language: 'pt', content: '{}', sort_order: 0, is_active: true,
-  });
+    page_key: '', section_key: '', language: 'pt', content: '{}', sort_order: 0, is_active: true });
 
   const { data: blocks, isLoading } = useQuery({
     queryKey: ['admin-content-blocks'],
@@ -45,8 +41,7 @@ export default function AdminContentBlocksPage() {
       const { data, error } = await supabase.from('content_blocks').select('*').order('page_key').order('sort_order');
       if (error) throw error;
       return data as ContentBlock[];
-    },
-  });
+    } });
 
   const pageKeys = [...new Set(blocks?.map(b => b.page_key) || [])];
 
@@ -56,8 +51,7 @@ export default function AdminContentBlocksPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-content-blocks'] }); toast.success('Bloco criado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<ContentBlock> }) => {
@@ -65,8 +59,7 @@ export default function AdminContentBlocksPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-content-blocks'] }); toast.success('Bloco actualizado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -74,8 +67,7 @@ export default function AdminContentBlocksPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-content-blocks'] }); toast.success('Bloco eliminado'); setDeleteItem(null); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => { setIsDialogOpen(false); setEditing(null); setFormData({ page_key: '', section_key: '', language: 'pt', content: '{}', sort_order: 0, is_active: true }); };
 
@@ -102,19 +94,7 @@ export default function AdminContentBlocksPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-            <LayoutGrid className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Blocos de Conteúdo</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Blocos de Conteúdo" subtitle="Gerir blocos de conteúdo das páginas">
 
       <main className="container mx-auto px-4 py-8">
         <Card>
@@ -194,6 +174,6 @@ export default function AdminContentBlocksPage() {
           <AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteItem && deleteMutation.mutate(deleteItem.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Eliminar</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

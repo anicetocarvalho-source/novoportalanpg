@@ -43,6 +43,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import {
   ArrowLeft,
   Plus,
@@ -255,29 +256,7 @@ export default function AdminBlocksPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      {/* Header */}
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <MapPin className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Blocos Petrolíferos</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-              <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-            </Button>
-            <Button variant="ghost" onClick={signOut}>
-              Sair
-            </Button>
-          </div>
-        </div>
-      </header>
+    <AdminLayout title="Blocos Petrolíferos" subtitle="Gerir blocos de exploração e produção">
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -626,6 +605,6 @@ export default function AdminBlocksPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

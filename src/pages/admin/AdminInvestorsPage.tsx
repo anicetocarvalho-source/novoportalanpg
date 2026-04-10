@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "react-router-dom";
+import { AdminLayout } from "@/components/admin/AdminLayout";
 import { toast } from "sonner";
 import { format, subMonths, startOfMonth, isAfter } from "date-fns";
 import { pt } from "date-fns/locale";
@@ -198,21 +199,7 @@ export default function AdminInvestorsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      {/* Header */}
-      <header className="bg-background border-b px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/admin"><ArrowLeft className="w-4 h-4 mr-2" />Backoffice</Link>
-          </Button>
-          <h1 className="text-xl font-bold">Gestão de Investidores</h1>
-        </div>
-        <Button variant="outline" size="sm" asChild>
-          <a href="/" target="_blank" rel="noopener noreferrer">
-            Ver Website <ExternalLink className="w-4 h-4 ml-2" />
-          </a>
-        </Button>
-      </header>
+    <AdminLayout title="Gestão de Investidores" subtitle="Aprovar e gerir registos de investidores">
 
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         {/* Stats */}
@@ -484,6 +471,6 @@ export default function AdminInvestorsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </AdminLayout>
   );
 }
