@@ -1,5 +1,6 @@
 import { useLocation, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { usePendingCounts } from '@/hooks/useCMSData';
 import {
   Sidebar,
   SidebarContent,
@@ -44,12 +45,13 @@ interface NavItem {
   href: string;
   icon: React.ElementType;
   permission: 'admin' | 'content' | 'operations' | 'investors';
+  badgeKey?: string;
 }
 
 const contentItems: NavItem[] = [
   { title: 'Páginas do Site', href: '/admin/site-pages', icon: Globe, permission: 'content' },
   { title: 'Homepage', href: '/admin/homepage-content', icon: SlidersHorizontal, permission: 'content' },
-  { title: 'Notícias', href: '/admin/news', icon: Newspaper, permission: 'content' },
+  { title: 'Notícias', href: '/admin/news', icon: Newspaper, permission: 'content', badgeKey: 'draftNews' },
   { title: 'Banners', href: '/admin/page-banners', icon: Image, permission: 'content' },
   { title: 'Blocos de Conteúdo', href: '/admin/content-blocks', icon: LayoutGrid, permission: 'content' },
   { title: 'Slides Hero', href: '/admin/hero-slides', icon: SlidersHorizontal, permission: 'content' },
@@ -68,8 +70,8 @@ const operationsItems: NavItem[] = [
 ];
 
 const investorItems: NavItem[] = [
-  { title: 'Investidores', href: '/admin/investors', icon: Users, permission: 'investors' },
-  { title: 'Expressões Interesse', href: '/admin/eoi', icon: Briefcase, permission: 'investors' },
+  { title: 'Investidores', href: '/admin/investors', icon: Users, permission: 'investors', badgeKey: 'pendingInvestors' },
+  { title: 'Expressões Interesse', href: '/admin/eoi', icon: Briefcase, permission: 'investors', badgeKey: 'pendingEois' },
   { title: 'Documentos', href: '/admin/documents', icon: FolderOpen, permission: 'investors' },
 ];
 
@@ -84,6 +86,13 @@ export function AdminSidebar() {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const { isAdmin, canManageContent, canManageOperations, canManageInvestors, signOut } = useAuth();
+  const { data: pending } = usePendingCounts();
+
+  const badgeCounts: Record<string, number> = {
+    draftNews: pending?.draftNews ?? 0,
+    pendingInvestors: pending?.pendingInvestors ?? 0,
+    pendingEois: pending?.pendingEois ?? 0,
+  };
 
   const hasPermission = (permission: string) => {
     switch (permission) {
@@ -106,20 +115,33 @@ export function AdminSidebar() {
         <SidebarGroupLabel>{label}</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
-            {filtered.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={isActive(item.href)}
-                  tooltip={collapsed ? item.title : undefined}
-                >
-                  <Link to={item.href}>
-                    <item.icon className="h-4 w-4" />
-                    {!collapsed && <span>{item.title}</span>}
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {filtered.map((item) => {
+              const count = item.badgeKey ? badgeCounts[item.badgeKey] : 0;
+              return (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActive(item.href)}
+                    tooltip={collapsed ? `${item.title}${count ? ` (${count})` : ''}` : undefined}
+                  >
+                    <Link to={item.href} className="flex items-center justify-between w-full">
+                      <span className="flex items-center gap-2">
+                        <item.icon className="h-4 w-4" />
+                        {!collapsed && <span>{item.title}</span>}
+                      </span>
+                      {count > 0 && !collapsed && (
+                        <Badge variant="destructive" className="ml-auto h-5 min-w-5 px-1.5 text-[10px] font-bold">
+                          {count}
+                        </Badge>
+                      )}
+                      {count > 0 && collapsed && (
+                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-destructive" />
+                      )}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
