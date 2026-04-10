@@ -13,7 +13,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ExternalLink, Save, Plus, Trash2, GripVertical } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Save, Plus, Trash2, GripVertical, Eye, EyeOff, Monitor, Smartphone, Tablet, RotateCw } from 'lucide-react';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export default function AdminPageEditorPage() {
   const { pageKey } = useParams<{ pageKey: string }>();
