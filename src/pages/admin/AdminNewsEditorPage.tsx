@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,11 +13,10 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Save, Eye, Loader2 } from 'lucide-react';
+import { Save, Eye, Loader2 } from 'lucide-react';
 import type { Tables, TablesInsert, TablesUpdate } from '@/integrations/supabase/types';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import { ImageUpload } from '@/components/admin/ImageUpload';
@@ -55,8 +55,7 @@ export default function AdminNewsEditorPage() {
     featured_image: '',
     title_en: '',
     excerpt_en: '',
-    content_en: '',
-  });
+    content_en: '' });
   
 
   // Fetch article if editing
@@ -72,8 +71,7 @@ export default function AdminNewsEditorPage() {
       if (error) throw error;
       return data as NewsArticle | null;
     },
-    enabled: !isNew,
-  });
+    enabled: !isNew });
 
   useEffect(() => {
     if (article) {
@@ -87,8 +85,7 @@ export default function AdminNewsEditorPage() {
         featured_image: article.featured_image || '',
         title_en: (article as any).title_en || '',
         excerpt_en: (article as any).excerpt_en || '',
-        content_en: (article as any).content_en || '',
-      });
+        content_en: (article as any).content_en || '' });
     }
   }, [article]);
 
@@ -120,8 +117,7 @@ export default function AdminNewsEditorPage() {
     },
     onError: (error) => {
       toast.error(`Erro ao guardar: ${error.message}`);
-    },
-  });
+    } });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,8 +139,7 @@ export default function AdminNewsEditorPage() {
       published_at: formData.status === 'published' ? new Date().toISOString() : null,
       title_en: formData.title_en || null,
       excerpt_en: formData.excerpt_en || null,
-      content_en: formData.content_en || null,
-    };
+      content_en: formData.content_en || null };
 
     saveMutation.mutate(submitData);
   };
@@ -158,42 +153,7 @@ export default function AdminNewsEditorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin/news">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <span className="font-semibold text-lg">
-              {isNew ? 'Nova Notícia' : 'Editar Notícia'}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-              <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-            </Button>
-            {!isNew && formData.status === 'published' && (
-              <Button variant="outline" asChild>
-                <Link to={`/news/${formData.slug}`} target="_blank">
-                  <Eye className="h-4 w-4 mr-2" />
-                  Ver no Site
-                </Link>
-              </Button>
-            )}
-            <Button onClick={handleSubmit} disabled={saveMutation.isPending}>
-              {saveMutation.isPending ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : (
-                <Save className="h-4 w-4 mr-2" />
-              )}
-              Guardar
-            </Button>
-          </div>
-        </div>
-      </header>
+    <AdminLayout title="Editor de Notícias">
 
       <main className="container mx-auto px-4 py-8">
         <form onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-6">
@@ -214,8 +174,7 @@ export default function AdminNewsEditorPage() {
                       setFormData({
                         ...formData,
                         title,
-                        slug: formData.slug || generateSlug(title),
-                      });
+                        slug: formData.slug || generateSlug(title) });
                     }}
                     placeholder="Título da notícia"
                     required
@@ -362,6 +321,6 @@ export default function AdminNewsEditorPage() {
           </div>
         </form>
       </main>
-    </div>
+    </AdminLayout>
   );
 }

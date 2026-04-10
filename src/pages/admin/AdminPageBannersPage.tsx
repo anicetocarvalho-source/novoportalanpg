@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -8,15 +9,13 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Pencil, Trash2, Loader2, Image, Search, Eye, EyeOff, ChevronDown, ChevronRight } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Image, Search, Eye, EyeOff, ChevronDown, ChevronRight } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import { ImageUpload } from '@/components/admin/ImageUpload';
 
@@ -29,8 +28,7 @@ const SECTION_MAP: Record<string, { label: string; order: number }> = {
   'Regulação': { label: '⚖️ Regulação', order: 3 },
   'Dados & Media': { label: '📊 Dados & Media', order: 4 },
   'Portal do Investidor': { label: '💼 Portal do Investidor', order: 5 },
-  'Outras': { label: '📄 Outras', order: 6 },
-};
+  'Outras': { label: '📄 Outras', order: 6 } };
 
 function getSection(pageKey: string): string {
   const map: Record<string, string> = {
@@ -50,8 +48,7 @@ function getSection(pageKey: string): string {
     'iona': 'Dados & Media', 'oasis': 'Dados & Media',
     media: 'Dados & Media', events: 'Dados & Media', 'news-archive': 'Dados & Media',
     'investor-login': 'Portal do Investidor', 'investor-portal': 'Portal do Investidor',
-    'investor-reset': 'Portal do Investidor',
-  };
+    'investor-reset': 'Portal do Investidor' };
   return map[pageKey] || 'Outras';
 }
 
@@ -63,8 +60,7 @@ export default function AdminPageBannersPage() {
   const [search, setSearch] = useState('');
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
   const [formData, setFormData] = useState({
-    page_key: '', title_pt: '', title_en: '', subtitle_pt: '', subtitle_en: '', image_url: '', overlay_opacity: 0.6, is_active: true,
-  });
+    page_key: '', title_pt: '', title_en: '', subtitle_pt: '', subtitle_en: '', image_url: '', overlay_opacity: 0.6, is_active: true });
 
   const { data: banners, isLoading } = useQuery({
     queryKey: ['admin-page-banners'],
@@ -72,8 +68,7 @@ export default function AdminPageBannersPage() {
       const { data, error } = await supabase.from('page_banners').select('*').order('page_key');
       if (error) throw error;
       return data as PageBanner[];
-    },
-  });
+    } });
 
   const grouped = useMemo(() => {
     if (!banners) return [];
@@ -107,8 +102,7 @@ export default function AdminPageBannersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-page-banners'] }); toast.success('Banner criado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<PageBanner> }) => {
@@ -116,8 +110,7 @@ export default function AdminPageBannersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-page-banners'] }); toast.success('Banner actualizado'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -125,8 +118,7 @@ export default function AdminPageBannersPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-page-banners'] }); toast.success('Banner eliminado'); setDeleteItem(null); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => { setIsDialogOpen(false); setEditing(null); setFormData({ page_key: '', title_pt: '', title_en: '', subtitle_pt: '', subtitle_en: '', image_url: '', overlay_opacity: 0.6, is_active: true }); };
 
@@ -147,19 +139,7 @@ export default function AdminPageBannersPage() {
   const totalFiltered = grouped.reduce((sum, g) => sum + g.items.length, 0);
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-            <Image className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Banners de Página</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Banners de Página" subtitle="Gerir banners das páginas">
 
       <main className="container mx-auto px-4 py-8 space-y-6">
         {/* Toolbar */}
@@ -285,6 +265,6 @@ export default function AdminPageBannersPage() {
           <AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteItem && deleteMutation.mutate(deleteItem.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Eliminar</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -9,21 +10,17 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table';
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { ArrowLeft, Plus, Pencil, Trash2, Loader2, HelpCircle } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, HelpCircle } from 'lucide-react';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 
 type FAQItem = Tables<'faq_items'>;
@@ -37,8 +34,7 @@ export default function AdminFAQPage() {
   const [editing, setEditing] = useState<FAQItem | null>(null);
   const [deleteItem, setDeleteItem] = useState<FAQItem | null>(null);
   const [formData, setFormData] = useState({
-    question_pt: '', question_en: '', answer_pt: '', answer_en: '', category: 'general', sort_order: 0, is_active: true,
-  });
+    question_pt: '', question_en: '', answer_pt: '', answer_en: '', category: 'general', sort_order: 0, is_active: true });
 
   const { data: items, isLoading } = useQuery({
     queryKey: ['admin-faq-items'],
@@ -46,8 +42,7 @@ export default function AdminFAQPage() {
       const { data, error } = await supabase.from('faq_items').select('*').order('category').order('sort_order');
       if (error) throw error;
       return data as FAQItem[];
-    },
-  });
+    } });
 
   const createMutation = useMutation({
     mutationFn: async (data: TablesInsert<'faq_items'>) => {
@@ -55,8 +50,7 @@ export default function AdminFAQPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-faq-items'] }); toast.success('FAQ criada'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<FAQItem> }) => {
@@ -64,8 +58,7 @@ export default function AdminFAQPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-faq-items'] }); toast.success('FAQ actualizada'); handleClose(); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -73,8 +66,7 @@ export default function AdminFAQPage() {
       if (error) throw error;
     },
     onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['admin-faq-items'] }); toast.success('FAQ eliminada'); setDeleteItem(null); },
-    onError: (e) => toast.error(`Erro: ${e.message}`),
-  });
+    onError: (e) => toast.error(`Erro: ${e.message}`) });
 
   const handleClose = () => { setIsDialogOpen(false); setEditing(null); setFormData({ question_pt: '', question_en: '', answer_pt: '', answer_en: '', category: 'general', sort_order: 0, is_active: true }); };
 
@@ -95,19 +87,7 @@ export default function AdminFAQPage() {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild><Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link></Button>
-            <HelpCircle className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Perguntas Frequentes</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="FAQ" subtitle="Gerir perguntas frequentes">
 
       <main className="container mx-auto px-4 py-8">
         <Card>
@@ -184,6 +164,6 @@ export default function AdminFAQPage() {
           <AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={() => deleteItem && deleteMutation.mutate(deleteItem.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}Eliminar</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

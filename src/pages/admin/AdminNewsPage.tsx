@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -11,8 +12,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+  TableRow } from '@/components/ui/table';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,8 +21,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Pagination,
@@ -31,9 +30,8 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
-import { ArrowLeft, Plus, Search, Pencil, Trash2, Eye, Loader2, Newspaper } from 'lucide-react';
+  PaginationPrevious } from '@/components/ui/pagination';
+import { Plus, Search, Pencil, Trash2, Eye, Loader2, Newspaper } from 'lucide-react';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { toast } from 'sonner';
@@ -64,8 +62,7 @@ export default function AdminNewsPage() {
       const { count, error } = await query;
       if (error) throw error;
       return count ?? 0;
-    },
-  });
+    } });
 
   // Fetch paginated news articles
   const { data: articles, isLoading } = useQuery({
@@ -87,8 +84,7 @@ export default function AdminNewsPage() {
       const { data, error } = await query;
       if (error) throw error;
       return data as NewsArticle[];
-    },
-  });
+    } });
 
   // Delete mutation
   const deleteMutation = useMutation({
@@ -103,8 +99,7 @@ export default function AdminNewsPage() {
     },
     onError: (error) => {
       toast.error(`Erro ao eliminar: ${error.message}`);
-    },
-  });
+    } });
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
@@ -128,23 +123,7 @@ export default function AdminNewsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Newspaper className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Gestão de Notícias</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Notícias" subtitle="Gerir artigos e publicações">
 
       <main className="container mx-auto px-4 py-8">
         <Card>
@@ -331,6 +310,6 @@ export default function AdminNewsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </AdminLayout>
   );
 }

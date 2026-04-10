@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,8 +12,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+  TableRow } from '@/components/ui/table';
 import {
   Dialog,
   DialogContent,
@@ -20,17 +20,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+  DialogTrigger } from '@/components/ui/dialog';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+  SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Plus, Search, Loader2, UserPlus } from 'lucide-react';
+import { Plus, Search, Loader2, UserPlus } from 'lucide-react';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { useToast } from '@/hooks/use-toast';
@@ -121,8 +119,7 @@ export default function AdminUsersPage() {
       toast({
         title: 'Erro',
         description: 'Por favor preencha todos os campos obrigatórios.',
-        variant: 'destructive',
-      });
+        variant: 'destructive' });
       return;
     }
 
@@ -134,17 +131,13 @@ export default function AdminUsersPage() {
       password: newUser.password,
       options: {
         data: {
-          full_name: newUser.fullName,
-        },
-      },
-    });
+          full_name: newUser.fullName } } });
 
     if (authError) {
       toast({
         title: 'Erro ao criar utilizador',
         description: authError.message,
-        variant: 'destructive',
-      });
+        variant: 'destructive' });
       setCreating(false);
       return;
     }
@@ -155,19 +148,16 @@ export default function AdminUsersPage() {
         user_id: authData.user.id,
         full_name: newUser.fullName,
         email: newUser.email,
-        department: (newUser.department || null) as 'administracao' | 'comunicacao' | 'tecnico' | 'investimentos' | 'ti' | null,
-      }]);
+        department: (newUser.department || null) as 'administracao' | 'comunicacao' | 'tecnico' | 'investimentos' | 'ti' | null }]);
 
       // Assign role
       await supabase.from('user_roles').insert([{
         user_id: authData.user.id,
-        role: newUser.role as 'admin' | 'editor_comunicacao' | 'editor_tecnico' | 'gestor_investidores' | 'viewer',
-      }]);
+        role: newUser.role as 'admin' | 'editor_comunicacao' | 'editor_tecnico' | 'gestor_investidores' | 'viewer' }]);
 
       toast({
         title: 'Utilizador criado',
-        description: `${newUser.fullName} foi adicionado com sucesso.`,
-      });
+        description: `${newUser.fullName} foi adicionado com sucesso.` });
 
       setDialogOpen(false);
       setNewUser({ email: '', fullName: '', password: '', role: '', department: '' });
@@ -190,8 +180,7 @@ export default function AdminUsersPage() {
       editor_comunicacao: 'default',
       editor_tecnico: 'secondary',
       gestor_investidores: 'outline',
-      viewer: 'outline',
-    };
+      viewer: 'outline' };
     return (
       <Badge variant={variants[role] || 'outline'} className="text-xs">
         {roleConfig?.label || role}
@@ -209,22 +198,7 @@ export default function AdminUsersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <h1 className="text-xl font-semibold">Gestão de Utilizadores</h1>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/" target="_blank" rel="noopener noreferrer">Ver Website ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Gestão de Utilizadores" subtitle="Gerir contas e permissões">
 
       <main className="container mx-auto px-4 py-8">
         {/* Actions Bar */}
@@ -378,6 +352,6 @@ export default function AdminUsersPage() {
           )}
         </div>
       </main>
-    </div>
+    </AdminLayout>
   );
 }

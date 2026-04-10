@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -179,21 +180,7 @@ export default function AdminMediaPage() {
   const typeConfig = MEDIA_TYPES.find(t => t.value === activeType)!;
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <header className="bg-background border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/admin"><ArrowLeft className="h-5 w-5" /></Link>
-            </Button>
-            <Film className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-lg">Central de Media</span>
-          </div>
-          <Button variant="outline" size="sm" asChild className="hidden sm:inline-flex">
-            <a href="/media" target="_blank" rel="noopener noreferrer">Ver Página ↗</a>
-          </Button>
-        </div>
-      </header>
+    <AdminLayout title="Central de Media" subtitle="Gerir publicações, vídeos e eventos">
 
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Type Tabs */}
@@ -460,6 +447,6 @@ export default function AdminMediaPage() {
           </DialogContent>
         </Dialog>
       </main>
-    </div>
+    </AdminLayout>
   );
 }
