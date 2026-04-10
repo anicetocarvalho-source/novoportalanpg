@@ -70,6 +70,7 @@ import WhistleblowerPage from "./pages/WhistleblowerPage";
 
 // Admin pages
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
 import AdminNewsEditorPage from "./pages/admin/AdminNewsEditorPage";
@@ -168,6 +169,7 @@ function AnimatedRoutes() {
           
           {/* Admin routes */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/reset-password" element={<AdminResetPasswordPage />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/news" element={<ProtectedRoute requiredPermission="content"><AdminNewsPage /></ProtectedRoute>} />
           <Route path="/admin/news/:id" element={<ProtectedRoute requiredPermission="content"><AdminNewsEditorPage /></ProtectedRoute>} />
