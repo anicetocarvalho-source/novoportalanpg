@@ -153,7 +153,7 @@ export default function AdminHomepageContentPage() {
           </Accordion>
         )}
       </main>
-    </div>
+    </AdminLayout>
   );
 }
 
