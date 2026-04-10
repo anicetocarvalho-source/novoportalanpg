@@ -20,6 +20,9 @@ export default function AdminPageEditorPage() {
   const { pageKey } = useParams<{ pageKey: string }>();
   const queryClient = useQueryClient();
   const pageConfig = SITE_PAGES.find(p => p.pageKey === pageKey);
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewDevice, setPreviewDevice] = useState<string>('desktop');
+  const [previewKey, setPreviewKey] = useState(0);
 
   if (!pageConfig) {
     return (
@@ -32,6 +35,8 @@ export default function AdminPageEditorPage() {
     );
   }
 
+  const previewWidth = previewDevice === 'mobile' ? 390 : previewDevice === 'tablet' ? 768 : '100%';
+
   return (
     <AdminLayout
       title={pageConfig.label}
@@ -39,17 +44,68 @@ export default function AdminPageEditorPage() {
     >
       <div className="p-6 space-y-4">
         {/* Top bar */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <Button variant="outline" size="sm" asChild>
             <Link to="/admin/site-pages"><ArrowLeft className="h-4 w-4 mr-1" /> Voltar</Link>
           </Button>
           <div className="flex-1" />
+          <Button
+            variant={showPreview ? 'default' : 'outline'}
+            size="sm"
+            onClick={() => setShowPreview(p => !p)}
+          >
+            {showPreview ? <EyeOff className="h-4 w-4 mr-1" /> : <Eye className="h-4 w-4 mr-1" />}
+            {showPreview ? 'Fechar Preview' : 'Pré-visualizar'}
+          </Button>
           <Button variant="outline" size="sm" asChild>
             <a href={pageConfig.url} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-1" /> Pré-visualizar
+              <ExternalLink className="h-4 w-4 mr-1" /> Abrir em nova aba
             </a>
           </Button>
         </div>
+
+        {/* Inline Preview */}
+        {showPreview && (
+          <Card className="overflow-hidden">
+            <CardHeader className="py-3 px-4 flex flex-row items-center justify-between border-b bg-muted/30">
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">Pré-visualização</span>
+                <Badge variant="secondary" className="text-xs">{pageConfig.url}</Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <ToggleGroup type="single" value={previewDevice} onValueChange={(v) => v && setPreviewDevice(v)} size="sm">
+                  <ToggleGroupItem value="mobile" aria-label="Mobile">
+                    <Smartphone className="h-4 w-4" />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="tablet" aria-label="Tablet">
+                    <Tablet className="h-4 w-4" />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="desktop" aria-label="Desktop">
+                    <Monitor className="h-4 w-4" />
+                  </ToggleGroupItem>
+                </ToggleGroup>
+                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setPreviewKey(k => k + 1)} title="Recarregar preview">
+                  <RotateCw className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="p-4 flex justify-center bg-muted/10">
+              <div
+                className="bg-background rounded-lg shadow-lg border overflow-hidden transition-all duration-300"
+                style={{ width: previewWidth, maxWidth: '100%' }}
+              >
+                <iframe
+                  key={previewKey}
+                  src={pageConfig.url}
+                  className="w-full border-0"
+                  style={{ height: previewDevice === 'mobile' ? 700 : previewDevice === 'tablet' ? 800 : 700 }}
+                  title={`Preview: ${pageConfig.label}`}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Tabs defaultValue="banner" className="w-full">
           <TabsList>
