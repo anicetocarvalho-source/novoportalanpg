@@ -192,6 +192,10 @@ export default function AdminLoginPage() {
                 </>
               )}
             </Button>
+
+            <div className="flex justify-end">
+              <ForgotPasswordDialog />
+            </div>
           </form>
 
           {/* Quick Access */}
