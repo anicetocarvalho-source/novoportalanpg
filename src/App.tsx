@@ -70,6 +70,7 @@ import WhistleblowerPage from "./pages/WhistleblowerPage";
 
 // Admin pages
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
+import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminNewsPage from "./pages/admin/AdminNewsPage";
 import AdminNewsEditorPage from "./pages/admin/AdminNewsEditorPage";
