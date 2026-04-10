@@ -58,9 +58,11 @@ const TABLES = [
   { value: 'petroleum_blocks', label: 'Blocos Petrolíferos' },
   { value: 'production_statistics', label: 'Estatísticas de Produção' },
   { value: 'investor_documents', label: 'Documentos' },
+  { value: 'investor_registrations', label: 'Registos Investidor' },
   { value: 'expressions_of_interest', label: 'EOIs' },
   { value: 'profiles', label: 'Perfis' },
   { value: 'user_roles', label: 'Roles' },
+  { value: 'site_settings', label: 'Configurações' },
 ];
 
 export default function AdminAuditPage() {
