@@ -7,8 +7,10 @@ import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useDashboardCounts } from '@/hooks/useCMSData';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, subDays, format, startOfDay } from 'date-fns';
 import { pt } from 'date-fns/locale';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import {
   Newspaper,
   FileText,
@@ -20,6 +22,7 @@ import {
   Globe,
   SlidersHorizontal,
   Clock,
+  Activity,
 } from 'lucide-react';
 
 const quickLinks = [
