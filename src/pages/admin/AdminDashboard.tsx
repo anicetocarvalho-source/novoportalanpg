@@ -7,8 +7,10 @@ import { AdminLayout } from '@/components/admin/AdminLayout';
 import { useDashboardCounts } from '@/hooks/useCMSData';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow, subDays, format, startOfDay } from 'date-fns';
 import { pt } from 'date-fns/locale';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import {
   Newspaper,
   FileText,
@@ -20,6 +22,7 @@ import {
   Globe,
   SlidersHorizontal,
   Clock,
+  Activity,
 } from 'lucide-react';
 
 const quickLinks = [
@@ -45,6 +48,43 @@ function useRecentActivity() {
     },
   });
 }
+
+function useActivityChart() {
+  return useQuery({
+    queryKey: ['admin-activity-chart'],
+    queryFn: async () => {
+      const since = subDays(new Date(), 6);
+      const { data, error } = await supabase
+        .from('audit_logs')
+        .select('action, created_at')
+        .gte('created_at', since.toISOString());
+      if (error) throw error;
+
+      const days: Record<string, { date: string; label: string; inserts: number; updates: number; deletes: number }> = {};
+      for (let i = 6; i >= 0; i--) {
+        const d = startOfDay(subDays(new Date(), i));
+        const key = format(d, 'yyyy-MM-dd');
+        days[key] = { date: key, label: format(d, 'EEE dd', { locale: pt }), inserts: 0, updates: 0, deletes: 0 };
+      }
+
+      (data || []).forEach((row) => {
+        const key = format(new Date(row.created_at), 'yyyy-MM-dd');
+        if (!days[key]) return;
+        if (row.action === 'INSERT') days[key].inserts++;
+        else if (row.action === 'UPDATE') days[key].updates++;
+        else if (row.action === 'DELETE') days[key].deletes++;
+      });
+
+      return Object.values(days);
+    },
+  });
+}
+
+const chartConfig = {
+  inserts: { label: 'Criações', color: 'hsl(var(--primary))' },
+  updates: { label: 'Edições', color: 'hsl(var(--status-warning, 45 93% 47%))' },
+  deletes: { label: 'Remoções', color: 'hsl(var(--destructive))' },
+};
 
 function getActionLabel(action: string, tableName: string, newData: any) {
   const tableLabels: Record<string, string> = {
@@ -73,6 +113,8 @@ export default function AdminDashboard() {
   const { profile, isAdmin, canManageContent, canManageOperations, canManageInvestors } = useAuth();
   const { data: counts } = useDashboardCounts();
   const { data: activity } = useRecentActivity();
+
+  const { data: chartData } = useActivityChart();
 
   const hasPermission = (permission: string) => {
     switch (permission) {
@@ -122,6 +164,34 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Activity Chart */}
+        <Card>
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-primary" />
+              <CardTitle className="text-base">Actividade dos últimos 7 dias</CardTitle>
+            </div>
+            <CardDescription>Operações registadas nos logs de auditoria</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {chartData && chartData.length > 0 ? (
+              <ChartContainer config={chartConfig} className="h-[220px] w-full">
+                <BarChart data={chartData} barGap={2}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
+                  <YAxis allowDecimals={false} tickLine={false} axisLine={false} fontSize={12} width={30} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="inserts" fill="var(--color-inserts)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="updates" fill="var(--color-updates)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="deletes" fill="var(--color-deletes)" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <p className="text-sm text-muted-foreground py-8 text-center">Sem dados de actividade.</p>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Quick Links + Activity Feed */}
         <div className="grid lg:grid-cols-3 gap-6">
