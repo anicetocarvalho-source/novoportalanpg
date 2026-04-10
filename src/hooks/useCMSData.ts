@@ -446,6 +446,26 @@ export function useDashboardCounts() {
   });
 }
 
+// ─── Pending Counts for Sidebar Badges ───
+export function usePendingCounts() {
+  return useQuery({
+    queryKey: ["pending_counts"],
+    queryFn: async () => {
+      const [draftNews, pendingInvestors, pendingEois] = await Promise.all([
+        supabase.from("news_articles").select("id", { count: "exact", head: true }).eq("status", "draft"),
+        supabase.from("investor_registrations").select("id", { count: "exact", head: true }).eq("status", "pending"),
+        supabase.from("expressions_of_interest").select("id", { count: "exact", head: true }).eq("status", "pending"),
+      ]);
+      return {
+        draftNews: draftNews.count ?? 0,
+        pendingInvestors: pendingInvestors.count ?? 0,
+        pendingEois: pendingEois.count ?? 0,
+      };
+    },
+    refetchInterval: 30000,
+  });
+}
+
 // ─── Investor Documents ───
 export interface CMSInvestorDocument {
   id: string;
