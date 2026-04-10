@@ -639,7 +639,7 @@ function NewsFields({ content, update }: { content: Record<string, any>; update:
           <Plus className="h-4 w-4 mr-2" />Adicionar Categoria
         </Button>
       </div>
-    </AdminLayout>
+    </div>
   );
 }
 
