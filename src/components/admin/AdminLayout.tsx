@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AdminSidebar } from './AdminSidebar';
+import { OnboardingWizard } from './OnboardingWizard';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -24,7 +27,24 @@ interface AdminLayoutProps {
 }
 
 export function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
-  const { profile, roles } = useAuth();
+  const { profile, roles, user } = useAuth();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingChecked, setOnboardingChecked] = useState(false);
+
+  useEffect(() => {
+    if (!user || onboardingChecked) return;
+    supabase
+      .from('profiles')
+      .select('onboarding_completed')
+      .eq('user_id', user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data && !(data as any).onboarding_completed) {
+          setShowOnboarding(true);
+        }
+        setOnboardingChecked(true);
+      });
+  }, [user, onboardingChecked]);
 
   return (
     <SidebarProvider>
@@ -73,6 +93,11 @@ export function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
           </main>
         </div>
       </div>
+
+      <OnboardingWizard
+        open={showOnboarding}
+        onComplete={() => setShowOnboarding(false)}
+      />
     </SidebarProvider>
   );
 }
