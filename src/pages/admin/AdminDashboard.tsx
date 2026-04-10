@@ -165,6 +165,34 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
+        {/* Activity Chart */}
+        <Card>
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-2">
+              <Activity className="h-5 w-5 text-primary" />
+              <CardTitle className="text-base">Actividade dos últimos 7 dias</CardTitle>
+            </div>
+            <CardDescription>Operações registadas nos logs de auditoria</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {chartData && chartData.length > 0 ? (
+              <ChartContainer config={chartConfig} className="h-[220px] w-full">
+                <BarChart data={chartData} barGap={2}>
+                  <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                  <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
+                  <YAxis allowDecimals={false} tickLine={false} axisLine={false} fontSize={12} width={30} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="inserts" fill="var(--color-inserts)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="updates" fill="var(--color-updates)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="deletes" fill="var(--color-deletes)" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ChartContainer>
+            ) : (
+              <p className="text-sm text-muted-foreground py-8 text-center">Sem dados de actividade.</p>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Quick Links + Activity Feed */}
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Quick Links */}
