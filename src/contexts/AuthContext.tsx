@@ -71,7 +71,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          // Use setTimeout to avoid Supabase deadlock, but keep loading true
+          // Set loading true so ProtectedRoute waits for roles before evaluating access
+          setLoading(true);
+          // Use setTimeout to avoid Supabase deadlock
           setTimeout(async () => {
             await fetchUserData(session.user.id);
             if (isMounted) setLoading(false);
