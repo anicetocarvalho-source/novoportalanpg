@@ -63,17 +63,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let isMounted = true;
+    let initialised = false;
 
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        if (!isMounted) return;
+        // Skip the INITIAL_SESSION event — we handle it via getSession below
+        if (!initialised) return;
+
         setSession(session);
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          // Set loading true so ProtectedRoute waits for roles before evaluating access
           setLoading(true);
-          // Use setTimeout to avoid Supabase deadlock
           setTimeout(async () => {
             await fetchUserData(session.user.id);
             if (isMounted) setLoading(false);
@@ -86,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     );
 
-    // THEN check for existing session
+    // THEN check for existing session (single initialisation path)
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!isMounted) return;
       setSession(session);
@@ -95,6 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await fetchUserData(session.user.id);
       }
       setLoading(false);
+      initialised = true;
     });
 
     return () => {
